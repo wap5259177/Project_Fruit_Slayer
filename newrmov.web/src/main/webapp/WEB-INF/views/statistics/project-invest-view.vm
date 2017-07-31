@@ -1,0 +1,150 @@
+<style>
+	#t_pro_invest{border:solid 1px gray;}
+	#t_pro_invest tr {border-color:#fff;}
+	#t_pro_invest tbody tr:hover{background-color:#c0ebd7;}
+	//#tbodyContent tr:first-child td{font-size:16px !important;font-weight:bold;}
+</style>
+
+<div id="_1_0" style="height:100%;width:100%;background-color:#a5d8f1;">
+	<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:70px;padding:0;overflow:hidden;">
+		<form method='post' id='serch_form'>
+		<div style='padding-top:10px;padding-bottom:10px;'>$!{title}</div>
+		<div>
+			批次:
+			<select id='batch'   onchange="" name='batch' >
+				<optgroup label='批次'>
+					<option value ="一">第一批</option>
+					<option value ="二">第二批</option>
+					<option value ="三">第三批</option>
+					<option value ="珠三角">珠三角</option>
+				</optgroup>
+			</select>
+			村庄类别：
+			<select id='ruralType'   onchange="" name='ruralType' >
+				<optgroup label='村庄类别'>
+					<option value ="-1">--请选择--</option>
+					<option value ="0">主体村</option>
+					<option value ="1">非主体村</option>
+					<option value ="2">主体村+非主体村</option>
+				</optgroup>
+			</select>
+			年度：
+			$!{selectYear}
+			季度：
+			<select id='period'   onchange="" name='period' >
+				<optgroup label='季度'>
+					<option value ="-1">--请选择--</option>
+					<option value ="0">第一季度</option>
+					<option value ="1">第二季度</option>
+					<option value ="2">第三季度</option>
+					<option value ="3">第四季度</option>
+				</optgroup>
+			</select>
+			
+			项目情况:
+			<select id='status'   onchange="" name='status' >
+				<optgroup label='项目情况'>
+					<option value ="-1">--请选择--</option>
+					<option value ="1">进行中</option>
+					<option value ="2">竣工</option>
+					<option value ="3">终止</option>
+				</optgroup>
+			</select>
+			<span style='position: relative;left: 15px;top: -18px;'><a id='searchProject' href='#' onclick='searchProject();' data-settings="iconClassname:'icon_search'">查询</a></span>
+			<span style='position: relative;left: 20px;top: -18px;'>
+				<a id='exportTable' href='#'  onclick='exportTable();' data-settings="iconClassname:'icon-excel'" >导出excel</a>
+			</span>
+		</div>
+		</form>
+	</div>
+	<div data-settings="zone:'center',border: false">
+		<table id='t_pro_invest' style="width:100%;border:none;" class="bbys"> 
+			<thead >
+				<tr>
+					<td rowspan='3' data-settings="chalign:'center',field:'totalFunds'" widtd="120">批次</td>
+					<td rowspan='3' data-settings="chalign:'center',field:'totalFunds'" widtd="120">县（区）名</td>
+				</tr>
+				
+				<tr>
+					<td class="bbyshead" colspan='3' style='text-align:center'>项目情况</td>
+					<td rowspan='2' style='text-align:center'>累计投入资金<br/>总数</td>
+					<td  class="bbyshead" colspan='8' style='text-align:center' >资金投入情况（万元）</td>
+				</tr>
+				
+				
+				<tr>
+					<td >已启动的<br/>项目数（个）</td>
+					<td >其中已竣工的<br/>项目数（个）</td>
+					<td >其中已终止的<br/>项目数（个）</td>
+					<td >1.中央财政</br>资金</td>
+					<td >2.省级新农村示范片<br/>补助资金</td>
+					<td >3.其他省级财政<br/>资金</td>
+					<td >4.市级财政</br>资金</td>
+					<td >5.县级财政</br>资金</td>
+					<td  data-settings="chalign:'center',field:'funds5'" widtd="110" >6.社会投入</br>资金</td>
+					<td >7.群众自筹</br>资金</td>
+					<td >8.其他方面<br/>资金</td>
+				</tr>
+			</thead>
+			
+			<tbody id='tbodyContent'>
+				
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+<script>
+	jQuery(function(){
+		$('#_1_0').bupborderlayout();
+		jQuery("#exportTable,#searchProject").bupabutton();
+	});
+
+
+	function searchProject(){
+		var batch = $('#batch').val();
+		var ruralType = $('#ruralType').val();
+		var year = $('#year').val();
+		var period = $('#period').val();
+		var status = $('#status').val();
+		//alert(batch+'=='+ruralType+'=='+year+"=="+period+'=='+status);
+		if(year==-1){
+			alert('请选择年度！');
+			return false;
+		}
+		$("#tbodyContent").load(
+			"loadContent.do",
+			{
+				batch:batch,
+				ruralType:ruralType,
+				year: year,
+				period: period,
+				status:status
+			},
+			function(){
+				//alert('ok!');
+			}
+		);
+	}
+	
+	function exportTable(){
+		/*var batch = EncodeUtf8($('#batch').val());
+		var cityName = EncodeUtf8($.trim($('#cityName').val()));
+		var maName = EncodeUtf8($.trim($('#maName').val()));
+		var status = $('#status').val();
+		location.href='projects.excel?batch='+batch+"&&cityName="+cityName+"&&maName="+maName+"&&status="+status;
+		*/
+		//使用表单post提交，解决linux  get请求传递中文乱码问题
+		$('#serch_form').bupform('submit', {
+			url:"epPjInvest.excel",
+		    success: function(data){
+		     var data = eval('(' + data + ')'); // 把JSON串转成javascript对象。
+		         if (data.error){
+		            alert(data.message)
+		         }
+		    }
+		});
+	}
+
+</script>

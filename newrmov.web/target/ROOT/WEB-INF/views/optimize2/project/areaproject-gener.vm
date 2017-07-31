@@ -1,0 +1,198 @@
+
+<table id='_ids_detal' class=' editor' style="width:840px;margin: auto;height:20%;" > 
+	<tr>
+		<td colspan='4' class='tdCenter'>项目投入总体概况:</td>
+	</tr>
+	<tr> 
+	   <th class="tdRight">项目总数：</th> 
+	   <td colspan='3'> <input id="prjTotalNum" class="number" type="text" value="$!{prjTotalNum}" min="0" name="memberHous" $!{readonly} />个 </td> 
+	 </tr> 
+	 
+	 <tr> 
+	   <th class="tdRight">主体村项目数：</th> 
+	   <td> <input id="coreRuralNum" class="number" type="text" value="$!{coreRuralNum}" min="0" name="memberHous" $!{readonly} />个 </td> 
+	   <th class="tdRight">非主体村项目数：</th> 
+	   <td> <input id="nocoreRuralNum" class="number" type="text" value="$!{nocoreRuralNum}" min="0" name="nonMemberHous" $!{readonly} />个</td> 
+	</tr> 
+	<!--
+	<tr>
+		<td colspan='4' class='tdCenter'>其中:</td>
+	</tr>
+	-->
+  <tr> 
+   <th class="tdRight">竣工项目数：</th> 
+   <td> <input id="memberHous" class="number" type="text" value="$!{completion}" min="0" name="memberHous" $!{readonly} />个 </td> 
+   <th class="tdRight">终止项目数：</th> 
+   <td> <input id="nonMemberHous" class="number" type="text" value="$!{end}" min="0" name="nonMemberHous" $!{readonly} />个</td> 
+  </tr> 
+  
+   <th class="tdRight">进行中项目数：</th> 
+   <td colspan='1'> <input id="regiTradeMark" class="number" type="text" value="$!{running}" min="0" name="regiTradeMark"  $!{readonly}/>个 </td> 
+   <th class="tdRight">未开始项目数：</th> 
+   <td colspan="1"> <input id="agriculPros" class="number" type="text" value="$!{notStart}" min="0" name="agriculPros"  $!{readonly}/>个 </td> 
+  </tr> 
+  
+</table> 
+<div id='pj_gnera_rep' style='height:70%'>
+<div id='main_status' style='width:550px; height:450px;padding:80px 0 0 50px;' ></div>
+<div id='main_pjType' style='position:absolute; right:60px; top:150px;width: 500px; height: 520px;'> </div>
+<!--<div id='main_pjType' style='position: relative; left:530px; top:-450px;width: 500px; height: 520px;'> </div>-->
+</div>
+
+
+<script type='text/javascript'>
+	var myChart1 = echarts.init(document.getElementById('main_pjType'),'infographic'); 
+	var myChart2 = echarts.init(document.getElementById('main_status'),'infographic');
+	var ecConfig = echarts.config;
+	var mapGeoData = echarts.util.mapData.params;
+	
+	var option1;
+	var option2;
+	
+	$(function(){
+		//alert($notStart+','+$completion+','+$running+','+$end);
+		option2 = {
+		    title : {
+		        text: '项目完成情况',
+		        subtext: '未开始/进行中/竣工/终止',
+		        x:200,
+		        y:0
+		    },
+		    tooltip : {
+		        trigger: 'item',
+		        formatter: "{a} <br/>{b} : {c}个 ({d}%)"
+		    },
+		    legend: {
+		        orient : 'vertical',
+		        x : 'left',
+		        data:['未开始','进行中','竣工','终止']
+		    },
+		    
+		    calculable : false,
+		    series : [
+		        {
+		            name:'项目个数',
+		            type:'pie',
+		            radius : '60%',
+		            selectedMode: 'single',
+		            center: ['50%', '60%'],
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             //color: '#800080'
+		                         },
+		                         position:'outer',
+		                          formatter: '{b}:\n{c}个({d}%)'
+		                     },
+		                     color: function(params) {
+		                        // build a color map as your need.
+		                        /*var colorList = [
+		                          '#C1232B','#B5C334','#6495ED','#E87C25','#27727B',
+		                           '#FF4500','#B03060','#26C0C0','#F3A43B','#8B8B00',
+		                           '#D7504B','#C6E579','#F4E001','#F0805A','#A2CD5A'
+		                        ];
+		                        return colorList[params.dataIndex]*/
+		                    }
+		                 }
+		             },
+		            data:[
+		                {value:$!{notStart}, name:'未开始'},
+		                {value:$!{running}, name:'进行中'},
+		                {value:$!{completion}, name:'竣工'},
+		                {value:$!{end}, name:'终止'}
+		            ]
+		        }
+		    ]
+		};
+		myChart2.setOption(option2);
+		
+	//--------------------------------------------------------------------------------------
+		option1 = {
+		    title : {
+		        text: '项目数各个类别所占比例',
+		        subtext: '',
+		        x:'center',
+		        y:'bottom'
+		    },
+		    tooltip : {
+		        trigger: 'item',
+		        formatter: "{a} <br/>{b} : {c}个 ({d}%)"
+		    },
+		    legend: {
+		        //orient : 'vertical',
+		        //x : 'left',
+		        orient:'horizontal',
+		        data:['规划设计','村庄环境整治（垃圾、污水处理等）','村居外立面整治','旧村旧房改造',
+		        	'文化传承保护','美化绿化建设','基础设施建设','连线工程项目','道路硬底化项目',
+		        	'村通自来水项目','卫厕改造项目','其他'
+		        ],
+		        // borderWidth:2,
+		         itemHeight:15,
+		         x:20,
+		         y:60 	
+		        
+		    },
+		    
+		    //calculable : true,
+		    series : [
+		        {
+		        	funnelAlign: 'left',
+		        	width: '40%',
+		            name:'项目个数',
+		            type:'pie',
+		            
+		            radius : '45%',
+		            center: ['50%', '60%'],
+		            selectedMode: 'single',
+		            data:[
+		                {value:$!{pjs1.size()}, name:'规划设计'},
+		                {value:$!{pjs2.size()}, name:'村庄环境整治（垃圾、污水处理等）'},
+		                {value:$!{pjs3.size()}, name:'村居外立面整治'},
+		                {value:$!{pjs4.size()}, name:'旧村旧房改造'},
+		                {value:$!{pjs5.size()}, name:'文化传承保护'},
+		                {value:$!{pjs6.size()}, name:'美化绿化建设'},
+		                {value:$!{pjs7.size()}, name:'基础设施建设'},
+		                {value:$!{pjs8.size()}, name:'连线工程项目'},
+		                {value:$!{pjs9.size()}, name:'道路硬底化项目'},
+		                {value:$!{pjs10.size()}, name:'村通自来水项目'},
+		                {value:$!{pjs11.size()}, name:'卫厕改造项目'},
+		                {value:$!{pjs12.size()}, name:'其他'}
+		            ],
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             //color: '#800080'
+		                         },
+		                         position:'outer',
+		                         formatter: '{b}:\n{c}个({d}%)'
+		                     },
+		                     color: function(params) {
+		                        // build a color map as your need.
+		                        /*var colorList = [
+		                          '#C1232B','#B5C334','#6495ED','#E87C25','#27727B',
+		                           '#FF4500','#B03060','#26C0C0','#F3A43B','#8B8B00',
+		                           '#D7504B','#C6E579','#F4E001','#F0805A','#A2CD5A'
+		                        ];
+		                        return colorList[params.dataIndex]*/
+		                    }
+		                 }
+		             },
+		        }
+		    ]
+		};
+		myChart1.setOption(option1);
+	});
+	
+	//饼图选中事件
+	myChart1.on(ecConfig.EVENT.PIE_SELECTED, function (param){
+	    //var selected = param.selected;
+        //var serie = option1.series[0];
+        //var pjname = serie.data[0].name;
+        //var pjvalue = serie.data[0].value;
+	    //alert(pjname);
+	})
+</script>

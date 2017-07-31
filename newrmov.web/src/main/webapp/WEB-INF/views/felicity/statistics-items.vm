@@ -1,0 +1,5 @@
+﻿#if($html)
+	$html
+#else
+	<tr><td colspan="35" style="border-color:#000;color:red;font-size:26px;text-align:left;padding:20px 0 20px 150px;">没有数据</td></tr>
+#end

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="pragma" content="no-cache">  
+	<meta http-equiv="expires" content="-1">  
+	<link rel="shortcut icon" href="#springUrl('/r/favicon.ico')" type="image/x-icon"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/icons.css')"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/skins/default/bupui.css')"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/layout/default/layout.css')"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/global.css')"/>
+	<script type="text/javascript">
+		var CONTEXT_PATH = '$!{request.contextPath}';
+		window.CONTEXT_PATH = CONTEXT_PATH;
+	</script>
+	<script type="text/javascript" src="#springUrl('/res/js/jquery.min.js')"></script>
+	##<script type="text/javascript" src="#springUrl('/res/js/jquery.easyui.min.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/bupui/jquery.bupui.min.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/bupui/loading.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/easyui-lang-zh_CN.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/jquery.bonoon.kernel.js')"></script>
+</head>
+<body>
+	$screen_content
+	<div id="div-kernel-dialog-loader" style="display:none;"></div>
+</body>
+</html>
+$!fo.includes
+<script type="text/javascript"> 
+	$!{fo.script} 
+	jQuery(function(){
+		//系统生成的代码部分
+	    $!{fo.block}
+	});
+</script>

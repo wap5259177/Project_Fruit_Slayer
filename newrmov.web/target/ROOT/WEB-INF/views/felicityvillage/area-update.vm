@@ -1,0 +1,84 @@
+<div id="area_myw" buttons="#_save">
+
+	<form id="form_area_update"  method="post"  >  
+		<table class='cl-area applicant-form' id='first_area'>
+			<input type='hidden' name='id' value='$id'><!--隐藏框保存县报的id-->
+			<tr>
+				<td rowspan='5'>0</td>
+				<td style='font-weight:bold;width:180px;' colspan='1'>市县名称:</td>
+				<td><input style='width:80%;' type='text'  value='$cityCountyName'/></td>
+				<td rowspan='5'><a href='#' onclick='_addArea();'>添加</a></td>
+			</tr>
+			
+			<tr>
+				<td style='font-weight:bold;' colspan='1'>示范片名称:</td>
+				<td><input style='width:80%;' type='text' name='modelAreaName' value='$ma.name'/></td>
+			</tr>
+			
+			<tr>
+				<td style='font-weight:bold;' colspan='1'>示范片建设覆盖面积(km2):</td>
+				<td><input style='width:80%;' type='text' name='constructionArea' value='$ma.constructionArea'/></td>
+			</tr>
+			
+			<tr>
+				<td style='font-weight:bold;' colspan='1'>户数:</td>
+				<td><input style='width:80%;' type='text' name='households' value='$ma.households'/></td>
+			</tr>
+			
+			<tr>
+				<td style='font-weight:bold;' colspan='1'>人口数:</td>
+				<td><input style='width:80%;' type='text' name='population' value='$ma.population'/></td>
+			</tr>
+			
+			
+		</table>
+	
+	</form>
+	
+</div>
+<div id='_save'>
+	<a href="#" id='_buttons' onclick='updateArea();' iconClassname="icon_save" flat="true">保存</a>
+</div>
+<script>
+	$(function(){
+		$('#a_add,#_buttons').bupabutton();
+		
+		$('#area_myw').bupdlg({
+			title:'$title',
+			height:500,
+			width:850,
+			iconCassname:'icon_save',
+		    modal:true,
+		    //closed:true,
+		    //buttons:'#_buttons',
+		    maximized: false,//是否显示最大化
+		    onClose:function(){
+		    	//$('#area_myw').remove();
+		    	//jQuery('#area_myw').bupdlg('destroy').remove();
+		    },
+		    minimizable:false,
+		    maximizable:false
+		});
+	});
+	
+	
+	
+	
+	function updateArea(){
+		alert('xx');
+		$('#form_area_update').bupform('submit', {
+		    url: "area.update",
+		    onSubmit: function(){
+		    	//return false   会阻止表单提交提交
+		    },
+		    success: function(data){
+		    	alert('保存成功!');
+		    	//保存成功后,1.关闭弹出框  2.刷新datagrid 的数据
+		    	//jQuery("#_1_1").bupgrid("reload");
+		    	//jQuery('#area_myw').bupdlg('destroy').remove();
+		    }
+	  	}); 
+	}
+
+	
+</script>

@@ -1,0 +1,49 @@
+#set($layout="layout-empty.vm")
+<div style="padding:20px 0 0 30px;">
+	<table class="editor" style="width:472px;">
+		<tr><th style="width:140px;">信息专员名称：</th><td><input type="text" id="h-e-c-name" value="$!{form.name}" style="width:95%;"/></td></tr>
+		<tr><th>职务：</th><td><input type="text" id="h-e-c-job" value="$!{form.job}" style="width:95%;"/></td></tr>
+		<tr><th>固定电话：</th><td><input type="text" id="h-e-c-phone1" value="$!{form.phone1}" style="width:95%;"/></td></tr>
+		<tr><th>手机号码：</th><td><input type="text" id="h-e-c-phone2" value="$!{form.phone2}" style="width:95%;"/></td></tr>
+		
+		<tr><th>QQ号码：</th><td><input type="text" id="h-e-c-qqNum" value="$!{form.qqNum}" style="width:95%;"/></td></tr>
+		<tr><th>备注：</th><td><textarea id="h-e-c-remark" style="width:95%;height:80px;">$!{form.remark}</textarea></td></tr>
+	</table>
+	<div style="padding:10px 0 0 80px;"><a class="bupabutton" data-settings="iconClassname:'icon_save',face:'scorner'" href="#springUrl('/s/cl/commissioner.submit')" id="btn-h-e-c-save">保存</a></div>
+	<div style="padding:10px 0 0 80px;" id="h-e-c-msg"></div>
+</div>
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery("#btn-h-e-c-save").click(function(){
+			var t = jQuery(this).parent();
+			var m = jQuery("#h-e-c-msg");
+			var n = jQuery("#h-e-c-name").val();
+			var j = jQuery("#h-e-c-job").val();
+			var p1 = jQuery("#h-e-c-phone1").val();
+			var p2 = jQuery("#h-e-c-phone2").val();
+			var q = jQuery("#h-e-c-qqNum").val();
+			var r = jQuery("#h-e-c-remark").val();
+			t.hide();
+			m.html("正在提交数据...").css("color", "blue").show();
+			jQuery.post(this.href, {
+				name : n,
+				job : j,
+				phone1 : p1,
+				phone2 : p2,
+				remark : r,
+				qqNum : q
+			}, function(rd){
+				if (typeof rd === "string"){
+					rd = eval('(' + rd + ')');
+				}
+				t.show();
+				if (rd.error) {
+					m.html(rd.msg).css("color", "red");
+				}else{
+					m.html("保存成功！");
+				}
+			});
+			return false;
+		});
+	});
+</script>

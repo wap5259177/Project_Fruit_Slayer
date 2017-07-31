@@ -1,0 +1,194 @@
+<div style=''>
+<table class=' editor' style="width:840px;margin: auto;" > 
+ <tbody>
+  <!--<tr>
+  	<td colSpan='4'>填报日期：<input type="text" id="reportAt" value="$!{form.reportDate}" name="reportDate" $!{readonly} class="outsideInput"/></td>
+  </tr>
+  -->
+  <tr> 
+   <th class="tdRight" style="width:130px;">序号[D1]：</th> 
+   <td style="width:160px;"><input type="text" value='$!{form.code}' name='code' $!{readonly}/></td> 
+   <th class="tdRight" style="width:130px;">村名称[D2]：</th> 
+   <td>#if($readonly)$!{form.villageName}#else$!{rural}#end</td> 
+  </tr> 
+  <tr> 
+   <th class="tdRight">村属性[D3]：</th> 
+   <td> 
+   		#if($form.startMark == '非主体村')
+   			非主体村
+   		#else
+   			主体村
+   		#end
+   		<!--<input style="width:20px" type="radio" value="主体建设村" name="villageFea" id="villageFea-1" $!{disabled} checked="check" onclick="jQuery('#rural optgroup#sel-nr-og').show();jQuery('#rural optgroup#sel-pr-og').hide();jQuery('#rural').val(#if($form.startMark == '非主体村')''#else'$!form.rural'#end);"/><label for='villageFea-1'>主体村</label><br /> 
+        <input style="width:20px" type="radio" value="非主体村" name="villageFea" id="villageFea-2" $!{disabled} #if($form.startMark == '非主体村')checked='checked'#end  onclick="jQuery('#rural optgroup#sel-nr-og').hide();jQuery('#rural optgroup#sel-pr-og').show();jQuery('#rural').val(#if($form.startMark == '非主体村')'$!form.rural'#else''#end);"/><label for='villageFea-2'>非主体村</label> </td>
+        --> 
+   <th class="tdRight">专业合作社名称[D4]：</th> 
+   <td> <input style="width:95%;text-align:left;" type="text" value="$!{form.coopName}" name="coopName" $!{readonly} /> </td> 
+  </tr> 
+  <tr> 
+   <th class="tdRight">负责人姓名[D5]：</th> 
+   <td> <input style="width:95%;text-align:left;" type="text" value="$!{form.leaderName}" name="leaderName" $!{readonly} /> </td> 
+   <th class="tdRight">负责人手机[D6]：</th> 
+   <td> <input style="width:95%;;text-align:left;" id="leaderPhone" type="text" value="$!{form.leaderPhone}" name="leaderPhone" $!{readonly} /> </td> 
+  </tr> 
+  
+  
+  <tr>
+  	<th colspan='4' class='tdRight'><a class='item-open2  ' href='#' onclick="idsClickDetal(this); ">详情</a></th><!--$('#_invDetal').toggle();-->
+  </tr>
+</table>
+  
+  
+<table id='_ids_detal' class=' editor' style="width:840px;margin: auto;display: none;" > 
+  <tr> 
+   <th class="tdRight">成员总户数[D7]：</th> 
+   <td> <input id="memberHous" class="number" type="text" value="$!{form.memberHous}" min="0" name="memberHous" $!{readonly} />户 </td> 
+   <th class="tdRight">带动非成员户数[D8]：</th> 
+   <td> <input id="nonMemberHous" class="number" type="text" value="$!{form.nonMemberHous}" min="0" name="nonMemberHous" $!{readonly} />户 </td> 
+  </tr> 
+  <tr> 
+   <th class="tdRight">注册资金[D9]：</th> 
+   <td> <input id="registerFunds" class="number" precision='4' type="text" value="$!{form.registerFunds}" min="0" name="registerFunds" $!{readonly} />万元 </td> 
+   <th class="tdRight">主要经营范围[D10]：</th> 
+   <td>
+   	   <!--<input style="width:20px" id="businessScope-1" type="checkbox" value="种植业" name="businessScope" $!{disabled} #if($form.businessScope.contains('种植业'))checked='checked'#end /><label for='businessScope-1'>种植业</label>
+       <input style="width:20px" id="businessScope-2" type="checkbox" value="畜牧业" name="businessScope" $!{disabled} #if($form.businessScope.contains('畜牧业'))checked='checked'#end/><label for='businessScope-2'>畜牧业</label>
+       <input style="width:20px" id="businessScope-3" type="checkbox" value="渔业"  name="businessScope" $!{disabled} #if($form.businessScope.contains('渔业'))checked='checked'#end/><label for='businessScope-3'>渔业</label><br /> 
+       <input style="width:20px" id="businessScope-4" type="checkbox" value="林业"  name="businessScope" $!{disabled} #if($form.businessScope.contains('林业'))checked='checked'#end/><label for='businessScope-4'>林业</label>&nbsp;&nbsp; 
+       <input style="width:20px" id="businessScope-5" type="checkbox" value="服务业" name="businessScope" $!{disabled} #if($form.businessScope.contains('服务业'))checked='checked'#end/><label for='businessScope-5'>服务业</label> <br />
+       <input style="width:20px" id="businessScope-6" type="checkbox" value="手工业" name="businessScope" $!{disabled} #if($form.businessScope.contains('手工业'))checked='checked'#end/><label for='businessScope-6'>手工业</label> 
+       <input style="width:20px" id="businessScope-7" type="checkbox" value="其它"  name="businessScope" $!{disabled} #if($form.businessScope.contains('其它'))checked='checked'#end/><label for='businessScope-7'>其它</label> </td>
+       --> 
+ 		#if($form.businessScope.contains('种植业')),种植业#end
+ 		#if($form.businessScope.contains('畜牧业')),畜牧业#end
+ 		#if($form.businessScope.contains('渔业')),渔业#end
+ 		#if($form.businessScope.contains('林业')),林业#end
+ 		#if($form.businessScope.contains('服务业')),服务业#end
+ 		#if($form.businessScope.contains('手工业')),手工业#end
+ 		#if($form.businessScope.contains('其它')),其他#end
+  </tr> 
+  <tr> 
+   <th class="tdRight">规模[D11]：</th> 
+   <td> 数量：<input id="quantityScale" style="width:45px;" class="number" type="text" value="$!{form.quantityScale}" min="0" name="quantityScale"  $!{readonly}/>；<br/>
+   		单位：<input style="width:45px;" type="text" value="$!{form.scaleUnits}" name="scaleUnits"  $!{readonly}/> </td> 
+   <th class="tdRight">拥有注册商标数[D12]：</th> 
+   <td> <input id="regiTradeMark" class="number" type="text" value="$!{form.regiTradeMark}" min="0" name="regiTradeMark"  $!{readonly}/>个 </td> 
+  </tr> 
+  <tr> 
+   <th class="tdRight" colspan="2">拥有使用农产品质量认证数[D13]：</th> 
+   <td colspan="2"> <input id="agriculPros" class="number" type="text" value="$!{form.agriculPros}" min="0" name="agriculPros"  $!{readonly}/>个 </td> 
+  </tr> 
+  <tr> 
+   <th class="tdRight" colspan="2">无公害农产品产地认定个数[D14]：</th> 
+   <td colspan="2"> <input id="freePollution" class="number" type="text" value="$!{form.freePollution}" min="0" name="freePollution"  $!{readonly}/>个 </td> 
+  </tr> 
+  <tr> 
+   <th class="tdRight" colspan="2">特色产品名称(填主要的一种)[D15]：</th> 
+   <td colspan="2"> <input style="width:95%;;text-align:left;" type="text" value="$!{form.specialProduct}" name="specialProduct"  $!{readonly}/> </td> 
+  </tr> 
+ </tbody>
+</table> 
+
+	<div id='ids_rep'>
+		<div id='main_menberHous' style='width: 950px; height: 450px;padding:50px 20px 0px 110px;'>
+		
+		</div>
+		
+		<div id='main_identifiNums' style='position:absolute; right:150px; top:180px;width: 450px; height: 400px;'>
+			
+		</div>
+	</div>
+
+</div>
+
+
+
+<script type='text/javascript'>
+	var myChart1 = echarts.init(document.getElementById('main_menberHous'),'infographic'); 
+	var myChart2 = echarts.init(document.getElementById('main_identifiNums'),'infographic');
+	var ecConfig = echarts.config;
+	var mapGeoData = echarts.util.mapData.params;
+	
+	var option1;
+	var option2;
+	
+	$(function(){
+		option1 = {
+		    title : {
+		        text: '合作社户数情况',
+		        subtext: '成员总户数/带动非成员户数',
+		        x:150//标题位置
+		    },
+		    tooltip : {
+		        trigger: 'item',
+		        formatter: "{b} : {c}户 ({d}%)"
+		    },
+		    legend: {
+		        orient : 'vertical',
+		        x : 'left',
+		        y:50,
+		        data:['成员总户数','带动非成员户数']
+		    },
+		    
+		    calculable : false,
+		    series : [
+		        {
+		            name:'户数',
+		            type:'pie',
+		            radius : '55%',
+		            center: ['20%', '60%'],
+		            selectedMode: 'single',
+		            data:[
+		                {value:$form.memberHous, name:'成员总户数'},
+		                {value:$form.nonMemberHous, name:'带动非成员户数'}
+		            ]
+		        }
+		    ]
+		};
+		myChart1.setOption(option1);
+		
+		//----------------------------------------------------------------
+		option2 = {
+		    title : {
+		        text: '合作社农产品认定数',
+		        subtext: '无公害/拥有使用',
+		        x:150,//标题位置
+		        y:35
+		    },
+		    tooltip : {
+		        trigger: 'item',
+		        formatter: "{b} : {c}户 ({d}%)"
+		    },
+		    legend: {
+		        orient : 'vertical',
+		        x : 'left',
+		        y:85,
+		        data:['拥有使用农产品质量认证数','无公害农产品产地认定个数']
+		    },
+		    
+		    calculable : true,
+		    series : [
+		        {
+		            name:'户数',
+		            type:'pie',
+		            radius : '55%',
+		            center: ['50%', '70%'],
+		            selectedMode: 'single',
+		            data:[
+		            	
+		                {value:$form.agriculPros, name:'拥有使用农产品质量认证数'},
+		                {value:$form.freePollution, name:'无公害农产品产地认定个数'}
+		            ]
+		        }
+		    ]
+		};
+		myChart2.setOption(option2);
+	});
+	
+	
+	function idsClickDetal(th){
+		$(th).toggleClass('item-open2 item-close2');
+		$('#_ids_detal').toggle('slow');
+		$('#ids_rep').toggle('slow');
+	}
+</script>

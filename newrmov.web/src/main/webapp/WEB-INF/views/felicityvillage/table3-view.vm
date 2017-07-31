@@ -1,0 +1,262 @@
+<div id="_0_0_1" data-settings='buttons:"#_0_0_1_buttons"'>
+	<div id="_0_0_2" style="height:450px;">
+	<form id="form_table3"  method="post">
+		<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:0;overflow:hidden;">
+			原中央苏区县幸福村居示范片项目库（三）
+			<div style="font-size:16px;margin:0 auto;">(统计起止时间$!{startTime}至$!{deadline})</div>
+			<span style='position: relative;left: 630px;top: -20px;'><a id='table3_export' href='table3.excel?id=$!{cReport.id}' data-settings="iconClassname:'icon-excel'" >导出excel</a></span>
+		</div>
+		
+		<div data-settings="zone:'center',border:false">
+			<table style="width:100%;background:#ECF5FF;" class="applicant-form">
+				<thead style="background:#cccccc;">
+					<tr>
+						<th rowspan='2' style="width:120px;">县（市、区）示范片名称</th>
+						<th colspan='7' style="width:80px;">建设资金筹措（万元）</th>
+						<th rowspan='2' style="width:80px;">已投入资金（万元）</th>
+						<th rowspan='2'>建设特点、特色、措施</th>
+						<th rowspan='2' style="width:120px;">存在问题</th>
+						<th rowspan='2' style="width:100px;">备注</th>
+					</tr>
+					<tr>
+						<th style="width:80px;">总计</th>
+						<th style="width:80px;">省级</th>
+						<th style="width:80px;">市级</th>
+						<th style="width:80px;">县级</th>
+						<th style="width:80px;">社会团体</th>
+						<th style="width:80px;">群众集资</th>
+						<th style="width:80px;">其它</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td style="text-align:right;">小计：</td>
+						<td><span id='all_total' class='decimal-4'>$!{cReport.investment.totalFunds}<span></td>
+						<td><span id='total_pro' class='decimal-4'>$!{cReport.investment.provinceFunds}<span></td>
+						<td><span id='total_cit' class='decimal-4'>$!{cReport.investment.cityFunds}<span></td>
+						<td><span id='total_cou' class='decimal-4'>$!{cReport.investment.countyFunds}<span></td>
+						<td><span id='total_soc' class='decimal-4'>$!{cReport.investment.socialFunds}<span></td>
+						<td><span id='total_mas' class='decimal-4'>$!{cReport.investment.massFunds}<span></td>
+						<td><span id='total_oth' class='decimal-4'>$!{cReport.investment.otherFunds}<span></td>
+						<td><span id='total_hbf' class='decimal-4'>$!{cReport.invested}<span></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				#foreach($it in $mas)
+					<tr #if($velocityCount%2==1)style='background:#F0F0F0;'#end>
+						<td>$it.name</td>
+						<td><span class='row-total decimal-4'>$!{it.investment.totalFunds}<span></td>
+						<td><input type="text" style="width:95%;" name="pro_$it.id" class="pro row_cul" tcls="pro" value="$!{it.investment.provinceFunds}"/></td>
+						<td><input type="text" style="width:95%;" name="cit_$it.id" class="cit row_cul" tcls="cit" value="$!{it.investment.cityFunds}"/></td>
+						<td><input type="text" style="width:95%;" name="cou_$it.id" class="cou row_cul" tcls="cou" value="$!{it.investment.countyFunds}"/></td>
+						<td><input type="text" style="width:95%;" name="soc_$it.id" class="soc row_cul" tcls="soc" value="$!{it.investment.socialFunds}"/></td>
+						<td><input type="text" style="width:95%;" name="mas_$it.id" class="mas row_cul" tcls="mas" value="$!{it.investment.massFunds}"/></td>
+						<td><input type="text" style="width:95%;" name="oth_$it.id" class="oth row_cul" tcls="oth" value="$!{it.investment.otherFunds}"/></td>
+						<td><input type="text" style="width:95%;" name="hbf_$it.id" class="hbf" value="$!{it.invested}"/></td>
+						<td>
+							<span id="_00_$velocityCount"></span>
+							<a href='javascript:void(null)' style='padding-left:16px;' class='icon_edit btn-editor'></a>
+							<span style="color:blue;font-size:12px;" class='cls_00_$velocityCount' title='已录入字符数！'></span>
+						</td>
+						<td>
+							<span id="_01_$velocityCount"></span>
+							<a href='javascript:void(null)' style='padding-left:16px;' class='icon_edit btn-editor'></a>
+							<span style="color:blue;font-size:12px;" class='cls_01_$velocityCount' title='已录入字符数！'></span>
+						</td>
+						<td>
+							<span id="_02_$velocityCount"></span>
+							<a href='javascript:void(null)' style='padding-left:16px;' class='icon_edit btn-editor'></a>
+							<span style="color:blue;font-size:12px;" class='cls_02_$velocityCount' title='已录入字符数！'></span>
+						</td>
+					</tr>
+					<tr style='#if($velocityCount%2==1)background:#F0F0F0;#end #if(!$submit) display:none; #end'>
+						<td></td>
+						<td colspan="11">
+							<ul title="$it.name">
+								<li style="float:right;list-style:none;">
+									<div style="padding:0 5px 3px 2px;">
+										<div style="color:gray;">备注
+											<span style="color:red;font-size:12px;">(200字以内)</span>
+											<span style="color:blue;font-size:12px;">已录入：<span style="color:blue;font-size:12px;" class='cls_02_$velocityCount'></span></span>
+										</div>
+										<textarea style="width:250px;height:160px;" class="ta_editor" sid="_02_$velocityCount" name="rem_$it.id" #if($submit) readonly='readonly' #end>$!{it.remark}</textarea>
+									</div>
+								</li>
+								<li style="float:right;list-style:none;">
+									<div style="padding:0 5px 3px 2px;">
+										<div style="color:gray;">存在问题
+											<span style="color:red;font-size:12px;">(200字以内)</span>
+											<span style="color:blue;font-size:12px;">已录入：<span style="color:blue;font-size:12px;" class='cls_01_$velocityCount'></span></span>
+										</div>
+										<textarea style="width:250px;height:160px;" class="ta_editor" sid="_01_$velocityCount" name="que_$it.id" #if($submit) readonly='readonly' #end>$!{it.problem}</textarea>
+									</div>
+								</li>
+								<li style="float:right;list-style:none;">
+									<div style="padding:0 5px 3px 2px;">
+									<div style="color:gray;">建设特点、特色、措施
+										<span style="color:red;font-size:12px;">(不少于500字)</span>
+										<span style="color:blue;font-size:12px;">已录入：<span style="color:blue;font-size:12px;" class='cls_00_$velocityCount'></span></span>
+									</div>
+									<textarea style="width:450px;height:160px;" class="ta_editor" sid="_00_$velocityCount" name="fea_$it.id" #if($submit) readonly='readonly' #end>$!{it.feature}</textarea>
+									</div>
+								</li>
+								<li style='cursor:pointer;color:red;list-style:none;' onclick='jQuery(this).parent().parent().parent().hide();'>关闭</li>
+							<ul>
+						</td>
+					</tr>
+				#end
+				</tbody>
+			</table>
+		</div>
+		
+		<div data-settings="zone:'south',border:false" style="height:30px;padding:0;overflow:hidden;">
+			<table>
+				<tr>
+					<td>
+						<input name='couId' type='hidden' value='$id'/>
+						<span style='padding-right:220px;padding-left:200px;'>
+							填报人:<input type='text' name='reporter3' value='$!{cReport.reporter3}' #if($submit) readonly='readonly' #end/>
+						</span>
+						<span style='padding-right:220px;' >
+							联系电话:<input type='text' name='telephone3' value='$!{cReport.telephone3}' #if($submit) readonly='readonly' #end/>
+						</span>
+						<span>
+							填报时间:<input id='reportTime' name='reportTime3' value='$!{cReport.reportTime3}' #if($submit) readonly='readonly' #end/>
+						</span>
+					<td>
+				</tr>
+			</table>
+		</div>
+		
+	</div>
+			</form>
+			</div>
+</div>
+
+#if(!$submit) 
+<div id="_0_0_1_buttons">
+	<a href="javascript:void(null);" id="_0_btn_save" iconClassname="icon_save" flat="true">保存</a>
+</div>
+#end
+<script>
+	jQuery(function(){
+		jQuery("#_0_0_2").bupborderlayout({fit:true});
+		jQuery("#reportTime").bupdateinput({editable:false});
+		jQuery("#table3_export").bupabutton();
+		
+		jQuery(".btn-editor").click(function(){
+			jQuery(this).parent().parent().next().toggle();
+		});
+		jQuery('#_0_0_1').bupdlg({
+			title:'原中央苏区县幸福村居示范片项目库（三）',
+			iconCassname:'icon_save',
+		    modal:true,
+		    maximized: true,//是否显示最大化
+		    onClose:function(){
+		    	jQuery('#_0_0_1').bupdlg('destroy').remove();
+		    },
+		    minimizable:false,
+		    maximizable:false
+		});
+		
+		jQuery('.ta_editor').change(function(){
+			var val = jQuery(this).val();
+			var sid = jQuery(this).attr('sid');
+			var len = val.length;
+			if(val === ''){
+				jQuery('#' + sid).css('color','gray').text('未录入... ');	
+				jQuery('.cls' + sid).text('');
+				return;
+			}else if(len > 10){
+				val = val.substr(0, 10) + '...';
+			}
+			jQuery('#' + sid).css('color','').text(val);	
+			jQuery('.cls' + sid).text(len + '字');
+		}).change();
+		
+		jQuery(".decimal-4").each(function(){
+			var nv = jQuery(this).text();
+			jQuery(this).text(toDecimal4(nv));
+		});
+		jQuery(".row_cul").each(function(){
+			if(jQuery(this).val() == 0){
+				jQuery(this).val('');
+			}
+		}).bupnuminput({
+			precision:4,
+			onChange:function(){
+				//横向累计
+				var own = jQuery(this).parent().parent();//tr
+				var rto = 0;
+				jQuery(".row_cul", own).each(function(){
+					rto += jQuery(this).bupnuminput("getValue") - 0;
+				});
+				jQuery(".row-total", own).text(toDecimal4(rto));
+				//纵向累计
+				var cn = jQuery(this).attr("tcls");
+				var cto = 0;
+				jQuery('.' + cn).each(function(){
+					cto += jQuery(this).bupnuminput("getValue") - 0;
+				});
+				jQuery('#total_' + cn).text(toDecimal4(cto));
+				//总计
+				var tto = 0;
+				jQuery(".row-total").each(function(){
+					tto += jQuery(this).text() - 0;
+				});
+				jQuery("#all_total").text(toDecimal4(tto));
+			}
+		});
+		
+		jQuery(".hbf").each(function(){
+			if(jQuery(this).val() == 0){
+				jQuery(this).val('');
+			}
+		}).bupnuminput({
+			precision:4,
+			onChange:function(){
+				var nv = 0;
+				jQuery(".hbf").each(function(){
+					nv += jQuery(this).bupnuminput("getValue") - 0;
+				});
+				jQuery("#total_hbf").text(toDecimal4(nv));
+			}
+		});
+		
+		$("#_0_btn_save").click(function(){
+			
+			$('#form_table3').bupform('submit', {
+				url: "${id}!table3.save",
+				onSubmit: function(){
+					if(!confirm("是否保存?")){
+						return false;
+					}
+					return true;
+				},
+				success: function(data){
+					alert("保存成功！");
+				}
+			}); 
+			return false;
+		}).bupabutton();
+	});
+	
+	function toDecimal4(x) {    
+        var f = parseFloat(x);    
+        if (isNaN(f)) {    
+            return false;    
+        }
+        var f = Math.round(x*10000)/10000;    
+        var s = f.toString();    
+        var rs = s.indexOf('.');    
+        if (rs < 0) {    
+            rs = s.length;    
+            s += '.';    
+        }    
+        while (s.length <= rs + 4) {    
+            s += '0';    
+        }    
+        return s;    
+    }  
+</script>

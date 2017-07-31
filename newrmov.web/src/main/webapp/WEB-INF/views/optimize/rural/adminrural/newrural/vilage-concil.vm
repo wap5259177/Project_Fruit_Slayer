@@ -1,0 +1,89 @@
+<table class='applicant-form'>
+   <tbody>
+	<tr>
+		<td colspan='6' style='font-weight:bold'>(四)村民理事会</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>是否建立村民理事会[B53]：</td>
+		<td colspan='4'>
+			#if($form.council == '是')
+				<input id="council-n" style='width:20px' type='radio' name='council'value='否' $!{disabled} onclick="jQuery('#councilAnnual').attr('disabled', true);"/><label for='council-n'>否</label>
+				<input id="council-y" style='width:20px' type='radio' name='council' value='是' $!{disabled} checked='checked' onclick="jQuery('#councilAnnual').removeAttr('disabled');" /><label for='council-y'>是</label>
+				(建立时间:
+					#if($readonly)
+						<input id="councilAnnual" type='text' name='councilAnnual' value='$!{form.councilAnnual}' readonly='readonly' />
+					#else
+						<select id='councilAnnual' name='councilAnnual'>$!{selyear}</select>	
+					#end
+				年)
+			#else
+				<input id="council-n" style='width:20px' type='radio' name='council' value='否' $!{disabled} checked='checked' onclick="jQuery('#councilAnnual').attr('disabled',true);"/><label for='council-n'>否</label>
+				<input id="council-y" style='width:20px' type='radio' name='council' value='是' $!{disabled} onclick="jQuery('#councilAnnual').removeAttr('disabled');" /><label for='council-y'>是</label>
+				(建立时间:
+					#if($readonly)
+						<input id="councilAnnual" type='text' name='councilAnnual' disabled='true' />
+					#else
+						<select id='councilAnnual' name='councilAnnual' disabled='true'>$!{selyear}</select>	
+					#end
+				年)
+		   #end
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" rowspan='3' style="width:130px;">理事会成员数[B54]：</td>
+		<td rowspan='3' style="width:130px;">
+			<input id="councilMember" type='text' class='number' name='councilMember' value='$!{form.councilMember}' min="0" precision="0" $!{readonly}/>人
+		</td>
+		<td class="tdRight" rowspan='3' colspan='2'>理事会主要负责人[B55]：</td>
+		<td>姓名</td>
+		<td>联系电话</td>
+	</tr>
+	<tr>
+		<td>
+			<input type='text' id='councilName1' name='councilName1' value='$!{form.councilName1}' $!{readonly}/>
+		</td>
+		<td>
+			<input id="councilHP1" type='text' name='councilHP1' value='$!{form.councilHP1}' $!{readonly} />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type='text' id='councilName2' name='councilName2' value='$!{form.councilName2}' $!{readonly} />
+		</td>
+		<td>
+			<input id="councilHP2" type='text' name='councilHP2' value='$!{form.councilHP2}' $!{readonly} />
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>组织开展新农村建设工作情况<br/>（在新农村建设工作中发挥的作用）[B56]：</td>
+		<td colspan='4'>
+			<textarea id='workSituation' name='workSituation' $!{readonly}>$!{form.workSituation}</textarea>
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>是否制定村规民约和章程[B57]：</td>
+		<td colspan='4'>
+			<input style='width:20px' type='radio' id='constitu-n' name='constitu' value='否' $!{disabled} #if($form.constitu =='' || $form.constitu == '否') checked='checked' #end/><label for='constitu-n'>否</label>
+			<input style='width:20px' type='radio' id='constitu-y' name='constitu' value='是' $!{disabled} #if($form.constitu == '是') checked='checked' #end/><label for='constitu-y'>是</label>
+		</td>
+	</tr>
+	<tr>
+		<td colspan='6'>
+			<font color="gray">上传纳入示范片建设的申请书电子版（带签名和手模）</font>
+			
+			#if($readonly)
+				#if($form.councilFileName)
+					<a href="#springUrl('/s/rural/annex/councilFile.download')?id=$!{form.id}" target="_blank">$form.councilFileName</a>
+				#end
+			#else
+				<input type="file" id="councilFile" name="councilFile" style="width:280px;"/>
+				#if($form.councilFileName)
+				<a href="#springUrl('/s/rural/annex/councilFile.download')?id=$!{form.id}" target='_blank' title="已经上传文件(可以下载)：$!{form.councilFileName}" style="float:right;padding:5px 2px 0;">
+	        		<img src="#springUrl('/res/images/download.png')"/>
+	        	</a>
+				#end
+			#end
+		</td>
+	</tr>
+  <tbody>
+</table>

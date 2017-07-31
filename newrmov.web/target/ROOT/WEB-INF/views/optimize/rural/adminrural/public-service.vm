@@ -1,0 +1,101 @@
+<table class='applicant-form'>
+<tr>
+		<td  style='font-weight:bold;' colspan='6'>(三)农村公共服务情况</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>文化活动场所[B39]：</td>
+		<td colspan='4'>
+			<input style="width:60px;" id="culturalAct" class='number' type='text' value='$!{form.culturalAct}' min="0" precision="0" name='culturalAct' $!{readonly} />个，
+			<input style="width:60px;" id="culturalActArea" class='number' type='text' value='$!{form.culturalActArea}' min="0" precision="2" name='culturalActArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="culturalActAnn" type='text' value='$!{form.culturalActAnn}' name='culturalActAnn' readonly='readonly' />
+			#else
+				<select id='culturalActAnn' name='culturalActAnn'>$!{selyear}</select>
+			#end	
+			年
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>乡村公园[B40]：</td>
+		<td colspan='4'>
+			<input style="width:60px;" id="ruralPark" type='text' class='number' value='$!{form.ruralPark}' min="0" precision="0" name='ruralPark' $!{readonly} />个，
+			<input style="width:60px;" id="ruralParkArea" class='number' type='text' value='$!{form.ruralParkArea}' min="0" precision="2" name='ruralParkArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="ruralParkAnn" type='text' value='$!{form.ruralParkAnn}' name='ruralParkAnn' readonly='readonly' />
+			#else
+				<select id='ruralParkAnn' name='ruralParkAnn'>$!{selyear}</select>
+			#end	
+			年
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>文体广场[B41]：</td>
+		<td colspan='4'>
+			<input style="width:60px;" id="ruralSquare" type='text' class='number' value='$!{form.ruralSquare}' min="0" precision="0" name='ruralSquare' $!{readonly} />个，
+			<input style="width:60px;" id="squareArea" class='number' type='text' value='$!{form.squareArea}' min="0" precision="2"name='squareArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="squareAnn" type='text' value='$!{form.squareAnn}' name='squareAnn' readonly='readonly' />
+			#else
+				<select id='squareAnn' name='squareAnn'>$!{selyear}</select>
+			#end
+			年
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>村级卫生站[B42]：</td>
+		<td colspan='4'>
+			<input style="width:60px;" id="healthStation" type='text' class='number' value='$!{form.healthStation}' min="0" precision="0" name='healthStation' $!{readonly} />个，
+			<input style="width:60px;" id="healthStationArea" class='number' type='text' value='$!{form.healthStationArea}' min="0" precision="2" name='healthStationArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="healthStationAnn" type='text' value='$!{form.healthStationAnn}' name='healthStationAnn' readonly='readonly' />
+			#else
+				<select id='healthStationAnn' name='healthStationAnn'>$!{selyear}</select>
+			#end
+			年
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>乡村公厕[B43]：</td>
+		<td colspan='4'>
+			<input style="width:60px;" id="villageToilet" type='text' class='number' value='$!{form.villageToilet}' min="0" precision="0" name='villageToilet' $!{readonly} />个，
+			<input style="width:60px;" id="villageToiletArea" class='number' type='text' value='$!{form.villageToiletArea}' min="0" precision="2" name='villageToiletArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="villageToiletAnn" type='text' value='$!{form.villageToiletAnn}' name='villageToiletAnn' readonly='readonly' />
+			#else
+				<select id='villageToiletAnn' name='villageToiletAnn'>$!{selyear}</select>
+			#end
+			年
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='3'>是否建立统一的村级公共服务管理平台[B44]：</td>
+		<td colspan='3'>
+			#if($form.publicService == '是')
+				<input id="publicService-n" style='width:20px' type='radio' name='publicService' value='否' $!{disabled}  onclick="jQuery('#psAnnual').attr('disabled', true);"/><label for='publicService-n'>否</label>
+				<input id="publicService-y" style='width:20px' type='radio' name='publicService' value='是' $!{disabled} checked='checked' onclick="jQuery('#psAnnual').removeAttr('disabled');" /><label for='publicService-y'>是</label>
+				(年度：
+					#if($readonly)
+						<input id="psAnnual" type='text' value='$!{form.psAnnual}' name='psAnnual' readonly='readonly' />
+					#else
+						<select id='psAnnual' name='psAnnual'>$!{selyear}</select>
+					#end	
+				年)
+			#else
+				<input id="publicService-n" style='width:20px' type='radio' name='publicService' value='否' $!{disabled} checked='checked'  onclick="jQuery('#psAnnual').attr('disabled', true);"/><label for='publicService-n'>否</label>
+				<input id="publicService-y" style='width:20px' type='radio' name='publicService' value='是' $!{disabled} onclick="jQuery('#psAnnual').removeAttr('disabled');" /><label for='publicService-y'>是</label>
+				(年度：
+					#if($readonly)
+						<input id="psAnnual" type='text' name='psAnnual' disabled='true' />
+					#else
+						<select id='psAnnual' name='psAnnual' disabled='true'>$!{selyear}</select>
+					#end	
+				年)
+			#end
+		</td>
+	</tr>
+</table>

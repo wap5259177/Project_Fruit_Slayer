@@ -1,0 +1,88 @@
+
+<!--点击打印查看的页面-->
+#set($layout="layout-empty.vm")
+<html>
+<head>
+
+
+<link type='text/css' href='/res/css/global.css' rel="stylesheet" media=""/>
+<script src='/res/js/jquery.min.js'></script> 
+<script type="text/javascript" src="/res/js/jquery.PrintArea.js"></script>   
+
+
+<script>  
+$(document).ready(function(){  
+  	$("input#biuuu_button").click(function(){  
+	  	$("div#myPrintVillage").printArea();  
+	});  
+});  
+</script>
+<style>
+ #biuuu_button{position: fixed; font-size:18px;  color:blue; text-decoration:underline; }
+</style>
+</head>
+<body>
+	<div>
+		<input id="biuuu_button" type="button" value="打印" ></input>  
+	</div>
+
+
+	<div id="myPrintVillage"    >
+		<div class="applicant-form-title" >
+			$title
+			<div style="font-size:16px;margin:0 auto;">截止时间:$!{deadline}</div>
+		</div> 
+		<div style="height:100%;">
+				<div data-settings="zone:'center',border:false">
+					<table style="width:100%;background:#ECF5FF;" class="applicant-form"> 
+						<thead>
+							 <tr>
+							 	<th rowspan='2' data-settings="chalign:'center',field:'name'" width="150">县(市、区)名称</th>
+								<th colspan='1' rowspan='2' data-settings="chalign:'center',field:'avCount'" width="100">建制行政村</br>或居委会(个)  </th>
+								<th colspan='1' rowspan='2' data-settings="chalign:'center',field:'household0'" width="100">20户以上</br>自然村（个）</th>
+								<th colspan='4' data-settings="chalign:'center',field:''" width="150">其中</th>
+							</tr>
+							<tr>
+								<th data-settings="chalign:'center',field:'household1'" width="100">20-100户</br>(个)</th>
+								<th data-settings="chalign:'center',field:'household2'" width="100">100-300户</br>(个)</th>
+								<th data-settings="chalign:'center',field:'household3'" width="100">300-500户</br>(个)</th>
+								<th data-settings="chalign:'center',field:'household4'" width="100">500户以上</br>(个)</th>
+							</tr>
+						</thead>
+						<tbody>
+							#foreach($ct in $cReports)
+								<tr style='background-color:#7cd7f8;color:#333333;'>
+									<td>$ct.name</td>
+									<td style='text-align:center'>$ct.avCount</td>
+									<td style='text-align:center'>$ct.household0</td>
+									<td style='text-align:center'>$ct.household1</td>
+									<td style='text-align:center'>$ct.household2</td>
+									<td style='text-align:center'>$ct.household3</td>
+									<td style='text-align:center'>$ct.household4</td>
+								</tr>
+								#foreach($it in $ct.items)
+									<tr >
+										<td>&nbsp;&nbsp;&nbsp;&nbsp;$it.name</td>
+										<td style='text-align:center'>$it.avCount</td>
+										<td style='text-align:center'>$it.household0</td>
+										<td style='text-align:center'>$it.household1</td>
+										<td style='text-align:center'>$it.household2</td>
+										<td style='text-align:center'>$it.household3</td>
+										<td style='text-align:center'>$it.household4</td>
+									</tr>
+								#end
+							#end
+						</tbody>
+						
+						
+					</table>
+				</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
+
+
+

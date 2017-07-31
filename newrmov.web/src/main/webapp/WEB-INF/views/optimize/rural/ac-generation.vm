@@ -1,0 +1,57 @@
+
+<div id='show-ac' >
+	
+	<div class='ma_icon' >
+		<a href='#' onclick='acIntro();'>行政村简介</a>
+	</div>
+	<div class='ma_icon' >
+		<a href='#' onclick='acNr();'>自然村</a>
+	</div>
+	<!--
+	<div class='ma_icon' >
+		<a href='ac.generation?id=$it.id' onclick='return;'>项目</a>
+	</div>
+	<div class='ma_icon' >
+		<a href='ac.generation?id=$it.id' onclick='return;'>产业发展</a>
+	</div>
+	<div class='ma_icon' >
+		<a href='ac.generation?id=$it.id' onclick='return;'>规划情况</a>
+	</div>
+	-->
+	
+</div>
+
+
+
+<style type="text/css">
+	.ma_icon{
+		border:1px solid red;
+		float:left;
+		width:100px;
+		height:100px;
+		margin:20px 50px;
+		vertical-align:middle;
+	}
+</style>
+<script type='text/javascript'>
+	var _type;
+	$(function(){
+		_type=$('#type').val();
+	});
+	
+	//行政村简介
+	function acIntro(){
+		 
+		//alert($("#show_area").html());
+		$('#show_ac').html('');
+		$("#show_area").load("ac.intro",{id:$id,type:_type});
+	}
+	
+	//自然村
+	function acNr(){
+		//alert($("#show_area").html());
+		$('#show_ac').html('');
+		$("#show_area").load("ac_nr.generation",{id:$id,type:_type});
+	}
+	
+</script>

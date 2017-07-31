@@ -1,0 +1,247 @@
+<div id="_1_0" style="height:450px;">
+	<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:0;overflow:hidden;">
+		$!{title}
+		<div style="font-size:16px;margin:0 auto;">截止时间:$!{deadline}</div>
+	</div>
+	<div data-settings="zone:'center',border:false">
+		<style>
+		table.editor tr, table.editor-line tr, table.simplegrid tr{
+			height:auto;
+		}
+		</style>
+		<table id="_1_1" data-settings="
+		        url: '$!{form.id}!data.node',
+		        showRownum: true,
+		        idField: 'id',
+		        treeField: 'name',
+		        showPagebar: false,
+		        fit:true
+		    "> 
+			<thead data-settings="frozen:true">
+				<tr>
+					<th data-settings="chalign:'center',field:'id',width:220,chalign:'center',formatter:f">操作</th>
+					<th data-settings="chalign:'center',field:'name'" width="150">示范片所在<br/>市县名称</th>
+				</tr>
+			</thead>
+			<thead>
+				 <tr>
+					<!--<th  rowspan='3' data-settings="chalign:'center',field:'name'" width="150">示范片所在市县名称</th>-->
+					<th colspan='7' data-settings="chalign:'center',field:''" width="150">资金投入情况(万元)</th>
+				</tr>
+				<tr>
+					<!--
+					<th rowspan='2' data-settings="chalign:'center',field:'projectStartCount'" width="120">已启动<br/>项目个数（个）</th>
+					<th rowspan='2' data-settings="chalign:'center',field:'projectFinishCount'" width="120">其中已竣工<br/>项目个数（个）</th>
+					-->
+					<th rowspan='2' data-settings="chalign:'center',field:'totalFunds'" width="120">累计投入资金<br/>总数</th>
+					<th  colspan='6' data-settings="chalign:'center',field:''" width="150" ></th>
+				</tr>
+				
+				<tr>
+					<th data-settings="chalign:'center',field:'funds0'" width="120">1.中央财政</br>资金</th>
+					<th data-settings="chalign:'center',field:'funds1'" width="130">2.省级财政</br>资金</th>
+					<th data-settings="chalign:'center',field:'funds2'" width="100">3.市级财政</br>资金</th>
+					<th  data-settings="chalign:'center',field:'funds3'" width="110">4.县级财政</br>资金</th>
+					<th  data-settings="chalign:'center',field:'funds4'" width="110" >5.社会投入</br>资金</th>
+					<th  data-settings="chalign:'center',field:'funds5'" width="110" >6.群众自筹</br>资金</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</div>
+
+<div id='loadTable' style='display:hidden'></div>
+<script>
+function f(value,row,index){
+	var btns = "";
+	var id = row.id;
+	
+	//id>0的是市级下面的县记录
+	if(id>0){
+		//btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return showTable1(" + row.id + ");'>表1</a>";
+		//btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return showTable2(" + row.id + ");'>表2</a>";
+		//btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return showTable3(" + row.id + ");'>表3</a>";
+	}else{
+		btns += "<a hef='#'  style='padding-right:10px;'  onclick='return backDeleted(" + row.id + ");'>退回填报</a>";
+		if(row.status==4){//市报的状态:待审核
+			btns += "<a hef='#'  style='padding-right:10px;'  onclick='return back(" + row.id + ");'>退回</a>";
+			btns += "<a hef='#'  style='padding-right:10px;'  onclick='return pass(" + row.id + ");'>通过</a>";
+			
+			//资金统计不正确，double类型直接相加导致。这里刷新让他变正确
+			//btns += "<a hef='#'  style='padding-right:10px;'  onclick='return refreshMn(" + row.id + ");'>刷新资金</a>";
+		}
+	}
+	return btns;
+	
+}
+
+function showTable1(id){
+	//alert('1');
+	//jQuery('#div-kernel-dialog-loader').
+	$("#loadTable").load("/s/base/fv/felicityvillage/table1.htm?id="+id);
+	//localhost:83/s/base/fv/felicityvillage/table1.htm
+}
+function showTable2(id){
+	$("#loadTable").load("/s/base/fv/table2.htm?id="+id);
+}
+function showTable3(id){
+	$("#loadTable").load("/s/base/fv/table3.htm?id="+id);
+}
+
+
+function back(id){
+	var id = -id;
+	if(confirm("是否确定进行退回？")){
+		lock("开始退回...");
+		jQuery.get(
+			id + "!report.back", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+
+function backDeleted(id){
+	var id = -id;
+	if(confirm("是否确定进行退回(重新开始填报)？")){
+		lock("开始退回...");
+		jQuery.get(
+			id + "!report.backDeleted", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+
+function pass(id){
+	var id = -id;
+	if(confirm("是否确定进行通过？")){
+		lock("开始通过...");
+		jQuery.get(
+			id + "!report.pass", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+
+
+function refreshMn(id){
+	var id = -id;
+	if(confirm("是否确定进行刷新？")){
+		lock("开始刷新...");
+		jQuery.get(
+			id + "!report.refreshMn", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+
+
+
+function cc(id){
+	if(confirm("是否确定进行退回？")){
+		lock("开始退回...");
+		jQuery.get(
+			id + "!report.back", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+function ban(id){
+	if(confirm("是否确定进行禁止上报？")){
+		lock("开始禁止上报...");
+		jQuery.get(
+			id + "!report.ban", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+function regain(id){
+	if(confirm("是否确定进行恢复上报？")){
+		lock("开始恢复上报...");
+		jQuery.get(
+			id + "!report.regain", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+function unlock(id){
+	if(confirm("是否确定解锁恢复上报？")){
+		lock("开始恢复上报...");
+		jQuery.get(
+			id + "!report.unlock", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+
+jQuery(function(){
+	jQuery("#_1_0").bupborderlayout();
+	jQuery("#_1_1").buptreegrid();
+	
+	
+	
+});
+</script>

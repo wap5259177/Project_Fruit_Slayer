@@ -1,0 +1,188 @@
+<table class='applicant-form' id='_table'>
+<tr>
+		<td style='font-weight:bold;' colspan='6'>(二)基础设施建设和环境卫生整治情况</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>村内道路和入户路硬底化率[B14]：</td>
+		<td>
+			&nbsp;<input id="hardBottom" style='width:40px' type='text' name='hardBottom' class='number' value='$!{form.hardBottom}' min="0" max="100" precision="2" $!{readonly}/>%<br />
+			(<input id="bottomDis" style='width:40px' type='text' name='bottomDis' class='number' value='$!{form.bottomDis}' min="0" precision="2" $!{readonly} />公里)
+		</td>
+		<td class="tdRight">是否通自来水[B15]：</td>
+		<td colspan='2'>
+			#if($form.tapWater == '是')
+				<input id="tapWater-n" style='width:20px' type='radio' name='tapWater' value='否' $!{disabled} onclick="jQuery('#tapAnnual').attr('disabled', true);" /><label for="tapWater-n">否</label>
+				<input id="tapWater-y" style='width:20px' type='radio' name='tapWater' value='是' $!{disabled} checked='checked' onclick="jQuery('#tapAnnual').removeAttr('disabled');"/><label for="tapWater-y">是</label>
+				<br />
+				(时间:
+					#if($readonly)
+						<input type="text" id='tapAnnual' name='tapAnnual' readonly="readonly" value="$!{form.tapAnnual}"/>
+					#else
+						<select id='tapAnnual' name='tapAnnual'>$!{selyear}</select>	
+					#end
+				年)
+			#else
+				<input id="tapWater-n" style='width:20px' type='radio' name='tapWater' value='否' $!{disabled} checked='checked' onclick="jQuery('#tapAnnual').attr('disabled', true);" /><label for="tapWater-n">否</label>
+				<input id="tapWater-y" style='width:20px' type='radio' name='tapWater' value='是' $!{disabled} onclick="jQuery('#tapAnnual').removeAttr('disabled');"/><label for="tapWater-y">是</label>
+				<br />
+				(时间:
+					#if($readonly)
+						<input type="text" id='tapAnnual' name='tapAnnual' disabled="true"/>
+					#else
+						<select id='tapAnnual' name='tapAnnual' disabled="true">$!{selyear}</select>	
+					#end
+				年)
+			#end
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>开展农田水利基础设施和现代渔港建设[B16]：</td>
+		<td><input class="number" id="waterBase" style='width:60px' type='text' name='waterBase' value='$!{form.waterBase}' min="0" $!{readonly} />宗</td>
+		<td class="tdRight" colspan='2'>整治小山塘、小灌区、小水坡、小泵站和小堤防[B17]：</td>
+		<td><input class="number" id="smallWater" style='width:60px' type='text' name='smallWater' value='$!{form.smallWater}' min="0" $!{readonly} />个</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='3'>配套建设高标准基本农田、标准鱼塘[B18]：</td>
+		<td colspan='3'><input class="number" id="farmland" style='width:60px' type='text' name='farmland' value='$!{form.farmland}' min="0" $!{readonly} />亩</td>
+	</tr>
+	
+	<tr>
+		<td class="tdRight" colspan='2'>是否已完成环境卫生整治[B19]：</td>
+		<td colspan='4'>
+			#if($form.hyFix == '是')
+				<input id="hyFix-n" style='width:20px' type='radio' name='hyFix' value='否' $!{disabled} onclick="jQuery('#fixAnnual').attr('disabled', true);" /><label for='hyFix-n'>否</label>
+				<input id="hyFix-y" style='width:20px' type='radio' name='hyFix' value='是' $!{disabled} checked='checked' onclick="jQuery('#fixAnnual').removeAttr('disabled');" /><label for='hyFix-y'>是</label>
+				(完成年度:
+					#if($readonly)
+						<input type="text" id='fixAnnual' name='fixAnnual'  readonly="readonly" value="$!{form.fixAnnual}"/>
+					#else
+						<select id='fixAnnual' name='fixAnnual'>$!{selyear}</select>	
+					#end	
+				年)
+			#else
+				<input id="hyFix-n" style='width:20px' type='radio' name='hyFix' value='否' $!{disabled} checked='checked' onclick="jQuery('#fixAnnual').attr('disabled', true);" /><label for='hyFix-n'>否</label>
+				<input id="hyFix-y" style='width:20px' type='radio' name='hyFix' value='是' $!{disabled} onclick="jQuery('#fixAnnual').removeAttr('disabled');" /><label for='hyFix-y'>是</label>
+				(完成年度:
+					#if($readonly)
+						<input type="text" id='fixAnnual' name='fixAnnual' disabled="true"/>
+					#else
+						<select id='fixAnnual' name='fixAnnual' disabled="true">$!{selyear}</select>	
+					#end	
+				年)
+			#end
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td class="tdRight" colspan='2'>是否开展村庄垃圾治理[B20]：</td>
+		<td colspan='4'>
+			#if($form.villageManage == '是')
+				<input id="villageManage-n" style='width:20px' type='radio' name='villageManage' value='否' $!{disabled} onclick="jQuery('#garbageAnnual').attr('disabled', true);" /><label for='villageManage-n'>否</label>
+				<input id="villageManage-y" style='width:20px' type='radio' name='villageManage' value='是' $!{disabled} checked='checked' onclick="jQuery('#garbageAnnual').removeAttr('disabled');" /><label for='villageManage-y'>是</label>
+				<span style='color:red'>
+				(完成年度:
+					#if($readonly)
+						<input type="text" id='garbageAnnual' name='garbageAnnual'  readonly="readonly" value="$!{form.garbageAnnual}"/>
+					#else
+						<select id='garbageAnnual' name='garbageAnnual'>$!{selyear}</select>	
+					#end	
+				年)
+				</span>
+			#else
+				<input id="villageManage-n" style='width:20px' type='radio' name='villageManage' value='否' $!{disabled} checked='checked' onclick="jQuery('#garbageAnnual').attr('disabled', true);" /><label for='villageManage-n'>否</label>
+				<input id="villageManage-y" style='width:20px' type='radio' name='villageManage' value='是' $!{disabled} onclick="jQuery('#garbageAnnual').removeAttr('disabled');" /><label for='villageManage-y'>是</label>
+				<span style='color:red'>
+				(完成年度:
+					#if($readonly)
+						<input type="text" id='garbageAnnual' name='garbageAnnual' disabled="true"/>
+					#else
+						<select id='garbageAnnual' name='garbageAnnual' disabled="true">$!{selyear}</select>	
+					#end	
+				年)
+				</span>
+			#end
+		</td>
+	</tr>
+	
+	
+	
+	
+	<tr>
+		<td class="tdRight" colspan='2'>是否建立村保洁队伍[B21]：</td>
+		<td colspan='4'>
+			#if($form.cleanTeam == '是')
+				<input id="cleanTeam-n" style='width:20px' type='radio' name='cleanTeam' value='否' $!{disabled} onclick="jQuery('#cleaners').attr('disabled', true);" /><label for='cleanTeam-n'>否</label>
+				<input id="cleanTeam-y" style='width:20px' type='radio' name='cleanTeam' value='是' $!{disabled} checked='checked' onclick="jQuery('#cleaners').removeAttr('disabled');"/><label for='cleanTeam-y'>是</label>
+				(保洁员:<input id="cleaners" style='width:60px' class='number'  type='text' name='cleaners' value='$!{form.cleaners}' min="0" precision="0" $!{readonly}/>个)
+			#else
+				<input id="cleanTeam-n" style='width:20px' type='radio' name='cleanTeam' value='否' $!{disabled} checked='checked' onclick="jQuery('#cleaners').attr('disabled', true);" /><label for='cleanTeam-n'>否</label>
+				<input id="cleanTeam-y" style='width:20px' type='radio' name='cleanTeam' value='是' $!{disabled} onclick="jQuery('#cleaners').removeAttr('disabled');"/><label for='cleanTeam-y'>是</label>
+				(保洁员:<input id="cleaners" style='width:60px' class='number'  type='text' name='cleaners' value='$!{form.cleaners}' min="0" precision="0" disabled="true"/>个)
+			#end
+		</td>
+	</tr>
+	
+	
+	
+	<!--
+	<tr>
+		<td class="tdRight" colspan='2'>是否开展村庄垃圾治理[B20]：</td>
+			<td>
+				#if($form.villageManage == '是')
+					<input style='width:15px' type='radio' id='villageManage-n' name='villageManage' value='否' $!{disabled} /><label for='villageManage-n'>否</label>
+					<input style='width:15px' type='radio' id='villageManage-y' name='villageManage' value='是' $!{disabled} checked='checked' /><label for='villageManage-y'>是</label>
+				#else
+					<input style='width:15px' type='radio' id='villageManage-n' name='villageManage' value='否' $!{disabled} checked='checked' /><label for='villageManage-n'>否</label>
+					<input style='width:15px' type='radio' id='villageManage-y' name='villageManage' value='是' $!{disabled} /><label for='villageManage-y'>是</label>
+				#end
+			</td>
+		<td class="tdRight" colspan='2'>是否建立村保洁队伍[B21]：</td>
+		<td>
+			#if($form.cleanTeam == '是')
+				<input id="cleanTeam-n" style='width:20px' type='radio' name='cleanTeam' value='否' $!{disabled} onclick="jQuery('#cleaners').attr('disabled', true);" /><label for='cleanTeam-n'>否</label>
+				<input id="cleanTeam-y" style='width:20px' type='radio' name='cleanTeam' value='是' $!{disabled} checked='checked' onclick="jQuery('#cleaners').removeAttr('disabled');"/><label for='cleanTeam-y'>是</label><br />
+				(保洁员:<input id="cleaners" style='width:30px' class='number'  type='text' name='cleaners' value='$!{form.cleaners}' min="0" precision="0" $!{readonly}/>个)
+			#else
+				<input id="cleanTeam-n" style='width:20px' type='radio' name='cleanTeam' value='否' $!{disabled} checked='checked' onclick="jQuery('#cleaners').attr('disabled', true);" /><label for='cleanTeam-n'>否</label>
+				<input id="cleanTeam-y" style='width:20px' type='radio' name='cleanTeam' value='是' $!{disabled} onclick="jQuery('#cleaners').removeAttr('disabled');"/><label for='cleanTeam-y'>是</label><br />
+				(保洁员:<input id="cleaners" style='width:30px' class='number'  type='text' name='cleaners' value='$!{form.cleaners}' min="0" precision="0" disabled="true"/>个)
+			#end
+		</td>
+	</tr>
+	-->
+	
+	
+	<tr>
+		<td class="tdRight" colspan='2'>村民使用卫生厕所户数[B22]：</td>
+		<td>
+			占<input id="toiletPercent" style='width:40px' type='text' class='number' name='toiletPercent' value='$!{form.toiletPercent}' min="0" max="100" precision="2" $!{readonly} />%<br />
+			&nbsp;&nbsp;<input id="toilet" style='width:40px' type='text' class='number' name='toilet' value='$!{form.toilet}' min="0" precision="0" $!{readonly} />户
+		</td>
+		<td class="tdRight" colspan='2'>是否建立污水处理设施[B23]：</td>
+		<td style="width:140px;">
+			#if($form.badWater == '是')
+				<input id="badWater-n" style='width:15px' type='radio' name='badWater' value='否' $!{disabled} onclick="jQuery('#badWaterAnn').attr('disabled', true);" /><label for='badWater-n'>否</label>
+				<input id="badWater-y" style='width:15px' type='radio' name='badWater' value='是' $!{disabled} checked='checked' onclick="jQuery('#badWaterAnn').removeAttr('disabled');" /><label for='badWater-y'>是</label>
+				(完成<br/>时间:
+					#if($readonly)
+						<input type="text" id='badWaterAnn' name='badWaterAnn' value='$!{form.badWaterAnn}' $readonly/>
+					#else
+						<select id='badWaterAnn' name='badWaterAnn'>$!{selyear}</select>	
+					#end
+				年)
+			#else
+				<input id="badWater-n" style='width:15px' type='radio' name='badWater' value='否' $!{disabled} checked='checked' onclick="jQuery('#badWaterAnn').attr('disabled', true);" /><label for='badWater-n'>否</label>
+				<input id="badWater-y" style='width:15px' type='radio' name='badWater' value='是' $!{disabled} onclick="jQuery('#badWaterAnn').removeAttr('disabled');" /><label for='badWater-y'>是</label>
+				(完成<br/>时间:
+					#if($readonly)
+						<input type="text" id='badWaterAnn' name='badWaterAnn' disabled="true"/>
+					#else
+						<select id='badWaterAnn' name='badWaterAnn' disabled='true'>$!{selyear}</select>	
+					#end
+				年)
+			#end
+		</td>
+	</tr>
+</table>

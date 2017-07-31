@@ -1,0 +1,28 @@
+#parse('felicity/report-county-view.vm')
+<script type='text/javascript'>
+jQuery(function() {
+	#if(!$readonly)
+	$('.progress').each(function(i, v){
+		var vf = v.value;
+		if(!$.isNumeric(vf) || vf == 0){
+			v.value = "";
+		}
+	});
+	#end
+	$('.number').bupnuminput();
+	#if($auditing)
+	jQuery("#auditAt").bupdateinput({ editable:false});
+	#end
+});
+
+#if(!$readonly)
+function _checkNumber(){
+	$('.progress').each(function(i, v){
+		var vf = jQuery(v).bupnuminput('getValue');
+		if(!$.isNumeric(vf)){
+			jQuery(v).bupnuminput('setValue', '0');
+		}
+	});
+}
+#end
+</script>

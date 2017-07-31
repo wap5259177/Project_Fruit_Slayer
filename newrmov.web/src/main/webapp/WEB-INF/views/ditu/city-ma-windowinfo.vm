@@ -1,0 +1,24 @@
+#set($layout="layout-empty.vm")
+<div>
+
+	<!--<span id='ma_describe'>$map.describe</span>-->
+	<div>
+		<a href='#'>
+			
+			<img  name='_img' style='max-width:200px;max-height:150px;float:left; margin-right:10px;margin-bottom:10px;' src='$!{pic}' title='$map.title' onclick='_show(this)'/>
+		</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$map.describe 
+	</div>
+</div>
+
+
+<script type="text/javascript">
+
+	jQuery(function(){
+		//alert('$pic');//	/upload/modelarea/area_1/other/7CE1E10F6AA7A3CE36FC32C657CAF4B7.png
+		//alert('$map.title');
+	});
+	function _show(obj){
+		//alert('呵呵..');
+	}
+</script>

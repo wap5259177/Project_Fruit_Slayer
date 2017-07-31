@@ -1,0 +1,34 @@
+#if($warningMessage)
+	<div class="applicant-form-warning">$warningMessage</div>
+#end
+#parse('applicant/areaindustry-view.vm')
+<script type='text/javascript'>
+jQuery(function() {
+	$('.number').each(function(i, v){
+		var vf = v.value;
+		if(!$.isNumeric(vf) || vf == 0){
+			v.value = "";
+		}
+	});
+	$('.number').bupnuminput();
+   	$('#reportAt').bupdateinput({editable:false});
+	
+	
+    //设置村的下拉列表
+    $('#rural').val('$!{form.rural}');
+    $('#placeId').val('$!{form.placeId}');
+    
+    //alert('sss');
+	$('#placeId').val($!{form.placeId});
+});
+
+function _checkNumber(){
+	$('.number').each(function(i, v){
+		var vf = jQuery(v).bupnuminput('getValue');
+		if(!$.isNumeric(vf) || vf < 0){
+			//v.value = 0;
+			jQuery(v).bupnuminput('setValue', '0');
+		}
+	});
+}
+</script>

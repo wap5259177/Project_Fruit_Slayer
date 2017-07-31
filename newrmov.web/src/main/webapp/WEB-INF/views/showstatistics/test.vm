@@ -1,0 +1,71 @@
+<div id="datagrid-tab" style='padding-left:10px;padding-top:5px;'>
+	<div>
+	$!{select}
+	</div>	
+	<a class="bupabutton" style='padding-left:10px' href="#" data-settings="iconClassname:'icon-excel'"
+		 onclick="this.href='index.excel?batch='+jQuery('#sel-batch').val()" target="_blank">导出Excel</a>
+	<div style="font-size:20px;text-align:center">广东省新农村连片示范建设工程台账簿 - 建设台账封面统计</div>
+</div>
+<table class="bupgrid" fit="true" data-settings="nowrap:false" toolbar="#datagrid-tab" id='mygrid'>
+	<!--这一块让它固定不动 frozen:true-->
+	<thead data-settings="frozen:true">
+		<tr>
+		   	<th id="hideth" style="width:60px;" rowspan='3' data-settings="field:'code'">序号</th>
+			<th style="width:120px;" rowspan='3' data-settings="field:'code5'">县(区)</th>
+		
+		</tr>
+	</thead>
+	<thead>
+		<tr>
+
+			<th style="width:150px;" rowspan='3' data-settings="field:'code8'">行政村名</th>
+			<th style="width:60px;"></th>
+			<th style='font-weight:bold;' colspan='11'>农村公共服务情况</th>
+			
+		</tr>
+		<tr>
+			<th style="width:60px;">文化活动场所个数</th>
+			<th style="width:60px;">文化活动场所面积</th>
+			<th style="width:60px;">乡村公园个数</th>
+			<th style="width:60px;">乡村公园面积</th>
+			<th style="width:60px;">文体广场个数</th>
+			<th style="width:60px;">文体广场所面积</th>
+			<th style="width:60px;">村级卫生站个数</th>
+			<th style="width:60px;">村级卫生站面积</th>
+			<th style="width:60px;">乡村公厕个数</th>
+			<th style="width:60px;">乡乡村公厕面积</th>
+			<th style="width:60px;">是否建立统一的村级公共服务管理平台</th>
+			
+		</tr>
+		<tr>
+			<th style="width:60px;" data-settings="field:'item32'">B39[个]</th>
+			<th style="width:60px;" data-settings="field:'item33'">B39[平方米]</th>
+			<th style="width:60px;" data-settings="field:'item34'">B40[个]</th>
+			<th style="width:60px;" data-settings="field:'item35'">B40[平方米]</th>
+			<th style="width:60px;" data-settings="field:'item36'">B41[个]</th>
+			<th style="width:60px;" data-settings="field:'item37'">B41[平方米]</th>
+			<th style="width:60px;" data-settings="field:'item38'">B42[个]</th>
+			<th style="width:60px;" data-settings="field:'item39'">B42[平方米]</th>
+			<th style="width:60px;" data-settings="field:'item40'">B43[个]</th>
+			<th style="width:60px;" data-settings="field:'item41'">B43[平方米]</th>
+			<th style="width:60px;" data-settings="field:'item42'">B44[个]</th>
+			
+		</tr>
+	</thead>
+<tbody >
+	$!{content}
+</tbody>
+</table>
+
+<script>
+	$("#btn_load").bupabutton({
+        iconClassname: 'icon-search'
+    });
+    //$("#hideth").hide();
+    //alert("213124");
+    jQuery(function(){
+    //$('#mygrid').bupgrid('hideColumn',"code");
+
+    });
+    
+</script>

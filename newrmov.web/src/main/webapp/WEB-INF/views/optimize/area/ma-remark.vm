@@ -1,0 +1,13 @@
+<div class="applicant-remark">
+	<div class="applicant-remark-title">备注：</div>
+	<div>
+		<div class="applicant-remark-item">1) 表（一）县表填写示范片所在县的基本情况。</div>
+		<div class="applicant-remark-item">2) “[A1]”内的A1为指标代码。</div>
+		<div class="applicant-remark-item">3) 全县农村面积[A1]：特指农村地域面积（城镇以外面积）。</div>
+		<div class="applicant-remark-item">4) 台账编码是信息系统登录的基本管理账号。也是全省工作台账的索引号。可先不填。</div>
+		<div class="applicant-remark-item">5) 批次[A15]：填一、二或三。</div>
+		<div class="applicant-remark-item">6) 总户数[A20]，总人口数[A21]要等于后面各村所填户数累计和人口数累计。在信息系统填报时会由系统自动汇总示范片各村所填报的数据得到。</div>
+		<div class="applicant-remark-item">7) 主体村之间连线连片规模[A22]：应该是主体村连片的长度。</div>
+		<div class="applicant-remark-item">8) 示范片连线线路[A30]：可多选。</div>
+	</div>
+</div>

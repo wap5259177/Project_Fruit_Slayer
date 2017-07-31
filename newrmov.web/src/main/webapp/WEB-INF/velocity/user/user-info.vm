@@ -1,0 +1,80 @@
+#set($layout="simple-frame.vm")
+<div id='tabs-user-center' fit='true' tabPosition='left' border="false">
+	<div title="账户信息" data-settings="iconClassname:'icon-user'"> <!--iconCls='icon-user'-->
+		<form method='post'>
+			<input type="hidden" name="id" value="-1"/>
+			<table class='' align='center'; style="margin-top:40px;">
+				<tr style="height:40px;"><td align="right" style="padding-right:10px;">姓名：</td>
+				<td>
+					<input type="userName" style='width:200px;' id='userName' name='userName'/>
+				</td></tr>
+				<tr>
+					<td></td>
+					<td style="font-size:12px;color:#939393">6-16位，区分大小写，只能使用字母、数字、特殊字符</td>
+				</tr>
+				<tr style="height:60px;"><td  align="right" style="padding-right:10px;">自我介绍：</td>
+				<td>
+					<textarea id='self-i' name='self-i' style="width:100%;"></textarea>
+				</td></tr>
+				<tr>
+					<td></td>
+					<td style="font-size:12px;color:#939393">仅支持纯文本，最多300个字</td>
+				</tr>
+				<tr style="height:40px;"><td align="right" style="padding-right:10px;">性别：</td>
+				     <td><select id='sex' name='sex' style="width:80px;">
+							<option value ="0">男</option>
+							<option value ="1">女</option>
+						</select>
+					 </td>
+				</tr>
+				<tr style="height:40px;"><td align="right" style="padding-right:10px;">职位：</td>
+				<td>
+					<input type="officer" style='width:200px;' id='officer' name='officer'/>
+				</td></tr>
+				<tr style="height:40px;"><td align="right" style="padding-right:10px;">工作年限：</td>
+				<td>
+					<input type="workTime" style='width:200px;' id='workTime' name='workTime'/>
+				</td></tr>
+				
+				<tr style="height:40px;"><td align="right" style="padding-right:10px;">QQ：</td>
+					<td>
+					<input type="QQ" style='width:200px;' id='QQ' name='QQ'/>
+				</td></tr>
+				<tr style="height:40px;"><td align="right" style="padding-right:10px;">手机号码：</td>
+					<td>
+					<input type="mobilePhone" style='width:200px;' id='mobilePhone' name='mobilePhone'/>
+				</td></tr>
+				<tr style="height:40px;"><td  align="right" style="padding-right:10px;">住址：</td>
+					<td>
+					<input type="address" style='width:350px;' id='address' name='address'/>
+				</td></tr>
+				</td></tr>
+				<tr style="height:40px;"><td align="right" style="padding-right:10px;">备注：</td>
+					<td>
+					<textarea id='remark' name='remark' style="width:100%;"></textarea>
+				</td></tr>
+			</table>	 
+	</form>
+</div>
+	<div title="修改密码" data-settings="iconClassname:'icon-pwd'"> <!--iconCls='icon-pwd'-->
+		#parse("change-pwd.vm")
+	</div>
+	<!--
+	<div title="安全绑定" data-settings="iconClassname:'icon-safe'">
+		密保问题
+		<hr/>
+		手机绑定
+		<hr/>
+		邮箱绑定
+		<hr/>
+		第三方登录方式绑定(如：QQ，新浪等...)
+	</div>
+	-->
+	$!{userInfoTabs}
+</div>
+
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery('#tabs-user-center').buptab();
+	});
+</script>

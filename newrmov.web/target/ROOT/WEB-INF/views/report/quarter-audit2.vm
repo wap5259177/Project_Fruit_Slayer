@@ -1,0 +1,246 @@
+<style >
+	article{
+    background-color:rgba(0,0,0,0.8);  //注意，是rgba，不是rgb ！！！
+    position:static;
+}
+article p{
+    color:white;
+    position:relitave;
+}
+</style>
+$!FrontStyle
+$!display
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">$title</h3>
+	</div>
+	<div class="panel-body">
+<table class="table table-hover table-bordered ">
+	<caption style="text-align:left;">(截止时间:${deadline})</caption>
+	<thead>
+		<tr class='text-muted'  >
+			<th rowspan='2' class='text-primary'>示范片区所在的市县名称</th>
+			<th rowspan='2' class='text-primary'>行政村数</th>
+			<th rowspan='2' class='text-primary'>自然村数</th>
+			<th rowspan='2' class='text-primary'>户数</th>
+			<th rowspan='2' class='text-primary'>人数</th>
+			<th colspan='2'>完成村庄整治规划情况</th>
+			<th rowspan='2' class='text-primary'>通自来水自然村数（个）</th>
+			<th rowspan='2' class='text-primary'>完成卫生改厕所自然村数（个）</th>
+			<th rowspan='2' class='text-primary'>完成道路硬化建设自然村数（个）</th>
+			<th rowspan='2' class='text-primary'>完成民居外立面特色改造的自然村数（个）</th>
+			
+		</tr>
+		
+		<tr class='text-primary'>
+			<th >行政村有编制规划设计村数（个）</th>
+			<th >自然村有编制规划设计村数（个）</th>
+			
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="success">
+			<td >$item.modelArea.cityName $item.modelArea.county</td>
+			<td >$item.arCount</td>
+			<td >$item.nrCount</td>
+			<td >$item.householdCount</td>
+			<td >$item.populationCount</td>
+			<td >$item.arFinishPlan</td>
+			<td >$item.needFinish.needFinish1</td>
+			<td >$item.needFinish.needFinish2</td>
+			<td >$item.needFinish.needFinish3</td>
+			<td >$item.needFinish.needFinish4</td>
+			<td >$item.needFinish.needFinish5</td>
+		
+		</tr>
+	
+	</tbody>
+</table>
+<table class="table table-hover table-bordered">
+
+	<thead>
+		<tr class='text-muted'>
+			<th colspan='3'>环境卫生综合整治情况</th>
+			<th rowspan='2' class='text-primary'>已成立村民理事会并制定了村规民约和章程的自然村数（个）</th>
+			<th colspan='2'>项目</th>
+		
+		</tr>
+        <tr class='text-primary'>
+			<th >完成卫生整治及建立保洁队和长效机制的自然村数（个）</th>
+			<th >实行雨污分流并建有污水处理设施自然村数（个）</th>
+			<th >实行人畜分离（集中圈养）的自然村数（个）</th>
+			<th >已启动的项目个数</th>
+			<th >其中已竣工的项目个数</th>
+		
+        </tr>
+	</thead>
+	<tbody>
+		<tr class="success">
+			<td >$item.needFinish.needFinish6</td>
+			<td >$item.needFinish.needFinish7</td>
+			<td >$item.needFinish.needFinish8</td>
+			<td >$item.needFinish.needFinish9</td>
+			<td >$srart</td>
+			<td >$finish</td>
+			
+			
+		</tr>
+	</tbody>
+</table>
+<table class="table table-hover table-bordered">
+
+	<thead>
+		<tr class='text-muted'>
+			<th colspan='9'>资金投入情况（万元）</th>
+		</tr>
+        <tr class='text-primary'>
+			<th >累计投入资金总数</th>
+			<th >1.中央财政资金</th>
+			<th >2.省级新农村示范片建设补助资金</th>
+			<th >3.其他省级财政资金</th>
+			<th >4.市级财政资金</th>
+			<th >5.县级财政资金</th>
+			<th >6.社会投入资金</th>
+			<th >7.群众自筹资金</th>
+			<th >8.其它方面的资金</th>
+        </tr>
+	</thead>
+	<tbody>
+		<tr class="success">
+		
+			<td >$item.investment.totalFunds</td>
+			<td >$item.investment.stateFunds</td>
+			<td >$item.investment.specialFunds</td>
+			<td >$item.investment.provinceFunds</td>
+			<td >$item.investment.cityFunds</td>
+			<td >$item.investment.countyFunds</td>
+			<td >$item.investment.socialFunds</td><!--社会投入-->
+			<td >$item.investment.massFunds</td><!--群众自筹资金-->
+			<td >$item.investment.otherFunds</td>
+		
+		</tr>
+	
+	</tbody>
+</table>
+    </div>
+</div>
+	#if($item.status == 4)
+
+	
+	<div class="panel-body">
+        <h5>审核信息:正在审核</h5>
+	<table class="table" >
+       
+		<tr>
+           <td style="width: 30%; height: 213px;"> 
+				<div class="input-group">
+					<span class="input-group-addon">审核/(驳回)人&nbsp&nbsp&nbsp：</span>
+				<input type="text" value="$!{item.auditName}" class="form-control" name="auditName" placeholder="填写审核人" >
+    			</div>
+			
+			
+				<div class="input-group">
+					<span class="input-group-addon">审核/(驳回)时间：</span>
+					<input id="datetimepicker" type="text" name="auditAt" value="$!{item.auditAt}"  class="form-control" placeholder="填写审核(驳回)时间"></input>
+				 
+				</div>
+			</td>
+			<td style="width:70%;">
+				<div class="input-group">
+					<span class="input-group-addon">审核/(驳回)内容：</span>
+
+<textarea name="auditContent" title="上次审核/(驳回)信息:$!{item.auditContent}"  id="auditContent" class="form-control" placeholder="填写审核(驳回)内容" style="height: 189px; width: 90%;"></textarea>
+				</div>
+				</td>
+		</tr>
+			<tr>
+				
+			</tr>
+		 
+		
+		
+	</table>
+<button id="auditPass" class="btn btn-success" data-loading-text="Loading..." 
+   	type="button"> 通过审核
+</button>
+<button id="auditReject" class="btn btn-primary" data-loading-text="Loading..." 
+   	type="button"> 驳回
+</button>
+
+<!--
+<input type="button" class="btn btn-info" value="工程进展" onclick="history.go(-1)"/>-->
+
+
+
+
+</div>
+
+	#end
+     
+
+<script>
+
+// $(this).button('loading').delay(1000).queue(function() {   });
+  //          	$(this).button('reset');
+	//				 $(this).dequeue(); 
+	
+	
+$('#datetimepicker').datetimepicker({
+
+// 日历
+
+    minView: "month", //选择日期后，不会再跳转去选择时分秒 
+    language:  'zh-CN',
+    format: 'yyyy-mm-dd',
+    todayBtn:  1,
+    autoclose: 1,
+
+
+//format: 'yyyy-mm-dd hh:ii'      /*此属性是显示顺序，还有显示顺序是mm-dd-yyyy*/
+});
+
+
+    $(function() {
+        $("#auditPass").click(function(){
+             $("#auditPass").attr("disabled",true);
+		
+			var auditContent=$('[name="auditContent"]').val();
+			var auditName=$('[name="auditName"]').val();
+			var auditAt=$('[name="auditAt"]').val();
+		jQuery.post("index.auditPass",
+			{id:$item.id,auditContent:auditContent,auditName:auditName,auditAt:auditAt},
+			function(data){
+			//	alert(data);
+			alert(JSON.parse(data).msg);
+				$("#auditPass").removeAttr("disabled");	
+				$("#auditReject").attr("disabled",true);
+			}		);
+           
+        
+        });
+		
+		 $("#auditReject").click(function(){
+      $("#auditReject").attr("disabled",true);
+	  
+	
+			var auditContent=$('[name="auditContent"]').val();
+			var auditName=$('[name="auditName"]').val();
+			var auditAt=$('[name="auditAt"]').val();
+		jQuery.post("index.auditReject",
+			{id:$item.id,auditContent:auditContent,auditName:auditName,auditAt:auditAt},
+			function(data){
+			
+			//	alert(data);
+			alert(JSON.parse(data).msg);
+			   $("#auditReject").removeAttr("disabled");	 
+			   $("#auditPass").attr("disabled",true);
+			}		);
+           
+           
+        });
+    });  
+	
+</script>
+
+		

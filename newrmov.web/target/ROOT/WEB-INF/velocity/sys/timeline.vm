@@ -1,0 +1,179 @@
+#set($layout="layout-empty.vm")
+<link rel="stylesheet" type="text/css" href="#springUrl('/res/js/jQueryTimeline/css/style.css')"></link>
+
+<div class="content">
+	<div class="wrapper">
+	<!--
+	<div class="light"><i></i></div>
+    <hr class="line-left">
+    <hr class="line-right">
+    -->
+    <div class="main">
+		<h1 class="title">bonoon框架更新日志</h1>
+		<div class="year">
+        <h2><a href="#">2015年<i></i></a></h2>
+        <div class="list">
+		  <ul>
+            <li class="cls highlight">
+              <p class="date">1月</p>
+              <p class="intro">更新bupUI前端插件</p>
+              <p class="version">1月15日（v1.0）</p>
+              <div class="more">
+                <p>更新自主开发的bupui前端插件到插件中</p>
+                <p>bupUI基于jQuery插件，立足bonoon团队10年来从事众多Web应用开发的经验，博采众长，历经沉淀，是一个提高开发效率的Web前端组件集合。</p>
+                <p>bupUI涵盖了平面布局、容器、导航和表单等功能</p>
+                <p>bupUI使用简单方便，极大地提高开发效率</p>
+                <p>bupUI还具有什么什么什么的特别。。。</p>
+                <p>bupUI还有什么什么什么功能，暂时说不完。。。</p>
+                <p>反正就是很厉害的样子。。。</p>
+                <img class="image" src='/res/images/bupUI.jpg' />
+              </div>
+            </li>
+            <li class="cls">
+              <p class="date">1月5日</p>
+              <p class="intro">应用最新框架到newrmov项目中</p>
+              <p class="version">1月5日（备注信息）</p>
+              <div class="more">
+                <p>项目的某些信息，没什么写了。。。</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="year">
+        <h2><a href="#">2013年<i></i></a></h2>
+        <div class="list">
+          <ul>
+            <li class="cls highlight">
+              <p class="date">12月</p>
+              <p class="intro">bonoon v3.0</p>
+              <p class="version">&nbsp;</p>
+              <div class="more">
+                <p>v3.0版本加入了****功能、优化了****功能。。。</p>
+              </div>
+            </li>
+            <li class="cls">
+              <p class="date">10月9日</p>
+              <p class="intro">bonoon v2.5</p>
+              <p class="version">&nbsp;</p>
+              <div class="more">
+                 <p>v2.5版本加入了****功能、优化了****功能。。。</p>
+              </div>
+            </li>
+            <li class="cls highlight">
+              <p class="date">7月</p>
+              <p class="intro">bonoon v2.0</p>
+              <p class="version">&nbsp;</p>
+              <div class="more">
+                <p>v2.0版本加入了****功能、优化了****功能。。。</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="year">
+        <h2><a href="#">2012年<i></i></a></h2>
+        <div class="list">
+          <ul>
+            <li class="cls">
+              <p class="date">8月5日</p>
+              <p class="intro">bonoon v1.5</p>
+              <p class="version">&nbsp;</p>
+              <div class="more">
+                <p>v1.5版本加入了****功能、优化了****功能。。。</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="year">
+        <h2><a href="#">2012年以前<i></i></a></h2>
+        <div class="list">
+          <ul>
+            <li class="cls">
+              <p class="date">&nbsp;</p>
+              <p class="intro">bonoon v1.0</p>
+              <p class="version">&nbsp;</p>
+              <div class="more">
+                <p>发布bonoon v1.0</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="year">
+        <h2><a href="#">2011年以前<i></i></a></h2>
+        <div class="list">
+          <ul>
+            <li class="cls">
+              <p class="date">&nbsp;</p>
+              <p class="intro">bonoon正式立项</p>
+              <p class="version">&nbsp;</p>
+              <div class="more">
+                <p>bonoon正式立项，开发人员有。。。</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+jQuery(function() {
+	jQuery(".year").toggleClass("close"); // 初始收起，去掉此行则默认初始展开全部
+	jQuery(".main .year .list").each(function (e, target) {
+		var $target=  $(target),
+		$ul = $target.find("ul");
+	    $target.height($ul.outerHeight()), $ul.css("position", "absolute");
+	});
+	jQuery(".main .year>h2>a").click(function (e) {
+	    e.preventDefault();
+	    $(this).parents(".year").toggleClass("close");
+	});
+	jQuery(".content .main .year .list ul li .more .image").click(function() {
+		jQuery('#div-kernel-dialog-loader').load('#springUrl('s/sys/timeline_img_dlg')', {src : $(this).attr('src')});
+		return false;
+	});
+	jQuery(".content .main .year .list ul li .more .image").each(function() {
+		if (!$.support.style && $.browser.msie && ($.browser.version == 6.0)) { // 浏览器为ie6
+			var imgWidth = $(this).width();
+			var imgHeight = $(this).height();
+			var maxHeight = maxWidth * imgHeight / imgWidth;
+			if (imgWidth > maxWidth) {
+				$(this).css("width", maxWidth).css("height", maxHeight);
+			}
+		} else {
+			resize_image($(this), 580, 380);
+		}
+	})
+
+});
+
+// 等比例缩放图片
+function resize_image(ImgD, FitWidth, FitHeight) {
+	var image = new Image();
+	image.src = ImgD.attr('src');
+	if (image.width > 0 && image.height > 0) {
+		if (image.width / image.height >= FitWidth / FitHeight) {
+			if (image.width > FitWidth) {
+				ImgD.attr('width', FitWidth);
+				ImgD.attr('height', (image.height * FitWidth) / image.width);
+			} else {
+				ImgD.attr('width', image.width);
+				ImgD.attr('height', image.height);
+			}
+		} else {
+			if (image.height > FitHeight) {
+				ImgD.attr('width', (image.width * FitHeight) / image.height);
+				ImgD.attr('height', FitHeight);
+			} else {
+				ImgD.attr('width', image.width);
+				ImgD.attr('height', image.height);
+			}
+		}
+	}
+}
+</script>

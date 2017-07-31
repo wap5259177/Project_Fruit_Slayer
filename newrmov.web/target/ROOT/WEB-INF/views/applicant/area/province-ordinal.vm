@@ -1,0 +1,54 @@
+<style>
+.num-ordinal{
+	width:60px;
+	margin-right:8px;
+	-moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: -moz-use-text-color -moz-use-text-color #000000;
+    border-image: none;
+    border-style: none none solid;
+    border-width: 0 0 1px;
+}
+.ordinal-item{
+	padding-top:12px;
+}
+</style>
+<form id="pro-ord-frm" method='post' action='save.submit'>
+<div style="padding:15px 0 0 40px;">
+<a href="javascript:void(null);" id="btn-pro-ord" >提交排序</a>
+</div>
+$!{maItems}
+</form>
+<script>
+jQuery(function(){
+	jQuery(".num-ordinal").bupnuminput();
+	jQuery(".btn-change-batch").bupabutton({flat:true});
+	jQuery("#btn-pro-ord").bupabutton({flat:true}).click(function(){
+		lock('正在保存排序...');
+		jQuery('#pro-ord-frm').bupform('submit', {
+			success:function(__resultData){
+				$.unblockUI();
+				__resultData = __ajaxSuccess(__resultData);
+				if(__resultData){
+					alert("排序保存成功！");
+				}
+			}
+		});
+	});
+});
+function changeBatch(id, batch){
+	if(confirm("是否确定要改变批次？")){
+		lock('正在改变批次...');
+		jQuery.post("batch.change",{id:id,batch:batch},function(__resultData){
+		$.unblockUI();
+				__resultData = __ajaxSuccess(__resultData);
+				if(__resultData){
+					window.location.reload();
+				}
+		});
+		return false;
+	}
+}
+</script>

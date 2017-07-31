@@ -1,0 +1,20 @@
+<tr>
+    <th  colspan="2" class="bbyshead">拆除危、旧、弃房情况</th>
+    <th  data-settings="chalign:'center',field:'cleanRubbish'" width="90" rowspan="2">清理垃圾数<br/>（吨）</th>
+    <th  data-settings="chalign:'center',field:'greenArea'" width="90" rowspan="2" >复绿面积<br/>（平方米）</th>
+    <th  data-settings="chalign:'center',field:'afforestationTree'" width="90" rowspan="2" >种植绿化树<br/>（颗）</th>
+    <th  data-settings="chalign:'center',field:'hardRoad'" width="90"  rowspan="2" >完成村、巷道<br/>硬底化数<br/>（公里）</th>
+    <th  data-settings="chalign:'center',field:'completeToilet'" width="90" rowspan="2">完成卫生<br/>改厕数<br/>（个）</th>
+    <th  data-settings="chalign:'center',field:'completeFacade'" width="90" rowspan="2">完成民居<br/>外立面改造数<br/>（户）</th>
+    <th  data-settings="chalign:'center',field:'rainShunt'" width="90" rowspan="2">铺设雨污<br/>分流管网<br/>（公里）</th>
+    <th  data-settings="chalign:'center',field:'sewageTreatment'" width="90" rowspan="2">建设污水<br/>处理设施<br/>（座）</th>
+    <th  data-settings="chalign:'center',field:'tapWater'" width="90" rowspan="2">铺设自来水管<br/>（公里）</th>
+    <th  data-settings="chalign:'center',field:'remark'" width="90" rowspan="2">备注</th>
+</tr>
+<tr>
+    <th  data-settings="chalign:'center',field:'dismantleOldHouseNum'" width="80"  >间数</th>
+    <th  data-settings="chalign:'center',field:'dismantleOldHouseArea'" width="100"  >面积（平方米）</th>
+</tr>
+
+     
+ 

@@ -1,0 +1,165 @@
+<style type="text/css">
+	//#module_list{margin-left:4px}
+	//.modules{float:left; width:200px; height:140px; margin:10px; overflow:hidden; border:1px solid #acc6e9; background:#e8f5fe}
+	.modules{float:left; width:70px; height:70px; margin:10px;}
+	//.m_title{height:24px; line-height:24px; background:#afc6e9}
+	#loader{height:24px; text-align:center}
+	.clear{clear:both}
+</style>
+
+<div class='bupborderlayout' data-settings="fit:true" style="padding:0;margin:0;">
+	<div data-settings="zone:'center'" border="true"><div class='buptab'  data-settings="fit:true,tabPosition:'left'" border="false">${hostmain}</div></div>
+	<div data-settings="zone:'east', iconClassname:'icon-ann', border:true" style='width:300px;' title='公告' >
+	
+		<table style="padding:0px;margin:0px;width:100%;">
+			$!{content}
+		</table>
+		<div style="text-align:right;margin:10px 0px 0px 0px;width:100%;">
+			<a onclick="jQuery('#div-kernel-dialog-loader').load(this.href);return false;" href="#springUrl('/s/')${key}!announcement.dlg">更多...</a>
+		</div>
+		
+	</div>
+	
+	<div id="update_shortcutmenus" style="width:130px;">
+		<div href="javascript:void(0)" title="">
+			<span>重命名</span>
+			<div class="bupmenuContent" style="text-align:left;padding:10px;font-size:12px;">
+				<div><span>新名称：</span><input id='update_name'/></div>
+	            <div style="padding-top:10px;" align='center'>
+	                <a href="javascript:void(0)" class="bupabutton" data-settings="flat:true" id='a_update_name'>确定</a>
+	            </div>
+	        </div>
+	    </div>
+	    <div class="bupmenuSeparator"></div>
+	    <div id='setsystem'>设为系统菜单</div>
+	    <div id='setsubsystem'>设为子系统菜单</div>
+	    <div class="bupmenuSeparator"></div>
+	    <div id='delete_menu'>删除快捷菜单</div>
+	</div>
+	
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	var itemEl = '$!{shortcutMenuType}' == 0 ? $('#setsystem')[0] : $('#setsubsystem')[0];
+	var item = $('#update_shortcutmenus').bupmenu('getItem', itemEl); // var item = $('#mm').bupmenu('findItem', 'Open');
+	jQuery('#update_shortcutmenus').bupmenu('disableItem', item.target);
+	
+	jQuery('#update_shortcutmenus').bupmenu({
+	    onClick : function(item) {
+	    	var item_id = item.id;
+	    	return item_id == 'setsystem' ? fn_update_module(0) : item_id == 'setsubsystem' ? fn_update_module(1) : item_id == 'delete_menu' ? fn_delete_menu() : false;
+	    }
+	});
+		
+	jQuery(".modules").bind('contextmenu', function(e) {//
+		if (e.which == 3) {
+			jQuery('#update_shortcutmenus').bupmenu('show', {
+				left : e.pageX,
+				top : e.pageY
+			});
+		}
+		var e_input = jQuery(this).find('input');
+		jQuery('#menu_id').val(jQuery(e_input).val()); // 实体id
+		jQuery('#update_name').val('');
+		return false;
+	});
+	
+	jQuery('#a_update_name').click(function() {
+		var name = jQuery('#update_name').val();
+		if (name != null && name != '') {
+			jQuery.ajax({
+				url : '/s/user/shortcutMenu/update/name',
+				type : 'post',
+				data : {id : jQuery('#menu_id').val(), name : name},
+				success : function(rd) {
+					if (typeof rd === "string")
+						rd = $.parseJSON(rd);
+					if(rd.error){
+						$.bupmsg.alert('提示', rd.msg, 'error');
+						return;
+					}
+					window.location.reload();
+				}
+			});
+		}
+		jQuery('#update_shortcutmenus').bupmenu('hide');
+		return false;
+	});
+	
+	jQuery(".modules").bind('mouseover',function(){
+		$(this).css("cursor","move")
+	});
+	jQuery("#module_list").sortable({
+		opacity : 0.6,
+		revert : true,
+		cursor : 'move', // crosshair
+		tolerance : 'pointer', // intersect
+		update : function(event, ui) {
+			var new_order = [];
+            jQuery(this).find('.menuId').each(function() {
+            	new_order.push(jQuery(this).val());
+            });
+			var newid = new_order.join(',');
+			jQuery.ajax({
+                url: '/s/user/shortcutMenu/update/ordinal',
+				type: 'post',
+                data: { ids: newid },
+                beforeSend: function() {
+                     jQuery('#loader').html("<img src='/res/images/load.gif' /> 正在更新...");
+                },
+                success : function(rd) {
+					if (typeof rd === "string")
+						rd = $.parseJSON(rd);
+					if(rd.error){
+						$.bupmsg.alert('提示', rd.msg, 'error');
+						return;
+					}
+					jQuery('#loader').html('');
+				}
+			});
+		}
+	});
+	
+});
+
+function fn_update_module(module_type) {
+	jQuery.ajax({
+		url : '/s/user/shortcutMenu/update/module',
+		type : 'post',
+		data : {id : jQuery('#menu_id').val(), type : module_type},
+		success : function(rd) {
+			if (typeof rd === "string")
+				rd = $.parseJSON(rd);
+			if(rd.error){
+				$.bupmsg.alert('提示', rd.msg, 'error');
+				return;
+			}
+			window.location.reload();
+		}
+	});
+	jQuery('#update_shortcutmenus').bupmenu('hide');
+	return false;
+}
+
+function fn_delete_menu() {
+	if (confirm('确定删除该快捷菜单？')) {
+		jQuery.ajax({
+			url : '/s/user/shortcutMenu/detele',
+			type : 'post',
+			data : {id : jQuery('#menu_id').val()},
+			success : function(rd) {
+				if (typeof rd === "string")
+					rd = $.parseJSON(rd);
+				if(rd.error){
+					$.bupmsg.alert('提示', rd.msg, 'error');
+					return;
+				}
+				window.location.reload();
+			}
+		});
+	}
+	jQuery('#update_shortcutmenus').bupmenu('hide');
+	return false;
+}
+</script>

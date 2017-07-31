@@ -1,0 +1,12 @@
+<table fit='true' fitColumns='true'
+	id='$!{grid.id}' 
+	toolbar="#$!{grid.toolbarId}"
+	$!{grid.attributes} 
+	url='$!{grid.url}'>
+	$!{grid.head}
+</table>
+<div id='$!{grid.toolbarId}'>
+	<a href="#" class="bupabutton" data-settings="flat:true" 
+		onclick="jQuery('#$!{grid.id}').bupgrid('unselectAll');return false;">取消选择</a>
+	$!{grid.toolbar}
+</div>

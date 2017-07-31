@@ -1,0 +1,68 @@
+<style >
+	body{ text-align:center} 
+</style>
+<div id="$di.id" $!{di.dialogAttributes}>
+<table class="editor" title="执行该操作将删除该项目包括该项目的月报资金" >
+<tr><th style="width:100px">授权者名称：
+	</th>
+	<td><input type="text" id="u-name" style="width:150px"/>
+	</td>
+</tr>
+<tr><th style="width:100px">授权者密码：
+	</th>
+	<td><input type="password" id="u-pwd" style="width:150px"/>
+	</td>
+</tr>
+
+</table>
+
+<ul  style="list-style:none" >
+		 <li  style="float:right"><a href="javascript:"   onclick="return doremove();" title='执行删除操作' id="optimizeMSG">删除</a></li>
+		 <li   style="float:right"><a href="javascript:" style="color:red"  onclick="return optimizeMSG();" title='显示删除作用' id="optimizeMSG">删除作用</a></li>
+	 </ul>
+</div>
+
+   <script>
+	jQuery(function(){
+		jQuery("#p-year,#p-month").bupnuminput();
+		jQuery("#btn-clear,#btn-remove").bupabutton({flat:true});
+	});
+	
+	function doremove(){
+	
+		if(!confirm("确定要删除村： [$raralName]  的项目： [$projectName] 吗?")){return ;}
+		var un = jQuery("#u-name").val();
+		var up = jQuery("#u-pwd").val();
+		
+		if('' === un){
+			alert("请输入授权者名称！");
+			return false;
+		}
+		if('' === up){
+			alert("请输入授权者密码！");
+			return false;
+		}
+		
+	
+		jQuery("#u-name,#u-pwd").val("");
+		
+		lock('正在删除[$projectName]...');
+		jQuery.post("index.delete",
+			{id:$id,un:un,up:up},
+			function(__resultData){
+				$.unblockUI();
+			var data =JSON.parse(__resultData);
+				alert(data.msg);
+			});
+		return false;
+	}
+		function optimizeMSG(){
+		
+		alert("将对项目进行删除包括该项目的月报资金");
+		}
+</script>
+
+
+
+
+

@@ -1,0 +1,16 @@
+<div class="applicant-form-main" style="height:400px">
+#if($readonly)
+#else
+<p style="color:red;font-size:14px;height:16px">请上传项目建设前图片</p>
+#end
+	<div class="applicant-form-title">连片示范建设工程项目库 </div>
+	#parse('applicant/areaproject-info.vm')
+</div>
+#if($readonly)
+
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery(".number").bupnuminput();
+});
+</script>
+#end

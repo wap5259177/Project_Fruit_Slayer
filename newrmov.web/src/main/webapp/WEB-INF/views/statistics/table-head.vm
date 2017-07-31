@@ -1,0 +1,39 @@
+ 	<th data-settings="chalign:'center',field:'arCount'" width="70" rowspan="3">行政村数</th>
+    <th data-settings="chalign:'center',field:'nrCount'" width="70" rowspan="3">自然村数</th>
+    <th data-settings="chalign:'center',field:'householdCount'" width="60" rowspan="3" >户数 </th>
+    <th data-settings="chalign:'center',field:'populationCount'" width="60" rowspan="3" >人数</th>
+    <th colspan="2" >完成村庄整治规划情况</th>
+    <th data-settings="chalign:'center',field:'needFinish2'" width="60" rowspan="3">通自来<br/>水自然<br/>村数<br/>（个）</th>
+    <th data-settings="chalign:'center',field:'needFinish3'" width="60" rowspan="3">完成卫<br/>生改厕<br/>所自然<br/>村数<br/>（个）</th>
+    <th data-settings="chalign:'center',field:'needFinish4'" width="60" rowspan="3">完成道<br/>路硬化<br/>建设自<br/>然村数<br/>（个）</th>
+    <th data-settings="chalign:'center',field:'needFinish5'" width="70" rowspan="3">完成民居<br/>外立面特<br/>色改造的<br/>自然村数<br/>（个）</th>
+    <th colspan="3" >环境卫生综合整治情况</th>
+    <th colspan="2">项目</th>
+    <th colspan="9" >资金投入情况（万元）</th>
+    <th data-settings="chalign:'center',field:'needFinish9'" width="80" rowspan="3">已成立村<br/>民理事会<br/>并制定了<br/>村规民约<br/>和章程的<br/>自然村数<br/>（个）</th>
+      
+   </tr> <tr>
+    <th data-settings="chalign:'center',field:'arFinishPlan'" width="75" rowspan="2">行政村<br/>有编制<br/>规划设<br/>计村数<br/>（个）</th>
+    <th data-settings="chalign:'center',field:'needFinish1'" width="75" rowspan="2">自然村<br/>有编制<br/>规划设<br/>计村数<br/>（个）</th>
+    <th data-settings="chalign:'center',field:'needFinish6'" width="80" rowspan="2">完成卫<br/>生整治及<br/>建立保洁<br/>队和长效<br/>机制的自<br/>然村数<br/>（个）</th>
+    <th data-settings="chalign:'center',field:'needFinish7'" width="80" rowspan="2">实行雨污<br/>分流并建<br/>有污水处<br/>理设施自<br/>然村数<br/>（个）</th>
+    <th data-settings="chalign:'center',field:'needFinish8'" width="70" rowspan="2">实行人<br/>畜分离<br/>（集中<br/>圈养）<br/>的自然<br/>村数<br/>（个）</th>
+    <th data-settings="chalign:'center',field:'startProject'" width="70" rowspan="2">已启动<br/>项目<br/>个数（个）<br/>（个）</th>
+    <th data-settings="chalign:'center',field:'finishProject'" width="70" rowspan="2">其中已<br/>竣工项<br/>目个数<br/>（个）<br/></th>
+   
+    <th data-settings="chalign:'center',field:'totalFunds'" width="80" rowspan="2">累计投<br/>入资金<br/>总数</th>
+   
+    </tr> <tr>
+    
+   
+    <th data-settings="chalign:'center',field:'stateFunds'" width="70">1.中央<br/>财政<br/>资金</th>
+    <th data-settings="chalign:'center',field:'specialFunds'" width="70">2.省级<br/>新农村<br/>示范片<br/>建设补<br/>助资金</th>
+    <th data-settings="chalign:'center',field:'provinceFunds'" width="70">3.其他<br/>省级<br/>财政<br/>资金</th>
+    <th data-settings="chalign:'center',field:'cityFunds'" width="70">4.市级<br/>财政<br/>资金</th>
+    <th data-settings="chalign:'center',field:'countyFunds'" width="70">5.县级<br/>财政<br/>资金</th>
+    <th data-settings="chalign:'center',field:'socialFunds'" width="70">6.社会<br/>投入<br/>资金</th>
+    <th data-settings="chalign:'center',field:'massFunds'" width="70">7.群众<br/>自筹<br/>资金</th>
+    <th data-settings="chalign:'center',field:'otherFunds'" width="70">8.其它<br/>方面的<br/>资金</th>
+    
+     
+ 

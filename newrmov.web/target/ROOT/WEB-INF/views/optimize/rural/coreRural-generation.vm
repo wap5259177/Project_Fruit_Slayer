@@ -1,0 +1,38 @@
+<!--点击主体村显示的内容-->
+<div id='show_ac' >
+	
+	#foreach($it in $acs)
+		<div class='ma_icon' >
+			<a href='#' onclick='acClick($it.id);'>$it.name</a>
+		</div>
+	#end
+	
+	
+</div>
+
+
+
+<style type="text/css">
+	.ma_icon{
+		border:1px solid red;
+		float:left;
+		width:100px;
+		height:100px;
+		margin:20px 50px;
+		vertical-align:middle;
+	}
+</style>
+<script type='text/javascript'>
+	$(function(){
+		//alert('d');
+	});
+	
+	function acClick(_id){
+		$('#type').val($type);
+		$('#show_ac').html('');
+		$("#show_area").load("ac.generation",{id:_id});
+		
+	}
+	
+	
+</script>

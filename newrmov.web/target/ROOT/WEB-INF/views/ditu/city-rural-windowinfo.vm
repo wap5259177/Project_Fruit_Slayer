@@ -1,0 +1,40 @@
+#set($layout="layout-empty.vm")
+<div>
+
+	<!--
+	#if($ruralPoint)
+		<h1 >村子简介:</h1>
+	#else
+		<h1 >片区简介:</h1>
+	#end
+	<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id='ma_describe'>$ruralPoint.describe</span>
+	<hr style='color:green;'/>
+	
+	<h1 >宣传图片:</h1>
+	<a href='#'>
+		<img  name='_img' style='width:150px;height:100px' src='$!{pic}' title='$ruralPoint.title' onclick='_show(this)'/>
+	</a>
+	<hr style='color:green;'/>
+	-->
+	
+	<div>
+		<a href='#'>
+			<img  name='_img' style='max-width:200px;max-height:150px;float:left; margin-right:10px;margin-bottom:10px;' src='$!{pic}' title='$ruralPoint.title' onclick='_show(this)'/>
+		</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$ruralPoint.describe 
+	</div>
+	
+</div>
+
+
+<script type="text/javascript">
+
+	jQuery(function(){
+		//alert('$pic');//	/upload/modelarea/area_1/other/7CE1E10F6AA7A3CE36FC32C657CAF4B7.png
+		//alert('$ruralPoint.title');
+	});
+	function _show(obj){
+		//alert('呵呵..');
+	}
+</script>

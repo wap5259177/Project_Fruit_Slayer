@@ -1,0 +1,33 @@
+
+<div id='show_ac' >
+	#foreach($it in $indstries)
+		<div class='ma_icon' >
+			<a href='#' onclick='indsClick($it[0]);'>$it[1]</a>
+		</div>
+	#end
+</div>
+
+
+
+<style type="text/css">
+	.ma_icon{
+		border:1px solid red;
+		float:left;
+		width:100px;
+		height:100px;
+		margin:20px 50px;
+		vertical-align:middle;
+	}
+</style>
+<script type='text/javascript'>
+	$(function(){
+		//alert('d');
+	});
+	
+	function indsClick(_id){
+		$('#show_ac').html('');
+		$("#show_area").load("inds.info",{indsId:_id});
+	}
+	
+	
+</script>

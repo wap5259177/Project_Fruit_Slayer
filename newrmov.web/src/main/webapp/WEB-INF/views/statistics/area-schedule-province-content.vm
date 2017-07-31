@@ -1,0 +1,88 @@
+﻿#set($layout="layout-empty.vm")
+<style>
+	#sms_tab{border:solid 1px gray;}
+	#sms_tab tr {border-color:#fff;}
+	#sms_tab tbody tr:hover{background-color:#c0ebd7;}
+	#_tbody tr:first-child td{font-size:16px !important;font-weight:bold;}
+</style>
+<style> 
+.divcss5-left{float:right;width:250px;height:50px;margin-top:-70px} 
+</style> 
+$!excel
+$!{error} 
+
+<div style="margin-top:20px;font-size:30px;text-align:center;font-weight:600;color:#6699cc;">第$!{batchName1}批<font style="font-size:30px" color="green">$!{nowQuaryPeriod}</font>省级新农村连片示范建设工程进展情况统计表</div>
+	<div style="font-size:16px;text-align:center;color:green;margin-top:10px;">（统计截止时间：$!{deadline}）</div>
+<div>
+<table id='sms_tab' class="bbys" width='2500px'>
+	<thead bgcolor="#f5f5f5">
+		<tr style="text-align:center;">
+		    <td rowspan='3'>示范片区所在市县名称</td>
+			<td rowspan='3'>行政村数</td>
+			<td rowspan='3'>自然村数</td>
+			<td rowspan='3'>户数</td>
+			<td rowspan='3'>人数</td>
+			
+			<td colspan='2'>完成村庄整治规划情况</td>
+			
+			<td rowspan='3'>通自来水<br/>自然村数（个）</td>
+			<td rowspan='3'>完成卫生改<br/>厕所自然村数（个）</td>
+			<td rowspan='3'>完成道路硬化<br/>建设自然村数（个）</td>
+			<td rowspan='3'>完成民居<br/>外立面特色改造的<br/>自然村数（个）</td>
+			
+			<td colspan='3'>环境卫生综合整治情况</td>
+
+			<td colspan='2'>项目</td>
+
+			<td colspan='9' rowspan='2'>资金投入情况（万元）</td>
+			
+			<td rowspan='3'>已成立村民理事会<br/>并制定了村规民约和<br/>章程的自然村数（个）</td>
+			<td rowspan='3' style="padding:0 15px;border:none;background-color:#fff;"></td>
+		</tr>
+		<tr style="text-align:center">
+			<td rowspan='2'>行政村<br/>有编制规划<br/>设计村数（个）</td>
+			<td rowspan='2'>自然村<br/>有编制规划<br/>设计村数（个）</td>
+		    
+			<td rowspan='2'>完成卫生整治<br/>及建立保洁队和<br/>长效机制的自然村数（个）</td>
+			<td rowspan='2'>实行雨污分流<br/>并建有污水处理<br/>设施自然村数（个）</td>			
+			<td rowspan='2'>实行人畜分离<br/>（集中圈养）的<br/>自然村数（个）</td>
+			<td rowspan='2'>已启动项目<br/>个数（个）</td>
+			<td rowspan='2'>其中已竣工<br/>项目个数（个）</td>
+		</tr>
+		<tr style="text-align:center">
+		   
+			<td>累计投入资金<br/>总数</td>
+			<td>1.中央财政<br/>资金</td>
+			<td>2.省级新农村示范<br/>片建设补助资金</td>
+			<td>3.其他省级<br/>财政资金</td>
+			<td>4.市级财政<br/>资金</td>
+			<td>5.县级财政<br/>资金</td>
+			<td>6.社会投入<br/>资金</td>
+			<td>7.群众自筹<br/>资金</td>
+			<td>8.其他方面<br/>资金</td>
+			
+		</tr>
+	</thead>
+		<tbody id='_tbody'>$!{jsContent}</tbody>
+		<!--<tr style="text-align:center;">$!{jsContent}</tr>-->
+		
+</table>
+</div>
+
+<script type='text/javascript'>
+jQuery(function(){
+	#if($error!='')
+	alert($error);
+	#end
+	#if($isLast==0)
+		alert($msg);
+		
+		 $("#annual").val($batch.quarter.annual);
+		  $("#period").val($batch.quarter.period);
+	#end
+	$("#sms_tab tbody tr").click(function(){
+		$("#sms_tab tbody tr").attr('style','text-align:center');
+		$(this).attr("style","background-color:#99ccff;text-align:center");
+	});
+});
+</script>

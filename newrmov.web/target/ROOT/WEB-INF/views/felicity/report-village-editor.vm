@@ -1,0 +1,33 @@
+#parse('felicity/report-village-view.vm')
+<script type='text/javascript'>
+jQuery(function() {
+	//number
+	$('.number').each(function(i, v){
+		var vf = v.value;
+		if(!$.isNumeric(vf) || vf == 0){
+			v.value = "";
+		}
+	}).bupnuminput();
+	$('.i-funds').bupnuminput({
+   		 onChange:function(){
+			var tc = 0;
+			$('.i-funds').each(function(i, v){
+				var vf = jQuery(v).bupnuminput('getValue');
+				if($.isNumeric(vf)){
+					tc += vf - 0;
+				}
+			});
+			$('#fundsTotal').bupnuminput('setValue', tc);
+		}      
+	});
+});
+
+function _checkNumber(){
+	$('.number').each(function(i, v){
+		var vf = jQuery(v).bupnuminput('getValue');
+		if(!$.isNumeric(vf)){
+			jQuery(v).bupnuminput('setValue', '0');
+		}
+	});
+}
+</script>

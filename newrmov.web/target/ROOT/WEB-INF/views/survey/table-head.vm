@@ -1,0 +1,15 @@
+    <th data-settings="chalign:'center',field:'agriculturalHousehold'" width="80">1.农业户数<br/>（户）</th>
+    <th data-settings="chalign:'center',field:'agriculturalPopulation'" width="80">2.农业人口<br/>数（人）</th>
+    <th data-settings="chalign:'center',field:'villageCommittee'" width="80">3.建制行政<br/>村或居委会<br/>(个)  </th>
+    <th data-settings="chalign:'center',field:'naturalVillage'" width="80">4.20户以上<br/>自然村<br/>（个）</th>
+    <th data-settings="chalign:'center',field:'villagePlanning'" width="80">5.已完成村<br/>庄规划的自<br/>然村（条）</th>
+    <th data-settings="chalign:'center',field:'unifiedStyle'" width="80">6.外立面统<br/>一装饰风格<br/>风貌的自然<br/>村（条）</th>
+    <th data-settings="chalign:'center',field:'hardBottom'" width="80">7.已实现村<br/>巷道硬底化<br/>的自然村<br/>(条)</th>
+    <th data-settings="chalign:'center',field:'tapWater'" width="80">8.已实现村<br/>村通自来水<br/>的自然村<br/>（条）</th>
+    <th data-settings="chalign:'center',field:'spcvgb'" width="80">9.建有小公<br/>园、文化活<br/>动场所或绿<br/>化带的自然<br/>村（条）</th>
+    <th data-settings="chalign:'center',field:'villageRenovation'" width="80">10.已完成<br/>村容村貌整<br/>治的自然村<br/>（条）</th>
+    <th data-settings="chalign:'center',field:'cleaningTeam'" width="80">11.建有卫<br/>生保洁队伍<br/>的自然村<br/>（条）</th>
+    <th data-settings="chalign:'center',field:'rainSewageDiversion'" width="80">12.已实行<br/>雨污分流的<br/>自然村<br/>（条）</th>
+    <th data-settings="chalign:'center',field:'sewageTreatment'" width="80">13.建有人<br/>工湿地、厌<br/>氧池、沼气<br/>池等处理生<br/>活污水的自<br/>然村（条）</th>
+    <th data-settings="chalign:'center',field:'livestockConcentratedCaptive'" width="80">14.实行畜<br/>禽集中圈养<br/>、人畜分离<br/>的自然村<br/>（条）</th>
+    <th data-settings="chalign:'center',field:'villagerCouncil'" width="80">15.健全村<br/>规民约、章<br/>程及村民理<br/>事会的自然<br/>村（条）</th>

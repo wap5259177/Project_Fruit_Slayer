@@ -1,0 +1,45 @@
+需要处理的片区：
+多出几个行政村的情况：
+登录名  登录密码  ownerid         片区的ID   用户的ID
+M21   admin      441421000000      29         232
+P21   admin      441621000000      13         245
+
+删除行政村时，与行政村相关的表： T_RURALUNIT、 T_RURALWORKGROUP、 T_RURALEXPERTGROUP
+
+M21 需要删除的行政村包括：
+2226   塘心村委会  对应正常记录的ID： 247   T_RURALUNIT 没有记录  T_RURALWORKGROUP 没有记录  T_RURALEXPERTGROUP 没有记录
+2227   阴那村委会  对应正常记录的ID： 246   T_RURALUNIT 没有记录  T_RURALWORKGROUP 没有记录  T_RURALEXPERTGROUP 没有记录
+2228   南福村委会  对应正常记录的ID： 248   T_RURALUNIT 没有记录  T_RURALWORKGROUP 没有记录  T_RURALEXPERTGROUP 没有记录
+
+P21 需要删除的行政村包括：
+2222   横排村委会  对应正常记录的ID： 225   T_RURALUNIT 没有记录  T_RURALWORKGROUP 没有记录  T_RURALEXPERTGROUP 没有记录
+2225   下石村委会  对应正常记录的ID： 226   T_RURALUNIT 没有记录  T_RURALWORKGROUP 没有记录  T_RURALEXPERTGROUP 没有记录
+2224   仁里村委会  对应正常记录的ID： 251   T_RURALUNIT 没有记录  T_RURALWORKGROUP 没有记录  T_RURALEXPERTGROUP 没有记录
+2223   凤民村委会  对应正常记录的ID： 1563  T_RURALUNIT 没有记录  T_RURALWORKGROUP 没有记录  T_RURALEXPERTGROUP 没有记录
+
+惠州 博罗 需要删除的行政村包括： 441322000000  228  L22
+101 -> 727 澜石村民委员会
+119 -> 729 新作塘村民委员会
+135 -> 725 埔筏村民委员会
+164 -> 726 松树岗村民委员会
+174 -> 728 郭前村民委员会
+
+需要删除项目及对应的月报
+登录名  登录密码  ownerid         片区的ID   用户的ID
+W22  7590268    445322000000       10         276
+
+
+需要删除人居环境信息的
+潮州市潮安县   U21  263  445121000000  9  
+不要删除的： 市头村、鹳四村、银湖村、井里村、大吴村
+
+
+云浮市郁南县  需要删几个非主体村  445322000000   276   W22
+清二村委会  挖埂村   id(244)  多个
+双龙村委会  细寨村   id(245)  一个
+均荣村委会  均一村   id(246)  一个
+虎岩村委会  长洲村   id(248)  多个
+
+
+F24  多出几个产业发展的无效数据
+168  440224000000  韶关市仁化县

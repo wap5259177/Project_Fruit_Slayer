@@ -1,0 +1,18 @@
+@CHARSET "UTF-8";
+/*= Reset =*//* 代码整理：大头网 www.datouwang.com */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,p,blockquote,th,td,figure{margin:0;padding:0;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+ul li{list-style:none;}
+body{font:normal 14px/24px "Helvetica Neue",Helvetica,STheiti,"Microsoft Yahei","冬青黑体简体中文 w3",宋体,Arial,Tahoma,sans-serif,serif;word-wrap:break-word;background: #F0F0F0;overflow:auto;}
+a { text-decoration:none;color:#1C3D72 }
+img{-ms-interpolation-mode:bicubic;}
+#content{width:100%;background:#F0F0F0;}
+.box { width:100%;margin:0 auto 0 auto; }
+.event_list { width:100%;float:left;background:url('images/dian3.png') 70px 0 repeat-y;margin:10px 0 20px 0; }
+.event_list h3 { margin:0 0 10px 62px;font-size:24px;font-family:Georgia;color:#0066ff;padding-left:25px;background:url('images/jian.png') 0 -45px no-repeat;height:38px;line-height:30px;font-style:italic; }
+.event_list li { background:url('images/jian.png') 67px -80px no-repeat; }
+.event_list li span {display:block;float:left;margin-top:10px; }
+.event_list li p { width:190;padding-left:10px;display:inline-block;background:url('images/jian.png') -21px 0 no-repeat;line-height:15px;_float:left; }
+.event_list li p span { width:190px;text-align:left;border-bottom:2px solid #DDD;padding:0px 0px;background:#FFF;margin:0; }
+
+/* 代码整理：大头网 www.datouwang.com */

@@ -1,0 +1,284 @@
+<div id="$di.id" title="产业发展" align="center" style="overflow:auto;font-size:14px;width:700px;height:550px;" buttons="#${di.id}-buttons" modal='true'>
+<p><h3 align="center">产业发展</h3></p>
+<form id="industry">
+<!-- 项目ID -->
+<input type='hidden' id='id' name='id' value='$!{id}' >
+<!-- 片区名 -->
+<input type='hidden' value='$!{area_name}' >
+<!-- 片区ID -->
+<input type='hidden' name='modelarea' value='$!{area_id}' >
+&nbsp;&nbsp;&nbsp;&nbsp;填报日期：<input type='text' id='reportAt' value='$!{form.reportDate}' name='reportDate' />
+<table class='indDev' style='width:650px;' border="1" >
+		<tr>
+			<td>序号</td>
+			<td>-</td>
+			<td>村名称</td>
+			<td id="place"></td>
+		</tr>
+		<tr>
+			<td>村属性</td>
+			<td>
+				<input style='width:20px' type='radio' checked='check' value='主体村' name='villageFea' />主体村<br />
+				<input style='width:20px' type='radio' value='非主体村' name='villageFea' />非主体村
+			</td>
+			<td>专业合作社名称</td>
+			<td>
+				<input type='text' value='$!{form.coopName}' name='coopName' />
+			</td>
+		</tr>
+		<tr>
+			<td>负责人姓名</td>
+			<td>
+				<input type='text' value='$!{form.leaderName}' name='leaderName' />
+			</td>
+			<td>负责人手机</td>
+			<td>
+				<input type='text' value='$!{form.leaderPhone}' name='leaderPhone' />
+			</td>
+		</tr>
+		<tr>
+			<td>成员总户数</td>
+			<td>
+				<input type='text' value='$!{form.memberHous}' name='memberHous' />户
+			</td>
+			<td>带动非成员户数</td>
+			<td>
+				<input type='text' value='$!{form.nonMemberHous}' name='nonMemberHous' />户
+			</td>
+		</tr>
+		<tr>
+			<td>注册资金</td>
+			<td>
+				<input type='text' value='$!{form.registerFunds}' name='registerFunds' />万元
+			</td>
+			<td>主要经营范围</td>
+			<td>
+				<input style='width:20px' id='c1' type='checkbox' checked='check' value='种植业' name='businessScope' />种植业
+				<input style='width:20px' id='c2' type='checkbox' value='畜牧业' name='businessScope' />畜牧业
+				<input style='width:20px' id='c3' type='checkbox' value='渔业' name='businessScope' />渔业<br />
+				<input style='width:20px' id='c4' type='checkbox' value='林业' name='businessScope' />林业&nbsp;&nbsp;
+				<input style='width:20px' id='c5' type='checkbox' value='服务业' name='businessScope' />服务业
+				<input style='width:20px' id='c6' type='checkbox' value='手工业' name='businessScope' />手工业<br />
+				<input style='width:20px' id='c7' type='checkbox' value='其它' name='businessScope' />其它
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>拥有使用农产品质量认证数</td>
+			<td colspan='2'>
+				<input type='text' value='$!{form.agriculPros}' name='agriculPros' />个
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>无公害农产品产地认定个数</td>
+			<td colspan='2'>
+				<input type='text' value='$!{form.freePollution}' name='freePollution' />个
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>特色产品名称(填主要的一种)</td>
+			<td colspan='2'>
+				<input type='text' value='$!{form.specialProduct}' name='specialProduct' />
+			</td>
+		</tr>
+</table>
+</form>
+</div>
+<div id="${di.id}-buttons">
+	<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<style type="text/css">
+table.indDev{
+	font-size:16px;
+	width: 880px;
+	border-width: 1px;
+	border-color: #000000;
+	border-collapse: collapse;
+	margin: auto;
+}
+table.indDev td{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+	padding-left:4px;
+}
+table.indDev tr td input{
+	width:80px;
+	border:0px;
+	text-align:center;
+	border-bottom: solid 1px #000000;
+	color: #000000;
+	font-size:15px;
+	background-color: #ffffff;
+	padding:0 0 5px 0;
+}
+</style>
+
+<script type='text/javascript'>
+	jQuery(function() {
+	
+		$('#industry input, textarea, checkbox').attr('disabled', true);
+	
+		//出来主要经营范围多选框
+		deal_checkboxes();
+	
+		//设置村的下拉列表
+		$('#place').val($!{vId});
+		var villageProperty = '$!{form.villageFea}';
+		if(villageProperty == '') {
+		} else if($('input[name = "villageFea"]:checked').val() != villageProperty) {
+			$('input[name = "villageFea"]:eq(1)').attr("checked", true);
+		}
+		$('#reportAt').bupdateinput({});
+		
+		jQuery('#a_close, #a_submit, #a_save').bupabutton({flat : true});
+		
+		jQuery('#a_submit').click(function() {
+		
+		
+		$.ajax({
+            url : 'industry/save',
+            type : "post",
+            data : $('#industry').serialize(),
+            error : function(request) {
+                alert("error");
+            },
+            success : function(data) {
+				$('#${di.id}').bupdlg('close');
+        		alert('提交成功');
+				jQuery('#indDev').bupgrid('reload');
+            }
+        });
+	});
+	});	
+	
+	function deal_checkboxes() {
+		var bs= '$!{form.businessScope}'
+		var bses = bs.split(',');
+		var c1 = $("#c1").attr("value");
+		var c2 = $("#c2").attr("value");
+		var c3 = $("#c3").attr("value");
+		var c4 = $("#c4").attr("value"); 
+		var c5 = $("#c5").attr("value");
+		var c6 = $("#c6").attr("value");
+		var c7 = $("#c7").attr("value");
+		
+		c1 == bses[0]?$("[id='c1']").attr("checked", true):$("[id='c1']").attr("checked", false);
+		if(c2 == bses[0]) {
+			$("[id='c2']").attr("checked", true);
+		} else if(c2 != bses[0]) {
+			if(c2 == bses[1]) {
+				$("[id='c2']").attr("checked", true);
+			} else {
+				$("[id='c2']").attr("checked", false);
+			}
+		}
+		if(c3 == bses[0]) {
+			$("[id='c3']").attr("checked", true);
+		} else if(c3 != bses[0]) {
+			if(c3 == bses[1]) {
+				$("[id='c3']").attr("checked", true);
+			} else if(c3 != bses[1]) {
+				if(c3 == bses[2]) {
+					$("[id='c3']").attr("checked", true);
+				} else {
+					$("[id='c3']").attr("checked", false);
+				}
+			}
+		}
+		if(c4 == bses[0]) {
+			$("[id='c4']").attr("checked", true);
+		} else if(c4 != bses[0]) {
+			if(c4 == bses[1]) {
+				$("[id='c4']").attr("checked", true);
+			} else if(c4 != bses[1]) {
+				if(c4 == bses[2]) {
+					$("[id='c4']").attr("checked", true);
+				} else if(c4 != bses[2]) {
+					if(c4 == bses[3]) {
+						$("[id='c4']").attr("checked", true);
+					} else {
+						$("[id='c4']").attr("checked", false);
+					}
+				}
+			}
+		}
+		if(c5 == bses[0]) {
+			$("[id='c5']").attr("checked", true);
+		} else {
+			if(c5 == bses[1]) {
+				$("[id='c5']").attr("checked", true);
+			} else {
+				if(c5 == bses[2]) {
+					$("[id='c5']").attr("checked", true);
+				} else {
+					if(c5 == bses[3]) {
+						$("[id='c5']").attr("checked", true);
+					} else {
+						if(c5 == bses[4]) {
+							$("[id='c5']").attr("checked", true);
+						} else {
+							$("[id='c5']").attr("checked", false);
+						}
+					}
+				}
+			}
+		}
+		if(c6 == bses[0]) {
+			$("[id='c6']").attr("checked", true);
+		} else {
+			if(c6 == bses[1]) {
+				$("[id='c6']").attr("checked", true);
+			} else {
+				if(c6 == bses[2]) {
+					$("[id='c6']").attr("checked", true);
+				} else {
+					if(c6 == bses[3]) {
+						$("[id='c6']").attr("checked", true);
+					} else {
+						if(c6 == bses[4]) {
+							$("[id='c6']").attr("checked", true);
+						} else {
+							if(c6 == bses[5]) {
+								$("[id='c6']").attr("checked", true);
+							} else {
+								$("[id='c6']").attr("checked", false);
+							}
+						}
+					}
+				}
+			}
+		}
+		if(c7 == bses[0]) {
+			$("[id='c7']").attr("checked", true);
+		} else {
+			if(c7 == bses[1]) {
+				$("[id='c7']").attr("checked", true);
+			} else {
+				if(c7 == bses[2]) {
+					$("[id='c7']").attr("checked", true);
+				} else {
+					if(c7 == bses[3]) {
+						$("[id='c7']").attr("checked", true);
+					} else {
+						if(c7 == bses[4]) {
+							$("[id='c7']").attr("checked", true);
+						} else {
+							if(c7 == bses[5]) {
+								$("[id='c7']").attr("checked", true);
+							} else {
+								if(c7 == bses[6]) {
+									$("[id='c7']").attr("checked", true);
+								} else {
+									$("[id='c7']").attr("checked", false);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+</script>

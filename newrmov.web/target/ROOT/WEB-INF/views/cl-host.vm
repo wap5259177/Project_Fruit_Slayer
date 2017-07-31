@@ -1,0 +1,40 @@
+#set($layout="layout-empty.vm")
+<!-- 示范片区建设 -->
+<!-- 上报通知 -->
+<div class="bupborderlayout" style="width:100%;height:50%;"  >
+	<div data-settings="zone:'west',split:true,collapsible:false"  title="示范片区建设" style="width:450px;height:250px;padding:10px">
+		<div style="overflow:auto" id="cl-ma-show">
+			$!{msg}
+			#if($showDetail)
+				<div id="load-ma-detail-items" style="padding-top:10px;"></div>
+				<a href="#springUrl('/s/cl/after.ma')" onclick="jQuery('#load-ma-detail-items').load(this.href);jQuery(this).hide();return false;">查看主体建设村情况</a>
+			#end
+		</div>
+	</div>
+	<div data-settings="zone:'center'" title="上报通知" style="padding:10px;overflow:auto"  ><!--fit="true"-->
+		<div height='100px' width='100px' style=''>
+			<div class='embed-content-title'>$quarterTitle</div>
+			<div style="padding:10px 30px ;">$reportMessage<br></div>
+			<div style="padding:10px 30px;">$urgeMessage</div>
+		</div>
+		<hr color='#3399CC'>
+		<div>
+			<div>$!{rimsg}</div>
+		</div>
+	</div>
+</div>
+<div class="bupborderlayout" style="width:100%;height:50%;" >
+	<div data-settings="zone:'west',split:true,collapsible:false"  title="幸福村居" style="width:450px;height:250px;padding:10px">
+		<div style="overflow:auto" id="cl-fv-show">${fcmsg}</div>
+	</div>
+	<div data-settings="zone:'center'" title="名村名镇" style="padding:10px;overflow:auto">
+		<div>${vcmsg}</div>
+	</div>
+</div>
+<script type='text/javascript'>
+jQuery(function(){
+	#if($aaa==0)
+		alert("请填写信息专员信息");
+	#end
+});
+</script>

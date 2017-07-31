@@ -1,0 +1,193 @@
+<div id="_1_0" style="height:450px;">
+	<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:0;overflow:hidden;">
+		$!{title}
+		<div style="font-size:16px;margin:0 auto;">$!{titleTime}</div>
+	</div>
+	<div data-settings="zone:'center',border:false">
+		<style>
+		table.editor tr, table.editor-line tr, table.simplegrid tr{
+			height:auto;
+		}
+		</style>
+		<table id="_1_1" data-settings="
+		        url: '$!{form.id}!data.node',
+		        showRownum: true,
+		        idField: 'id',
+		        treeField: 'name',
+		        showPagebar: false,
+		        fit:true
+		    "> 
+			<thead data-settings="frozen:true">
+				<tr>
+					<th data-settings="chalign:'center',field:'id',width:180,chalign:'center',formatter:f">操作</th>
+					<th data-settings="chalign:'center',field:'name'" width="250">示范片所在<br/>市县名称</th>
+				</tr>
+			</thead>
+			<thead>
+			 <tr>
+			 	
+				<th data-settings="chalign:'center',field:'constructionArea'" width="180">示范片覆盖面积</th>
+				<th data-settings="chalign:'center',field:'households'" width="180">户数</th>
+				<th data-settings="chalign:'center',field:'population'" width="180">人口数</th>
+			  </tr>
+			</thead>
+		</table>
+	</div>
+</div>
+
+<div id='loadTable' style='display:hidden'></div>
+<script>
+function f(value,row,index){
+	var btns = "";
+	var id = row.id;
+	if(id>0){
+		btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return showTable1(" + row.id + ");'>表1</a>";
+		btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return showTable2(" + row.id + ");'>表2</a>";
+		btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return showTable3(" + row.id + ");'>表3</a>";
+	}else{
+		if(row.status==4){
+			btns += "<a hef='#' class='cls-btn'  style='padding-right:10px;'  onclick='return back(" + row.id + ");'>退回</a>";
+			btns += "<a hef='#' class='cls-btn' style='padding-right:10px;'  onclick='return pase(" + row.id + ");'>通过</a>";
+		}
+	}
+	return btns;
+}
+
+function showTable1(id){
+	//alert('1');
+	//jQuery('#div-kernel-dialog-loader').
+	$("#loadTable").load("/s/base/fv/felicityvillage/table1.htm?id="+id);
+	//localhost:83/s/base/fv/felicityvillage/table1.htm
+}
+function showTable2(id){
+	$("#loadTable").load("/s/base/fv/table2.htm?id="+id);
+}
+function showTable3(id){
+	$("#loadTable").load("/s/base/fv/table3.htm?id="+id);
+}
+
+
+function back(id){
+	var id = -id;
+	if(confirm("是否确定进行退回？")){
+		lock("开始退回...");
+		jQuery.get(
+			id + "!report.back", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+
+function pase(id){
+	var id = -id;
+	if(confirm("是否确定进行通过？")){
+		lock("开始退回...");
+		jQuery.get(
+			id + "!report.pase", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+
+
+
+function cc(id){
+	if(confirm("是否确定进行退回？")){
+		lock("开始退回...");
+		jQuery.get(
+			id + "!report.back", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+function ban(id){
+	if(confirm("是否确定进行禁止上报？")){
+		lock("开始禁止上报...");
+		jQuery.get(
+			id + "!report.ban", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+function regain(id){
+	if(confirm("是否确定进行恢复上报？")){
+		lock("开始恢复上报...");
+		jQuery.get(
+			id + "!report.regain", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+function unlock(id){
+	if(confirm("是否确定解锁恢复上报？")){
+		lock("开始恢复上报...");
+		jQuery.get(
+			id + "!report.unlock", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+
+jQuery(function(){
+	jQuery("#_1_0").bupborderlayout();
+	jQuery("#_1_1").buptreegrid({
+		onLoadSuccess : function(data, param) {
+			$('a.cls-btn').bupabutton({
+				flat: true,
+				borderedflat: false
+			});
+		}
+	});
+	
+	
+	
+});
+</script>

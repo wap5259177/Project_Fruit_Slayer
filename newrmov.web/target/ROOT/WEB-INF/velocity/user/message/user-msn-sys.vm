@@ -1,0 +1,48 @@
+#set($layout="layout-empty.vm")
+<div id='message_sys_content'>
+<table id='tabs-user-sys' class="editor" style="padding:0px;margin:0px;width:100%;">
+	<tr>					
+		<td style="width:100px;padding-left:5px;">发送者</td>
+		<td style="width:100px;padding-left:5px;">发送时间</td>
+		<td style="width:100px;padding:0px 0px 0px 5px;">标题</td>
+		<td style="width:100px;padding-left:5px;">内容</td>
+	</tr>
+	$!{content}
+</table>
+<div style="text-align:center;margin:5px 0px 0px 0px;width:100%;">
+	<span><a id="btn_sysLoad" href='#' onclick='sysLoad();'>查看更多</a></span>
+	<span><input id="page" type="hidden" value='$!{page}' /></span>
+</div>
+</div>
+	
+<script>
+	function sysLoad(){ 
+		var page = jQuery('#page').val();
+		lock('正在加载...');
+	    $.ajax({
+	        url:'/s/user/msn/sysLoad',
+	        type: "post",
+	        data: {page : page},
+	        success : function(rd) {
+	        	if (typeof rd === "string")
+					rd = $.parseJSON(rd);
+				$.unblockUI();
+				if (null == rd.data || rd.data == "") {
+	        		alert('没有更多的数据。。。');
+	        		return;
+	        	}
+	        	jQuery('#tabs-user-sys').append(rd.data);
+	        	jQuery('#page').val(++page);
+				if(rd.error){
+					$.bupmsg.alert('提示', rd.msg, 'error');
+					return;
+				}
+			},
+			error : function() {
+				$.unblockUI();
+				$.bupmsg.alert('提示', "网络连接出错，请重试", 'error');
+			}
+		});	
+		return false;
+	}
+</script>

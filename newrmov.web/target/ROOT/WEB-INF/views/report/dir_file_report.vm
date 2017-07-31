@@ -1,0 +1,42 @@
+<div id="$di.id" title="上报文档" style="width:370px;height:150px;padding:12px;" buttons="#${di.id}-buttons" modal='true'>
+<input type='hidden' value='$!{id}' id='id' />
+<div style='text-align:center;vertical-align:middle;width:100%;'>
+<table class='editor' style="width:margin:auto;">
+	<tr>
+		<th>上报选项：</th>
+		<td style='text-align:left;'>$!{str}</td>
+	</tr>
+</table>
+</div>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_save' onclick="btn_save();">提交</a> 
+<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_save, #a_close').bupabutton({flat : true});
+});
+function btn_save() {
+	var item_id = jQuery('#report_item option:selected').val();
+	if (item_id == null || item_id == '') {
+		alert('请选择上报选项！');
+		return;
+	}
+	jQuery.ajax({
+		url : '/s/document/report/dirfile!save.b',
+		type : 'post',
+		data : {'id' : '$!{id}', 'item_id' : item_id},
+		success : function(rd) {
+			if (typeof rd === "string")
+				rd = $.parseJSON(rd);
+			if(rd.error){
+				$.bupmsg.alert('提示', rd.msg, 'error');
+				return;
+			}
+			$('#${di.id}').bupdlg('close');
+		}
+	});
+}
+</script>

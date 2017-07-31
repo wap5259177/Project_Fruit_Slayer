@@ -1,0 +1,19 @@
+#set($layout="simple-dialog.vm")
+<table id="ha-$!{id}" style="width:100%;height:212px;" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign='top' style="padding:15px 0 0 15px;">$!{des}</td>
+	</tr>
+	<tr>
+		<td valign='top' style="height:85px;padding-left:10px;">$!{thum}</td>
+	</tr>
+</table>
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery('#ha-$!{id} a').click(function(){
+			jQuery('#ha-$!{id} a').css('border-style', 'none').css('border-bottom-width', '0px');
+			jQuery('#ha-$!{id} table').hide();
+			jQuery(this).css('border-style', 'solid').css('border-bottom-width', '2px');
+			jQuery('#des-' + this.id).show();
+		});
+	});
+</script>

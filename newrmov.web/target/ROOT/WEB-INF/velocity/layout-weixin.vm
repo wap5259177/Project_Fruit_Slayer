@@ -1,0 +1,13 @@
+<!DOCTYPE html>  
+<html>  
+	<head>
+		<meta charset=utf-8/>
+		<!-- <link rel="stylesheet" href="#springUrl('/res/css/about1.css')"/> -->. 
+		<link rel="stylesheet" href="#springUrl('/res/js/jqueryMobile/css/jquery.mobile-1.4.5.min.css')"/>
+		<script src="#springUrl('/res/js/jquery.min.js')"></script>
+		<script src="#springUrl('/res/js/jqueryMobile/js/jquery.mobile-1.4.5.min.js')"></script>
+	</head>  
+	<body>  
+		$screen_content
+	</body>  
+</html>  

@@ -1,0 +1,14 @@
+﻿<table class="annual-main">
+<tr style="height:20px;">
+        <td colspan="4" style="border-bottom:#ccc 1px solid"></td>
+        <td class="anpre"><a class="annual-pre-year" href="annual!${preYear}.goto" onclick="return gotoAnnual(this);"></td>
+        <td class="annual-title" colspan="2">$!{currentYear}年月度选择</td>
+        <td class="annext"><a class="annual-next-year" href="annual!${nextYear}.goto" onclick="return gotoAnnual(this);"></td>
+        <td colspan="4" style="border-bottom:#ccc 1px solid"></td>
+</tr>
+<tr class="yuef">
+#foreach($it in $items)
+	$it
+#end
+</tr>	
+</table>

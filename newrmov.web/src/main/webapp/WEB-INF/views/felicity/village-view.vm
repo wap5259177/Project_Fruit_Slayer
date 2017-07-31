@@ -1,0 +1,12 @@
+<div style="padding-top:10px;">
+#parse('felicity/report-village-info.vm')
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery('input:text').attr("readonly", "readonly");
+	
+	jQuery('input:checkbox').attr("disabled", true);
+	
+	jQuery('.number').bupnuminput();
+});
+</script>
+</div>

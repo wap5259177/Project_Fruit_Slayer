@@ -1,0 +1,10 @@
+<div id='hc_line' style='width: 1250px; height: 430px; margin: 0 auto;'></div>
+<script type='text/javascript'>
+jQuery(function(){
+	$!{jsContent}
+	#if($aaa==0)
+		alert("没有数据");
+	#end
+});
+</script>
+$!{aaa}

@@ -1,0 +1,12 @@
+#if($items.size() > 0)
+	<div class="buptab" fit='true' tabPosition='left' headerWidth='300'>
+	#foreach($it in $items)
+		<div title="${velocityCount}. $it[1](第$!it[2]批)" href="view.detail?id=$it[0]"></div>
+	#end
+	</div>
+	
+#else
+
+<div>没有数据</div>
+
+#end

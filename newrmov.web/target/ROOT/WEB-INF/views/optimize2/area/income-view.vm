@@ -1,0 +1,169 @@
+
+
+<div style='width: 100%; height: 30%;'>
+	<table class=' editor' style="width:840px;margin: auto;">
+		<tr>
+			<th class="tdRight" colspan='2'>各年度城镇居民人均纯收入[A10]：</th>
+			<td colspan='2'>2013年：<input class="number" type='text' id='ci3' name='ci3' value='$!{form.ci3}' min="0" precision="2" $!{readonly}/>元，&nbsp;2014年：<input class="number" id='ci4' type='text' name='ci4' value='$!{form.ci4}' min="0" precision="2" $!{readonly}/>元
+					<br />2015年：<input class="number" id='ci5' type='text' name='ci5' value='$!{form.ci5}' min="0" precision="2" $!{readonly}/>元，&nbsp;2016年：<input class="number" id='ci6' type='text' name='ci6' value='$!{form.ci6}' min="0" precision="2" $!{readonly}/>元
+					<br />2017年：<input class="number" type='text' id='ci7' name='ci7' value='$!{form.ci7}' min="0" precision="2" $!{readonly}/>元
+			</td>
+		</tr>
+		<tr>
+			<th class="tdRight" colspan='2'>各年度农民人均纯收入[A11]：</th>
+			<td colspan='2'>2013年：<input class="number" type='text' id='vi3' name='vi3' value='$!{form.vi3}' min="0" precision="2" $!{readonly}/>元，&nbsp;2014年：<input class="number" id='vi4' type='text' name='vi4' value='$!{form.vi4}' min="0" precision="2" $!{readonly}/>元
+					<br />2015年：<input class="number" type='text' id='vi5' name='vi5' value='$!{form.vi5}' min="0" precision="2" $!{readonly}/>元，&nbsp;2016年：<input class="number" type='text' id='vi6' name='vi6' value='$!{form.vi6}' min="0" precision="2" $!{readonly}/>元
+					<br />2017年：<input class="number" type='text' id='vi7' name='vi7' value='$!{form.vi7}' min="0" precision="2" $!{readonly}/>元
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div id='main' style='width: 1000px; height: 470px;padding:0 0 0 80px'>
+
+</div>
+
+
+<script type='text/javascript'>
+	var myChart = echarts.init(document.getElementById('main'),'infographic'); 
+	var ecConfig = echarts.config;
+	var mapGeoData = echarts.util.mapData.params;
+	
+	var option;
+	$(function(){
+		option = {
+		    title : {
+		        text: '人均收入情况',
+		        subtext: '城居/农民'
+		    },
+		    tooltip : {
+		        trigger: 'axis',
+		        formatter:'{b}<br/>{a}: {c} 元<br/>{a1}: {c1} 元'
+		    },
+		    legend: {
+		        data:['城镇居民人均收入','农民人均收入']
+		    },
+		    toolbox: {
+		        show : true,
+		        feature : {
+		            mark : {show: false},
+		            dataView : {show: false, readOnly: false},
+		            magicType : {show: true, type: ['line', 'bar']},
+		            restore : {show: true},
+		            saveAsImage : {show: true}
+		        }
+		    },
+		    calculable : false,
+		    xAxis : [
+		        {
+		            type : 'category',
+		            boundaryGap : false,//是否从原点那里开始
+		            data : ['2013年','2014年','2015年','2016年','2017年','-','-'],
+		            axisLabel: {
+		                 show: true,
+		                 interval: 'auto',
+		                 textStyle: {
+		                     color: '#000000',
+		                     fontFamily: 'verdana',
+		                     fontSize: 20,
+		                     fontStyle: 'normal',
+		                     fontWeight: 'bold'
+		                 }
+		             }
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'value',
+		            axisLabel : {
+		                formatter: '{value} 元'
+		            }
+		        }
+		    ],
+		    series : [
+		        {
+		            name:'城镇居民人均收入',
+		            type:'line',
+		            //data:[11, 11, 15, 13, 12, 13, 10],
+		            data:$c,
+		            markPoint : {
+		                data : [
+		                    //{type : 'max', name: '最大值'},
+		                    //{type : 'min', name: '最小值'}
+		                ],
+		                //标注图形炫光特效: 
+		                /*effect :{
+		                	show: true,
+						    type: 'scale',
+						    loop: true,
+						    period: 15,
+						    scaleSize : 0.5,
+						    bounceDistance: 10,
+						    color : 'red',
+						    shadowColor : 'yellow',
+						    shadowBlur : 0
+		                }*/
+		            },
+		            markLine : {
+		                data : [
+		                    {type : 'average', name: '平均值'}
+		                ]
+		            },
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             //color: '#800080'
+		                         },
+		                         position:'top',
+		                         formatter: '{c}元'
+		                     }
+		                 }
+		             }
+		        },
+		        {
+		            name:'农民人均收入',
+		            type:'line',
+		            data:$v,
+		            markPoint : {
+		                data : [
+		                    //{type : 'max', name: '最大值'},
+		                    //{type : 'min', name: '最小值'}
+		                ],
+		                /*effect :{
+		                	show: true,
+						    type: 'scale',
+						    loop: true,
+						    period: 15,
+						    scaleSize : 0.5,
+						    bounceDistance: 10,
+						    color : 'red',
+						    shadowColor : 'yellow',
+						    shadowBlur : 0
+		                }*/
+		            },
+		            markLine : {
+		                data : [
+		                    {type : 'average', name : '平均值'}
+		                ]
+		            },
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             //color: '#800080'
+		                         },
+		                         position:'top',
+		                         formatter: '{c}元'
+		                     }
+		                     
+		                 }
+		             }
+		        }
+		    ]
+		};
+		myChart.setOption(option);
+	});
+</script>

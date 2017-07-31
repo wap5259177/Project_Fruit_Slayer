@@ -1,0 +1,38 @@
+$screen_content
+<div style='padding:8px 0 0 25px;'><a href='$!{key}!exe.ajax' id='btn-$!{id}'>保存</a></div>
+$!model.includes
+<script type="text/javascript"> 
+	$!model.script
+	jQuery(function(){
+		jQuery('#btn-$!{id}').bupabutton({flat:true, iconClassname:'icon_save'}).click(function(){
+			jQuery('#$!{formId}').bupform('submit', {
+				url:__toUrl(this.href),
+				onSubmit:function(){
+					if(jQuery(this).bupform('validate')){
+						
+						$!beforeSubmit
+					
+						lock('正在保存[配置信息]...');
+						return true;
+					}
+					return false;
+				},
+				success:function(__resultData){
+					jQuery.unblockUI();
+					__resultData = __ajaxSuccess(__resultData);
+					if(__resultData){
+						jQuery.messager.show({
+							title:'提示',
+							msg:'保存配置信息成功！',
+							timeout:4000,
+							showType:'slide'
+						});
+					}
+				}
+			});
+			return false;
+		});
+		//系统生成的代码部分
+	    $!model.block
+	});
+</script>

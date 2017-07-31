@@ -1,0 +1,133 @@
+#set($layout="layout-empty.vm")
+${reports}
+
+<script type="text/javascript">
+	jQuery(function(){
+	
+		$('.buptip').buptip({
+			position: 'left',
+			onShow: function(){
+				$(this).buptip('tip').css({
+					backgroundColor: '#ccc',
+					//borderColor: '#ccc'
+				});
+			}
+		});
+	
+	
+	
+	
+		#if($backstatus && $backstatus==true)
+		jQuery("#btn_0_0").hide();
+		#else
+		jQuery("#btn_0_0").show();
+		
+		#end
+		
+		jQuery("#hid-year").val($!{selectedYear});
+		jQuery("#hid-month").val($!{lastMonth});
+		
+		jQuery("#show-year").html('$!{selectedYear}');
+		jQuery("#show-month").html('$!{showMonth}');
+		
+		//currentMonthly
+		var sednode = jQuery("#monthly_$!{currentMonthly}"), showStatusClass;
+		jQuery("#span-pj-rep-title").text(${selectedYear}+"年"+${showMonth}+"月度项目报表");
+		#if($editable)
+			jQuery("#btn-pj-rep-editor").show();
+			editable = true;
+			showStatusClass = "annual-editing";
+		#else
+			jQuery("#btn-pj-rep-editor").hide();
+			editable = false;
+			showStatusClass = "annual-finish";
+		#end
+		#if($report)
+			reportId = '$report.id';
+			
+		jQuery(".fund,.i-fund").each(function(i, v){
+			if(!($.isNumeric(v.value) && v.value - 0 > 0)){
+				v.value = "";
+			}
+		});
+			jQuery(".i-fund").bupnuminput({
+				onChange:function(){
+					var cn = jQuery(this).attr("tcls");
+					var cto = 0;
+					jQuery('.'+cn).each(function(){
+						cto += jQuery(this).bupnuminput("getValue") - 0;
+					});
+					//jQuery("#total_"+cn).html("<h1 style='color:red;'>"+toDecimal4(cto)+"</h1>");
+					
+					
+					var _cn = "#total_"+cn;
+					if(_cn=="#total_lab"){
+						jQuery("#total_"+cn).html("<h1 style='color:red;'>"+cto+"</h1>");
+					}else{
+						jQuery("#total_"+cn).html("<h1 style='color:red;'>"+toDecimal4(cto)+"</h1>");
+					}
+					
+					
+				}
+			});
+			jQuery(".fund").bupnuminput({
+				precision:4,
+				onChange:function(){
+					/*纵向累计*/
+					var cn = jQuery(this).attr("tcls");
+					var cto = 0;
+					jQuery('.'+cn).each(function(){
+						cto += jQuery(this).bupnuminput("getValue") - 0;
+					});
+					jQuery("#total_"+cn).html("<h1 style='color:red;'>"+toDecimal4(cto)+"</h1>");
+					
+					
+					//总计
+					var tto = 0;
+					jQuery(".rep-row-total").each(function(){
+						tto += jQuery(this).text() - 0;
+					});
+					jQuery("#total_tot").html("<h1 style='color: red;'>"+toDecimal4(tto)+"</h1>");
+					
+				
+				
+					var th = jQuery(this).parent().parent();
+					var tf = 0;
+					jQuery(".fund", th).each(function(i, v){
+						var vf = jQuery(v).bupnuminput('getValue');
+						if($.isNumeric(vf)){
+							tf += vf - 0;
+						}
+					});
+					jQuery(".t-fund", th).val(tf.toFixed(4));
+				}
+			});
+		#else
+			reportId = 0;
+			showStatusClass = "annual-new";
+		#end
+		if(sednode.length > 0){
+			sednode.removeClass().addClass(showStatusClass);
+		}
+	});
+	
+	
+	
+	function toDecimal4(x) {    
+        var f = parseFloat(x);    
+        if (isNaN(f)) {    
+            return false;    
+        }
+        var f = Math.round(x*10000)/10000;    
+        var s = f.toString();    
+        var rs = s.indexOf('.');    
+        if (rs < 0) {    
+            rs = s.length;    
+            s += '.';    
+        }    
+        while (s.length <= rs + 4) {    
+            s += '0';    
+        }    
+        return s;    
+    } 
+</script>

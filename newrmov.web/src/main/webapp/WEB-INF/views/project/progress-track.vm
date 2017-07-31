@@ -1,0 +1,52 @@
+<div style="width:90%;margin-left:40px;">
+<p style="text-align:center;font-weight:bold;font-size:24px;">$!{year}年度项目进度跟踪</p>
+	<table style="width:100%;" class="residential-cls">
+		<thead>
+			<tr><th>名称</th>
+				<th style="width:60px;">一月</th>
+				<th style="width:60px;">二月</th>
+				<th style="width:60px;">三月</th>
+				<th style="width:60px;">四月</th>
+				<th style="width:60px;">五月</th>
+				<th style="width:60px;">六月</th>
+				<th style="width:60px;">七月</th>
+				<th style="width:60px;">八月</th>
+				<th style="width:60px;">九月</th>
+				<th style="width:60px;">十月</th>
+				<th style="width:60px;">十一月</th>
+				<th style="width:60px;">十二月</th>
+			</tr>
+		</thead>
+		<tbody>$!{content}</tbody>
+	</table>
+</div>
+<style type="text/css">
+table.residential-cls{
+	font-size:16px;
+	width: 880px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+	margin: auto;
+}
+table.residential-cls td,table.residential-cls th,table.residential-cls td.items{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+	padding-left:4px;
+	text-align:center;
+}
+table.residential-cls tr td input{
+	width:50px;
+	border:0px;
+	text-align:center;
+	border-bottom: solid 1px #000000;
+	color: #000000;
+	font-size:15px;
+	background-color: #ffffff;
+	padding:0 0 5px 0;
+}
+
+</style>

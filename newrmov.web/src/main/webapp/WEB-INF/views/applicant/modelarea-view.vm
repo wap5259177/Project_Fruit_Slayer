@@ -1,0 +1,19 @@
+<div class="applicant-form-main">
+	<div class="applicant-form-title">示范片建设台账封面 </div>
+	#parse('applicant/modelarea-info.vm')
+	#if($form.auditStatus == 3)
+	<table class='applicant-form'>
+		<tr><th colspan="4">您提交的示范片区信息由市级单位驳回，详细信息如下：</th></tr>
+		<tr><th>原因：</th><td colspan="3">$!{form.auditContent}</td></tr>
+		<tr><th style="width:125px;">审核人：</th><td style="width:250px;">$!{form.auditName}</td><th style="width:125px;">审核时间：</th><td>$!{form.auditAt}</td></tr>
+	</table>
+	#end
+</div>
+#if($readonly)
+
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery(".number").bupnuminput();
+});
+</script>
+#end

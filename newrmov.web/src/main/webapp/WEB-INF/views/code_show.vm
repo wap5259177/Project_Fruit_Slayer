@@ -1,0 +1,5 @@
+#set($layout="layout-empty.vm")
+<div style='text-align:center;padding:10px;'>
+<img width='900px' height='550px' src='/r/images/example/7village_planning_diagram/佛山南海西樵镇松塘村（人文历史名村）.jpg' />
+<p>说明：佛山南海西樵镇松塘村（人文历史名村）</p>
+</div>

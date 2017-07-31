@@ -1,0 +1,184 @@
+#if($warningMessage)
+	<div class="applicant-form-warning">$warningMessage</div>
+#end
+#parse('applicant/newrural-view.vm')<script type='text/javascript'>
+var itcount = 0;
+jQuery(function() {
+	_display();
+	jQuery("#btn-units").click(function(){
+		var ipt = jQuery("<tr>"
+			+"<td><a href='#' onclick='jQuery(this).parent().parent().remove();return false;' class='icon-del' style='padding-left:20px;'> </a>-<input type='hidden' name='unitItems' value='" + itcount + "'></td>"
+			+"<td><input style='width:95%;' type='text' name='un_" + itcount + "'></td>"
+			+"<td colspan='2'><input style='width:95%;' type='text' name='ra_" + itcount + "'></td>"
+			+"<td><input style='width:95%;' type='text' name='ucn_" + itcount + "'></td>"
+			+"<td><input style='width:95%;' type='text' onblur='_checkPhone(this);' name='up_" + itcount + "'></td>"
+			+"</tr>");
+		ipt.appendTo("#ru-content");
+		itcount++;
+		return false;
+	});
+	jQuery("#btn-workGroup").click(function(){
+		var ipt = jQuery("<tr>"
+			+"<td><a href='#' onclick='jQuery(this).parent().parent().remove();return false;' class='icon-del' style='padding-left:20px;'> </a>-<input type='hidden' name='workgroupItems' value='" + itcount + "'></td>"
+			+"<td><input style='width:95%;' type='text' name='wn_" + itcount + "'/></td>"
+			+"<td><input style='width:95%;' type='text' name='uj_" + itcount + "'/></td>"
+			+"<td><input style='width:95%;' type='text' onblur='_checkPhone(this);' name='wp_" + itcount + "'/></td>"
+			+"<td><input style='width:95%;' type='text' name='wr_" + itcount + "'/></td>"
+			+"</tr>");
+		ipt.appendTo("#wg-content");
+		itcount++;
+		return false;
+	});
+	jQuery("#btn-expertGroup").click(function(){
+		var ipt = jQuery("<tr><td><a href='#' onclick='jQuery(this).parent().parent().remove();return false;' class='icon-del' style='padding-left:20px;'> </a>-<input type='hidden' name='expertgroupItems' value='" + itcount + "'></td>"
+			+"<td><input style='width:130px' type='text' name='en_" + itcount + "'></td>"
+			+"<td><input style='width:90px' type='text' name='ej_" + itcount + "'></td>"
+			+"<td><input style='width:110px' type='text' onblur='_checkPhone(this);' name='ep_" + itcount + "'></td>"
+			+"<td><input style='width:95%' type='text' name='er_" + itcount + "'></td>"
+			+"</tr>");
+		ipt.appendTo(jQuery("#eg-content"));
+		itcount++;
+		return false;
+	});
+	//年度下拉
+	$('#annual').val($!{form.annual});
+	$('#pvAnnual').val($!{form.pvAnnual});
+	$('#tapAnnual').val($!{form.tapAnnual});
+	$('#fixAnnual').val($!{form.fixAnnual});
+	$('#badWaterAnn').val($!{form.badWaterAnn});
+	$('#fvAnnual').val($!{form.fvAnnual});
+	$('#psAnnual').val($!{form.psAnnual});
+	$('#councilAnnual').val($!{form.councilAnnual});
+	$('#culturalActAnn').val($!{form.culturalActAnn});
+	$('#ruralParkAnn').val($!{form.ruralParkAnn});
+	$('#squareAnn').val($!{form.squareAnn});
+	$('#healthStationAnn').val($!{form.healthStationAnn});
+	$('#villageToiletAnn').val($!{form.villageToiletAnn});
+	
+	$('#garbageAnnual').val($!{form.garbageAnnual});
+	
+	$('.number').each(function(i, v){
+		var vf = v.value;
+		if(!$.isNumeric(vf) || vf == 0){
+			v.value = '';
+		}
+	});
+	jQuery(".number").bupnuminput();
+	
+	//------------------
+
+	//$('#ruralArea,#arableLand,#hardBottom,#bottomDis,#toiletPercent,#culturalActArea,#ruralParkArea,#squareArea,#healthStationArea,#villageToiletArea,#annualIncome_13,#annualIncome_14,#annualIncome_15,#farmland').bupnuminput({precision:2});
+	//$('#houseHold,#population,#labor,#waterBase,#smallWater,#farmland,#toilet,#noValue,#buildAgain,#oldProtect,#planCount,#finishCount,#culturalAct,#ruralPark,#ruralSquare,#healthStation,#villageToilet,#councilMember,#cleaners,#leaderHP,#leaderHP2,#councilHP1,#councilHP2').bupnuminput({min:0});
+	//$('#viewSpot').bupnuminput({min:0,max:3});
+ 	//$("input.number1,#councilHP1,#councilHP2,#leaderHP,#leaderHP2").bupnuminput({
+	//	groupSeparator:""
+    //});
+ 	//在数字框里把所有非数字或0时输入框应该为空
+	//$('.number').each(function(i, v){
+	//	var vf = jQuery(v).bupnuminput('getValue');
+	//	if(!$.isNumeric(vf) || vf == 0){
+	//		jQuery(v).bupnuminput('setValue', '');
+	//	}
+	//});
+ 	$('#gpDate, #apDate, #dpDate').bupdateinput({ editable:false});
+ 	
+    //验证总面积必须大于耕地面积
+    //$("#ruralArea,#arableLand").bupnuminput({
+    //	precision:2
+	    /*onChange:function(){
+			var sp = $("#ruralArea").bupnuminput('getValue');
+			var sf = $("#arableLand").bupnuminput('getValue');
+			if(sp - 0 > 0 && sf - 0 > 0 && sp - 0 < sf){
+				alert("总面积必须大于耕地面积");
+			}	
+		}*/
+	//});
+	 //验证户数必须小于人口数、劳动人口不能超过村总人口
+    //$("#houseHold,#population,#labor").bupnuminput({
+    /*onChange:function(){
+		var sp = $("#houseHold").bupnuminput('getValue');
+		var sf = $("#population").bupnuminput('getValue');
+		var la = $("#labor").bupnuminput('getValue');
+		if(sp - 0 > sf){
+			alert("户数必须小于人口数");
+		}	
+		if(la - 0 > sf){
+			alert("劳动人口不能超过村总人口");
+		}
+	}
+	*/
+	//}); 
+	// 道路和入户路硬底化率只能0-100之间
+    $("#hardBottom").bupnuminput({onChange:function(){
+		var sp = $("#hardBottom").bupnuminput('getValue');
+		if(sp - 0 < 0 || sp - 0 > 100){
+          alert("道路和入户路硬底化率只能0-100之间");
+        }	
+	}});
+	//使用卫生厕所户数所占比例只能0-100之间
+	//$("#toiletPercent").bupnuminput({onChange:function(){
+	//	var sf = $("#toiletPercent").bupnuminput('getValue');
+    //    if(sf - 0 < 0 || sf - 0 > 100){
+    //      alert("使用卫生厕所户数所占比例只能0-100之间");
+    //    }	
+	//}});
+	//B38字段前后一致
+	$("#viewSpot").bupnuminput({onChange:function(){
+		var sf = $("#viewSpot").bupnuminput('getValue');
+		if(sf==0){
+		  jQuery('#viewSpot1,#viewSpot2,#viewSpot3').attr('readonly', true);
+		  $("#viewSpot1,#viewSpot2,#viewSpot3").val("");
+		}else if(sf==1){
+		  jQuery('#viewSpot2,#viewSpot3').attr('readonly', true);
+		  jQuery('#viewSpot1').attr('readonly', false);
+		  $("#viewSpot2,#viewSpot3").val("");
+		}else if(sf==2){
+		  jQuery('#viewSpot3').attr('readonly', true);
+		  jQuery('#viewSpot1,#viewSpot2').attr('readonly', false);
+		  $("#viewSpot3").val("");
+		}else{
+		  jQuery('#viewSpot1,#viewSpot2,#viewSpot3').attr('readonly', false);
+		}
+	}});
+    //点击时判断B54-B57是否禁用
+	jQuery("#council-n").click(function(){
+	    jQuery('#councilMember,#councilName1,#councilHP1,#councilName2,#councilHP2,#workSituation,#constitu-n,#constitu-y,#councilFile').attr('disabled', true);
+	    //$('#councilMember,#councilName1,#councilHP1,#councilName2,#councilHP2,#workSituation').val("");
+	});
+	
+	jQuery("#council-y").click(function(){
+	    jQuery('#councilMember,#councilName1,#councilHP1,#councilName2,#councilHP2,#workSituation,#constitu-n,#constitu-y,#councilFile').removeAttr('disabled');
+	});
+});
+//加载时判断B54-B57是否禁用
+function _display(){
+    //var n=jQuery('#council-n').val();
+    //var y=jQuery('#council-y').val();
+    if(jQuery('#council-n').is(':checked')==true){
+      jQuery('#councilMember,#councilName1,#councilHP1,#councilName2,#councilHP2,#workSituation,#constitu-n,#constitu-y,#councilFile').attr('disabled', true);
+      //$('#councilMember,#councilName1,#councilHP1,#councilName2,#councilHP2,#workSituation').val("");
+      
+    }else{
+      jQuery('#councilMember,#councilName1,#councilHP1,#councilName2,#councilHP2,#workSituation,#constitu-n,#constitu-y,#councilFile').removeAttr('disabled');
+    }
+}
+
+//检查电话号码
+function _checkPhone(){
+	$('.workerPh,.expertPh,.unitPhone').each(function(i, v){
+		var wp=$(v).val();
+		if(!$.isNumeric(wp)){//判断输入的字符是否是数字
+			$(this).val("");
+ 		}
+	});
+}	
+function _checkNumber(){
+	$('.number').each(function(i, v){
+		var vf = jQuery(v).bupnuminput('getValue');
+		if(!$.isNumeric(vf) || vf < 0){
+			jQuery(v).bupnuminput('setValue', '0');
+		}
+	});
+}
+</script>
+</div>

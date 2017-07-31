@@ -1,0 +1,74 @@
+<div id="$di.id" title="" align="center" style="overflow:auto;font-size:14px;width:700px;height:550px;" buttons="#${di.id}-buttons" modal='true'>
+<p><h3 align="center">示范片所在县(市、区)完成人居环境综合整治的自然村名单</h3></p>
+<form id="projectInfo">
+<!-- 项目ID -->
+<input type='hidden' id='id' name='id' value='$!{id}' >
+<!-- 片区名 -->
+<input type='hidden' value='$!{area_name}' >
+<!-- 片区ID -->
+<input type='hidden' value='$!{area_id}' >
+<table class='finishFix' style='width:650px;' border="1" >
+	<tr font-weight:bold'>
+		<td>年度</td>
+		<td>序号</td>
+		<td>自然村名单</td>
+	</tr>
+</table>
+<button  id="btn-add">添加名单</button>
+
+<script type="text/javascript">
+		jQuery(function(){
+			jQuery("#btn-add").click(function(){
+				var ipt = jQuery("<tr>"
+					+"<td>"
+					+"<select><option>2014</option><option>2015</option><option>2016</option><option>2017</option><option>2018</option></select></td>"
+					+"<td>-</td>"
+					+"<td>$!{place}&nbsp;<input type='text' value='' name='' /> 自然村(或村民小组)</td>"
+					+"</tr>");
+				ipt.appendTo(jQuery(this).prev());
+				return false;
+		});
+	});
+</script>
+
+</form>
+</div>
+<div id="${di.id}-buttons">
+	<a href="#" id='a_submit'>提交</a>
+	<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<style type="text/css">
+table.finishFix{
+	font-size:16px;
+	width: 880px;
+	border-width: 1px;
+	text-align:center;
+	border-color: #000000;
+	border-collapse: collapse;
+	margin: auto;
+}
+table.finishFix td{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+	padding-left:4px;
+}
+table.finishFix tr td input{
+	width:80px;
+	border:0px;
+	text-align:center;
+	border-bottom: solid 1px #000000;
+	color: #000000;
+	font-size:15px;
+	background-color: #ffffff;
+	padding:0 0 5px 0;
+}
+</style>
+
+<script type='text/javascript'>
+	jQuery(function() {
+		jQuery('#a_close, #a_submit, #a_save').bupabutton({flat : true});
+	});	
+</script>

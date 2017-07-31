@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" 
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/security 
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	
+    <http pattern="/r/**" security="none"/>
+    <http pattern="/res/**" security="none"/>
+    <http pattern="/file_manager_json.jsp" security="none"/>
+    <http pattern="/upload_json.jsp" security="none"/>
+    
+    <http pattern="/m/show/**" security="none"/>
+    
+	<http pattern="/s/**" entry-point-ref="sep" access-denied-page="/comm/notright.b">
+		<intercept-url pattern="/s/login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/s/login/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/s/**" access="IS_AUTHENTICATED_REMEMBERED" />
+		
+		<request-cache ref="httpSessionRequestCache"/>
+		<logout success-handler-ref="logoutSuccessHandlerImpl" logout-url="/s/logout" />
+		<!-- "记住我"功能，采用持久化策略（将用户的登录信息存放在数据库表中） -->
+		<remember-me services-alias="bonoonRememberMeServices" />
+		<!-- 第二次无法登录  -->
+		<session-management invalid-session-url="/s/login/timeout" session-authentication-error-url="/s/login/error?t=1">
+			<concurrency-control max-sessions="1" error-if-maximum-exceeded="true" expired-url="/s/login/expired"/>
+		</session-management>
+		<custom-filter ref="slf" position="FORM_LOGIN_FILTER" />
+		<custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
+	</http>
+	
+	<http pattern="/**" entry-point-ref="uep" access-denied-page="/">
+		<intercept-url pattern="/u/login" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/u/login/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/u/**" access="IS_AUTHENTICATED_REMEMBERED" />
+		<intercept-url pattern="/code/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		
+		<logout success-handler-ref="logoutSuccessHandlerImpl" logout-url="/u/logout" />
+		<custom-filter ref="ulf" position="FORM_LOGIN_FILTER" />
+	</http>
+    
+	<beans:bean id="httpSessionRequestCache" class="org.springframework.security.web.savedrequest.HttpSessionRequestCache">
+		<beans:property name="requestMatcher">
+			<beans:bean class="cn.bonoon.handler.impl.ExcludeAjaxRequestMatcher"/>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- <beans:bean id="sas" class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy"/> -->
+	<beans:bean id="sep" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">  
+	    <beans:property name="loginFormUrl" value="/s/login"/>
+	</beans:bean>
+	
+	<beans:bean id="uep" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">  
+	    <beans:property name="loginFormUrl" value="/"/>
+	</beans:bean>
+	
+	<beans:bean id="slf" class="cn.bonoon.handler.impl.AuthenticationExtendFilter">  
+        <beans:property name="authenticationManager" ref="authenticationManager"/>  
+        <beans:property name="authenticationSuccessHandler">
+        	<beans:bean class="cn.bonoon.handler.impl.AuthenticationSuccessHandlerImpl"/>
+        </beans:property>
+        <beans:property name="authenticationFailureHandler">
+        	<beans:bean  class="cn.bonoon.handler.impl.AuthenticationFailureHandlerImpl"/>
+        </beans:property>
+        <beans:property name="rememberMeServices" ref="bonoonRememberMeServices"/>
+        <beans:property name="filterProcessesUrl" value="/s/login/security_check"/>
+        <beans:property name="useVerifyCode" value="${useVerifyCode}"/>
+    </beans:bean>
+	
+	<beans:bean id="ulf" class="cn.bonoon.handler.impl.AuthenticationExtendFilter">  
+        <beans:property name="authenticationManager" ref="authenticationManager"/>  
+        <beans:property name="authenticationSuccessHandler">
+        	<beans:bean class="cn.bonoon.handler.impl.AjaxAuthenticationSuccessHandler"/>
+        </beans:property>
+        <beans:property name="authenticationFailureHandler">
+        	<beans:bean  class="cn.bonoon.handler.impl.AjaxAuthenticationFailureHandler"/>
+        </beans:property>
+        <beans:property name="filterProcessesUrl" value="/u/login/security_check"/>
+        <beans:property name="useVerifyCode" value="${useVerifyCode}"/>
+    </beans:bean>
+    
+    <beans:bean id="logoutSuccessHandlerImpl" class="cn.bonoon.handler.impl.LogoutSuccessHandlerImpl">
+    	<beans:property name="defaultTargetUrl" value="/s/login"/>
+    </beans:bean>  
+	
+    <!-- 认证过滤器 -->  
+    <beans:bean id="securityFilter" class="cn.bonoon.handler.impl.SecurityExtendFilter"/>
+
+	<!-- 密码加密提供者 -->
+	<beans:bean id="passwordEncoder" class="org.jasypt.spring.security3.PasswordEncoder">
+		<beans:property name="stringDigester">
+			<!-- 密码加密算法 -->
+			<beans:bean class="org.jasypt.digest.StandardStringDigester">
+				<beans:property name="algorithm" value="MD5" />
+				<beans:property name="stringOutputType" value="hexadecimal" />
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+
+    <beans:bean id="userDetailsService" class="cn.bonoon.handler.impl.UserDetailsHandlerImpl"></beans:bean>  
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userDetailsService">
+			<password-encoder ref="passwordEncoder">
+				<!-- <salt-source user-property="username" /> -->
+			</password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>

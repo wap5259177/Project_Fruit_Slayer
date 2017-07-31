@@ -1,0 +1,613 @@
+<style>
+	table.line {border-collapse:collapse;border:solid #999;border-width:1px 0 0 1px;text-align:center;}
+	table.line caption {font-size:14px;font-weight:bolder;}
+	table.line th,table.line td {border:solid #999;border-width:0 1px 1px 0;padding:2px;}
+	table.line tr td input {border-left:0px;border-top:0px;border-right:0px;border-bottom:1px;}
+	table.line td {text-align:center;}
+	table.line td.left{text-align:left;}
+	table.line th{text-align:center}
+	table.line input{width:70px}
+	table.line .bottom{text-align:center; border-left:0;border-right:0;border-top:0;border-bottom:0px dotted #404040}
+	table.line input.bottomName{text-align:center; border-left:0;border-right:0;border-top:0;border-bottom:1px solid #000000}   
+ 
+
+	.fund,.t-fund,.i-fund{width:70px;text-align:center; border-left:0;border-right:0;border-top:0;border-bottom:1px solid #000000}
+                .bupmsg_body{overflow:auto;}
+                #tb-project-report-items td input{padding:0;margin:0;}
+
+                .reportMessage{height:50px;font-size:24px;color:red;text-align:center;vertical-align:middle;}
+	.reportMessage a{color:blue;font-weight:bold;font-size:22px;}
+
+                #table_th{border-left:#fff 2px solid;}
+	#table_th th{border:solid 2px #fff;font-weight:400;color:#000;border-left:none;background-color:#CDEFE1;font-size:12px !important;padding:0 !important;margin:0 !important;}
+	#table_th td{border:solid 2px #fff;}
+	#table_th th.sortable{cursor: pointer;}
+	#table_th th.sortable:hover{color:blue;}
+	#table_th th.sortable-selected{color:green;}
+ 
+
+                #table_content{border-color:#fff;}
+                #table_content td{height:30px;background-color:#e5f2fe;border-color:#fff;border-width:2px;}
+                #table_content td input{background-color:#e5f2fe;}
+                #table_content td,td input,td a{font-size:12px !important;}
+                #table_content tr:first-child td{}
+	#table_content tr.searchable{}
+	#table_content td:hover{background-color:#99ccff;}
+	#table_content td:hover input{background-color:#99ccff;}
+	#table_content tr.searchable td{border:solid 1px red;}
+	#table_content tr.tr-sum-cls td{font-size:12px !important;font-weight:bold;}
+	
+
+
+</style>
+<!--[if gte IE 7]><style type="text/css">
+#bbwtc{
+margin-top:0px;
+}</style><![endif]-->
+<div id="bbwtc" class="bupborderlayout" fit="true" style="margin-top:0px;">
+	 <div data-settings="zone:'north'" style="height:160px;">
+			${updateReportItem}
+		<input type="hidden" id="hid-year" value="${selectedYear}"/>
+		<input type="hidden" id="hid-month" value="${lastMonth}"/>
+		<div style="padding:8px;" id="ddl-annual-selector">
+			#parse('project/annual-selector.vm')
+		</div>
+		<div>
+		<div align="center" style="float:left;margin:0 50px 0 30px;padding-top:0px">
+			<span id="span-pj-rep-title" style="color:#0288D1;font-size:30px;text-align:center;font-weight:bold;">
+				${selectedYear}年${showMonth}月度项目报表
+			</span>
+		</div>
+			<div style="float:left;margin-left:10px;padding-top:15px">
+				项目名:<input type="text" id="txt-search-name"/>
+			</div>
+			<div style="float:left;margin-left:10px;padding-top:15px">
+				<a class="bupabutton" data-settings="iconClassname:'icon_search',face:'scorner'" href='#' onclick='searchReport();return false;'>查找</a>
+			</div>
+			#if(${editable})
+			<div id='btn-pj-rep-editor' style="float:right;padding-top:0px;padding-right:15px">
+			    <a class="bupabutton" id="btn_0_0" style="#if($backstatus && $backstatus==true)display:none;#end" data-settings="iconClassname:'icon_reload',face:'scorner'" href='#' onclick='refreshReport(this);'>同步项目</a> 
+				<a class="bupabutton" data-settings="iconClassname:'icon_save',face:'scorner'" href='#' onclick='submitReport(this);return false;'>提交</a> 
+				<a class="bupabutton" data-settings="iconClassname:'icon_save',face:'scorner'" href='#' onclick='saveReport();return false;'>暂存</a>
+			</div>
+			#else
+			<div id='btn-pj-rep-editor' style="float:right;padding-top:40px;padding-right:15px;display:none">
+				<a class="bupabutton" id="btn_0_0" data-settings="iconClassname:'icon_reload',face:'scorner'" href='#' onclick='refreshReport(this);return false;'>刷新</a>
+				<a class="bupabutton" data-settings="iconClassname:'icon_save',face:'scorner'" href='#' onclick='submitReport(this);return false;'>提交</a> 
+				<a class="bupabutton" data-settings="iconClassname:'icon_save',face:'scorner'" href='#' onclick='saveReport();return false;'>暂存</a>
+			</div>
+			#end
+			
+		</div>
+		
+	</div>
+	<div data-settings="zone:'center'" style="overflow:hidden;padding-top:62px;" id="m-c-content">
+		<div id='div_th' style="position:absolute;top:0;z-index:200; background-color:#FFFFFF;">
+			<table id='table_th' class="line" style="background-color:#fff;width:1420px">
+				<thead>
+				<tr>
+				<th style='width:40px;' class="sortable" onclick="sortReport(0, this);" rowspan="2">序号</th>
+				<th style='width:198px;' class="sortable" onclick="sortReport(1, this);" rowspan="2">项目名</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(2, this);" rowspan="2">项目编号</th>
+				<th colspan="9">投入资金(万元)</th>
+				<th colspan="2" style="letter-spacing:1px;">群众投工投劳情况</th>
+				<th style='width:120px;' class="sortable" onclick="sortReport(14, this);" rowspan="2">项目状态</th>
+				<th style='width:100px;display:none' class="sortable" onclick="sortReport(15, this);" rowspan="2">终止原因</th>
+				</tr>
+				<tr>
+				<th style='width:80px;' class="sortable" onclick="sortReport(3, this);">中央</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(4, this);">省级新农村<br/>连片示范工程<br/>建设补助资金</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(5, this);">其他省级财政资金</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(6, this);">市级财政资金</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(7, this);">县级财政资金</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(8, this);">社会投入</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(9, this);">群众自筹</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(10, this);">其它</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(11, this);">合计</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(12, this);">投工数</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(13, this);">投资额<br/>/斥资额</th>
+				</tr>
+				</thead>
+			</table>
+		</div>
+		<div id='tb-project-report-items' style="z-index: 1;overflow:scroll;width:100%;height:100%;"> 
+		<!--<form id="frm-submit-data" action="report.save" method="POST" style="padding:0;margin:0;">-->
+		<div id="frm-submit-data">
+			<div id='div_load'  style="padding-top:0px;">
+				$!{bodyContent}
+				
+				</div>
+			</div>
+		</div>
+		<!--</form>-->
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var reportId = '$!{report.id}';
+	var editable = $!{editable};
+	function gotoAnnual(t){
+		//这里加个随机数，看能不能让浏览器重新加载数据
+		jQuery('#ddl-annual-selector').load(t.href + '?_' + Math.random(),{
+			selectedYear : jQuery('#hid-year').val(),
+			selectedMonth : jQuery('#hid-month').val()
+		});
+		return false;
+	}
+	function sortReport(ord, th){
+		var items = jQuery("#table_content tr");
+		items.removeClass("searchable");
+		jQuery("th.sortable").removeClass("sortable-selected");
+		var le = items.length;
+		if(le > 1){
+			var desc = false, nsort = false;
+			var t = jQuery(th);
+			var title = t.attr("title");
+			jQuery("th.sortable").attr("title", "");
+			t.addClass("sortable-selected");
+			if("点击升序" === title){
+				t.attr("title", "点击降序");
+				desc = true;
+			}else{
+				t.attr("title", "点击升序");
+			}
+			var ve = "td:eq(" + ord + ")", ve2;
+			var i1, i2, v1, v2, o1, o2, i, j;
+			if(ord == 0){
+				nsort = true;
+				for(i = 1; i < le; i++){
+					i1 = items[i - 1];
+					v1 = jQuery(ve, i1).attr("ordinal");
+					for(j = i; j < le; j++){
+						i2 = items[j];
+						v2 = jQuery(ve, i2).attr("ordinal");
+						//比较并交换
+						if((v1 - 0 > v2 - 0) === desc){
+							items[i - 1] = i2;
+							items[j] = i1;
+							i1 = i2;
+							v1 = v2;
+						}
+					}
+				}
+			}else if(ord == 1 || ord == 2){
+				for(i = 1; i < le; i++){
+					i1 = items[i - 1];
+					v1 = jQuery(ve, i1).text();
+					o1 = jQuery("td:eq(0)", i1).attr("ordinal");
+					for(j = i; j < le; j++){
+						i2 = items[j];
+						v2 = jQuery(ve, i2).text();
+						//比较并交换
+						if(v1 != v2){
+							nsort = true;
+						}
+						o2 = jQuery("td:eq(0)", i2).attr("ordinal");
+						if((v1 > v2) === desc){
+							items[i - 1] = i2;
+							items[j] = i1;
+							i1 = i2;
+							v1 = v2;
+							o1 = o2;
+						}
+					}
+				}
+			}else{
+				if(ord == 12){
+					ve2 = ve + " select";
+				}else{
+					ve2 = ve + " input";
+				}
+				for(i = 1; i < le; i++){
+					i1 = items[i - 1];
+					if(jQuery(i1).attr("editable") === "true"){	
+						v1 = jQuery(ve2, i1).val();
+					}else{
+						v1 = jQuery(ve, i1).text();
+					}
+					o1 = jQuery("td:eq(0)", i1).attr("ordinal");
+					for(j = i; j < le; j++){
+						i2 = items[j];
+						if(jQuery(i2).attr("editable") === "true"){	
+							v2 = jQuery(ve2, i2).val();
+						}else{
+							v2 = jQuery(ve, i2).text();
+						}
+						//比较并交换
+						if(v1 != v2){
+							nsort = true;
+						}
+						o2 = jQuery("td:eq(0)", i2).attr("ordinal");
+						if(((v1 * 1000 + o1) > (v2 * 1000 + o2)) === desc){
+							items[i - 1] = i2;
+							items[j] = i1;
+							i1 = i2;
+							v1 = v2;
+							o1 = o2;
+						}
+					}
+				}
+			}
+			if(nsort === true){
+				items.each(function(i, v){
+					jQuery(v).appendTo("#table_content");
+				});
+				/*
+				if(desc){
+					items.each(function(i, v){
+						jQuery(v).appendTo("#table_content");
+					});
+				}else{
+					items.each(function(i, v){
+						jQuery(v).prependTo("#table_content");
+					});
+				}
+				*/
+			}else{
+				t.attr("title", "不需要排序！");
+			}
+		}
+	}
+	function searchReport(){
+		var items = jQuery("#table_content tr");
+		items.removeClass("searchable");
+		var sv = jQuery("#txt-search-name").val();
+		if(null == sv || '' === sv){
+			return;
+		}
+		if(items.length > 1){
+			jQuery("th.sortable").removeClass("sortable-selected");
+			items.each(function(i, v){
+				var name = jQuery("td:eq(1)", v).text();
+				if(name.indexOf(sv) >= 0){
+					jQuery(v).addClass("searchable").prependTo("#table_content");
+				}
+				//alert(name);
+			});
+		}
+	}
+	function submitReport(th){
+	
+		if(!confirm("提交后将不允许修改，是否确定要提交？")){
+			return false;
+		}
+		var save_data_json = _parseJson("true");
+		$.post(
+			"report.save",
+			{report_data:save_data_json},
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+				var message=data.msg;
+				
+					jQuery.bupmsg.show({
+						title:'消息',
+						msg:message+"",
+						width:400,
+						height:300,
+						timeout:0,
+						showType:'fade',
+						style:{
+							right:'',
+							//top:document.body.scrollTop+document.documentElement.scrollTop,
+							bottom:''
+						}
+					});
+					return;
+				}
+				jQuery.bupmsg.show({
+					title:'消息',
+					msg:'项目月度报告提交成功',
+					timeout:3000,
+					showType:'fade',
+					style:{
+						right:'',
+						//top:document.body.scrollTop+document.documentElement.scrollTop,
+						bottom:''
+					}
+				});
+				jQuery("#frm-submit-data input,#frm-submit-data select").attr("disabled", "disabled");
+				jQuery("#btn-pj-rep-editor").hide();
+				var seldnode = jQuery("#ddl-annual-selector td.annual-selected");
+				if(seldnode.length > 0){
+					jQuery("a", seldnode).removeClass().addClass("annual-finish");
+				}
+			}
+		);
+		
+		/*
+		jQuery("#frm-submit-data").bupform('submit',{
+			onSubmit:function(p){
+				if(!confirm("提交后将不允许修改，是否确定要提交？")){
+					return false;
+				}
+				p.toSubmit = "true";
+				p.rid = reportId;
+			},
+			success:function(data){
+				if(__ajaxSuccess(data)){
+					jQuery.bupmsg.show({
+						title:'消息',
+						msg:'项目月度报告提交成功',
+						timeout:3000,
+						showType:'fade',
+						style:{
+							right:'',
+							//top:document.body.scrollTop+document.documentElement.scrollTop,
+							bottom:''
+						}
+					});
+					jQuery("#frm-submit-data input,#frm-submit-data select").attr("disabled", "disabled");
+					jQuery("#btn-pj-rep-editor").hide();
+					var seldnode = jQuery("#ddl-annual-selector td.annual-selected");
+					if(seldnode.length > 0){
+						jQuery("a", seldnode).removeClass().addClass("annual-finish");
+					}
+				}
+			}
+		});
+		*/
+	}
+	
+	function refreshReport(th){
+		var sy = jQuery("#hid-year").val();
+		var sm = jQuery("#hid-month").val();
+		jQuery("#div_load").load('report!'+sy+'!'+sm+'.start');
+	};
+	
+	
+	
+	function _parseJson(submit){
+		var save_data_json = '{"save_data":[';
+		var trs = $("#table_content .tr-cls");
+		trs.each(function(index,item){
+			//var sta = $(this).find(".sta").val();
+			var sta = jQuery(this).find(".sta").bupnuminput('getValue');
+			sta = sta==""?0:sta;
+			//var spc = $(this).find(".spc").val();
+			var spc = jQuery(this).find(".spc").bupnuminput('getValue');
+			spc = spc==""?0:spc;
+			//var pro = $(this).find(".pro").val();
+			var pro = jQuery(this).find(".pro").bupnuminput('getValue');
+			pro = pro==""?0:pro;
+			//var cit = $(this).find(".cit").val();
+			var cit = jQuery(this).find(".cit").bupnuminput('getValue');
+			cit = cit==""?0:cit;
+			//var cou = $(this).find(".cou").val();
+			var cou = jQuery(this).find(".cou").bupnuminput('getValue');
+			cou = cou==""?0:cou;
+			//var soc = $(this).find(".soc").val();
+			var soc = jQuery(this).find(".soc").bupnuminput('getValue');
+			soc = soc==""?0:soc;
+			//var mas = $(this).find(".mas").val();
+			var mas = jQuery(this).find(".mas").bupnuminput('getValue');
+			mas = mas==""?0:mas;
+			//var oth = $(this).find(".oth").val();
+			var oth = jQuery(this).find(".oth").bupnuminput('getValue');
+			oth = oth==""?0:oth;
+			//var tot = $(this).find(".tot").val();
+			var tot = jQuery(this).find(".tot").val();
+			tot = tot==""?0:tot;
+			
+			//var lab = $(this).find(".lab").val();
+			var lab = jQuery(this).find(".lab").bupnuminput('getValue');
+			lab = lab==""?0:lab;
+			//var spe = $(this).find(".spe").val();
+			var spe = jQuery(this).find(".spe").bupnuminput('getValue');
+			spe = spe==""?0:spe;
+			
+			
+			var status = $(this).find(".pro-status").val();
+			var reason = $(this).find(".pro-reason").val();
+			reason = reason==""?"":reason;
+			
+			var pid = $(this).find(".pro-pid").val();
+			
+			//alert(sta+"---"+spc+"---"+pro+"---"+cit+"---"+cou+"---"+soc+"---"+mas+"---"+oth+"---"+tot+"---"+lab+"---"+spe);
+			save_data_json += '{"state":' + sta;
+			save_data_json += ',"special":' + spc;
+			save_data_json += ',"province":' + pro;
+			save_data_json += ',"city":' + cit;
+			save_data_json += ',"county":' + cou;
+			save_data_json += ',"social":' + soc;
+			save_data_json += ',"mass":' + mas;
+			save_data_json += ',"other":' + oth;
+			save_data_json += ',"total":' + tot;
+			
+			save_data_json += ',"labour":' + lab;
+			
+			save_data_json += ',"status":' + status;
+			save_data_json += ',"reason":"' + reason+'"';
+			
+			save_data_json += ',"id":' + pid;
+			if(index==trs.length - 1){
+				save_data_json += ',"spend":' + spe + '}';
+			}else{
+				save_data_json += ',"spend":' + spe + '},';
+			}
+			
+			
+			/*var data_json = {
+				"state":sta,
+				"special":spc,
+				"province":pro,
+				"city":cit,
+				"county":cou,
+				"social":soc,
+				"mass":mas,
+				"other":oth,
+				"total":tot,
+				"labour":lab,
+				"spend":spe
+			};
+			save_data_json.push(data_json);*/
+		});
+		
+		
+		save_data_json +='],"toSubmit":'+submit;
+		save_data_json +=',"rid":'+reportId+'}';
+	
+		//alert(save_data_json);
+		return save_data_json;
+	}
+	
+	
+	
+	
+	function saveReport(){
+		var save_data_json = _parseJson("false");
+		$.post(
+			"report.save",
+			{report_data:save_data_json},
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return;
+				}
+				alert('暂存成功！');
+			}
+		);
+		
+		/*$.ajax({
+			url : "report.save",
+			data : {
+				save_data : save_data_json,
+				toSubmit : "false",
+				rid : reportId
+			},
+			type : "post",
+			dataType : "json",
+			success : function(result) {
+				if (result.result == "false") {
+					alert("Failed To Save!");
+				}
+			}
+		});*/
+	}
+	
+	function startReport(t, mid){
+		var sednode;
+		if(mid){
+			sednode = jQuery("#monthly_" + mid);
+		}else{
+			sednode = jQuery(t);
+		}
+		if(editable){
+			if(!confirm("正在编辑，请注意保存好数据，是否继续操作？")){
+				return false;
+			}
+			if(sednode.hasClass("annual-new")){
+					alert("注意:如果想在新建的月度报表里显示新创建的项目月报请先创建项目再创建本月度报表！如果先创建月度报表则不会显示后创建的项目的月报！");
+				if(!confirm("是否确定创建项目月报？")){
+					return false;
+				}
+			}
+		}else{
+			if(sednode.hasClass("annual-new")){
+					alert("注意:如果想在新建的月度报表里显示新创建的项目月报请先创建项目再创建本月度报表！如果先创建月度报表则不会显示后创建的项目的月报！");
+				if(!confirm("是否确定创建项目月报？")){
+					return false;
+				}
+			}
+		}
+
+		jQuery("td.annual-monthly").removeClass("annual-selected");
+		if(sednode.length > 0){
+			sednode.parent().addClass("annual-selected");
+		}
+		jQuery("#div_load").load(t.href);
+		return false;
+	}
+	function s(){
+		var h = jQuery("#m-c-content").height();
+		$("#txt-search-name").val(h);
+		jQuery("#tb-project-report-items").height(h-60);
+	}
+	jQuery(function(){
+		//jQuery(window).resize(si);
+		var tt = $('#div_th');
+		jQuery("#tb-project-report-items").scroll(function(){
+				//$("#txt-search-name").val(jQuery(this).scrollLeft());
+				tt.css('left', -jQuery(this).scrollLeft());
+		});
+		jQuery(".fund,.i-fund").each(function(i, v){
+			if(!($.isNumeric(v.value) && v.value - 0 > 0)){
+				v.value = "";
+			}
+		});
+		jQuery(".i-fund").bupnuminput({
+			onChange:function(){
+				var cn = jQuery(this).attr("tcls");
+				var cto = 0;
+				jQuery('.'+cn).each(function(){
+					cto += jQuery(this).bupnuminput("getValue") - 0;
+				});
+				//jQuery("#total_"+cn).html("<h1 style='color:red;'>"+cto+"</h1>");
+				
+				var _cn = "#total_"+cn;
+				if(_cn=="#total_lab"){
+					jQuery("#total_"+cn).html("<h2 style='color:red;'>"+cto+"</h2>");
+				}else{
+					jQuery("#total_"+cn).html("<h2 style='color:red;'>"+toDecimal4(cto)+"</h2>");
+				}
+				
+				
+			}
+		});
+		jQuery(".fund").bupnuminput({
+			precision:4,
+			onChange:function(){
+				var cn = jQuery(this).attr("tcls");
+				var cto = 0;
+				jQuery('.'+cn).each(function(){
+					cto += jQuery(this).bupnuminput("getValue") - 0;
+				});
+				jQuery("#total_"+cn).html("<h2 style='color:red;'>"+toDecimal4(cto)+"</h2>");
+				
+				
+				//总计
+				var tto = 0;
+				jQuery(".rep-row-total").each(function(){
+					tto += jQuery(this).text() - 0;
+				});
+				jQuery("#total_tot").html("<h2 style='color: red;'>"+toDecimal4(tto)+"</h2>");
+				
+				
+				var th = jQuery(this).parent().parent();
+				var tf = 0;
+				jQuery(".fund", th).each(function(i, v){
+					var vf = jQuery(v).bupnuminput('getValue');
+					if($.isNumeric(vf)){
+						tf += vf - 0;
+					}
+				});
+				jQuery(".t-fund", th).val(tf.toFixed(4));
+				//alert(tf.toFixed(4));
+			}
+		});
+	});
+	
+	
+	
+	function toDecimal4(x) {    
+        var f = parseFloat(x);    
+        if (isNaN(f)) {    
+            return false;    
+        }
+        var f = Math.round(x*10000)/10000;    
+        var s = f.toString();    
+        var rs = s.indexOf('.');    
+        if (rs < 0) {    
+            rs = s.length;    
+            s += '.';    
+        }    
+        while (s.length <= rs + 4) {    
+            s += '0';    
+        }    
+        return s;    
+    } 
+</script>
+

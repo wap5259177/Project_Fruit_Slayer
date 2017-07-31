@@ -1,0 +1,73 @@
+<div id="datagrid-tab" style='padding-left:10px;padding-top:5px;'>
+	<div>
+	$!{select}
+	</div>	
+	<a class="bupabutton" style='padding-left:10px' href="#" data-settings="iconClassname:'icon-excel'"
+		 onclick="this.href='index.excel?batch='+jQuery('#sel-batch').val()" target="_blank">导出Excel</a>
+	<div style="font-size:20px;text-align:center">广东省新农村连片示范建设工程台账簿 - 所有工程项目情况累计汇总统计</div>
+</div>
+
+<table class="bupgrid" fit="true" data-settings="nowrap:false" toolbar="#datagrid-tab" id='mygrid'>
+	<thead data-settings="frozen:true">
+		<tr>
+		   <th style="width:60px;" rowspan='3' data-settings="field:'code'">序号</th>
+			<th style="width:60px;" rowspan='3' data-settings="field:'code2'">批次[A15]</th>
+			<th style="width:60px;" rowspan='3' data-settings="field:'code3'">报备年度[A14]</th>
+			<th style="width:120px;" rowspan='3' data-settings="field:'code4'">地市</th>
+			<th style="width:120px;" rowspan='3' data-settings="field:'code5'">县(区)</th>
+			<th style="width:150px;" rowspan='3' data-settings="field:'code6'">示范片名称[A12]</th>
+		</tr>
+	</thead>
+	<thead>
+		<tr>
+			<th style="width:150px;" rowspan='3' data-settings="field:'code7'">建设主题名称[A13]</th>
+			
+			<th style='font-weight:bold;'colspan='9'>计划总投入资金</th>
+			
+		</tr>
+		<tr>
+		    
+			
+			<th style="width:60px;">合计</th>
+			<th style="width:60px;">中央</th>
+			<th style="width:60px;">省级新农村连片示范工程建设补助资金</th>
+			<th style="width:60px;">其他省级财政资金</th>
+			<th style="width:60px;">市级财政资金</th>
+			<th style="width:60px;">县级财政资金</th>
+			<th style="width:60px;">社会</th>
+			<th style="width:60px;">群众自筹</th>
+			<th style="width:60px;">其他</th>
+			
+			
+		</tr>
+		<tr>
+		   
+			
+			<th style="width:60px;" data-settings="field:'item16'">E9[万元]</th>
+			<th style="width:60px;" data-settings="field:'item17'">E10[万元]</th>
+			<th style="width:60px;" data-settings="field:'item19'">E11[万元]</th>
+			<th style="width:60px;" data-settings="field:'item18'">E12[万元]</th>
+			<th style="width:60px;" data-settings="field:'item20'">E131[万元]</th>
+			<th style="width:60px;" data-settings="field:'item21'">E132[万元]</th>
+			<th style="width:60px;" data-settings="field:'item22'">E14[万元]</th>
+			<th style="width:60px;" data-settings="field:'item23'">E141[万元]</th>
+			<th style="width:60px;" data-settings="field:'item24'">E15[万元]</th>
+			
+		</tr>
+	</thead>
+	<tbody id='_tbody'>$!{content}</tbody>
+</table>
+
+<script>
+	$("#btn_load").bupabutton({
+        iconClassname: 'icon-search'
+    });
+    jQuery(function(){
+    //$('#mygrid').bupgrid('hideColumn',"code");
+    $('#mygrid').bupgrid('hideColumn',"code6");
+    $('#mygrid').bupgrid('hideColumn',"code2");
+    $('#mygrid').bupgrid('hideColumn',"code3");
+    $('#mygrid').bupgrid('hideColumn',"code4");
+    $('#mygrid').bupgrid('hideColumn',"code7");
+    });
+</script>

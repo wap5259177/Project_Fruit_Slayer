@@ -1,0 +1,85 @@
+<style type='text/css'> 
+	table { 
+		table-layout:fixed;
+		word-break: break-all; 
+		word-wrap: break-word; 
+		
+		<!--font-size:12px;--> 
+	}  <!--固定table宽度显示控制-->
+</style> 
+<div title="$!{title}" style="width:980px;" modal='true'>
+		<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="width:900px;height:80px;padding:0;overflow:hidden;background:#CCFFFF;position:fixed">
+			$title
+			<div style="font-size:16px;margin:0 auto;">(截止时间：${deadline})</div>
+			#if($!{item.batch.quarter.remark}!='')
+		    <div style="font-size:16px;margin:0 auto;color: red;"><span style="font-size:26px;">注意：</span>$!{item.batch.quarter.remark}</div>
+		    #end
+		</div>
+</div>
+<div title="$!{title}" style="width:910px;height:350px;" modal='true'>
+	<div  fit="true">
+		
+
+		<div data-settings="zone:'center',border:false" style="margin-top:90px">
+			<table class="applicant-form" style="width:98%" border="2" cellpadding="5" cellspacing="1" bgcolor="#add3ef">
+				<tr>
+				    <th  width="" colspan="2" class="bbyshead">拆除危、旧、弃房情况</th>
+				    <th  width="" rowspan="2">清理垃圾数<br/>（吨）</th>
+				    <th  width="" rowspan="2" >复绿面积<br/>（平方米）</th>
+				    <th  width="" rowspan="2" >种植绿化树<br/>（颗）</th>
+				    <th  rowspan="2" >完成村、巷道<br/>硬底化数<br/>（公里）</th>
+				    <th  width="" rowspan="2">完成卫生<br/>改厕数<br/>（个）</th>
+				    <th  width="" rowspan="2">完成民居<br/>外立面改造数<br/>（户）</th>
+				    <th  width="" rowspan="2">铺设雨污<br/>分流管网<br/>（公里）</th>
+				    <th  width="" rowspan="2">建设污水<br/>处理设施<br/>（座）</th>
+				    <th  rowspan="2">铺设自来水管<br/>（公里）</th>
+				    <th  rowspan="2">备注</th>
+				</tr>
+				<tr>
+				    <th  width="" >间数</th>
+				    <th  width="" >面积（平方米）</th>
+				</tr>
+				<tr>
+				    <td>$!{item.dismantleOldHouseNum}</td>
+				    <td>$!{item.dismantleOldHouseArea}</td>
+				    <td>$!{item.cleanRubbish}</td>
+				    <td>$!{item.greenArea}</td>
+				    <td>$!{item.afforestationTree}</td>
+				    <td>$!{item.hardRoad}</td>
+				    <td>$!{item.completeToilet}</td>
+				    <td>$!{item.completeFacade}</td>
+				    <td>$!{item.rainShunt}</td>
+				    <td>$!{item.sewageTreatment}</td>
+				    <td>$!{item.tapWater}</td>
+				    <td>$!{item.remark}</td>
+				<tr>
+				
+				
+				#if($auditing && $form.statusValue == 4)
+					<tr><td bgcolor="#add3ef"; colspan="12" style="font-weight:bold;font-size:16px;">审核信息：<span  style="color:blue;">正在审核</span></td></tr>
+					<tr>
+						<td bgcolor="#add3ef"; colspan="2"class="tdRight">审核内容：</td>
+						<td bgcolor="#add3ef";  colspan="10"><textarea name="auditContent" value="$!{item.auditContent}" id="auditContent" style="resize:none;"  ></textarea></td>
+					</tr>
+					<tr>
+						<td bgcolor="#add3ef"; colspan="2" class="tdRight">审核人：</td>
+						<td bgcolor="#add3ef"; colspan="4"><input type="text" name="auditName" value="$!{item.auditName}" /></td>
+						<td bgcolor="#add3ef"; colspan="2" class="tdRight">审核时间：</td>
+						<td bgcolor="#add3ef"; colspan="4"><input id="bupdateinput" type="text" type="text" name="auditAt" value="$!{item.auditAt}" id="auditAt"></input></td>
+					</tr>
+				#end
+			</table>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	
+	#if($auditing)
+	jQuery("#bupdateinput").bupdateinput({ editable:false});
+	#end
+	
+	$(function(){
+		jQuery("#_2_0").bupborderlayout();
+	});
+</script>

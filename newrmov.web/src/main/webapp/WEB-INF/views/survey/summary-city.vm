@@ -1,0 +1,119 @@
+<div id="_3_0" fit="true">
+	<div data-settings="zone:'north',split:true,border:false" style="height:120px;padding:0;overflow:hidden;">
+		<div style="padding:6px 0 0 20px;">
+			<div style="float:left;padding-right:10px;">
+			年度：<select id="_3_5"><option value="">- 请选择 -</option>${select}</select>
+			</div>
+			<a style="float:left;" href="javascript:" id="_3_4">查找</a>
+			<a class="bupabutton" id="exportExcelBtn" style='float:left;padding-left:10px' href="#" data-settings="iconClassname:'icon-excel'"
+		target="_blank">导出Excel</a>
+			<a class="bupabutton" id="printBtn" style='padding-left:10px' href="#" data-settings="iconClassname:''"
+		target="_blank">打印</a>
+			<div id="_3_6" style="float:left;display:none;color:red;padding-left:10px;"></div>
+			<div class="clear"></div>
+		</div>
+		<div class="applicant-form-title">
+			广东省<div id="_3_2" style="font-size:20px;display:inline-block;width:100px;height:22px;line-height:22px;border-bottom: solid 1px #000000;"></div>新农村建设摸底调查汇总表
+			<div style="font-size:16px;margin:0 auto;">(截止时间：<span id="_3_3"></span>)</div>
+		</div>
+	</div>
+	<div data-settings="zone:'center',border:false">
+		<table id="_3_1" data-settings="
+		        url: 'data.report',
+		        showRownum: true,
+		        fit: true,
+		        idField:'id',
+		        singleSelect:true,
+		        showPagebar: false
+		    "> 
+		    
+			<thead data-settings="frozen:true">
+				<tr>
+					<th data-settings="field:'name',hhalign:'center',chalign:'right'" width="150">县（市、区）名称</th>
+				</tr>
+			</thead>
+		    
+			<thead>
+			 <tr>
+				#parse("survey/table-head.vm")
+			  </tr>
+			</thead>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+var R = {
+	btn : jQuery("#_3_4"),
+	excel : jQuery("#_3_7"),
+	name : jQuery("#_3_2"),
+	deadline : jQuery("#_3_3"),
+	grid : jQuery("#_3_1"),
+	msg : jQuery("#_3_6"),
+	id : function(){
+		return jQuery("#_3_5").val();
+	},
+	data : { $!{data} },
+	selected : {}
+}
+jQuery(function(){
+	jQuery("#_3_0").bupborderlayout();
+	
+	//点击打印按钮
+	$("#printBtn").click(function(){
+		R.msg.hide();
+		var id = R.id();
+		if(id !== ''){
+			var it = R.data[id];
+			//alert(it.id);
+			if(it){
+				this.href='index.print?id='+it.id;
+			}
+		}else{
+			R.msg.text("请选择年度...").show();
+			return false;
+		}
+	});
+	
+	
+	
+	R.btn.bupabutton({iconClassname:'icon_search'}).click(function(){
+		
+		R.msg.hide();
+		var id = R.id();
+		if(id !== ''){
+			var it = R.data[id];
+			//alert(it.id);
+			if(it){
+				R.selected = it;
+				R.grid.bupgrid("reload", {id:it.id});
+				R.name.text(it.name);
+				R.deadline.text(it.deadline);
+				return false;
+			}
+			R.msg.text("数据出错，请刷新再试...").show();
+		}else{
+			R.msg.text("请选择年度...").show();
+		}
+	});
+	R.excel.bupabutton({iconClassname:'icon-excel'}).click(function(){
+		if(R.selected.id){
+			window.open("export.excel" + R.selected.id);
+		}
+	});
+	R.grid.bupgrid({rowStyler:function(rowIndex,row){
+		if(row.id < 0){
+			return 'background-color:#CAFFFF;color:blue;'; 
+		}
+	}});
+	
+	jQuery("#exportExcelBtn").click(function(){
+		var id = R.id();
+		if(id === ''){
+			return false;
+		}
+		var it = R.data[id];
+		var st=it.id;
+	    this.href = 'export.excel?id='+st;
+	})
+});
+</script>

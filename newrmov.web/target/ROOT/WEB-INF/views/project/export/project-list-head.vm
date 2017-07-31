@@ -1,0 +1,28 @@
+<tr>
+	<th rowspan='2' data-settings="chalign:'center',field:'batch'" width="30">批次</th>
+    <th rowspan='2' data-settings="chalign:'center',field:'cityName'" width="70">市</th>
+    <th rowspan='2' data-settings="chalign:'center',field:'countyName'" width="70">县</th>
+    <th rowspan='2' data-settings="chalign:'center',field:'town'" width="70">乡、镇名</th>
+    <th rowspan='2' data-settings="chalign:'center',field:'name'" width="70">项目名称</th>
+    <th rowspan='2' data-settings="chalign:'center',field:'villageName'" width="70">行政村名</th>
+    <th rowspan='2' data-settings="chalign:'center',field:'naturalVillage'" width="70">自然村名</th>
+    <th rowspan='2' data-settings="chalign:'center',field:'proProperty'" width="70">项目属性</th>
+    <th rowspan='2' data-settings="chalign:'center',field:'projectType'" width="70">项目类型</th>
+    <th rowspan='2' data-settings="chalign:'center',field:'startAt'" width="70">项目启动时间</th>
+    <th rowspan='2' data-settings="chalign:'center',field:'endAt'" width="70">项目预计竣工时间</th>
+    <th rowspan='2' data-settings="chalign:'center',field:'status'" width="70">状态</th>
+    <th colspan='9' data-settings="chalign:'center'" width="70">项目资金投入情况（万元）</th>
+</tr>   
+   
+<tr>
+	<th  data-settings="chalign:'center',field:'totalFunds'" width="70">累计投入资金总数</th>
+    <th  data-settings="chalign:'center',field:'stateFunds'" width="70">1.中央财政资金</th>
+    <th  data-settings="chalign:'center',field:'specialFunds'" width="75">2.省级新农村示范片建设补助资金</th>
+    <th  data-settings="chalign:'center',field:'provinceFunds'" width="70">3.其他省级财政资金</th>
+    <th  data-settings="chalign:'center',field:'cityFunds'" width="70">4.市级财政资金</th>
+    <th  data-settings="chalign:'center',field:'countyFunds'" width="70">5.县级财政资金</th>
+    <th  data-settings="chalign:'center',field:'socialFunds'" width="70">6.社会投入资金</th>
+    <th  data-settings="chalign:'center',field:'massFunds'" width="70">7.群众自筹资金</th>
+    <th  data-settings="chalign:'center',field:'otherFunds'" width="70">8.其他</th>
+</tr>
+

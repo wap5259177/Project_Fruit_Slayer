@@ -1,0 +1,234 @@
+
+<div id="table2_myw" data-settings='buttons:"#_buttons"'>
+	<!--布局-->
+	<div id="_1_0" style="height:450px;">
+		<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:70px;padding:0;overflow:hidden;">
+			$title
+			<div style="font-size:16px;margin:0 auto;">(统计起止时间$!{startTime}至$!{deadline})</div>
+			<!--<span style='padding-left:1300px;'><a href='table2.excel?id=$!{cReport.id}' >导出excel</a></span>-->
+			<span style='position: relative;left: 630px;top: -20px;'><a id='table2_export' href='table2.excel?id=$!{cReport.id}' data-settings="iconClassname:'icon-excel'" >导出excel</a></span>
+		</div>
+		
+		
+		<div data-settings="zone:'center',border:false">
+			<style>
+			table.editor tr, table.editor-line tr, table.simplegrid tr{
+				height:auto;
+			}
+			</style>
+			<table id="_1_2" data-settings="
+			        url: 'table2.json',
+			        showRownum: true,
+			        idField: 'id',
+			        //treeField: 'name',
+			        //showPagebar: false,
+			        fit:true
+			    ">
+				<thead>
+					#parse("felicityvillage/table2/table2-head.vm")
+				</thead>
+			</table>
+			<!--toolbar-->
+			#if(!$submit)
+			<div id="tb" style="padding:5px;height:auto">
+				<div style="margin-bottom:5px">
+					<a href="#" onclick='addProject();' class="bupa" iconClassname="icon_add" flat="true">添加项目</a>
+				</div>
+			</div>
+			#end
+			
+		</div>
+		
+		<div data-settings="zone:'south',border:false" style="height:30px;padding:0;overflow:hidden;">
+			<form id="form_table2"  method="post"  >
+				<table>
+					<tr>
+						<td>
+							<input name='couId' type='hidden' value='$id'/>
+							<span style='padding-right:220px;padding-left:200px;'>
+								填报人:<input type='text' name='reporter2' value='$!{cReport.reporter2}' #if($submit)readonly='readonly' #end/>
+							</span>
+							<span style='padding-right:220px;' >
+								联系电话:<input type='text' name='telephone2' value='$!{cReport.telephone2}' #if($submit)readonly='readonly' #end/>
+							</span>
+							<span>
+								填报时间:<input id='reportTime' name='reportTime2' value='$!{cReport.reportTime2}' #if($submit)readonly='readonly' #end/>
+							</span>
+						<td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		
+	</div>
+</div>
+#if(!$submit)
+<div id="_buttons">
+	<font style='font-size:12px;color:red;' >
+		[注意:此处保存的是项目库(二)的填报人/电话/时间!]
+	</font>
+	<a href="#" class="bupa" iconClassname="icon_save" flat="true" onclick='saveTable2();'>
+		保存
+	</a>
+</div>
+#end
+
+<!--load弹出框填项目-->
+<div id='r_bupwin' style="display:none;"></div>
+
+<script>
+jQuery(function(){
+	jQuery("#table2_export").bupabutton();
+	jQuery("#_1_0").bupborderlayout({fit:true});
+	$("a.bupa").bupabutton();//添加项目的按钮
+	$("#reportTime").bupdateinput();
+	$('#table2_myw').bupdlg({
+		title:'$title',
+		iconCassname:'icon_save',
+	    modal:true,
+	    //closed:true,
+	    //buttons:'#_buttons',
+	    maximized: true,//是否显示最大化
+	    onClose:function(){
+	    	//$('#myw').remove();
+	    	$('#table2_myw').bupdlg('destroy').remove();
+	    },
+	    minimizable:false,
+	    maximizable:false
+	});
+	jQuery("#_1_2").bupgrid({
+		fitColumns: true,//列的宽度自动适应
+        singleSelect: true,//单选
+        border: true,//显示边框
+        showRownum: true,//显示序号
+        showHeader: true,//显示表头
+        autoRowheight: false,//将这个设置为false,可以设置rowstyle 的样式高度
+        //sortField: 'id',//定义排序的字段
+        //sortOrder: 'desc',
+        remoteSort: false,//如果要使用本地定义排序的字段,就要设置这里为false
+        
+        rowStyler: function(index,row){
+        	 var maName = row.maName;
+        	 if (maName==""){
+		     	//return {class:'r1',style:{'background-color:gray'}};
+		     	//return 'background-color:#6293BB;color:#fff;height:40px;'; // 返回内联样式#6293BB
+		     	return 'background-color:#6699cc;color:#ffffff;height:30px;'; // 返回内联样式#6293BB
+		     }else{
+		     	 //return 'background-color:#669966;color:#fff;height:40px;'; // 返回内联样式#6293BB
+		        return 'background-color:#8dc5c5;color:#333333;height:30px;'; // 返回内联样式#6293BB
+		        // 也可以返回定义好的CSS类和内联样式的结合体.
+		        // return {class:'r1', style:{'color:#fff'}};
+		     }
+		     /*
+		     if (index%2==0){
+		        return 'background-color:#8dc5c5;color:#333333;height:30px;'; // 返回内联样式#6293BB
+		     }else{
+		     	return 'background-color:#6699cc;color:#ffffff;height:30px;'; // 返回内联样式#6293BB
+		     }*/
+		},
+        
+        /*在这里开启分页*/
+        //loadFilter: pagerFilter,
+        //showPagebar: true,
+        //pagePosition: 'bottom',
+		toolbar: '#tb',
+		queryParams: {
+            id: '$id',
+     	},
+     	/*被冻结的列*/
+     	#if(!$submit)
+        frozenColumns:[[{
+			title : '操作',
+			field : 'operation',
+			width : 70,
+			formatter: function(value,row,index) {
+				var id = row.id;//pr id
+				var btns = "";
+				//alert(index);
+				//alert(id);
+				if(id==null){
+					btns +="<span></span>";
+				}else{
+					
+					btns += "<a class='table_area' id='a_editorProect' href='#' onclick='editorProject("+id+");'  >编辑</a>&nbsp;"+//+//href='area.editor?id=" + id + "'
+							"<a class='table_area' id='a_deleteProject' href='#' onclick='deleteProject("+id+");' >删除</a>&nbsp;";
+					
+				}
+				return btns;    
+			}
+		}]],
+		#end
+		
+		onLoadSuccess : function(data, param) {
+			jQuery('#a_editorProect').click(function() {
+				//lock("正在加载...");
+				//jQuery('#ma_update').load(this.href);
+				//alert('binji...');
+				//jQuery('#div-kernel-dialog-loader').load(this.href);
+				return false;
+			});
+			jQuery('#a_deleteProject').click(function() {
+				//lock("正在加载...");
+				//jQuery('#div-kernel-dialog-loader').load(this.href);
+				//alert('编辑村指标');
+				return false;
+			});
+		}
+	});
+	
+	
+	
+});
+
+
+function addProject(){
+	$('#r_bupwin').load('addProject.do?id=$id');//id 为县报id	
+}
+
+
+
+//编辑项目
+function editorProject(id){
+	$('#r_bupwin').load('editorProject.do?id='+id);	
+}
+
+//删除项目
+function deleteProject(_id){
+	if(!confirm("是否删除?")){
+		return false;
+	}
+	$.post(
+		"deleteProject.do",
+		{id:_id},
+		function(data){
+			alert("删除成功!");
+			jQuery("#_1_2").bupgrid("reload");
+			//jQuery('#table2_myw').bupdlg('destroy').remove();
+		}
+	);
+}
+
+//保存table1的那三个字段,填报人,联系电话,填报时间
+function saveTable2(){
+	if(!confirm("是否保存?")){
+		return false;
+	}
+	$('#form_table2').bupform('submit', {
+	    url: "table2.save",
+	    onSubmit: function(){
+	    	//if(ck.checked==false&&crId==-1){
+	    		//alert('请选择辐射村所属的主体村!');
+	    		//return false;
+	    	//}
+	    },
+	    success: function(data){
+	    	alert("保存成功！");
+	    	//保存成功后,1.关闭弹出框  2.刷新datagrid 的数据
+	    	//jQuery("#_1_1").bupgrid("reload");
+	    	//jQuery('#table2_myw').bupdlg('destroy').remove();
+	    }
+  	}); 
+}
+
+
+</script>

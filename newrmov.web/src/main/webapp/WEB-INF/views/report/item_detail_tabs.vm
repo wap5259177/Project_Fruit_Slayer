@@ -1,0 +1,39 @@
+<div style='overflow:auto;height:320px;'>
+
+<p class='item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">报送通知-基本信息</p>
+<div>
+	<hr width="90%" align="left"/>
+	<div style="padding:0 80px 10px 80px;">$!{form.content}</div>
+	
+	<table class='editor' style='width:100%;'>
+	#if($form.annex)
+	<tr><th style='text-align:left;'>附件：</th><td colspan="5">
+		<a href="#springUrl($form.annex)" target="_blank">$form.annexName</a>
+		<a href="index.download?id=$!{form.id}" target='_blank' title="下载附件：${form.annexName}" style="float:right;padding-right:8px;">
+			<img src="#springUrl('/res/images/download.png')" heigt="25px" width="25px"/>
+		</a>
+	</td></tr>
+	#end
+	
+	<tr><th style='text-align:left;width:110px;'>草拟时间：</th><td style="width:160px;">$!{form.draftAt}</td><th style='text-align:left;width:110px;'>发布时间：</th><td style="width:160px;">$!{form.issueAt}</td><th style='text-align:left;width:110px;'>状态：</th><td>$!{form.status}</td></tr>
+	<tr><th style='text-align:left;'>送报地区：</th><td colspan="5">$!{form.unit}</td></tr>
+	<tr><th style='text-align:left;'>业务处室：</th><td colspan="5">$!{form.offices}</td></tr>
+	<tr><th style='text-align:left;'>其他：</th><td colspan="5">$!{form.other}</td></tr>
+	<tr><th style='text-align:left;'>备注：</th><td colspan="5">$!{form.remark}</td></tr>
+	</table>
+
+</div>
+#if($doc_item)
+	<p class='item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">报送通知-报送情况</p>
+	<div>
+		<hr width="90%" align="left"/>
+		<table class='editor' style='width:100%;'>
+		<tr><th style='text-align:left;'>文件名 </th><th style='text-align:left;width:70px;'>文件类型</th><th style='text-align:left;width:80px;'>报送时间</th><th style='text-align:left;width:40px;'>操作</th>
+		${doc_item}
+		</table>
+	</div>
+#else
+	<hr width="90%" align="left"/>
+	<p style="color:red;">还没有报送文档！</p>
+#end
+</div>

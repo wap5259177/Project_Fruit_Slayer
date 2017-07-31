@@ -1,0 +1,93 @@
+<script type="text/javascript" src="/res/js/jquery.form.js"></script>
+<div id="$di.id" title="上传文件" style="padding:4px;" buttons="#${di.id}-buttons" modal='true'>
+<form id='file_form' enctype='multipart/form-data'>
+<!--
+<input type='hidden' name='id' value='$!{id}' />
+<input type='hidden' name='flag' />
+<input type='hidden' name='build_type' />
+-->
+<input type='hidden' name='buildType' value='$!{buildType}' />
+<table class='editor' style="margin:auto;">
+	<tr id="use-file-upload">
+        <th>文件上传：</th>
+        <td colspan="3"><input type="file" name="mediaFile" #if($code == 1) accept="video/*" #else accept="image/*" #end/></td>
+    </tr>
+    <tr id="use-external-link" style="display:none;">
+		<th>#if($code == 1)视频#else图片#end地址：</th>
+		<td colspan="3"><input type="text" name="externalUrl" value="$!{externalUrl}" style="width:98%;" /></td>
+	</tr>
+    <tr>
+    	<th style="width:80px;"></th>
+    	<td style="width:200px;">
+			<input type="checkbox" id="externalLink" name="externalLink" onclick="if(this.checked){jQuery('#use-file-upload').hide().find('input:file').val('');jQuery('#use-external-link').show();}else{jQuery('#use-file-upload').show();jQuery('#use-external-link').hide();}"/>
+			<label for="externalLink">外部链接</label>
+		</td>
+    	<th style="width:80px;">发布时间：</th>
+    	<td><input type="text" name="issueAt" id="issueAt" /></td>
+    </tr>
+	<tr>
+        <th>重命名：</th>
+        <td colspan="3"><input style="width:300px;" type="text" name="rename" value="$!{rename}"/><font color='red'>（不填则默认为文件名）</font></td>
+    </tr>
+    <tr>
+		<th>扩展属性：</th>
+		<td colspan="3"><input type="text" name="extendedAttributes" value="$!{extendedAttributes}" style="width:98%;" /></td>
+	</tr>
+	<!--
+	<tr>
+		<th>状态：</th>
+    	<td><select style="width:180px;" name="status" id="status">
+    		<option value="1" #if($!{status}==1)selected="true"#end >正常</option>
+    		<option value="-1" #if($!{status}==-1)selected="true"#end >禁止修改</option>
+    	</select></td>
+    </tr>
+    <tr>
+    	<th>文件类型：</th>
+    	<td><select style="width:180px;" name="type" id="type">
+    		<option value="DOC"   #if($!{type}=='DOC')  selected="true"#end >文档</option>
+    		<option value="IMAGE" #if($!{type}=='IMAGE')selected="true"#end >图片</option>
+    		<option value="MUSIC" #if($!{type}=='MUSIC')selected="true"#end >音频</option>
+    		<option value="VIDEO" #if($!{type}=='VIDEO')selected="true"#end >视频</option>
+    		<option value="OTHER" #if($!{type}=='OTHER')selected="true"#end >其它</option>
+    	</select></td>
+    </tr>
+	-->
+	<tr>
+        <th>备注：</th>
+        <td colspan="3"><textarea name="remark" id="remark" style="resize:none;height:80px;width:98%;font-size:12px;">$!{remark}</textarea></td>
+    </tr>
+</table>
+</form>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_save' onclick="btn_save();">提交</a>
+<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_save, #a_close').bupabutton({flat : true});
+	jQuery('#issueAt').bupdateinput({editable:false});
+	if ('$!{issueAt}' != '') {
+		jQuery('#issueAt').bupdateinput('setValue', '$!{issueAt}');
+	}
+});
+function btn_save() {
+	lock('正在上传图片...');
+	jQuery('#file_form').ajaxSubmit({
+		url:"#springUrl('/s/ma/media/')$!{form}-$!{type}-$!{code}-file.save",
+		type:'post',
+		dataType:'json',
+		success:function(rd) {
+			if (typeof rd === "string")
+				rd = $.parseJSON(rd);
+			if(rd.error) {
+				alert(rd.msg);
+				return;
+			}
+			$('#build_file').bupgrid("reload");
+			$('#${di.id}').bupdlg('close');
+		}
+	});
+}
+</script>

@@ -1,0 +1,4 @@
+<div class="applicant-form-main" style='height:400px'>
+	<div class="applicant-form-title">$!{form.annual}年$!{form.month}月幸福村居连片示范建设月度报表 </div>
+	#parse('felicity/report-county-info.vm')
+</div>

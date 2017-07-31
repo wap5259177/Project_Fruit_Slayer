@@ -1,0 +1,136 @@
+<table class='editor' style="width:100%;margin: auto;">
+   <tbody>
+	
+	<tr>
+		<th class="tdLeft" colspan='2'>完成自然村数:</th>
+		<td colspan='4'><input id="finishNatureVillageNum" style="width:50px;" type='text' value='$!{form.finishNatureVillageNum}' min="0" precision="0" class='number' name='finishNatureVillageNum' $!{readonly}/>个</td>
+	</tr>
+	<tr>
+		<th  class="tdLeft" colspan='2'>梳理出项目数:</th>
+		<td colspan='4'><input id="teasedProjectNum" style="width:50px;" type='text' value='$!{form.teasedProjectNum}' min="0" precision="0" class='number' name='teasedProjectNum' $!{readonly}/>个</td>
+	</tr>
+	<tr>
+		<th class="tdLeft" colspan='2'>排查出的矛盾纠纷数:</th>
+		<td><input id="troubleshooting" style="width:50px;" type='text' value='$!{form.troubleshooting}' min="0" precision="0" class='number' name='troubleshooting' $!{readonly}/>宗</td>
+		<th class="tdRight" colspan='2'>其中已化解数:</th>
+		<td><input id="resolvedTroubleshooting" style="width:50px;" type='text' value='$!{form.resolvedTroubleshooting}' min="0" precision="0" class='number' name='resolvedTroubleshooting' $!{readonly}/>宗</td>
+	</tr>
+  <tbody>
+</table>
+
+
+<div id='main' style='width: 850px; height: 420px;padding:50px 20px 10px 120px;'>
+
+</div>
+
+
+<script type='text/javascript'>
+	var myChart = echarts.init(document.getElementById('main'),'infographic'); 
+	var ecConfig = echarts.config;
+	var mapGeoData = echarts.util.mapData.params;
+	
+	var option;
+	
+	$(function(){
+		//$("#_detal").hide();
+		option = {
+		    title : {
+		        text: '民生问题调查',
+		        subtext: '',
+		        x:'center'
+		    },
+		    tooltip : {
+		        trigger: 'axis',
+		        formatter:'{b}:{c}个'
+		    },
+		    grid:{
+				x:100,
+				y:40
+			},
+		    legend: {
+		        data:['数量'],
+		        show:false
+		    },
+		    toolbox: {
+		        show : true,
+		        feature : {
+		            mark : {show: false},
+		            dataView : {show: false, readOnly: false},
+		            magicType : {show: true, type: ['line', 'bar']},
+		            restore : {show: true},
+		            saveAsImage : {show: true}
+		        }
+		    },
+		    calculable : true,
+		    xAxis : [
+		        {
+		            type : 'category',
+		            boundaryGap : true,
+		            data : ['完成自然村数','梳理出项目数','排查出的矛盾纠纷数','排查出矛盾纠纷其中已化解数'],
+		            axisLabel: {
+		                 show: true,
+		                 rotate:10,
+		                 interval: 'auto',
+		                 textStyle: {
+		                     color: '#000000',
+		                     fontFamily: 'verdana',
+		                     fontSize: 16,
+		                     fontStyle: 'normal',
+		                     fontWeight: 'bold'
+		                 }
+		             }
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'value',
+		            axisLabel : {
+		                formatter: '{value} 个'
+		            }
+		        }
+		    ],
+		    series : [
+		        {
+		            name:'村数量',
+		            type:'bar',
+		            barWidth:60,//设置柱状图的宽度
+		            //data:[11, 11, 15, 13],
+		            data:$issues,
+		            markPoint : {
+		                data : [
+		                   // {type : 'max', name: '最大值'},
+		                    //{type : 'min', name: '最小值'}
+		                ]
+		            },
+		            markLine : {
+		                data : [
+		                    //{type : 'average', name: '平均值'}
+		                ]
+		            },
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             //color: '#800080'
+		                         },
+		                         position:'top',
+		                         formatter: '{b}:\n{c}'
+		                     },
+		                     color: function(params) {
+		                        // build a color map as your need.
+		                        var colorList = [
+		                          '#C1232B','#B5C334','#6495ED','#E87C25','#27727B',
+		                           '#FF4500','#B03060','#26C0C0','#F3A43B','#8B8B00',
+		                           '#D7504B','#C6E579','#F4E001','#F0805A','#A2CD5A'
+		                        ];
+		                        return colorList[params.dataIndex]
+		                    }
+		                 }
+		             }
+		        }
+		    ]
+		};
+		myChart.setOption(option);
+	});
+</script>

@@ -1,0 +1,59 @@
+<!--省办点击【修改项目状态】弹出的内容-->
+<div id="$di.id" data-settings='buttons:"#${di.id}_buttons"' title="$!{title}" style="width:850px;height:150px;" modal='true'>
+
+	<div id="_2_0" fit="true">
+		<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:30px;padding:0;overflow:hidden;"><!--background:#CCFFFF-->
+			$!{form.name}
+		</div>
+		<div data-settings="zone:'center',border:false">
+			<table class='editor'>
+				<tr>
+					<th width='200px'>项目编号：</th>
+					<td width='150px'>$!{form.code}</td>
+					<th width='200px'>项目状态：</th>
+					<td>
+						<select id='status' style='width:98%;' name='status'>
+							<optgroup label='项目状态'>
+								<option value='1' #if($!{form.status}==1) selected='selected'#end>进行中</option>
+								<option value='2' #if($!{form.status}==2) selected='selected'#end>竣工</option>
+								<option value='3' #if($!{form.status}==3) selected='selected'#end>终止</option>
+							</optgroup>
+						</select>
+					</td>
+				</tr>
+			</table>
+			#*#parse("applicant/areaproject-info.vm")*#
+		</div>
+		
+	</div>
+</div>
+<!--<div id="${di.id}_buttons"><button onclick='save();'>提交</button></div>-->
+<div id="${di.id}_buttons">
+	<a id='a_save' href="#" onclick='save();' class="bupabutton" data-settings="iconClassname:'icon_save',iconHalign:'left'">保存</a>
+</div>
+
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery("#_2_0").bupborderlayout();
+		$('#a_save').bupabutton();
+	});
+	
+	function save(){
+		var _status = $('#status').val();
+		if(!confirm("是否保存?")){
+			return false;
+		}
+		$.post(
+			"pjStatus.update",
+			{id: $!{form.id},status: _status},
+			function(data){
+				//刷新datagrid
+				$('#$!{gridid}').bupgrid('reload');
+				$('#${di.id}').bupdlg('close');
+				//jQuery('#uppjr_$form.id').bupdlg('destroy').remove();
+				//$('#uppjr_$form.id').bupdlg({closed:true});
+			}
+		);
+	}
+	
+</script>

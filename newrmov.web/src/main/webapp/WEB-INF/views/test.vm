@@ -1,0 +1,12 @@
+<div id="$di.id" title="$!{title}" style="width:800px;height:500px;padding:2px;" modal='true'>
+${rural.getClass().getName()}
+#if(${rural.getClass().getName()}=='cn.bonoon.entities.NewRuralEntity')
+	是主体村下的自然村,村名:${rural.getName()}
+	#end
+<br>
+	$!{rural.poorVillage}<br>
+	$!{rural.ruralArea}<br>
+	$!{rural.arableLand}<br>
+	$!{rural.houseHold}<br>
+	$!{rural.population}<br>
+		${rural.council}

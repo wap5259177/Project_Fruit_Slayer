@@ -1,0 +1,57 @@
+#if($warningMessage)
+	<div class="applicant-form-warning">$warningMessage</div>
+#end
+#parse('applicant/areaproject-view.vm')
+<script type='text/javascript'>
+jQuery(function() {
+	$('.number').each(function(i, v){
+		var vf = v.value;
+		if(!$.isNumeric(vf) || vf == 0){
+			v.value = '';
+		}
+	});
+	jQuery(".number").bupnuminput();
+	
+	$('.funds').bupnuminput({
+   		 onChange:function(){
+			var tc = 0;
+			$('.funds').each(function(i, v){
+				var vf = jQuery(v).bupnuminput('getValue');
+				if($.isNumeric(vf)){
+					tc += vf - 0;
+				}
+			});
+			$('#totalFunds').bupnuminput('setValue', tc);
+		}      
+	});
+	
+	$('.tfunds').bupnuminput({
+		onChange:function(){
+			var tc = 0;
+			$('.tfunds').each(function(i, v){
+				var vf = jQuery(v).bupnuminput('getValue');
+				if($.isNumeric(vf)){
+					tc += vf - 0;
+				}
+			});
+			$('#ttotalFunds').bupnuminput('setValue', tc);
+		}
+	});
+	//设置下拉列表多选
+	$('#newRural').val($!{form.newRural});
+	$('#startAtY').val($!{form.startAtY});
+	$('#startAtM').val($!{form.startAtM});
+	$('#endAtY').val($!{form.endAtY});
+	$('#endAtM').val($!{form.endAtM});
+	$('#finishAtY').val($!{form.finishAtY});
+	$('#finishAtM').val($!{form.finishAtM});
+});	
+function _checkNumber(){
+	$('.number').each(function(i, v){
+		var vf = jQuery(v).bupnuminput('getValue');
+		if(!$.isNumeric(vf) || vf < 0){
+			jQuery(v).bupnuminput('setValue', '0');
+		}
+	});
+}
+</script>

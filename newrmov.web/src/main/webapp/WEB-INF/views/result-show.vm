@@ -1,0 +1,53 @@
+<div fit="true" class="buptab" tabPosition="left" headerWidth="200">   
+    <div title="茂名市信宜市">  
+    	<div fit="true" class="buptab" tabPosition="right">
+    		<div title='各安村'>
+    			<div fit="true" class="buptab" tabPosition="bottom">
+				    <div title="项目统计">    
+				        <img src='/r/images/example/项目统计图例.png'/>
+				    </div>   
+				    <div title="风貌展示">   
+				        $!{photo_show}
+				    </div>   
+				    <div title="地理位置">
+				    	<div style='padding:12px;'>
+				        <img width='1060px' height='600px' src='/r/images/example/7village_planning_diagram/6.景观资源评价图.jpg' />
+				        </div>
+				    </div>
+				    <div title="实时监控">   
+				        tab4    
+				    </div>
+				</div>
+    		</div>
+    		<div title='南和村'>
+    			
+    		</div>
+    		<div title='正大村'>
+    			
+    		</div>
+    		<div title='新良村'>
+    			
+    		</div>
+    		<div title='良洞村'>
+    			
+    		</div>
+		</div>
+    </div>   
+    <div title="肇庆市德庆县">   
+        tab2    
+    </div>   
+    <div title="清远市阳山县">   
+        tab3    
+    </div>
+</div>  
+
+<script type='text/javascript'>
+jQuery(function() {
+	/*
+	jQuery('.show_img_dlg').click(function() {
+		jQuery('#div-kernel-dialog-loader').load('#springUrl('image/dialog')');
+		return false;
+	});
+	*/
+});
+</script>

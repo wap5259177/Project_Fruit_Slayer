@@ -1,0 +1,10 @@
+<table class="annual-main">
+<tr><td rowspan="2"><a class="annual-pre-year" href="annual!${preYear}.goto" onclick="return gotoAnnual(this);"></a></td>
+	<td colspan="13" class="annual-title">$!{currentYear}年</td>
+	<td rowspan="2"><a class="annual-next-year" href="annual!${nextYear}.goto" onclick="return gotoAnnual(this);"></td></tr>
+<tr>
+<td class="annual-monthly-title">月份：</td>
+#foreach($it in $items)
+	$it
+#end
+</tr></table>

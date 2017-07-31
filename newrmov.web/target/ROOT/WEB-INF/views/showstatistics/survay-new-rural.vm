@@ -1,0 +1,75 @@
+<div id="datagrid-tab" style='padding-left:10px;padding-top:5px;'>
+	<div>
+	$!{select}
+	</div>	
+	<a class="bupabutton" style='padding-left:10px' href="#" data-settings="iconClassname:'icon-excel'"
+		 onclick="this.href='index.excel?batch='+jQuery('#sel-batch').val()" target="_blank">导出Excel</a>
+	<div style="font-size:20px;text-align:center">广东省新农村连片示范建设工程台账簿 - 所有主体村情况累计汇总统计</div>
+</div>
+
+<table class="bupgrid" fit="true" data-settings="nowrap:false" toolbar="#datagrid-tab" id='mygrid'>
+	<thead data-settings="frozen:true">
+		<tr>
+		   <th style="width:60px;" rowspan='3' data-settings="field:'code'">序号</th>
+			<th style="width:60px;" rowspan='3' data-settings="field:'code2'">批次[A15]</th>
+			<th style="width:60px;" rowspan='3' data-settings="field:'code3'">报备年度[A14]</th>
+			<th style="width:120px;" rowspan='3' data-settings="field:'code4'">地市</th>
+			<th style="width:120px;" rowspan='3' data-settings="field:'code5'">县(区)</th>
+			<th style="width:150px;" rowspan='3' data-settings="field:'code6'">示范片名称[A12]</th>
+		</tr>
+	</thead>
+	<thead>
+		<tr>
+			
+			<th style="width:150px;" rowspan='3' data-settings="field:'code7'">建设主题名称[A13]</th>
+			<th style="width:150px;" rowspan='3' data-settings="field:'code8'">行政村名</th>
+			<th style="width:150px;" rowspan='3' data-settings="field:'code9'">自然村名</th>
+			
+			<th style='font-weight:bold;' colspan='3'>（四）村民理事会</th>
+			<th style='font-weight:bold;' colspan='4'>（五）民生问题调查梳理情况</th>
+			
+			
+		</tr>
+		<tr>
+			
+			<th style="width:60px;">是否建立村民理事会</th>
+			<th style="width:60px;">理事会成员数</th>
+			<th style="width:60px;">制定村规民约和章程村个数</th>
+			
+			<th style="width:60px;">完成自然村数</th>
+			<th style="width:60px;">梳理出项目数</th>
+			<th style="width:60px;">排查出的矛盾纠纷数</th>
+			<th style="width:60px;">其中已化解数</th>
+			
+			
+		</tr>
+		<tr>
+			
+			<th style="width:60px;" data-settings="field:'item33'">B53</th>
+			<th style="width:60px;" data-settings="field:'item34'">B54[人]</th>
+			<th style="width:60px;" data-settings="field:'item35'">B56</th>
+			
+			<th style="width:60px;" data-settings="field:'item36'"></th>
+			<th style="width:60px;" data-settings="field:'item37'"></th>
+			<th style="width:60px;" data-settings="field:'item38'"></th>
+			<th style="width:60px;" data-settings="field:'item39'"></th>
+			
+		</tr>
+	</thead>
+	<tbody id='_tbody'>$!{content}</tbody>
+	
+</table>
+
+<script>
+	$("#btn_load").bupabutton({
+        iconClassname: 'icon-search'
+    });
+    jQuery(function(){
+    //$('#mygrid').bupgrid('hideColumn',"code");
+    $('#mygrid').bupgrid('hideColumn',"code6");
+    $('#mygrid').bupgrid('hideColumn',"code2");
+    $('#mygrid').bupgrid('hideColumn',"code3");
+    $('#mygrid').bupgrid('hideColumn',"code4");
+    $('#mygrid').bupgrid('hideColumn',"code7");
+    });
+</script>

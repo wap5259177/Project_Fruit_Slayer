@@ -1,0 +1,507 @@
+<div id="$di.id" title="主体村" style="padding:12px;height:600px;" buttons="#${di.id}-buttons" modal='true'>
+<div class="applicant-form-title">示范片主体村基本情况表</div>
+<form id="baseVillageInfo">
+	<!-- 村ID -->
+	<input type='hidden' name='id' value='$!{id}' />
+	<!-- 片区ID -->
+	<input type='hidden' name='modelareaId' value='$!{areaId}' />
+	<table class='applicant-form'>
+		<tr>
+			<td class='title' colspan='6'>(一)主体村情况</td>
+		</tr>
+		<tr>
+			<td>序号</td>
+			<td>-</td>
+			<td>村庄类型</td>
+			<td colspan='3'>
+				<input type='text' name='type' value='$!{baseVillageInfo.type}' />
+			</td>
+		</tr>
+		<tr>
+			<td>村名称</td>
+			<td colspan='5'>
+				<input type='text' style='width:200px' value='$!{baseVillageInfo.town}' name='town' />镇
+				<input type='text' value='$!{baseVillageInfo.name}' name='name' />村委会
+				<input type='text' value='$!{baseVillageInfo.naturalVillage}' name='naturalVillage' /> 自然村(或村民小组)
+			</td>
+		</tr>
+		<tr>
+			<td>总面积</td>
+			<td colspan='2'>
+				<input type='text' class='number' value='$!{baseVillageInfo.ruralArea}' name='ruralArea' />亩
+				</td>
+			<td>耕地面积</td>
+			<td colspan='2'>
+				<input type='text' class='number' value='$!{baseVillageInfo.arableLand}' name='arableLand' />亩
+				</td>
+		</tr>
+		<tr>
+			<td>户数</td>
+			<td>
+				<input type='text' value='$!{baseVillageInfo.houseHold}' style="width:60px;" class='number' name='houseHold' />户
+			</td>
+			<td>人口数</td>
+			<td>
+				<input value='$!{baseVillageInfo.houseHold}' style="width:50px;" type='text' value='$!{baseVillageInfo.population}' class='number' name='population' />人
+				</td>
+			<td>劳动力总人数</td>
+			<td>
+				<input value='$!{baseVillageInfo.houseHold}' style="width:60px;" type='text' value='$!{baseVillageInfo.labor}' class='number' name='labor' />人
+				</td>
+		</tr>
+		<tr>
+			<td colspan='2'>是否省级扶贫开发重点村(贫困村)</td>
+			<td colspan='4'>
+				<input type='text' name='poorVillage' value='$!{baseVillageInfo.poorVillage}' />
+				(帮扶单位名称:<input style='width:160px' type='text' value='$!{baseVillageInfo.helpUnit}' name='helpUnit' />)
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>是否广东名村</td>
+			<td colspan='4'>
+				<input type='text' name='famousVillage' value='$!{baseVillageInfo.famousVillage}' />
+				(批次:
+					<input type='text' name='famousBatch' value='$!{baseVillageInfo.famousBatch}' />)
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>是否"两不具备"整村搬迁村</td>
+			<td colspan='4'>
+				<input type='text' name='pushVillage' value='$!{baseVillageInfo.pushVillage}' />
+				(年度:<input type='text' name='pvAnnual' value='$!{baseVillageInfo.pvAnnual}' />年)
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>农民年人均纯收入</td>
+			<td colspan='4'>
+				2013&nbsp年度：<input  type='text' name='annualIncome_13' class='number'  value='$!{baseVillageInfo.annualIncome_13}' />元&nbsp&nbsp
+				2014&nbsp年度：<input  type='text' name='annualIncome_14' class='number'  value='$!{baseVillageInfo.annualIncome_14}' />元&nbsp&nbsp
+				2015&nbsp年度：<input  type='text' name='annualIncome_15' class='number'  value='$!{baseVillageInfo.annualIncome_15}' />元
+			</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold;' colspan='6'>(二)基础设施建设和环境卫生整治情况</td>
+		</tr>
+		<tr>
+			<td colspan='2'>村内道路和入户路硬底化率</td>
+			<td>
+				<input style='width:60px' type='text' name='hardBottom' class='number' value='$!{baseVillageInfo.hardBottom}' />%
+				<br />
+				(<input style='width:40px' type='text' name='bottomDis' class='number' value='$!{baseVillageInfo.bottomDis}' />公里)
+			</td>
+			<td>是否通自来水</td>
+			<td colspan='2'>
+				<input type='text' name='tapWater' value='$!{baseVillageInfo.tapWater}' />
+				<br />
+				(时间:<input style='width:60px' type='text' name='tapAnnual' value='$!{baseVillageInfo.tapAnnual}' />年)
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>开展农田水利基础设<br />施和现代渔港建设</td>
+			<td><input style='width:60px' type='text' name='waterBase' value='$!{baseVillageInfo.waterBase}' />宗</td>
+			<td colspan='2'>整治小山塘、小灌区、<br />小水坡、小泵站和小堤防</td>
+			<td><input style='width:60px' type='text' name='smallWater' value='$!{baseVillageInfo.smallWater}' />个</td>
+		</tr>
+		<tr>
+			<td colspan='3'>配套建设高标准基本农田、标准鱼塘</td>
+			<td colspan='3'><input style='width:60px' type='text' name='farmland' value='$!{baseVillageInfo.farmland}' />亩</td>
+		</tr>
+		<tr>
+			<td colspan='2'>是否已完成环境卫生整治</td>
+			<td colspan='4'>
+				<input type='text' name='hyFix' value='$!{baseVillageInfo.hyFix}' />
+				(完成年度:<input  type='text' name='fixAnnual' value='$!{baseVillageInfo.fixAnnual}' />年)
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>是否已开展过<br />是否开展村庄垃圾治理</td>
+				<td>
+					<input type='text' name='villageManage' value='$!{baseVillageInfo.villageManage}' />
+				</td>
+			<td colspan='2'>是否建立村保洁队伍</td>
+			<td>
+				<input type='text' name='cleanTeam' value='$!{baseVillageInfo.cleanTeam}' />
+				(保洁员:<input style='width:60px' type='text' name='cleaners' value='$!{baseVillageInfo.cleaners}' />个)
+			</td>
+		</tr>
+		<tr>
+			<td  colspan='2'>村民使用卫生厕所户数</td>
+			<td>
+				占<input style='width:60px' type='text' class='number' name='toiletPercent' value='$!{baseVillageInfo.toiletPercent}' />%
+				<br /><input style='width:60px' type='text' class='number' name='toilet' value='$!{baseVillageInfo.toilet}' />户
+			</td>
+			<td colspan='2'>是否建立污水处理设施</td>
+			<td>
+				<input type='text' name='badWater' value='$!{baseVillageInfo.badWater}' />
+				完成时间:<input style='width:50px' type='text' name='badWaterAnn' value='$!{baseVillageInfo.badWaterAnn}' />年
+			</td>
+		</tr>
+		<tr>
+			<td class='title' colspan='6'>(三)农村旧房整治情况</td>
+		</tr>
+		<tr>
+			<td colspan='2'>无价值旧村旧房拆除</td>
+			<td><input style='width:50px' type='text' name='noValue' value='$!{baseVillageInfo.noValue}' />间</td>
+			<td colspan='2'>统一拆旧建新</td>
+			<td><input style='width:50px' type='text' name='buildAgain' value='$!{baseVillageInfo.buildAgain}' />间</td>
+		</tr>
+		<tr>
+			<td colspan='2'>古建筑保护</td>
+			<td colspan='4'><input style='width:50px' type='text' name='buildNew' value='$!{baseVillageInfo.oldProtect}' />间</td>
+		</tr>
+		<tr>
+			<td colspan='3'>是否编制旧房整治改造规划</td>
+			<td colspan='3'>
+				<input type='text' name='changePlan' value='$!{baseVillageInfo.changePlan}' />
+			</td>
+		</tr>
+		<tr>
+			<td colspan='3'>是否提供民居住宅设计标准图</td>
+			<td colspan='3'>
+				<input type='text' name='designPic' value='$!{baseVillageInfo.designPic}' />
+			</td>
+		</tr>
+		<tr>
+			<td colspan='3'>农家(乡村)旅馆</td>
+			<td colspan='3'>规划建设<input style='width:50px' type='text' name='planCount' value='$!{baseVillageInfo.planCount}' />间;
+			完成建设<input style='width:50px' type='text' name='finishCount' value='$!{baseVillageInfo.finishCount}' />间</td>
+		</tr>
+		<tr>
+			<td colspan='2'>是否统一民居<br />外立面风貌</td>
+			<td colspan='4'>
+				<input type='text' name='faceView' value='$!{baseVillageInfo.faceView}' />
+				(风格:<input style='width:50px' type='text' name='faceStyle' value='$!{baseVillageInfo.faceStyle}' />，
+				完成时间:<input style='width:50px' type='text' name='fvAnnual' value='$!{baseVillageInfo.fvAnnual}' />年)
+			</td>
+		</tr>
+		<tr>
+			<td class='title' colspan='6'>(四)资源优势情况</td>
+		</tr>
+		<tr>
+			<td rowspan='8'>资源特色</td>
+			<td style='font-weight:bold;'>特色类型名称</td>
+			<td style='font-weight:bold;text-align:center' colspan='4'>描述</td>
+		</tr>
+		<tr>
+			<td>人文历史</td>
+			<td colspan='4'>
+				<textarea name='histroyDesc'>$!{baseVillageInfo.histroyDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>自然生态</td>
+			<td colspan='4'>
+				<textarea name='ecologicalDesc'>$!{baseVillageInfo.ecologicalDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>民居风貌</td>
+			<td colspan='4'>
+				<textarea name='civilianDesc'>$!{baseVillageInfo.civilianDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>乡村旅游</td>
+			<td colspan='4'>
+				<textarea name='tourDesc'>$!{baseVillageInfo.tourDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>特色产业</td>
+			<td colspan='4'>
+				<textarea name='industryDesc'>$!{baseVillageInfo.industryDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>渔业渔港</td>
+			<td colspan='4'>
+				<textarea name='fisheryDesc'>$!{baseVillageInfo.fisheryDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>其他</td>
+			<td colspan='4'>
+				<textarea name='otherDesc'>$!{baseVillageInfo.otherDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>现有的或正在打造的旅游景点</td>
+			<td colspan='4'>
+				<input type='text' class='number' onfocus="$('#viewSpot').toggle()"  onblur="$('#viewSpot').toggle()" name='viewSpot' class='number' value='$!{baseVillageInfo.viewSpot}' />个,
+				名称分别是：
+				(1)<input type='text' name='viewSpot1' value='$!{baseVillageInfo.viewSpot1}' /><br />
+				(2)<input type='text' name='viewSpot2' value='$!{baseVillageInfo.viewSpot2}' />
+				(3)<input type='text' name='viewSpot3' value='$!{baseVillageInfo.viewSpot3}' />
+			</td>
+		</tr>
+		<tr>
+			<td class='title' colspan='6'>(五)农村公共服务情况</td>
+		</tr>
+		<tr>
+			<td colspan='2'>文化活动场所</td>
+			<td colspan='4'>
+				<nobr>
+					<input type='text' class='number' value='$!{baseVillageInfo.culturalAct}' name='culturalAct' />个,
+					<input class='number' type='text' value='$!{baseVillageInfo.culturalActArea}' name='culturalActArea' />平方米,
+					年度:<input class='culturalAct' type='text' value='$!{baseVillageInfo.culturalActAnn}' name='culturalActAnn' />年
+				</nobr>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>乡村公园</td>
+			<td colspan='4'>
+				<nobr> 
+					<input type='text' class='number' value='$!{baseVillageInfo.ruralPark}' name='ruralPark' />个,
+					<input class='number' type='text' value='$!{baseVillageInfo.ruralParkArea}' name='ruralParkArea' />平方米,
+					年度:<input class='culturalAct' type='text' value='$!{baseVillageInfo.ruralParkAnn}' name='ruralParkAnn' />年
+				</nobr>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>文体广场</td>
+			<td colspan='4'>
+				<nobr>
+					<input type='text' class='number' value='$!{baseVillageInfo.ruralSquare}' name='ruralSquare' />个,
+					<input class='number' type='text' value='$!{baseVillageInfo.squareArea}' name='squareArea' />平方米,
+					年度:<input class='culturalAct' type='text' value='$!{baseVillageInfo.squareAnn}' name='squareAnn' />年
+				</nobr>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>村级卫生站</td>
+			<td colspan='4'>
+				<nobr>
+					<input  type='text' class='number'  value='$!{baseVillageInfo.healthStation}' name='healthStation' />个,
+					<input class='culturalAct' type='text' value='$!{baseVillageInfo.healthStationArea}' name='healthStationArea' />平方米,
+					年度:<input class='culturalAct' type='text' value='$!{baseVillageInfo.healthStationAnn}' name='healthStationAnn' />年
+				</nobr>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>乡村公厕</td>
+			<td colspan='4'>
+				<nobr>
+					<input  type='text' class='number'  value='$!{baseVillageInfo.villageToilet}' name='villageToilet' />个,
+					<input class='culturalAct' type='text' value='$!{baseVillageInfo.villageToiletArea}' name='villageToiletArea' />平方米,
+					年度:<input class='culturalAct' type='text' value='$!{baseVillageInfo.villageToiletAnn}' name='villageToiletAnn' />年
+				</nobr>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='3'>是否建立统一的村级公共服务管理平台</td>
+			<td colspan='3'>
+				<input type='text' name='publicService' value='$!{baseVillageInfo.publicService}' />
+				(年度:<input class='psAnnual' type='text' value='$!{baseVillageInfo.psAnnual}' name='psAnnual' />年)
+			</td>
+		</tr>
+		<tr>
+			<td colspan='6' class='title'>（二）挂点县领导</td>
+		</tr>
+		<tr>
+			<td>挂点领导姓名</td>
+			<td>职务</td>
+			<td>联系电话</td>
+			<td colspan='3'>单位属性</td>
+		</tr>
+		<tr>
+			<td>
+				<input type='text' name='leaderName' value='$!{baseVillageInfo.leaderName}' />
+			</td>
+			<td>
+				<input type='text' name='leaderJob' value='$!{baseVillageInfo.leaderJob}' />	
+			</td>
+			<td>
+				<input type='text' name='leaderHP' value='$!{baseVillageInfo.leaderHP}' />
+			</td>
+			<td colspan='3'>
+				<input type='text' name='unitProperty' value='$!{baseVillageInfo.unitProperty}' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type='text' name='leaderName2' value='$!{baseVillageInfo.leaderName2}' />
+			</td>
+			<td>
+				<input type='text' name='leaderJob2' value='$!{baseVillageInfo.leaderJob2}' />	
+			</td>
+			<td>
+				<input type='text' name='leaderHP2' value='$!{baseVillageInfo.leaderHP2}' />
+			</td>
+			<td colspan='3'>
+				<input type='text' name='unPro2' value='$!{baseVillageInfo.unPro2}' />
+			</td>
+		</tr>
+	</table>
+	<table class='baseVillage-form' name='temp' style="width:650px">
+		<tr>
+			<td class='title' colspan='6'>(七)工作小组</td>
+		</tr>
+		<tr>
+			<td>序号</td>
+			<td>姓名</td>
+			<td colspan='2'>单位名称及职务</td>
+			<td>联系电话</td>
+			<td>备注</td>
+		</tr>
+		$!{sb}
+	</table>
+	<table class='baseVillage-form' style="width:650px">
+		<tr>
+			<td style='font-weight:bold' colspan='6'>(八)规划进展</td>
+		</tr>
+		<tr>
+			<td colspan='2'>是否建立规划专家指导组</td>
+			<td colspan='4'>
+				<input type='text' name='expertGroup' value='$!{baseVillageInfo.expertGroup}' />
+			</td>
+		</tr>
+		<tr>
+			<td>专家指导组名单</td>
+		</tr>
+		<tr>
+			<td>序号</td>
+			<td>姓名</td>
+			<td colspan='2'>单位名称及职务</td>
+			<td>联系电话</td>
+			<td>备注</td>
+		</tr>
+		$!{sb1}
+	</table>
+	<table class='baseVillage-form' style="width:650px">
+		<tr>
+			<td colspan='2'>是否完成总体规划</td>
+			<td colspan='4'>
+				<input type='text' name='generalPlan' value='$!{baseVillageInfo.generalPlan}' />
+				(时间:<input style='width:100px' type='text' id='gpDate' name='gpDate' value='$!{baseVillageInfo.gpDate}'  />)
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>是否完成连线连片规划</td>
+			<td colspan='4'>
+				<input type='text' name='areaPlan' value='$!{baseVillageInfo.areaPlan}' />
+				(时间:<input style='width:100px' type='text' id='apDate' name='apDate' value='$!{baseVillageInfo.apDate}'  />)
+			</td>
+		</tr>
+		<tr>
+			<td colspan='3'>是否完成村庄深度规划设计(含节点规划设计)</td>
+			<td colspan='3'>
+				<input type='text' name='depthPlanning' value='$!{baseVillageInfo.depthPlanning}' />
+				(时间:<input style='width:100px' type='text' id='dpDate' name='dpDate' value='$!{baseVillageInfo.dpDate}'  />)
+			</td>
+		</tr>
+		<tr>
+			<td colspan='6'>规划设计单位</td>
+		</tr>
+		<tr>
+			<td>序号</td>
+			<td colspan='2'>规划设计单位名称</td>
+			<td>注册地址</td>
+			<td>联系人</td>
+			<td>联系电话</td>
+		</tr>
+		$!{sb2}
+	</table>
+	<table class='baseVillage-form' style="width:650px">
+		<tr>
+			<td colspan='6' style='font-weight:bold'>(九)村民理事会</td>
+		</tr>
+		<tr>
+			<td colspan='2'>是否建立村民理事会</td>
+			<td colspan='4'>
+				<input type='text' name='council' value='$!{baseVillageInfo.council}' />
+				(建立时间:<input type='text' name='councilAnnual' value='$!{baseVillageInfo.councilAnnual}' />年)
+			</td>
+		</tr>
+		<tr>
+			<td rowspan='3'>理事会成员数</td>
+			<td rowspan='3'>
+				<input type='text' class='number' name='councilMember' value='$!{baseVillageInfo.councilMember}' />人
+				</td>
+			<td rowspan='3' colspan='2'>理事会主要负责人</td>
+			<td>姓名</td>
+			<td>联系电话</td>
+		</tr>
+		<tr>
+			<td>
+				<input type='text' name='councilName1' value='$!{baseVillageInfo.councilName1}' />
+			</td>
+			<td>
+				<input type='text' name='councilHP1' value='$!{baseVillageInfo.councilHP1}' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type='text' name='councilName2' value='$!{baseVillageInfo.councilName2}' />
+			</td>
+			<td>
+				<input type='text' name='councilHP2' value='$!{baseVillageInfo.councilHP2}' />
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>组织开展新农村建设工作情况<br />(在新农村建设工作中发挥的作用)</td>
+			<td colspan='4'>
+				<textarea name='workSituation'>$!{baseVillageInfo.workSituation}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'>是否制定村规民约和章程</td>
+			<td colspan='4'>
+				<input type='text' name='constitu' value='$!{baseVillageInfo.constitu}' />
+			</td>
+		</tr>
+	</table>
+</form>
+</div>
+<div id="${di.id}-buttons">
+<!-- <a href="#" id='a_submit'>提交</a> -->
+<!-- <a href="#" id='a_save'>暂存</a> -->
+<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<style type="text/css">
+table.baseVillage-form{
+	font-size:16px;
+	width: 880px;
+	border-width: 1px;
+	border-color: #000000;
+	border-collapse: collapse;
+	margin: auto;
+}
+table.baseVillage-form td{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+	padding-left:4px;
+}
+table.baseVillage-form tr td input{
+	width:80px;
+	border:0px;
+	text-align:center;
+	border-bottom: solid 1px #000000;
+	color: #000000;
+	font-size:15px;
+	background-color: #ffffff;
+}
+table.baseVillage-form tr td textarea{
+	width:98%;
+	height:80px;
+	font-size:15px;
+	color: #000000;
+	border:0px;
+	background-color: #ffffff;
+}
+</style>
+
+<script type='text/javascript'>
+jQuery(function() {
+	
+	
+	$('.baseVillage-form input, textarea').attr('disabled', true);
+	
+	jQuery('#a_close, #a_submit, #a_save').bupabutton({flat : true});
+	jQuery('#a_save').click(function() {
+		_save(0);
+	});
+});
+</script>

@@ -1,0 +1,205 @@
+<div id="_1_0" style="height:450px;">
+	<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:0;overflow:hidden;">
+		$!{title}
+		<div style="font-size:16px;margin:0 auto;">截止时间:$!{deadline}</div>
+	</div>
+	<div data-settings="zone:'center',border:false">
+		<style>
+		table.editor tr, table.editor-line tr, table.simplegrid tr{
+			height:auto;
+		}
+		</style>
+		<table id="_1_1" data-settings="
+		        url: '$!{form.id}!data.node',
+		        showRownum: true,
+		        idField: 'id',
+		        treeField: 'name',
+		        showPagebar: false,
+		        fit:true
+		    "> 
+			<thead data-settings="frozen:true">
+				<tr>
+					<th data-settings="chalign:'center',field:'id',width:180,chalign:'center',formatter:f">操作</th>
+					<th data-settings="chalign:'center',field:'name'" width="150">县（市、区）名称</th>
+				</tr>
+			</thead>
+			<thead>
+				 <tr>
+					<!--
+					<th colspan='1' rowspan='2'  data-settings="chalign:'center',field:'householdCount'" width="100">1.农业户数</br>（户）</th>
+					<th colspan='1' rowspan='2' data-settings="chalign:'center',field:'peopleCount'" width="100">2.农业人口数</br>（人）</th>
+					-->
+					<th colspan='1' rowspan='2' data-settings="chalign:'center',field:'avCount'" width="100">建制行政村</br>或居委会(个)  </th>
+					<th colspan='1' rowspan='2' data-settings="chalign:'center',field:'household0'" width="100">20户以上</br>自然村（个）</th>
+					<th colspan='4' data-settings="chalign:'center',field:''" width="150">其中</th>
+				</tr>
+				<tr>
+					<th data-settings="chalign:'center',field:'household1'" width="100">20-100户</br>(个)</th>
+					<th data-settings="chalign:'center',field:'household2'" width="100">100-300户</br>(个)</th>
+					<th data-settings="chalign:'center',field:'household3'" width="100">300-500户</br>(个)</th>
+					<th data-settings="chalign:'center',field:'household4'" width="100">500户以上</br>(个)</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</div>
+
+<script>
+function f(value,row,index){
+	var btns = "";
+	var id = row.id;
+	if(id>0){
+		//id>0的是市级下的县记录
+	}else{
+		btns += "<a hef='#'  style='padding-right:10px;'  onclick='return backDeleted(" + row.id + ");'>退回填报</a>";
+		if(row.status==4){
+			btns += "<a hef='#'  style='padding-right:10px;'  onclick='return back(" + row.id + ");'>退回</a>";
+			btns += "<a hef='#'  style='padding-right:10px;'  onclick='return pass(" + row.id + ");'>通过</a>";
+		}
+	}
+	return btns;
+	
+}
+
+
+
+
+
+function backDeleted(id){
+	var id = -id;
+	if(confirm("是否确定进行退回(重新开始填报)？")){
+		lock("开始退回...");
+		jQuery.get(
+			id + "!report.backDeleted", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+
+function back(id){
+	var id = -id;
+	if(confirm("是否确定进行退回？")){
+		lock("开始退回...");
+		jQuery.get(
+			id + "!report.back", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+
+
+function pass(id){
+	var id = -id;
+	if(confirm("是否确定进行通过？")){
+		lock("开始通过...");
+		jQuery.get(
+			id + "!report.pass", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+
+
+
+
+function cc(id){
+	if(confirm("是否确定进行退回？")){
+		lock("开始退回...");
+		jQuery.get(
+			id + "!report.back", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+function ban(id){
+	if(confirm("是否确定进行禁止上报？")){
+		lock("开始禁止上报...");
+		jQuery.get(
+			id + "!report.ban", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+function regain(id){
+	if(confirm("是否确定进行恢复上报？")){
+		lock("开始恢复上报...");
+		jQuery.get(
+			id + "!report.regain", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+function unlock(id){
+	if(confirm("是否确定解锁恢复上报？")){
+		lock("开始恢复上报...");
+		jQuery.get(
+			id + "!report.unlock", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+
+jQuery(function(){
+	jQuery("#_1_0").bupborderlayout();
+	jQuery("#_1_1").buptreegrid();
+	
+	
+	
+});
+</script>

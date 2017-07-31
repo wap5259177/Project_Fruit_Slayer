@@ -1,0 +1,117 @@
+<div class="ma-view-detail" style="width:730px;padding:0 0 20px 20px;">
+	<div style="position:absolute;top:27px;background-color:#cccccc;padding:5px;">
+	    <div style="float:left;">
+	    <a href="javascript:void(0)" class="item-left2 item-right2" onclick="jQuery(this).toggleClass('item-right2').parent().next().fadeToggle();"></a>
+	    </div>
+	    <div style="display:none;width:670px;float:left;">    	
+		    <a href="javascript:void(0)" onclick="jQuery('p.main-title', jQuery(this).parent().parent().parent()).addClass('item-close2').next().slideDown();">全部展开</a>
+		    <a href="javascript:void(0)" onclick="jQuery('p.main-title', jQuery(this).parent().parent().parent()).removeClass('item-close2').next().slideUp();">全部收起</a>
+	    </div>
+	</div>
+<div class="applicant-form-main">
+	<div class="applicant-form-title">广东省新农村连片示范建设工程台账簿</div>
+
+<p class='main-title item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">一、示范片建设台账封面 </p>
+<div style="padding-left:25px;">
+#parse('applicant/modelarea-info.vm')
+</div>
+
+<p class='main-title item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">二、连片示范建设工程主体村情况表</p>
+<div style="padding-left:25px;">
+	#foreach($nrp in $nrs)
+		<p style="font-size:16px;font-weight:bold;height:20px;width:650px;" class='item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">
+			${velocityCount}). $!nrp[0]
+		</p>
+		<div>
+		#foreach($nr in $nrp[2])
+			<div style="padding-left:25px;"><p style="font-size:15px;font-weight:bold;height:20px;width:650px;" class='item-open2'>
+				${velocityCount}. 
+				<a href="$nr[0]!nr.detail?o=${velocityCount}" onclick="jQuery(this).parent().parent().load(this.href,function(){jQuery(this).find('.number').bupnuminput();});return false;">$!nr[1]</a>
+			</p></div>
+		#end
+		</div>
+	#end
+</div>
+
+<p  class='main-title item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">三、连片示范建设工程非主体村情况表 </p>
+<div style="padding-left:25px;">
+	#foreach($prp in $prs)
+		<p style="font-size:16px;font-weight:bold;height:20px;width:650px;" class='item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">
+			${velocityCount}). $!prp[0]
+		</p>
+		<div>
+		#foreach($pr in $prp[2])
+			<div style="padding-left:25px;"><p style="font-size:16px;font-weight:bold;height:20px;width:650px;" class='item-open2'>
+			${velocityCount}. 
+			<a href="$pr[0]!pr.detail?o=${velocityCount}" onclick="jQuery(this).parent().parent().load(this.href,function(){jQuery(this).find('.number').bupnuminput();});return false;">$!pr[1]</a>
+			</p></div>
+		#end
+		</div>
+	#end
+</div>
+
+<p class='main-title item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">四、连片示范建设工程示范片产业发展情况统计表 </p>
+<div style="padding-left:25px;">
+	#foreach($ia in $ias)
+		<div>
+		<p style="font-size:16px;font-weight:bold;height:20px;width:650px;" class='item-open2'>
+		${velocityCount}. <a href="$ia[0]!ia.detail?o=${velocityCount}" onclick="jQuery(this).parent().parent().load(this.href);return false;">$ia[1]</a>
+		</p></div>
+	#end
+</div>
+
+<p class='main-title item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">五、连片示范建设工程项目库 </p>
+<div style="padding-left:25px;">
+	#foreach($pj in $pjs)
+		<div>
+		<p style="font-size:16px;font-weight:bold;height:20px;width:650px;" class='item-open2'>
+		${velocityCount}. <a href="$pj[0]!pj.detail?o=${velocityCount}" onclick="jQuery(this).parent().parent().load(this.href,function(){jQuery(this).find('.number').bupnuminput();});return false;">$pj[1]</a>
+		</p></div>
+	#end
+</div>
+
+<p class='main-title item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">六、示范片所在县（市、区）完成人居环境综合整治的自然村名单</p>
+<div style="padding-left:25px;">
+	<table class='residential-cls' border="1" style="width:650px;margin:0;">
+	  <thead>
+	      <tr style="height:30px;">
+	         <th style="width:80px;text-align:center;">年度[F1]</th>
+	         <th style="width:70px;text-align:center;">序号[F2]</th>
+	         <th style="text-align:center;">自然村名单[F3]</th>
+	      </tr>
+	      </thead>
+	      <tbody>
+		      #parse("residential-items.vm")
+	      </tbody>
+	</table>
+
+	<div style="padding-top:5px;width:680px;">
+	    <p style="width:650px;">备注：</p>
+	    <p style="width:650px;">1) 本表按年度实际完成情况填写，每完成一村填写一行,不够可加行。</p>
+	    <p style="width:650px;">2) 序号按自然序数编排。</p>
+	</div>
+</div>
+
+<p class='main-title item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">七、系统填报审核流程及需要上传的文件资料</p>
+<div style="padding-left:25px;width:680px;">
+<p style="width:650px;height:80px;line-height:25px;">
+示范片县级信息专员负责收集、录入和上传台账一组表及资料，提交后交市级管理员审核后上报到省委<br/>农办。
+在市级审核上报之前，市级可以退回相关资料给县级修改。审核上报后，如要修改，需要报请省<br/>委农办批准后操作。</p>
+<p style="width:650px;">需要上传的文件资料，目前至少包括：</p>
+<p style="width:650px;">（1）	前面相关表格中提到的电子版规划、设计等资料、文档和图纸。</p>
+<p style="width:650px;">（2）	每个主体村建设前能反映村情村貌的图片3~5张。</p>
+<p style="width:650px;">（3）	建设期间反映建设成果的图片、视频等。</p>
+<p style="width:650px;">（4）	其他要求的资料。</p>
+</div>
+</div>
+<style type="text/css">
+div.ma-view-detail{}
+div.ma-view-detail p {width:650px;}
+p.main-title{font-size:18px;font-weight:bold;height:25px;width:680px;}
+</style>
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery(".number").bupnuminput();
+});
+</script>
+</div>

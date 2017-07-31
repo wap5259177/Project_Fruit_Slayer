@@ -1,0 +1,73 @@
+<div id="$di.id" title="上报文档 | 详细" style="width:600px;height:256px;padding:8px;" buttons="#${di.id}-buttons" modal='true'>
+<table class='editor' style="margin:auto;">
+	<tr>
+        <th>文件名</th>
+        <td colspan='3'>
+	        <a href="$!{doc.mapPath}" target="_blank" title="文件：$!{doc.name}" style="width:430px;height:20px;overflow:hidden;float:left;">
+				$!{doc.name}
+			</a>
+	        <a title="下载文档：$!{doc.name}" href="#springUrl('/files/download')?id=$!{doc.fileId}" target='_blank' style="float:right;padding-right:8px;">
+	        	<img src="/res/images/download.png" heigt="25px" width="25px"/>
+	        </a>
+        </td>
+    </tr>
+	<tr>
+		<th style="width:100px;">上报人</th><td style="width:180px;">$!{doc.operator}</td>
+		<th style="width:100px;">上报时间</th><td>$!{doc.operateAt}</td>
+	</tr>
+    <tr>
+        <th>扩展属性</th>
+	  	<td colspan='3'>$!{doc.extendedAttributes}</td>
+    </tr>
+    <!--
+    <tr>
+        <th>类型</th>
+	  	<td>$!{doc.type}</td>
+        <th>发布时间</th>
+        <td>$!{doc.issueAt}</td>
+    </tr>
+    <tr>
+    	<th style="width:100px;">版本</th>
+	  	<td style="width:190px;">$!{doc.version}</td>
+        <th style="width:100px;">文件大小</th>
+        <td>$!{doc.length} KB</td>
+    </tr>
+    <tr>
+    	<th>后缀名</th>
+        <td>$!{doc.ext}</td>
+        <th>扩展属性</th>
+	  	<td>$!{doc.extendedAttributes}</td>
+    </tr>
+    <tr>
+	  	<th>分享</th>
+	  	<td>$!{doc.shared}</td>
+	  	<th>状态</th>
+	<td>$!{doc.status}</td>
+    <tr>
+	  	<th>最后更新者</th>
+	  	<td>$!{doc.updaterName}</td>
+	  	<th>最后更新时间</th>
+	  	<td>$!{doc.updateAt}</td>
+    </tr>
+    </tr>
+        <tr>
+	  	<th style="width:100px;">上报人：</th>
+	  	<td style="width:190px;">$!{doc.creatorName}</td>
+	  	<th style="width:100px;">上报时间：</th>
+	  	<td>$!{doc.createAt}</td>
+    </tr>
+    -->
+	<tr>
+        <th>备注</th>
+        <td colspan="3" style="height:70px;">$!{doc.remark}</td>
+    </tr>
+</table>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_close' onclick="$('#${di.id}').bupdlg('close');">关闭</a>
+</div>
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_close').bupabutton({flat : true});
+});
+</script>

@@ -1,0 +1,74 @@
+<style type="text/css">
+.result_page{display:inline-block; width:512px; line-height:100%; padding:17px 0;margin:0 27px; text-align:center; border-top:1px solid #ebebeb;}
+</style>
+<div class="bupborderlayout" style='padding:0;margin:0; overflow-y:auto;' fit="true">
+<div id='search_form' style='padding:17px 27px; display:inline-block; width:100%; background-color:#fff; border-bottom:1px solid #ebebeb;'> <!-- #f1f1f1 -->
+	<div id='keyword_border' style='height:27px;width:568px;display:inline-block;vertical-align:top;border:1px solid #d9d9d9;float:left;background-color:#fff;'>
+		<input id='keyword' style='height:90%;width:97%;border:medium none;font-size:17px;padding:0 6px 0;' />
+	</div>
+	<div id='keyword_search' style='float:left;height:27px;width:70px;margin:0 0 0 18px;padding:0;background-color:#2b91e3;border:1px solid #3079ed;border-radius:2px;color:#fff;text-align:center;line-height:27px;font-size:15px;cursor:pointer'>搜&nbsp;索</div>
+</div>
+<!--
+<div style='color:#666; background:none repeat scroll 0 0 #fff; border-bottom:1px solid #ebebeb; height:40px; padding:0; '></div> type
+-->
+<div id='result_content' style='padding:17px 27px 17px; height:520px;'></div> <!-- border-bottom:1px solid #ebebeb; -->
+<div id='result_page' style='display:hidden;'></div>
+<div id='result_content_dlg' style='display:none;'></div>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#keyword').focus(function() {
+		jQuery('#keyword_border').css('border-color', '#4d90fe');
+	});
+	
+	jQuery('#keyword').focusout(function() {
+		jQuery('#keyword_border').css('border-color', '#d9d9d9');
+	});
+	
+	jQuery('#keyword_search').hover(
+		function () {
+			jQuery(this).css('background-color', '#2d89cd');
+		},
+		function () {
+			jQuery(this).css('background-color', '#2b91e3'); // #4d90fe
+		}
+	);
+	
+	jQuery('#keyword').keydown(function(e) {
+		if(e.keyCode == 13){
+		   fn_search();
+		}
+	});
+	
+	jQuery('#keyword_search').click(function() {
+		fn_search();
+	});
+	
+});
+
+function fn_search() {
+	jQuery.ajax({
+		url : 'keyword_search',
+		type : 'post',
+		data : {keyword : jQuery('#keyword').val()},
+		success : function(rd) {
+			if (typeof rd === "string")
+				rd = $.parseJSON(rd);
+			if(rd.error){
+				$.bupmsg.alert('提示', rd.msg, 'error');
+				return;
+			}
+			
+			jQuery('#result_content').html(rd.data[0]);
+			jQuery('a.show_dialog').click(function() {
+				jQuery('#result_content_dlg').load(this.href);
+				return false;
+			});
+			jQuery('#result_page').addClass('result_page');
+			jQuery('#result_page').html(rd.data[1]);
+			
+		}
+	});
+}
+</script>

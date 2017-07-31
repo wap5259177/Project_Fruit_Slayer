@@ -1,0 +1,62 @@
+<div id='${di.id}' title="分配角色" style="width:550px;height:420px;padding:12px;" buttons="#${di.id}-buttons" modal='true'>
+<input type='hidden' value='$!{id}' id='id'/>
+<table class='editor' style="width:margin:auto;">
+	<tr>
+		<td colspan='2' style='text-align:center;'>
+		<b style='color:blue;font-size:16px;'>$!{name}(登录名：$!{loginName})</b>
+		</td>
+	</tr>
+	<tr>
+		<th style="width:30%;text-align:left;">角色</th>
+		<th style="width:37%;text-align:left;">权限</th>
+	</tr>
+	<tr>
+		<td width="30%" valign="top"><div style="overflow-y:auto;height:260px;">$!{roles}</div></td>
+		<td width="70%"><div style="overflow-y:auto;height:260px;"><ul id="tree_privileges"></ul></div></td>
+	</tr>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_assign_save' onclick="btn_save();">提交</a> 
+<a href="#" id='a_assign_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+function btn_save() {
+	var roles = "";
+	jQuery("input:checkbox[id^='role_chk_']:checked").each(function(i) {
+		var role_chk_id = $(this).attr('id');
+		var rid = role_chk_id.substr(9);
+		if(0 == i) {
+			roles = rid;
+		} else {
+			roles += ("," + rid);
+		}
+	});
+	$.ajax({
+		url : 'assign!save.b',
+		type : 'post',
+		data : { id : '$!{id}', roles : roles},
+		success : function(rd) {
+			if (typeof rd === "string")
+				rd = $.parseJSON(rd);
+			if(rd.error){
+				$.bupmsg.alert('提示', rd.msg, 'error');
+				return;
+			}
+			$('#${di.id}').bupdlg('close');
+		}
+	});
+}
+jQuery(function(){
+	jQuery('#a_assign_save, #a_assign_close').bupabutton({flat : true});
+	//jQuery('#tree_privileges').buptree();
+	jQuery("a[id^='role_a_']").click(function() {
+		var role_a_id = $(this).attr('id');
+		var rid = role_a_id.substr(7);
+		$('#tree_privileges').buptree({
+			url : 'assign/!'+ rid +'/privileges',
+			checkbox : false
+		});
+	});
+});
+</script>

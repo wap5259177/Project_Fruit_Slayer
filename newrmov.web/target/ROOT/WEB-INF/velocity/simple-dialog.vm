@@ -1,0 +1,14 @@
+<div id='${id}' $!{attrs}>
+	$screen_content
+</div>
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery('#${id}').bupdlg({
+			modal:true,
+			onClose : function() {
+				// 必须手动清除弹出的对话框
+				jQuery('#${id}').bupdlg('destroy').remove();
+			}
+		});
+	});
+</script>

@@ -1,0 +1,26 @@
+#set($layout="layout-weixin.vm")
+<!DOCTYPE html>
+  <html lang="en-US">
+        <head>
+             <meta name="viewport" charset="UTF-8" content="width=device-width,initial-scale=1">
+             <title>示范片区信息查看</title>
+        </head>
+        <body>
+        <div data-role="page">
+              <div data-role="header">
+                   <a data-role='button' data-icon='back' data-rel='back'>返回</a>
+                   <h1>示范片信息查看</hi>
+              </div>
+              <div data-role="content">
+                   <ul data-role="listview" data-inset="true">  
+                     <li><a href='load1.batch?batch2=1'>第一批</a></li>  
+                     <li><a href='load1.batch?batch2=2'>第二批</a></li>  
+                     <li><a href='load1.batch?batch2=3'>第三批</a></li>    
+                   </ul>
+              </div>
+              <div data-role="footer">
+              
+              </div>
+        </div>
+        </body>
+  </html>

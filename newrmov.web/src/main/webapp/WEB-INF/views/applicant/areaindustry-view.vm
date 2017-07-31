@@ -1,0 +1,12 @@
+<div class="applicant-form-main" style='height:400px'>
+	<div class="applicant-form-title">连片示范建设工程产业发展情况统计表 </div>
+	#parse('applicant/areaindustry-info.vm')
+</div>
+#if($readonly)
+
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery(".number").bupnuminput();
+});
+</script>
+#end

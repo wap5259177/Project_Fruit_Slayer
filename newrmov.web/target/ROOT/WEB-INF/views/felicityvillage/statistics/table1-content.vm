@@ -1,0 +1,86 @@
+<style>
+table.editor tr, table.editor-line tr, table.simplegrid tr{
+	height:auto;
+}
+</style>
+<table id="_1_1" data-settings="
+        url: 'statis/table.json',
+        showRownum: true,
+        idField: 'id',
+        treeField: 'name',
+        showPagebar: false,
+        fit:true
+    ">
+	<thead>
+		#parse("felicityvillage/statistics/table1-head.vm")
+	</thead>
+</table>
+
+
+
+<script>
+	$(function(){
+		jQuery("#_1_1").bupgrid({
+			fitColumns: true,//列的宽度自动适应
+	        singleSelect: true,//单选
+	        border: true,//显示边框
+	        showRownum: true,//显示序号
+	        showHeader: true,//显示表头
+	        autoRowheight: false,//将这个设置为false,可以设置rowstyle 的样式高度
+	        //sortField: 'id',//定义排序的字段
+	        //sortOrder: 'desc',
+	        remoteSort: false,//如果要使用本地定义排序的字段,就要设置这里为false
+	        
+	        rowStyler: function(index,row){
+	        	 var crName = row.crName;
+	        	 var prName = row.prName;
+	        	 
+	        	 var modelAreaName = row.modelAreaName;
+	        	 
+	        	 /*if (modelAreaName==null){
+			     	return 'background-color:#6699cc;color:#ffffff;height:30px;'; 
+			     }else{
+			        return 'background-color:#8dc5c5;color:#333333;height:30px;'; 
+			     }*/
+			     
+			     if(modelAreaName=='总计'){
+			     	return 'background-color:#83d7f5;color:#333333;height:30px;'; // 返回内联样式#8dc5c5,33.8
+        	 	 }
+        	 	 if (modelAreaName==null){//辐射村
+		     		return 'background-color:#a5d8f1;color:#333333;height:30px;'; // 返回内联样式#8dc5c5,33.8
+		     	 }else{//主体村
+		       		return 'background-color:#dbfab4;color:#333333;height:30px;'; // 返回内联样式#8dc5c5,33.8 
+		     	 }
+			     
+			},
+	        /*在这里开启分页*/
+	        //loadFilter: pagerFilter,
+	        //showPagebar: true,
+	        //pagePosition: 'bottom',
+			toolbar: '#tb',
+			queryParams: {
+	            reportId: '$reportId',
+	            tableType: '$tableType'
+	     	},
+	     	/*被冻结的列*/
+			
+			onLoadSuccess : function(data, param) {
+				jQuery('#a_editorArea').click(function() {
+					//lock("正在加载...");
+					//jQuery('#ma_update').load(this.href);
+					//alert('binji...');
+					//jQuery('#div-kernel-dialog-loader').load(this.href);
+					return false;
+				});
+				jQuery('#a_editorRural').click(function() {
+					//lock("正在加载...");
+					//jQuery('#div-kernel-dialog-loader').load(this.href);
+					alert('编辑村指标');
+					return false;
+				});
+			}
+		});
+	
+	});
+
+</script>

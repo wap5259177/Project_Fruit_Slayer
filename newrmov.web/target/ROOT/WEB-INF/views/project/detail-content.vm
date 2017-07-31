@@ -1,0 +1,57 @@
+<style type='text/css'> 
+	table { 
+		table-layout:fixed;
+		word-break: break-all; 
+		word-wrap: break-word; 
+		<!--font-size:12px;--> 
+	}  <!--固定table宽度显示控制-->
+</style> 
+<form id="formid"   method = 'post'   >
+<table class="applicant-form" style="width:100%" border="2" cellpadding="5" cellspacing="1" bgcolor="#add3ef">
+			
+			<td>项目编号</td>
+			<td>项目名称</td>
+			<th>中央</th>
+			<th>省级新农村连片示范工程建设补助资金</th>
+			<th>其他省级财政资金</th>
+			<th>市级财政资金</th>
+			<th>县级财政资金</th>
+			<th>社会投入</th>
+			<th>群众自筹</th>
+			<th>其他</th>
+			<th>合计</th>
+			<th>投资额/斥资额</th>
+			<th>投工数</th>
+			<td>项目状态</td>
+			<tbody>
+			$content
+			#foreach($item in $item)
+				
+				<tr>
+					<td>$item.project.code</td>
+					<td>$item.project.name</td>
+					<td>$item.investment.stateFunds</td>
+					<td>$item.investment.specialFunds</td>
+					<td>$item.investment.provinceFunds</td>
+					<td>$item.investment.cityFunds</td>
+					<td>$item.investment.countyFunds</td>
+					<td>$item.investment.socialFunds</td>
+					<td>$item.investment.massFunds</td>
+					<td>$item.investment.otherFunds</td>
+					<td>$item.investment.totalFunds</td>
+					<td>$item.spend</td>
+					<td>$item.labourCount</td>
+					<td>
+						#if($item.projectStatus==0)
+							进行中
+						#elseif($item.projectStatus==1)
+							竣工
+						#elseif($item.projectStatus==2)
+							终止
+						#end
+					</td>
+				</tr>
+			#end
+			</tbody>
+		</table>
+</form>

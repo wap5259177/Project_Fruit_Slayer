@@ -1,0 +1,189 @@
+	<table class='editor' style="width:840px;margin: auto;">
+		<tr>
+			<th class="tdRight">主体村个数[A16]：</th>
+			<td><input class="number" id="sumMAdmin" type='text' name='sumMAdmin' value='$!{form.sumMAdmin}' min="0" precision="0" maxlength='8' $!{readonly} />个<span style="font-size:16px;">[行政村]</span></td>
+			<th class="tdRight">其中自然村个数：</th>
+			<td><input class="number" id="sumMRural" type='text' name='sumMRural' value='$!{form.sumMRural}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+		</tr>
+		<tr>
+			<th class="tdRight">非主体村个数[A17]：</th>
+			<td><input class="number" id="sumArAdmin" type='text' name='sumArAdmin' value='$!{form.sumArAdmin}' min="0" precision="0" maxlength='8' $!{readonly} />个<span style="font-size:16px;">[行政村]</span></td>
+			<th class="tdRight">其中自然村个数：</th>
+			<td><input class="number" id="sumArRural" type='text' name='sumArRural' value='$!{form.sumArRural}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+		</tr>
+		<tr>
+			<th class="tdRight" colspan='4'><a href='#' class='item-open2' onclick="$(this).toggleClass('item-open2 item-close2');$('#_detal').toggle('slow');">详情</a></th>
+		</tr>
+	</table>
+	<table class=' editor ' style="width:840px;margin: auto;display: none;" id='_detal'  >
+		<tr>
+			<th class="tdRight">覆盖乡镇数[A18]：</th>
+			<td colspan='3'><input  class="number" id="coverTown" type='text' name='coverTown' value='$!{form.coverTown}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+		</tr>
+		<tr>
+			<th rowspan='2' class="tdRight">示范片面积[A19]：</th>
+			<th class="tdRight" style="width:120px">主体建设村：</th>
+			<td colspan='2'><input  class="number" id="mainAreaAcreage" type='text' name='mainAreaAcreage' value='$!{form.mainAreaAcreage}' min="0" precision="2" maxlength='8' $!{readonly} />平方公里</td>
+		</tr>
+		<tr>
+			<th class="tdRight">非主体建设村：</th>
+			<td colspan='2'><input  class="number" id="aroundAreaAcreage" type='text' name='aroundAreaAcreage' value='$!{form.aroundAreaAcreage}' min="0" precision="2" maxlength='8' $!{readonly} />平方公里</td>
+		</tr>
+		
+		#if($readonly)
+			<tr>
+				<th rowspan='2' class="tdRight">总户数[A20]：</th>
+				<th class="tdRight">主体建设村：</th>
+				<td colspan='2'><input  class="number" id="mainSumHouse" type='text' name='mainSumHouse' value='$!{form.mainSumHouse}' min="0" precision="0" maxlength='8' $!{readonly}/>户</td>
+			</tr>
+			<tr>
+				<th class="tdRight">非主体建设村：</th>
+				<td colspan='2'><input  class="number" id="aroundSumHouse" type='text' name='aroundSumHouse' value='$!{form.aroundSumHouse}' min="0" precision="0" maxlength='8' $!{readonly} />户</td>
+				
+			</tr>
+			<tr>
+				<th rowspan='2' class="tdRight">总人口数[A21]：</th>
+				<th class="tdRight">主体建设村：</th>
+				<td colspan='2'><input  class="number" id="mainSumP" type='text' name='mainSumP' value='$!{form.mainSumP}' min="0" precision="0" maxlength='8' $!{readonly} />人</td>
+			</tr>
+			<tr>
+				<th class="tdRight">非主体建设村：</th>
+				<td colspan='2'><input  class="number" id="aroundSumP" type='text' name='aroundSumP' value='$!{form.aroundSumP}' min="0" precision="0" maxlength='8' $!{readonly} />人</td>
+				
+			</tr>
+		#else
+			<tr>
+				<th rowspan='2' class="tdRight">总户数[A20]：</th>
+				<th class="tdRight">主体建设村：</th>
+				<td colspan='2'><input  class="number" id="mainSumHouse" type='text' name='mainSumHouse' value='$!{mainSumHouse}' min="0" precision="0" maxlength='8' $!{readonly} disabled="none"/>户</td>
+			</tr>
+			<tr>
+				<th class="tdRight">非主体建设村：</th>
+				<td colspan='2'><input  class="number" id="aroundSumHouse" type='text' name='aroundSumHouse' value='$!{aroundSumHouse}' min="0" precision="0" maxlength='8' $!{readonly} disabled="none"/>户</td>
+				
+			</tr>
+			<tr>
+				<th rowspan='2' class="tdRight">总人口数[A21]：</th>
+				<th class="tdRight">主体建设村：</th>
+				<td colspan='2'><input  class="number" id="mainSumP" type='text' name='mainSumP' value='$!{mainSumP}' min="0" precision="0" maxlength='8' $!{readonly} disabled="none"/>人</td>
+			</tr>
+			<tr>
+				<th class="tdRight">非主体建设村：</th>
+				<td colspan='2'><input  class="number" id="aroundSumP" type='text' name='aroundSumP' value='$!{aroundSumP}' min="0" precision="0" maxlength='8' $!{readonly} disabled="none"/>人</td>
+				
+			</tr>
+		#end
+		
+	</table>
+	
+<div id='main' style='width: 1000px; height: 480px;padding:50px 20px 0px 60px;'>
+
+</div>
+
+
+<script type='text/javascript'>
+	var myChart = echarts.init(document.getElementById('main'),'infographic'); 
+	var ecConfig = echarts.config;
+	var mapGeoData = echarts.util.mapData.params;
+	
+	var option;
+	
+	$(function(){
+		//$("#_detal").hide();
+		option = {
+		    title : {
+		        text: '示范片村信息',
+		        subtext: '主体村/非主体村',
+		        x:'center'
+		    },
+		    tooltip : {
+		        trigger: 'axis',
+		        formatter:'{b}:{c}个'
+		    },
+		    legend: {
+		        data:['村数量'],
+		        show:false
+		    },
+		    toolbox: {
+		        show : true,
+		        feature : {
+		            mark : {show: false},
+		            dataView : {show: false, readOnly: false},
+		            magicType : {show: true, type: ['line', 'bar']},
+		            restore : {show: true},
+		            saveAsImage : {show: true}
+		        }
+		    },
+		    calculable : true,
+		    xAxis : [
+		        {
+		            type : 'category',
+		            boundaryGap : true,
+		            data : ['主体行政村','主体自然村','非主体行政村','非主体自然村'],
+		            axisLabel: {
+		                 show: true,
+		                 rotate:0,
+		                 interval: 'auto',
+		                 textStyle: {
+		                     color: '#000000',
+		                     fontFamily: 'verdana',
+		                     fontSize: 16,
+		                     fontStyle: 'normal',
+		                     fontWeight: 'bold'
+		                 }
+		             }
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'value',
+		            axisLabel : {
+		                formatter: '{value} 个'
+		            }
+		        }
+		    ],
+		    series : [
+		        {
+		            name:'村数量',
+		            type:'bar',
+		            barWidth:80,//设置柱状图的宽度
+		            //data:[11, 11, 15, 13, 12, 13, 10],
+		            data:$rdata,
+		            markPoint : {
+		                data : [
+		                   // {type : 'max', name: '最大值'},
+		                    //{type : 'min', name: '最小值'}
+		                ]
+		            },
+		            markLine : {
+		                data : [
+		                    //{type : 'average', name: '平均值'}
+		                ]
+		            },
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             //color: 'gray'
+		                         },
+		                         position:'top',
+		                         formatter: '{b}\n{c}'
+		                     },
+		                     color: function(params) {
+		                        // build a color map as your need.
+		                        var colorList = [
+		                          '#C1232B','#B5C334','#6495ED','#E87C25','#27727B',
+		                           '#FF4500','#B03060','#26C0C0','#F3A43B','#8B8B00',
+		                           '#D7504B','#C6E579','#F4E001','#F0805A','#A2CD5A'
+		                        ];
+		                        return colorList[params.dataIndex]
+		                    }
+		                 }
+		             }
+		        }
+		    ]
+		};
+		myChart.setOption(option);
+	});
+</script>

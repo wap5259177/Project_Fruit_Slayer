@@ -1,0 +1,52 @@
+<div style="height:200px;overflow:auto; padding:10px 0 10px 20px;">
+	$!{villages}
+</div>
+<div id="village-items" style="height:200px;overflow:auto;border:1px dashed #000;padding:4px;">
+#foreach($it in $nvs)
+	<div style='padding-bottom:5px;'>
+		<a href='#' onclick='return delVillage(this);' class='icon-del' style='padding-left:20px;'> </a>
+		<span class='village-ordinal'></span>. <span title='${it[1]}'>${it[2]} : </span>
+		<input type='hidden' name='sid_${it[0]}' value='${it[0]}'/>
+		<input type='text' name='snn_${it[0]}' value="${it[3]}" placeholder='自然村(或村民小组)' style='border:0px;border-bottom: solid 1px #000000;'/>
+		<select name='svt_${it[0]}' style='border:0px;border-bottom: solid 1px #000000;'><option>行政村</option><option #if($it[4] == '自然村')selected="selected"#end>自然村</option></select>
+		<select name='sct_${it[0]}' style='border:0px;border-bottom: solid 1px #000000;'><option>主体建设村</option><option #if($it[4] == '辐射带动村')selected="selected"#end>辐射带动村</option></select>";
+	</div>
+#end
+</div>
+<script>
+var villagecount = 0;
+function villageOrder(){
+	var ord = 0;
+	jQuery("#village-items span.village-ordinal").each(function(i, v){
+		ord++;
+		jQuery(v).text(ord);
+	});
+	if(ord > 0){
+		jQuery("#sel-villageRurals-count").html("[" + ord + "]");
+	}else{
+		jQuery("#sel-villageRurals-count").html("");
+	}
+}
+function getVillage(obj, tna, vid, vna){
+	var txt = "<div style='padding-bottom:5px;'><a href='#' onclick='return delVillage(this);' class='icon-del' style='padding-left:20px;'> </a><span class='village-ordinal'></span>. <span title='";
+	txt += tna + "'>" + vna + " : </span>";
+	txt += "<input type='hidden' name='ordinals' value='" + villagecount + "'/>";
+	txt += "<input type='hidden' name='id_" + villagecount + "' value='" + vid + "'/>";
+	txt += "<input type='text' name='nn_" + villagecount + "' placeholder='自然村(或村民小组)' style='border:0px;border-bottom: solid 1px #000000;'/>";
+	txt += "<select name='vt_" + villagecount + "' style='border:0px;border-bottom: solid 1px #000000;'><option>行政村</option><option>自然村</option></select>";
+	txt += "<select name='ct_" + villagecount + "' style='border:0px;border-bottom: solid 1px #000000;'><option>主体建设村</option><option>辐射带动村</option></select>";
+	txt += "</div>";
+	jQuery("input[type='text']", jQuery(txt).appendTo(jQuery("#village-items"))).bupvalidator({required: true});
+	villageOrder();
+	villagecount++;
+}
+function delVillage(t){
+	jQuery(t).parent().remove();
+	villageOrder();
+	return false;
+}
+jQuery(function(){
+	villageOrder();
+	jQuery("#village-items input[type='text']").bupvalidator({required: true});
+});
+</script>

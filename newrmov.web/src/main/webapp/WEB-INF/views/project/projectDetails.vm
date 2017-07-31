@@ -1,0 +1,268 @@
+<div id="$di.id" title="项目详细信息" align="center" style="overflow:auto;font-size:14px;height:600px;width:800px" buttons="#${di.id}-buttons" modal='true'>
+	<p><h3 align="center">新农村建设项目信息表</h3></p>
+	<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;示范片区:<span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${p_modelarea}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>   填报单位:<span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${p_rural_name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> </p>
+	<table border="1" style='border-collapse:collapse;border-color:#000000;overflow:auto;width:78%;letter-spacing:1px;font-size:14px' align="center" cellspacing="0" cellpadding="0">
+		<tr>
+			<td width="780" style="font-weight:bold" colspan="12">
+				<p>一、基本信息</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold" colspan="1">
+				<p align="center">项目编号</p>
+			</td>
+			<td width="285" colspan="2">
+				<p align="left">&nbsp;&nbsp;${p_id}</p>
+			</td>
+			<td width="80" style="font-weight:bold" colspan="1">
+				<p align="center">建设位置</p>
+			</td>
+			<td width="285" colspan="8">
+				<p align="left">&nbsp;&nbsp;${p_build_pos}</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold">
+				<p align="center">项目名称</p>
+			</td>
+			<td colspan="11">
+				<p align="left">&nbsp;&nbsp;${p_name}</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold">
+				<p align="center">项目类别</p>
+			</td>
+			<td colspan="11">
+				<p align="left">&nbsp;&nbsp;${p_type}</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold">
+				<p align="center">建设单位</p>
+			</td>
+			<td colspan="11">
+				<p align="left">&nbsp;&nbsp;${p_build_unit}</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold" colspan="1">
+				<p align="center">建设单位分管领导</p>
+			</td>
+			<td width="285" colspan="2">
+				<p align="left">&nbsp;&nbsp;${p_build_unit_leader}</p>
+			</td>
+			<td width="80" style="font-weight:bold" colspan="1">
+				<p align="center">联系电话</p>
+			</td>
+			<td width="285" colspan="8">
+				<p align="left">&nbsp;&nbsp;${p_leader_tel}</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold">
+				<p align="center">施工单位</p>
+			</td>
+			<td colspan="11">
+				<p align="left">&nbsp;&nbsp;${p_construction_unit}</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold" colspan="1">
+				<p align="center">现场负责人</p>
+			</td>
+			<td width="285" colspan="2">
+				<p align="left">&nbsp;&nbsp;${p_locale_principal}</p>
+			</td>
+			<td width="80" style="font-weight:bold" colspan="1">
+				<p align="center">联系电话</p>
+			</td>
+			<td width="285" colspan="8"> 
+				<p align="left">&nbsp;&nbsp;${p_principal_tel}</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold" colspan="1">
+				<p align="center">用地面积</p>
+			</td>
+			<td width="285" colspan="2">
+				<p align="left">&nbsp;&nbsp;${p_land_area}</p>
+			</td>
+			<td width="80" style="font-weight:bold" colspan="1">
+				<p align="center">建设规模</p>
+			</td>
+			<td width="285" colspan="8">
+				<p align="left">&nbsp;&nbsp;${p_construction_scale}</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold" colspan="1">
+				<p align="center">计划开工时间</p>
+			</td>
+			<td width="285" colspan="2">
+				<p align="left">&nbsp;&nbsp;${p_plan_start_working_at}</p>
+			</td>
+			<td width="80" style="font-weight:bold" colspan="1">
+				<p align="center">计划竣工</p>
+				<p align="center">时间</p>
+			</td>
+			<td width="285" colspan="8">
+				<p align="left">&nbsp;&nbsp;${p_plan_completed_working_at}</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold">
+				<p align="center">受益单位</p>
+			</td>
+			<td colspan="11">
+				<p align="left">&nbsp;&nbsp;${p_benefit_units}</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold">
+				<p align="center">现状问题</p>
+			</td>
+			<td colspan="11">
+				<p align="left">&nbsp;&nbsp;${p_current_problem}</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold">
+				<p align="center">建设内容</p>
+			</td>
+			<td colspan="11">
+				<p align="left">&nbsp;&nbsp;${p_construction_content}</p>
+			</td>
+		</tr>
+		<tr>
+			<td style="font-weight:bold" colspan="12">
+				<p>二、进度</p>
+			</td>
+		</tr>
+		<tr colspan="1" width="780">
+			<td width="130" style="font-weight:bold" colspan="1">
+				<p align="center">实际开工时间</p>
+			</td>
+			<td width="285" colspan="2">
+				<p align="left">&nbsp;&nbsp;${p_real_start_working_at}</p>
+			</td>
+			<td width="80" style="font-weight:bold" colspan="1">
+				<p align="center">实际规模</p>
+			</td>
+			<td width="285" colspan="8">
+				<p align="left">&nbsp;&nbsp;${p_real_scale}</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold">
+				<p align="center">建设进度</p>
+			</td>
+			<td colspan="11">
+				<p align="left">&nbsp;&nbsp;${p_construction_status}</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold" colspan="1">
+				<p align="center">竣工时间</p>
+			</td>
+			<td width="285" colspan="2">
+				<p align="left">&nbsp;&nbsp;${p_real_completed_working_at}</p>
+			</td>
+			<td width="80" style="font-weight:bold" colspan="1">
+				<p align="center">验收时间</p>
+			</td>
+			<td width="285" colspan="8">
+				<p align="left">&nbsp;&nbsp;${p_check_at}</p>
+			</td>
+		</tr>
+		<tr>
+	</table>
+	<table border="1" style='border-collapse:collapse;border-color:#000000;overflow:auto;width:78%;letter-spacing:1px;font-size:14px' align="center" cellspacing="0" cellpadding="0">
+			<td width="780" style="font-weight:bold" colspan="6">
+				<p>三、计划资金投入（万元）</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="130" style="font-weight:bold" colspan="1">
+				<p align="center" colspan="1">计划总投入</p>
+			</td>
+			<td width="130" style="font-weight:bold" colspan="1">
+				<p align="center">中央财政</p>
+			</td>
+			<td width="130" style="font-weight:bold" colspan="1">
+				<p align="center">省级财政</p>
+			</td>
+			<td width="130" style="font-weight:bold" colspan="1">
+				<p align="center">市县级财政</p>
+			</td>
+			<td width="130" style="font-weight:bold" colspan="1">
+				<p align="center">社会资金</p>
+			</td>
+			<td width="130" style="font-weight:bold" colspan="1">
+				<p align="center">其他</p>
+			</td>
+		</tr>
+		<tr width="780" colspan="12">
+			<td  width="130" colspan="1">
+				<p align="center">${p_total_funds}</p>
+			</td>
+			<td width="138" colspan="1">
+				<p align="center">${p_state_funds}</p>
+			</td>
+			<td width="138" colspan="1">
+				<p align="center">${p_province_funds}</p>
+			</td>
+			<td width="138" colspan="1">
+				<p align="center">${p_local_funds}</p>
+			</td>
+			<td width="138" colspan="1">
+				<p align="center">${p_social_funds}</p>
+			</td>
+			<td width="138" colspan="7">
+				<p align="center">${p_other_funds}</p>
+			</td>
+		</tr>
+		<tr>
+	</table>
+	<table border="1" style='border-collapse:collapse;border-color:#000000;overflow:auto;width:78%;letter-spacing:1px;font-size:14px' align="center" cellspacing="0" cellpadding="0">
+			<td style="font-weight:bold" colspan="12" width="780">
+				<p>四、实际每月资金投入（万元）</p>
+			</td>
+		</tr>
+		<tr>
+			<td width="100" style="font-weight:bold" colspan="1">
+				<p align="center">年、月</p>
+			</td>
+			<td width="100" style="font-weight:bold" colspan="1"  >
+				<p align="center" >合计</p>
+			</td>
+			<td width="138" style="font-weight:bold" colspan="1">
+				<p align="center">中央财政</p>
+			</td>
+			<td width="138" style="font-weight:bold"  colspan="1">
+				<p align="center">省级财政</p>
+			</td>
+			<td width="138" style="font-weight:bold" colspan="1">
+				<p align="center">市县级财政</p>
+			</td>
+			<td width="138" style="font-weight:bold" colspan="1">
+				<p align="center">社会资金</p>
+			</td>
+			<td width="138" style="font-weight:bold" colspan="1">
+				<p align="center">其他</p>
+			</td>
+		</tr>
+			${project_reports}
+	</table>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;填报人:<span style="text-decoration:underline">&nbsp;&nbsp;${p_createor}&nbsp;&nbsp;</span>         填报日期:<span style="text-decoration:underline">&nbsp;&nbsp;${p_create_at}&nbsp;&nbsp;</span></p>
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人:<span style="text-decoration:underline">&nbsp;&nbsp;${p_autitor}&nbsp;&nbsp;</span>          审核日期:<span style="text-decoration:underline">&nbsp;&nbsp;${p_audit_at}&nbsp;&nbsp;</span></p>
+</div>
+<div id="${di.id}-buttons">
+	<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+	jQuery(function() {
+		jQuery('#a_close').bupabutton({flat : true});
+	});
+</script>

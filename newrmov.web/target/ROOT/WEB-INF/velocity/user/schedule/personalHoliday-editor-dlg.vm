@@ -1,0 +1,74 @@
+<div id="$di.id" title="个人假日" style="padding:12px;" buttons="#${di.id}-buttons" modal='true'>
+<input type='hidden' value='$!{id}' id='id' />
+<table class='editor' style="margin:auto;">
+	<tr>
+        <th style="width:120px;">类型</th>
+        <td>
+        	<select style="width:120px;" name="type" id="type">
+        		<option value="0" #if($!{type}==0) selected="true" #end >请假/事假</option>
+        		<option value="1" #if($!{type}==1) selected="true" #end >病假</option>
+        		<option value="2" #if($!{type}==2) selected="true" #end >年假</option>
+        		<option value="3" #if($!{type}==3) selected="true" #end >加班</option>
+        		<option value="4" #if($!{type}==4) selected="true" #end >缺席</option>
+        	</select>
+        </td>
+    </tr>
+    <tr>
+        <th>开始时间</th>
+        <td>
+       		<select style="width:120px;" name="time" id="time">
+        		<option value="0" #if($!{time}==0) selected="true" #end >上午</option>
+        		<option value="1" #if($!{time}==1) selected="true" #end >下午</option>
+        	</select>
+        </td>
+    </tr>
+    <tr>
+		<th>持续时间(单位:半天)</th>
+		<td><input type="text" name="duration" id="duration" value="$!{duration}" style="width:250px;" /></td>
+	</tr>
+	<tr>
+        <th>备注</th>
+        <td><textarea name="remark" id="remark" style="resize:none;height:80px;width:98%;font-size:12px;">$!{remark}</textarea></td>
+    </tr>
+</table>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_save' onclick="btn_save();">提交</a>
+<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_save, #a_close').bupabutton({flat : true});
+	jQuery('#duration').bupnuminput({
+		min : 1,
+		precision : 0
+	});
+});
+function btn_save() {
+	var year = $('#year').val();
+	var month = $('#month').val();
+	var date = $('#date').val();
+	
+	var id = $('#id').val();
+	var type = $('#type option:selected').val();
+	var time = $('#time option:selected').val();
+	var duration = $('#duration').val();
+	var remark = $('#remark').val();
+	$.ajax({
+		url : '/s/user/schedule/personalHoliday/date/submit',
+		type : 'post',
+		data : {id : id, year : year, month : month, date : date, type : type, time : time, duration : duration, remark : remark},
+		success : function(rd) {
+			if (typeof rd === "string")
+				rd = $.parseJSON(rd);
+			if(rd.error){
+				$.bupmsg.alert('提示', rd.msg, 'error');
+				return;
+			}
+			$('#dg_personal_holiday').bupgrid("reload");
+			$('#${di.id}').bupdlg('close');
+		}
+	});
+}
+</script>

@@ -1,0 +1,23 @@
+#set($layout="layout-empty.vm")
+<div style="padding:10px;">
+	<table class="editor" width="100%">
+		<tr>
+			<th style="text-align:center;width:200px;">单位</th>
+			<th style="text-align:center;width:140px;">信息专员姓名</th>
+			<th style="text-align:center;width:90px;">职务</th>
+			<th style="text-align:center;width:110px;">固定电话</th>
+			<th style="text-align:center;width:110px;">手机号码</th>
+			<th style="text-align:center;">备注</th>
+		</tr>
+		#foreach($it in $items)
+			<tr>
+				<td>$!{it.unit.name}</td>
+				<td>$!{it.name}</td>
+				<td>$!{it.job}</td>
+				<td>$!{it.phone1}</td>
+				<td>$!{it.phone2}</td>
+				<td>$!{it.remark}</td>
+			</tr>
+		#end
+	</table>
+</div>

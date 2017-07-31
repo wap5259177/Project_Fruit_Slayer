@@ -1,0 +1,152 @@
+<div id="_1_0" style="height:450px;">
+	<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:0;overflow:hidden;">
+		$title
+		<div style="font-size:16px;margin:0 auto;">(截止时间：${deadline})</div>
+	</div>
+	<div data-settings="zone:'center',border:false">
+		<style>
+		table.editor tr, table.editor-line tr, table.simplegrid tr{
+			height:auto;
+		}
+		</style>
+		<table id="_1_1" data-settings="
+		        url: '$!{form.id}!data.node',
+		        showRownum: true,
+		        idField: 'id',
+		        treeField: 'name',
+		        showPagebar: false,
+		        fit:true
+		    "> 
+			<thead data-settings="frozen:true">
+				<tr>
+				#if($urgable)
+					<th data-settings="field:'id',width:80,chalign:'center',formatter:f">操作</th>
+				#end
+					<th data-settings="field:'name'" width="150">县（市、区）名称</th>
+				</tr>
+			</thead>
+			<thead>
+			 <tr>
+				#parse("survey/table-head.vm")
+			  </tr>
+			</thead>
+		</table>
+	</div>
+</div>
+<script>
+#if($urgable)
+function f(value,row,index){
+	var str = "";
+	if(row.status === 0 || row.status === 2){
+		str = "<a href='javascript:' onclick='return c(this, " + row.id + ");' o='" + row.oldname + "'>催报</a>";
+		if(row.status === 0){
+			str += " | <a href='javascript:' onclick='return exclude(" + row.id + ");'>排除</a>";
+		
+		}
+		if(row.status === 2){
+			str += " | <a href='javascript:' onclick='return b(" + row.id + ");'>退回</a>";
+		}
+	}else if(row.status === 1){
+		str  = "<a href='javascript:' onclick='return d(" + row.id + ");' title='已提交的数据驳回去修改！'>驳回</a> | ";
+		str += "<a href='javascript:' onclick='return e(" + row.id + ");' title='对已经提交的市进行重新统计'>刷新</a>";
+	}else if(row.status === 3){
+		 str = "<a href='javascript:' onclick='return recover(" + row.id + ");'>恢复</a>";
+		
+	}
+	return str;
+}
+function c(t, id){
+	if(confirm("是否确定进行催报？")){
+		lock("开始催报...");
+		jQuery.get(id + "!report.urge", function(data){
+			jQuery.unblockUI();
+			var data = eval('(' + data + ')');
+			if(data.error){
+				alert(data.msg);
+				return false;
+			}
+			alert("催报["+jQuery(t).attr("o")+"]成功");
+		});
+	}
+}
+function b(id){
+	if(confirm("是否确定退回？")){
+		lock("开始退回...");
+		jQuery.get("index.back?id=" + id, function(data){
+			jQuery.unblockUI();
+			var data = eval('(' + data + ')');
+			if(data.error){
+				alert(data.msg);
+				return false;
+			}
+			alert("退回成功，将自动刷新列表！");
+			jQuery("#_1_1").buptreegrid("reload");
+		});
+	}
+}
+function d(id){
+	if(confirm("是否确定驳回数据？")){
+		lock("开始驳回数据...");
+		jQuery.get("index.reject?id=" + id, function(data){
+			jQuery.unblockUI();
+			var data = eval('(' + data + ')');
+			if(data.error){
+				alert(data.msg);
+				return false;
+			}
+			alert("驳回成功，将自动刷新列表！");
+			jQuery("#_1_1").buptreegrid("reload");
+		});
+	}
+}
+function e(id){
+	if(confirm("是否确定对该市的数据进行重新统计？")){
+		lock("开始重新统计...");
+		jQuery.get("index.restat?id=" + id, function(data){
+			jQuery.unblockUI();
+			var data = eval('(' + data + ')');
+			if(data.error){
+				alert(data.msg);
+				return false;
+			}
+			alert("重新统计成功，将自动刷新列表！");
+			jQuery("#_1_1").buptreegrid("reload");
+		});
+	}
+}
+function exclude(id){
+	if(confirm("是否确定进行排除？")){
+		lock("开始排除...");
+		jQuery.get(id + "!report.exclude", function(rd){
+			jQuery.unblockUI();
+			var data = eval('(' + rd + ')');
+			if(data.error){
+				alert(data.msg);
+				return false;
+			}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+		});
+	}
+}
+function recover(id){
+	if(confirm("是否确定进行恢复？")){
+		lock("开始恢复...");
+		jQuery.get(id + "!report.recover", function(rd){
+			jQuery.unblockUI();
+			var data = eval('(' + rd + ')');
+			if(data.error){
+				alert(data.msg);
+				return false;
+			}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+		});
+	}
+}
+#end
+jQuery(function(){
+	jQuery("#_1_0").bupborderlayout();
+	jQuery("#_1_1").buptreegrid();
+});
+</script>

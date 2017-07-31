@@ -1,0 +1,79 @@
+<div style='border:0px;width:730px;height:470px;'>
+	<table id="report_ended"></table>
+	##<input id='supp_ids' name='supp_ids' type='hidden' />
+</div>
+
+<script type='text/javascript'>
+jQuery(function(){
+    jQuery('#report_ended').bupgrid({
+        url:'search?id=' + '$!{id}',
+        idField : 'id',
+        //width:688,
+        height:470,
+        showRownum : false,
+        fitColumns:true,
+        showPagebar:true,
+        /*frozenColumns : [ [ {
+			field : 'ck',
+			checkbox : true
+		} ] ],*/
+        columns:[[
+        	{field:'name',title:'名称',width:50},
+            {field:'unit',title:'上报单位',width:50},
+            {field:'documentCount',title:'文档数量',width:50},
+            {field:'status',title:'状态',width:80},
+            {field:'startReportedAt',title:'开始日期',width:80},
+            {field:'endReportedAt',title:'结束日期',width:80},
+            {
+				title : '操作',
+				field : 'operation',
+				width : 50,
+				formatter: function(value,row,index){
+					var id = row.id;
+					return "<a class='supp' href='save_supp?id=" + id + "'>补报</a> "
+				}
+			}
+        ]],
+        onLoadSuccess : function(data, param) {
+        	jQuery('a.supp').click(function() {
+		    	if (!confirm("是否确定执行[补报]操作？")) {
+					return false;
+				}
+				jQuery.ajax({
+					url : this.href,
+					type : 'post',
+					success : function(rd) {
+						if (typeof rd === "string")
+							rd = $.parseJSON(rd);
+						if(rd.error){
+							$.bupmsg.alert('提示', rd.msg, 'error');
+							return;
+						}
+						jQuery('#report_ended').bupgrid('reload');
+					},
+					error : function() {
+						alert('恢复出错，请重试');
+					}
+				});
+				return false;
+		    });
+        }
+    });
+    
+});
+/*
+function getChecked() {
+	var rows = jQuery('#report_ended').buptreegrid('getChecked');
+	if (rows.length == 0) {
+		alert("请选择需要补报的选项！");
+		return;
+	}
+	
+	var ids = [];
+	for ( var i = 0; i < rows.length; i++) {
+		ids.push(rows[i].id);
+	}
+	jQuery('#supp_ids').val(ids.join(','));
+}
+*/
+</script>

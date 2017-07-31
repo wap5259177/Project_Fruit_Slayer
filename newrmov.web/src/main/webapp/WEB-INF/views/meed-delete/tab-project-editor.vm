@@ -1,0 +1,416 @@
+<div id="$di.id" title="项目详细信息录入" align="center" style="overflow:auto;font-size:14px;width:700px;height:550px;" buttons="#${di.id}-buttons" modal='true'>
+<p><h3 align="center">连片示范建设工程项目库</h3></p>
+<form id="projectInfo">
+<!-- 项目ID -->
+<input type='hidden' id='id' name='id' value='$!{id}' >
+<!-- 片区名 -->
+<input type='hidden' name='areaName' value='$!{area_name}' >
+<!-- 片区ID -->
+<input type='hidden' value='$!{area_id}' >
+<!--
+<p align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;示范片区:
+<select name='modelarea' id="add_modelarea">
+	<option>$!{area_name}</option>
+</select>                                                            </p>
+-->
+<table class='applicant-form' style='width:650px;' border="1" >
+		<tr>
+			<td class="tdRight">项目编号[E1]：</td>
+			<td><input type='text' name='' value='-' /></td>
+			<td class="tdRight">项目所在村[E2]：</td>
+			<td colspan='5'>
+			$!{place}<br />按ctrl可以多选
+				<!--
+					<input type='text' name='town' value='$!{form.town}' />镇<input type='text' name='town' value='$!{form.town}' />村委会自然村(或村民小组)
+				-->
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight">属性[E3]：</td>
+			<td colspan='2'>
+				<input type='radio' style='width:20px' checked='check' name='proProperty' value='连线建设工程' />连线建设工程<br />
+				<input type='radio' style='width:20px' name='proProperty' value='主体村工程' />主体村工程<br />
+				<input type='radio' style='width:20px' name='proProperty' value='非主体村工程' />非主体村工程
+			</td>
+			<td  class="tdRight">项目名称[E4]：</td>
+			<td colspan='4'><input type='text' style='width:220px' name='name' value='$!{form.name}' /></td>
+		</tr>
+		<tr>
+			<td  class="tdRight">项目类别[E5]：</td>
+			<td colspan='5'>
+				<input type='radio' style='width:20px' checked='check' name='projectType' value='规划设计' />（1）规划设计<br />
+				<input type='radio' style='width:20px' name='projectType' value='村庄环境整治（垃圾、污水处理等）' />（2）村庄环境整治（垃圾、污水处理等）<br />
+				<input type='radio' style='width:20px' name='projectType' value='村居外立面整治'/>（3）村居外立面整治<br />
+				<input type='radio' style='width:20px' name='projectType' value='旧村旧房改造' />（4）旧村旧房改造<br />
+				<input type='radio' style='width:20px' name='projectType' value='文化传承保护' />（5）文化传承保护<br />
+				<input type='radio' style='width:20px' name='projectType' value='美化绿化建设' />（6）美化绿化建设<br />
+				<input type='radio' style='width:20px' name='projectType' value='基础设施建设' />（7）基础设施建设<br />
+				<input type='radio' style='width:20px' name='projectType' value='连线工程项目' />（8）连线工程项目<br />
+				<input type='radio' style='width:20px' name='projectType' value='连线工程项目' />（9）道路硬底化项目<br />
+				<input type='radio' style='width:20px' name='projectType' value='连线工程项目' />（10）村通自来水项目<br />
+				<input type='radio' style='width:20px' name='projectType' value='连线工程项目' />（11）卫厕改造项目<br />
+				<input type='radio' style='width:20px' id='other' name='projectType' value='其他' />（12）其他(具体类别<input style='width:200px' type='text' name='exactKind' value='$!{form.exactKind}' />)
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'  class="tdRight">项目开工时间[E6]：</td>
+			<td colspan='4'>
+				<select id='startAtY' name='startAtY'>
+					<option>2014</option>
+					<option>2015</option>
+					<option>2016</option>
+					<option>2017</option>
+					<option>2018</option>
+				</select>&nbsp;年
+				<select id='startAtM' name='startAtM'>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+					<option>6</option>
+					<option>7</option>
+					<option>8</option>
+					<option>9</option>
+					<option>10</option>
+					<option>11</option>
+					<option>12</option>
+				</select>&nbsp;月
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'  class="tdRight">项目预计竣工时间[E7]：</td>
+			<td colspan='4'>
+				<select id='endAtY' name='endAtY'>
+					<option>2014</option>
+					<option>2015</option>
+					<option>2016</option>
+					<option>2017</option>
+					<option>2018</option>
+				</select>&nbsp;年
+				<select id='endAtM' name='endAtM'>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+					<option>6</option>
+					<option>7</option>
+					<option>8</option>
+					<option>9</option>
+					<option>10</option>
+					<option>11</option>
+					<option>12</option>
+				</select>&nbsp;月
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2'  class="tdRight">项目实际竣工时间[E8]：</td>
+			<td colspan='4'>
+				<select id='finishAtY' name='finishAtY'>
+					<option>2014</option>
+					<option>2015</option>
+					<option>2016</option>
+					<option>2017</option>
+					<option>2018</option>
+				</select>&nbsp;年
+				<select id='finishAtM' name='finishAtM'>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+					<option>6</option>
+					<option>7</option>
+					<option>8</option>
+					<option>9</option>
+					<option>10</option>
+					<option>11</option>
+					<option>12</option>
+				</select>&nbsp;月
+			</td>
+		</tr>
+		<tr style='text-align:center'>
+			<td colspan='2' rowspan='2'>类别</td>
+			<td style='width:200px' colspan='2'>计划总投入资金（万元）</td>
+			<td  colspan='2'>累计完成总投入资金（万元）</td>
+		</tr>
+		<tr style='text-align:center'>
+			<td>代码</td>
+			<td>金额</td>
+			<td>代码</td>
+			<td>金额</td>
+		</tr>
+		<tr style='text-align:center'>
+			<td colspan='2'>合计</td>
+			<td>[E9]</td>
+			<td><input type='text' class='funds' value='$!{form.totalFunds}' name='totalFunds' /></td>
+			<td>[E16]</td>
+			<td><input type='text' class='funds' value='$!{form.totalFunds}' name='' /></td>
+		</tr>
+		<tr style='text-align:center'>
+			<td colspan='2'>中央</td>
+			<td>[E10]</td>
+			<td><input type='text' class='funds' value='$!{form.stateFunds}' name='stateFunds' /></td>
+			<td>[E17]</td>
+			<td><input type='text' class='funds' value='$!{form.stateFunds}' name='' /></td>
+		</tr >
+		<tr style='text-align:center'>
+			<td colspan='2'>省级新农村连片示范工程建设补助资金 </td>
+			<td>[E12]</td>
+			<td><input type='text' class='funds' value='$!{form.specialFunds}' name='specialFunds' /></td>
+			<td>[E19]</td>
+			<td><input type='text' class='funds' value='$!{form.specialFunds}' name='' /></td>
+		</tr>
+		<tr style='text-align:center'>
+			<td colspan='2'>其他省级财政资金</td>
+			<td>[E11]</td>
+			<td><input type='text' class='funds' value='$!{form.provinceFunds}' name='provinceFunds' /></td>
+			<td>[E18]</td>
+			<td><input type='text' class='funds' value='$!{form.provinceFunds}' name='' /></td>
+		</tr>
+		
+		<tr>
+			<td colspan='2' style='text-align:center'>市级财政资金</td>
+			<td>E131</td>
+			<td><input type='text' class='funds' value='$!{form.cityFunds}' name='cityFunds'  /></td>
+			<td>E201</td>
+			<td><input type='text' class='funds' value='$!{form.cityFunds}' name='' /></td>
+			
+		</tr>
+		<tr>
+			<td colspan='2' style='text-align:center'>县级财政资金</td>
+			<td>E132</td>
+			<td><input type='text' class='funds' value='$!{form.countyFunds}' name='countyFunds'  /></td>
+			<td>E202</td>
+			<td><input type='text' class='funds' value='$!{form.countyFunds}' name='' /></td>
+		</tr>
+		<!--
+		<tr style='text-align:center'>
+			<td colspan='2'>市县</td>
+			<td>[E13]</td>
+			<td><input type='text' class='funds' value='$!{form.localFunds}' name='localFunds' /></td>
+			<td>[E20]</td>
+			<td><input type='text' class='funds' value='$!{form.localFunds}' name='' /></td>
+		</tr>
+		-->
+		<tr style='text-align:center'>
+			<td colspan='2'>社会</td>
+			<td>[E14]</td>
+			<td><input type='text' class='funds' value='$!{form.socialFunds}' name='socialFunds' /></td>
+			<td>[E21]</td>
+			<td><input type='text' class='funds' value='$!{form.socialFunds}' name='' /></td>
+		</tr>
+		<tr style='text-align:center'>
+			<td colspan='2'>群众自筹</td>
+			<td>[E141]</td>
+			<td><input type='text' class='funds' value='$!{form.massFunds}' name='massFunds' /></td>
+			<td>[E211]</td>
+			<td><input type='text' class='funds' value='$!{form.massFunds}' name='' /></td>
+		</tr>
+		<tr style='text-align:center'>
+			<td colspan='2'>其它</td>
+			<td>[E15]</td>
+			<td><input type='text' class='funds' value='$!{form.otherFunds}' name='otherFunds' /></td>
+			<td>[E22]</td>
+			<td><input type='text' class='funds' value='$!{form.otherFunds}' name='' /></td>
+		</tr>
+		<tr>
+			<td colspan='2' rowspan='2' style='text-align:center'>群众投工投劳情况</td>
+			<td class="tdRight">投工数[E23]：</td>
+			<td colspan='4'><input type='text' name='labourCount' value='$!{form.labourCount}' />个</td>
+		</tr>
+		<tr>
+			<td class="tdRight">折资额[E24]：</td>
+			<td colspan='4'><input type='text' class='funds' name='spend' value='$!{form.spend}' />万元</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>备注[E25]：</td>
+			<td colspan='4'>
+				<textarea style='width:98%;height:100px;' name='remark'>$!{form.remark}</textarea>
+			</td>
+		</tr>
+	</table>
+<!--<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;填报人:<input type="text" value="$!{form.creatorName}" name="creatorName" id="add_createor" />            填报日期:<input type="text" value="$!{form.createAt}" name="createAt" id="add_create_at" />               </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;审核人:<input type="text" value="$!{form.auditor}" name="auditor" id="add_auditor" />             审核日期:<input type="text" name="auditAt" value="$!{form.auditAt}" id="add_audit_at" />               </p>
+--></form>
+</div>
+<div id="${di.id}-buttons">
+	<a href="#" id='a_submit'>提交</a>
+	<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<style type="text/css">
+table.project{
+	font-size:16px;
+	width: 880px;
+	border-width: 1px;
+	border-color: #000000;
+	border-collapse: collapse;
+	margin: auto;
+}
+table.project td{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+	padding-left:4px;
+}
+table.project td.tdRight{
+	text-align: right;
+}
+table.project tr td input{
+	width:80px;
+	border:0px;
+	text-align:center;
+	border-bottom: solid 1px #000000;
+	color: #000000;
+	font-size:15px;
+	background-color: #ffffff;
+	padding:0 0 5px 0;
+}
+
+</style>
+
+<script type='text/javascript'>
+	jQuery(function() {
+		
+		back_radios();
+		
+		$('.funds').bupnuminput({
+	   		 precision:4         
+		});
+		
+		//设置下拉列表多选
+		$('#place').attr('multiple', true);
+		
+		$('#startAtY').val($!{form.startAtY});
+		$('#startAtM').val($!{form.startAtM});
+		$('#endAtY').val($!{form.endAtY});
+		$('#endAtM').val($!{form.endAtM});
+		$('#finishAtY').val($!{form.finishAtY});
+		$('#finishAtM').val($!{form.finishAtM});
+		
+		//$('#add_plan_start_working_at, #add_plan_completed_working_at, #add_real_start_working_at, #add_real_completed_working_at, #add_check_at, #add_create_at, #add_audit_at').bupdateinput({});
+		//设置input必填
+		//$('input').bupvalidator({required: true, validType: 'text'});
+		
+		jQuery('#a_close, #a_submit, #a_save').bupabutton({flat : true});
+
+		jQuery('#a_submit').click(function() {
+			/*
+			var add_modelarea = jQuery('#add_modelarea').val();
+			//alert(add_modelarea);
+			var add_rural = jQuery('#add_rural').buppancombo('getValue');
+			var add_build_pos = jQuery('#add_build_pos').val();
+			var add_name = jQuery('#add_name').val();
+			//传入的是projectType表的ID或者Text
+			//var add_type = jQuery('#add_type').buppancombo('getText');
+			var add_type = jQuery('#add_type').buppancombo('getValue');
+			var add_build_unit = jQuery('#add_build_unit').val();
+			var add_build_unit_leader = jQuery('#add_build_unit_leader').val();
+			var add_leader_tel = jQuery('#add_leader_tel').val();
+			var add_construction_unit = jQuery('#add_construction_unit').val();
+			var add_locale_principal = jQuery('#add_locale_principal').val();
+			var add_principal_tel = jQuery('#add_principal_tel').val();
+			var add_land_area = jQuery('#add_land_area').val();			
+			var add_construction_scale = jQuery('#add_construction_scale').val();
+			var add_plan_start_working_at = jQuery('#add_plan_start_working_at').bupdateinput('getValue');
+			var add_plan_completed_working_at = jQuery('#add_plan_completed_working_at').bupdateinput('getValue');
+			var add_benefit_units = jQuery('#add_benefit_units').val();
+			var add_current_problem = jQuery('#add_current_problem').val();
+			var add_construction_content = jQuery('#add_construction_content').val();
+			var add_real_start_working_at = jQuery('#add_real_start_working_at').bupdateinput('getValue');
+			var add_real_scale = jQuery('#add_real_scale').val();
+			var add_construction_status = jQuery('#add_construction_status').val();
+			var add_real_completed_working_at = jQuery('#add_real_completed_working_at').bupdateinput('getValue');
+			var add_check_at = jQuery('#add_check_at').bupdateinput('getValue');
+			var add_total_funds = jQuery('#add_total_funds').val();
+			var add_state_funds = jQuery('#add_state_funds').val();
+			var add_province_funds = jQuery('#add_province_funds').val();
+			var add_local_funds = jQuery('#add_local_funds').val();
+			var add_social_funds = jQuery('#add_social_funds').val();
+			var add_other_funds = jQuery('#add_other_funds').val();
+			var add_createor = jQuery('#add_createor').val();
+			var add_create_at = jQuery('#add_create_at').bupdateinput('getValue');
+			var add_auditor = jQuery('#add_auditor').val();
+			var add_audit_at = jQuery('#add_audit_at').bupdateinput('getValue');*/
+		/*	
+			alert(add_modelarea);alert(add_build_pos);alert(add_name);
+			alert(add_type);alert(add_build_unit);alert(add_build_unit_leader);
+			alert(add_leader_tel);alert(add_construction_unit);alert(add_locale_principal);
+			alert(add_principal_tel);alert(add_land_area);alert(add_construction_scale);
+			alert(add_plan_start_working_at);alert(add_plan_completed_working_at);alert(add_benefit_units);
+			alert(add_current_problem);alert(add_construction_content);alert(add_real_start_working_at);
+			alert(add_real_scale);alert(add_construction_status);alert(add_real_completed_working_at);
+			alert(add_check_at);alert(add_total_funds);alert(add_state_funds);
+			alert(add_province_funds);alert(add_local_funds);alert(add_social_funds);
+			alert(add_other_funds);alert(add_createor);alert(add_create_at);
+		
+			if (null==add_auditor || add_auditor=='' || null==add_audit_at || add_audit_at=='' || null==add_modelarea || add_modelarea=='' || null==add_rural || add_rural=='' || null==add_build_pos || add_build_pos=='' || null==add_name || add_name=='' || null==add_type || add_type=='' || null==add_build_unit || add_build_unit=='' || null==add_build_unit_leader || add_build_unit_leader=='' || null==add_leader_tel || add_leader_tel=='' || null==add_construction_unit || add_construction_unit=='' || null==add_locale_principal || add_locale_principal=='' || null==add_principal_tel || add_principal_tel=='' || null==add_land_area || add_land_area=='' || null==add_construction_scale || add_construction_scale=='' || null==add_plan_start_working_at || add_plan_start_working_at=='' || null==add_plan_completed_working_at || add_plan_completed_working_at=='' || null==add_benefit_units || add_benefit_units=='' || null==add_current_problem || add_current_problem=='' || null==add_construction_content || add_construction_content=='' || null==add_real_start_working_at || add_real_start_working_at=='' || null==add_real_scale || add_real_scale=='' || null==add_construction_status || add_construction_status=='' || null==add_real_completed_working_at || add_real_completed_working_at=='' || null==add_check_at || add_check_at=='' || null==add_total_funds || add_total_funds=='' || null==add_state_funds || add_state_funds=='' || null==add_province_funds || add_province_funds=='' || null==add_local_funds || add_local_funds=='' || null==add_social_funds || add_social_funds=='' || null==add_other_funds || add_other_funds=='' || null==add_createor || add_createor=='' || null==add_create_at || add_create_at=='')  {
+				alert('请把数据填写完整！');
+				return false;
+			}
+			*/	
+			
+			if($('#other').attr('checked')) {
+				if($('input[name="exactKind"]').val() == "") {
+					alert('项目类别若选择"其它"，具体类别不能为空');
+					return false;
+				}
+			} else if(!($('#other').attr('checked'))) {
+				$('input[name="exactKind"]').val('');
+			}
+			$.ajax({
+                url : 'project/save',
+                type : "post",
+                data : $('#projectInfo').serialize(),
+                error : function(request) {
+                    alert("error");
+                },
+                success : function(data) {
+					$('#${di.id}').bupdlg('close');
+	        		alert('提交成功');
+					jQuery('#ma_project').bupgrid('reload');
+                }
+            });
+			return false;
+		});
+	});	
+	
+	function back_radios() {
+		var b_proProperty = '$!{form.proProperty}';
+		var b_projectType = '$!{form.projectType}';
+		if(null != b_proProperty && b_proProperty != '') {
+			if(b_proProperty == '' || $('input[name = "proProperty"]:eq(0)').val() == b_proProperty) {
+				return false;
+			} else if($('input[name = "proProperty"]:eq(1)').val() == b_proProperty) {
+				$('input[name = "proProperty"]:eq(1)').attr("checked", true);
+			} else {
+				$('input[name = "proProperty"]:eq(2)').attr("checked", true);
+			}
+		}
+		
+		if(null != b_projectType && b_projectType != '') {
+			if(b_projectType == '' || $('input[name = "projectType"]:eq(0)').val() == b_projectType) {
+				return false;
+			} else if($('input[name = "projectType"]:eq(1)').val() == b_projectType) {
+				$('input[name = "projectType"]:eq(1)').attr("checked", true);
+			} else if($('input[name = "projectType"]:eq(2)').val() == b_projectType) {
+				$('input[name = "projectType"]:eq(2)').attr("checked", true);
+			} else if($('input[name = "projectType"]:eq(3)').val() == b_projectType) {
+				$('input[name = "projectType"]:eq(3)').attr("checked", true);
+			} else if($('input[name = "projectType"]:eq(4)').val() == b_projectType) {
+				$('input[name = "projectType"]:eq(4)').attr("checked", true);
+			} else if($('input[name = "projectType"]:eq(5)').val() == b_projectType) {
+				$('input[name = "projectType"]:eq(5)').attr("checked", true);
+			} else if($('input[name = "projectType"]:eq(6)').val() == b_projectType) {
+				$('input[name = "projectType"]:eq(6)').attr("checked", true);
+			} else if($('input[name = "projectType"]:eq(7)').val() == b_projectType) {
+				$('input[name = "projectType"]:eq(7)').attr("checked", true);
+			} else {
+				$('input[name = "projectType"]:eq(8)').attr("checked", true);
+			}
+		}	
+	}
+</script>

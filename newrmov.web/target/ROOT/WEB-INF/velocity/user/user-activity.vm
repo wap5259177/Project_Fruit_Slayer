@@ -1,0 +1,31 @@
+#set($layout="simple-frame.vm")
+<div style='padding:10px;'>
+<table class="editor" id='tb_activity_user' border="1" cellpadding="0" cellspacing="0"  style="border-collapse:collapse;" >
+	$!{users}
+</table>
+</div>
+
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery('a.cls_logout').click(function() {
+		if (!confirm('确定强迫该用户下线？')) {
+			return false;
+		}
+		var url = this.href;
+		jQuery.ajax({
+			url : url,
+			type : 'post',
+			success : function(rd) {
+				if (typeof rd === "string")
+					rd = $.parseJSON(rd);
+				if(rd.error){
+					$.bupmsg.alert('提示', rd.msg, 'error');
+					return;
+				}
+				$('#tb_activity_user').html(rd.data);
+			}
+		});
+		return false;
+	});
+});
+</script>

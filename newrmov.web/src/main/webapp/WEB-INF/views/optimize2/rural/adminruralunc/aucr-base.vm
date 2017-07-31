@@ -1,0 +1,370 @@
+
+	<table class=' editor' style="width:100%;margin: auto;" id='_artable'>
+		<tr>
+			<th class="tdRight">总面积[B5]：</th>
+			<td colspan='2'><input style="width:60px;" id="ruralArea" type='text' class='number' value='$!{aucr.ruralArea}' min="0" precision="2" name='ruralArea' $!{readonly}/>亩</td>
+			<th colspan='2' class="tdRight">耕地面积[B6]：</th>
+			<td><input id="arableLand" type='text' style="width:60px;" class='number' value='$!{aucr.arableLand}' min="0" precision="2" name='arableLand' $!{readonly}/>亩</td>
+		</tr>
+		<tr>
+			<th class="tdRight">户数[B7]：</th>
+			<td><input style="width:60px;" id="houseHold" type='text' value='$!{aucr.houseHold}' min="0" precision="0" class='number' name='houseHold' $!{readonly}/>户</td>
+			<th class="tdRight">人口数[B8]：</th>
+			<td><input id="population" style="width:50px;" type='text' value='$!{aucr.population}' min="0" precision="0" class='number' name='population' $!{readonly}/>人</td>
+			<th class="tdRight">劳动力总人数[B9]：</th>
+			<td><input id="labor" type='text' style="width:60px;" value='$!{aucr.labor}' min="0" precision="0" class='number' name='labor' $!{readonly}/>人</td>
+		</tr>
+		
+		
+		<tr>
+			<th class="tdRight" colspan='2'>贫困户数：</th>
+			<td  ><input style="width:60px;" id="poorHouseHold" type='text' value='$!{aucr.poorHouseHold}' min="0" precision="0" class='number' name='poorHouseHold' $!{readonly}/>户</td>
+			<th class="tdRight">贫困人口数：</th>
+			<td colspan='2'><input id="poorPopulation" style="width:50px;" type='text' value='$!{aucr.poorPopulation}' min="0" precision="0" class='number' name='poorPopulation' $!{readonly}/>人</td>
+		</tr>
+		
+		<tr>
+			<th class="tdRight" colspan='2'>低保户数：</th>
+			<td ><input style="width:60px;" id="lowHouseHold" type='text' value='$!{aucr.lowHouseHold}' min="0" precision="0" class='number' name='lowHouseHold' $!{readonly}/>户</td>
+			<th class="tdRight">低保人口数：</th>
+			<td colspan='2'><input id="lowPopulation" style="width:50px;" type='text' value='$!{aucr.lowPopulation}' min="0" precision="0" class='number' name='lowPopulation' $!{readonly}/>人</td>
+		</tr>
+		
+		<tr>
+			<th class="tdRight" colspan='2'>五保户数：</th>
+			<td ><input style="width:60px;" id="wubaoHouseHold" type='text' value='$!{aucr.wubaoHouseHold}' min="0" precision="0" class='number' name='wubaoHouseHold' $!{readonly}/>户</td>
+			<th class="tdRight">需改造的危房户数：</th>
+			<td colspan='2'><input id="dangerHouse" style="width:50px;" type='text' value='$!{aucr.dangerHouse}' min="0" precision="0" class='number' name='dangerHouse' $!{readonly}/>户</td>
+		</tr>
+		
+		
+		<!--
+		<tr>
+			<th class="tdRight" colspan='2'>各年度农民年人均纯收入[B13]：</th>
+			<td colspan='4'>
+				2013&nbsp年度：<input id="annualIncome_13" type='text' name='annualIncome_13' class='number'  value='$!{aucr.annualIncome_13}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+				2014&nbsp年度：<input id="annualIncome_14" type='text' name='annualIncome_14' class='number'  value='$!{aucr.annualIncome_14}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+				2015&nbsp年度：<input id="annualIncome_15" type='text' name='annualIncome_15' class='number'  value='$!{aucr.annualIncome_15}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+				2016&nbsp年度：<input id="annualIncome_16" type='text' name='annualIncome_16' class='number'  value='$!{aucr.annualIncome_16}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+				2017&nbsp年度：<input id="annualIncome_17" type='text' name='annualIncome_17' class='number'  value='$!{aucr.annualIncome_17}' min="0" precision="2"$!{readonly} />元
+			</td>
+		</tr>
+		-->
+		
+		<!--20150811新增-->
+		<!--
+		<tr>
+			<th class="tdRight" colspan='2'>村集体经济收入[万元]：</th>
+			<td colspan='4'>
+				2013&nbsp年度：<input id="collectivityAnnulIncome_13" type='text' name='collectivityAnnulIncome_13' class='number'  value='$!{aucr.collectivityAnnulIncome_13}' min="0" precision="2"$!{readonly} />万元&nbsp
+				2014&nbsp年度：<input id="collectivityAnnulIncome_14" type='text' name='collectivityAnnulIncome_14' class='number'  value='$!{aucr.collectivityAnnulIncome_14}' min="0" precision="2"$!{readonly} />万元&nbsp
+				2015&nbsp年度：<input id="collectivityAnnulIncome_15" type='text' name='collectivityAnnulIncome_15' class='number'  value='$!{aucr.collectivityAnnulIncome_15}' min="0" precision="2"$!{readonly} />万元&nbsp
+				2016&nbsp年度：<input id="collectivityAnnulIncome_16" type='text' name='collectivityAnnulIncome_16' class='number'  value='$!{aucr.collectivityAnnulIncome_16}' min="0" precision="2"$!{readonly} />万元&nbsp
+				2017&nbsp年度：<input id="collectivityAnnulIncome_17" type='text' name='collectivityAnnulIncome_17' class='number'  value='$!{aucr.collectivityAnnulIncome_17}' min="0" precision="2"$!{readonly} />万元
+			</td>
+		</tr>
+		-->
+		<tr>
+			<th colspan='6' class="tdRight"><a a class='item-open2 ' class='item-open2 ' href='#' onclick="aucrDetal(this);">详情</a></th>
+		</tr>
+	</table>
+	
+<table class='editor' id='_aucrtableDetal'  style="display:none;width:100%;margin: auto;">
+	<tr>
+		<th class="tdRight" colspan='3'>是否省级扶贫开发重点村(贫困村)：</th>
+		<td colspan='3'>
+			#if($aucr.poorVillage == '是')
+				<!--<input id="poorVillage-n" style='width:20px' type='radio' name='poorVillage' value='否' $!{disabled} onclick="jQuery('#helpUnit').attr('disabled', true);"/><label for="poorVillage-n">否</label>
+				<input id="poorVillage-y" style='width:20px' type='radio' name='poorVillage' value='是' $!{disabled} checked='checked' onclick="jQuery('#helpUnit').removeAttr('disabled');"/><label for="poorVillage-y">是</label>
+				(帮扶单位名称:<input id="helpUnit" style='width:160px;text-align:left;' type='text' value='$!{aucr.helpUnit}' name='helpUnit' $!{readonly}/>)
+				-->
+				是(帮扶单位名称:&nbsp&nbsp<input id="helpUnit" style='width:160px;text-align:left;' type='text' value='$!{aucr.helpUnit}' name='helpUnit' $!{readonly}/>)
+			#else
+				否
+			#end
+		</td>
+	</tr>
+	
+	<tr>
+		<th class="tdRight" colspan='2'>各年度农民年人均纯收入：</th>
+		<td colspan='4'>
+			2013&nbsp年度：<input id="annualIncome_13" style='width:55px;' type='text' name='annualIncome_13' class='number'  value='$!{aucr.annualIncome_13}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+			2014&nbsp年度：<input id="annualIncome_14" style='width:55px;' type='text' name='annualIncome_14' class='number'  value='$!{aucr.annualIncome_14}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp<br/>
+			2015&nbsp年度：<input id="annualIncome_15" style='width:55px;' type='text' name='annualIncome_15' class='number'  value='$!{aucr.annualIncome_15}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+			2016&nbsp年度：<input id="annualIncome_16" style='width:55px;' type='text' name='annualIncome_16' class='number'  value='$!{aucr.annualIncome_16}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp<br/>
+			2017&nbsp年度：<input id="annualIncome_17" style='width:55px;' type='text' name='annualIncome_17' class='number'  value='$!{aucr.annualIncome_17}' min="0" precision="2"$!{readonly} />元
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td  style='font-weight:bold;' colspan='6'>农村公共服务情况:</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='2'>文化活动场所：</th>
+		<td colspan='4'>
+			<input style="width:50px;" id="culturalAct" class='number' type='text' value='$!{aucr.culturalAct}' min="0" precision="0" name='culturalAct' $!{readonly} />个，
+			<input style="width:50px;" id="culturalActArea" class='number' type='text' value='$!{aucr.culturalActArea}' min="0" precision="2" name='culturalActArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="culturalActAnn" type='text' value='$!{aucr.culturalActAnn}' name='culturalActAnn' readonly='readonly' style='width:50px;'/>
+			#else
+				<select id='culturalActAnn' name='culturalActAnn'>$!{selyear}</select>
+			#end	
+			年
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='2'>乡村公园：</th>
+		<td colspan='4'>
+			<input style="width:50px;" id="ruralPark" type='text' class='number' value='$!{aucr.ruralPark}' min="0" precision="0" name='ruralPark' $!{readonly} />个，
+			<input style="width:50px;" id="ruralParkArea" class='number' type='text' value='$!{aucr.ruralParkArea}' min="0" precision="2" name='ruralParkArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="ruralParkAnn" type='text' value='$!{aucr.ruralParkAnn}' name='ruralParkAnn' readonly='readonly' style='width:50px;'/>
+			#else
+				<select id='ruralParkAnn' name='ruralParkAnn'>$!{selyear}</select>
+			#end	
+			年
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='2'>文体广场：</th>
+		<td colspan='4'>
+			<input style="width:50px;" id="ruralSquare" type='text' class='number' value='$!{aucr.ruralSquare}' min="0" precision="0" name='ruralSquare' $!{readonly} />个，
+			<input style="width:50px;" id="squareArea" class='number' type='text' value='$!{aucr.squareArea}' min="0" precision="2"name='squareArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="squareAnn" type='text' value='$!{aucr.squareAnn}' name='squareAnn' readonly='readonly' style='width:50px;'/>
+			#else
+				<select id='squareAnn' name='squareAnn'>$!{selyear}</select>
+			#end
+			年
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='2'>村级卫生站：</th>
+		<td colspan='4'>
+			<input style="width:50px;" id="healthStation" type='text' class='number' value='$!{aucr.healthStation}' min="0" precision="0" name='healthStation' $!{readonly} />个，
+			<input style="width:50px;" id="healthStationArea" class='number' type='text' value='$!{aucr.healthStationArea}' min="0" precision="2" name='healthStationArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="healthStationAnn" type='text' value='$!{aucr.healthStationAnn}' name='healthStationAnn' readonly='readonly' style='width:50px;' />
+			#else
+				<select id='healthStationAnn' name='healthStationAnn'>$!{selyear}</select>
+			#end
+			年
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='2'>乡村公厕：</th>
+		<td colspan='4'>
+			<input style="width:50px;" id="villageToilet" type='text' class='number' value='$!{aucr.villageToilet}' min="0" precision="0" name='villageToilet' $!{readonly} />个，
+			<input style="width:50px;" id="villageToiletArea" class='number' type='text' value='$!{aucr.villageToiletArea}' min="0" precision="2" name='villageToiletArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="villageToiletAnn" type='text' value='$!{aucr.villageToiletAnn}' name='villageToiletAnn' readonly='readonly'  style='width:50px;'/>
+			#else
+				<select id='villageToiletAnn' name='villageToiletAnn'>$!{selyear}</select>
+			#end
+			年
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='3'>是否建立统一的村级公共服务管理平台：</th>
+		<td colspan='3'>
+			#if($aucr.publicService == '是')
+				<!--<input id="publicService-n" style='width:20px' type='radio' name='publicService' value='否' $!{disabled}  onclick="jQuery('#psAnnual').attr('disabled', true);"/><label for='publicService-n'>否</label>
+				<input id="publicService-y" style='width:20px' type='radio' name='publicService' value='是' $!{disabled} checked='checked' onclick="jQuery('#psAnnual').removeAttr('disabled');" /><label for='publicService-y'>是</label>
+				(年度：
+					#if($readonly)
+						<input id="psAnnual" type='text' value='$!{aucr.psAnnual}' name='psAnnual' readonly='readonly' />
+					#else
+						<select id='psAnnual' name='psAnnual'>$!{selyear}</select>
+					#end	
+				年)-->
+				是(年度:<input id="psAnnual" type='text' value='$!{aucr.psAnnual}' name='psAnnual' readonly='readonly' />年)
+			#else
+				否
+			#end
+		</td>
+	</tr>
+	
+</table>
+	
+	
+	
+	
+	<!--tab内容-->
+	
+
+<div id='rep'>
+	<div id='main_income' style='width: 600px; height: 350px;padding:85px 0 0 50px;' ></div>
+	<div id='main_house' style='position:absolute; right:5px; top:250px;width: 400px; height: 350px;'> </div>
+</div>
+
+
+<script type='text/javascript'>
+	var myChart1 = echarts.init(document.getElementById('main_income'),'infographic'); 
+	var myChart2 = echarts.init(document.getElementById('main_house'),'infographic');
+	var ecConfig = echarts.config;
+	var mapGeoData = echarts.util.mapData.params;
+	
+	var option1;
+	var option2;
+	
+	$(function(){
+		option1 = {
+		    title : {
+		        text: '收入情况',
+		        subtext: '农民年人均收入'
+		    },
+		    tooltip : {
+		        trigger: 'axis',
+		        formatter:'{b}<br/>{a}: {c} 元'
+		    },
+		    legend: {
+		        data:['农民年人均收入']
+		    },
+		    
+		    calculable : false,
+		    xAxis : [
+		        {
+		            type : 'category',
+		            boundaryGap : false,
+		            data : ['2013年','2014年','2015年','2016年','2017年','-','-'],
+		             axisLabel: {
+		                 show: true,
+		                 interval: 'auto',
+						 rotate:25,
+		                 textStyle: {
+		                     color: '#000000',
+		                     fontFamily: 'verdana',
+		                     fontSize: 15,
+		                     fontStyle: 'normal',
+		                     fontWeight: 'bold'
+		                 }
+		             }
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'value',
+		            axisLabel : {
+		                formatter: '{value} 元'
+		            }
+		        }
+		    ],
+		    series : [
+		        {
+		            name:'农民年人均收入',
+		            type:'line',
+		            //data:[11, 11, 15, 13, 12, 13, 10],
+		            data:$anIncome,
+		            
+		            markPoint : {
+		                data : [
+		                    //{type : 'max', name: '最大值'},
+		                    //{type : 'min', name: '最小值'}
+		                ]
+		            },
+		            markLine : {
+		                data : [
+		                    {type : 'average', name: '平均值'}
+		                ]
+		            },
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             //color: '#800080'
+		                         },
+		                         position:'top',
+		                         formatter: '{c}元'
+		                     },
+		                     color: function(params) {
+		                        // build a color map as your need.
+		                        var colorList = [
+		                          '#C1232B','#B5C334','#6495ED','#E87C25','#27727B',
+		                           '#FF4500','#B03060','#26C0C0','#F3A43B','#8B8B00',
+		                           '#D7504B','#C6E579','#F4E001','#F0805A','#A2CD5A'
+		                        ];
+		                        return colorList[params.dataIndex]
+		                    }
+		                 }
+		             }
+		        }
+		    ]
+		};
+		myChart1.setOption(option1);
+		
+		//----------------------------------------------------------------
+		option2 = {
+		    title : {
+		        text: '$!{aucr.name}',
+		        subtext: '村户数',
+		        x:'center'//标题位置
+		    },
+		    tooltip : {
+		        trigger: 'item',
+		        formatter: "{b} : {c}户 ({d}%)"
+		    },
+		    legend: {
+		        orient : 'vertical',
+		        x : 'left',
+		        data:['贫困户数','低保户数','五保户数','需改造的危房户数','其他']
+		    },
+		    
+		    calculable : true,
+		    series : [
+		        {
+		            name:'户数',
+		            type:'pie',
+		            radius : '55%',
+		            center: ['50%', '60%'],
+		            selectedMode: 'single',
+		            data:[
+		            	
+		                {value:$aucr.poorHouseHold, name:'贫困户数'},
+		                {value:$aucr.lowHouseHold, name:'低保户数'},
+		                {value:$aucr.wubaoHouseHold, name:'五保户数'},
+		                {value:$aucr.dangerHouse, name:'需改造的危房户数'},
+		                {value:$aucr.houseHold - ($aucr.poorHouseHold + $aucr.lowHouseHold + $aucr.wubaoHouseHold), name:'其他'}
+		            ],
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             //color: '#800080'
+		                         },
+		                         position:'outer',
+		                         formatter: '{b}:\n{c}户 ({d}%)'
+		                     },
+		                     color: function(params) {
+		                        // build a color map as your need.
+		                        var colorList = [
+		                          '#C1232B','#B5C334','#6495ED','#E87C25','#27727B',
+		                           '#FF4500','#B03060','#26C0C0','#F3A43B','#8B8B00',
+		                           '#D7504B','#C6E579','#F4E001','#F0805A','#A2CD5A'
+		                        ];
+		                        return colorList[params.dataIndex]
+		                    }
+		                 }
+		             }
+		        }
+		    ]
+		};
+		myChart2.setOption(option2);
+	});
+	
+	
+	
+	function aucrDetal(th){
+		$(th).toggleClass('item-open2 item-close2');
+		$('#_aucrtableDetal').toggle('slow');
+		$('#rep').toggle('slow');
+	}
+</script>

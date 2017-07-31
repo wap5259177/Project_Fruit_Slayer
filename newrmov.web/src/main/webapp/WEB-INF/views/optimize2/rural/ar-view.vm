@@ -1,0 +1,80 @@
+<div id='_alout' data-settings="fit:true" style='width:100%;height:100%;'>
+	<div id='_title' data-settings="zone:'north',split:true,border:false" style="height:50px;" align='center'>
+		<h1 id='r_title'>$ar.name</h1> 
+		<!--<div id='div_ar_back' style='position:absolute; right:30px; top:20px;display:none;' ><a href='#' id='a_ar_back'>返回</a></div>
+		<div id='div_nr_back' style='position:absolute; right:30px; top:20px;display:none;' ><a href='#' id='a_nr_back'>返回</a></div>-->
+	</div>
+	<div data-settings="zone:'west',split:true,border:false" style="width:130px">
+		<p class='item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">
+			$ar.name
+		</p>
+		<div id='_nrs'>
+		
+		#foreach($it in $nrs)
+			<p style='padding:0px 0px 0px 18px;'><a href='#' title='查看[$it.naturalVillage]自然村信息' onclick='nrClick($!{it.id},"$!{it.naturalVillage}");'>$it.naturalVillage</a></p>	
+		#end
+		</div>
+	</div>
+	<div data-settings="zone:'center',border:false" id='r_content'>
+		#parse('optimize2/rural/adminrural/ar-base.vm')
+	</div>
+</div>
+
+
+
+<script type='text/javascript'>
+	$(function(){
+		//布局
+		$('#_alout').bupborderlayout();
+		$('#_nrs p a').bupabutton({
+	        iconClassname: '',
+	        //face:'scorner',
+	        borderedflat: false,
+	        group:'_nrs',
+	        flat:true,
+	        istoggle:true
+	    }); 
+	    $('#_nrs p a').buptip();
+	    $('#a_ar_back,#a_nr_back').bupabutton({
+	    	face:'scorner'
+	    });
+	});
+	
+	//点击自然村
+	var titleStr;
+	function nrClick(_id,_vname){
+		//点击详情的时候隐藏那两个图表,和上面的table
+		$('#_artable').hide();
+		$('#main_house').hide();
+		$('#main_income').hide();
+		
+		
+		//var vname = "$ar.name >> "+_vname;
+		var vname = " >> <a href='#' onclick='nrLoad("+_id+");'>"+_vname+"</a>";
+		titleStr = "<a href='#' onclick='arClick($ar.id);'>$ar.name</a>"+vname;
+		$('#r_title').html(titleStr);
+		$('#r_content').load('loadNr.info?id='+_id,function(){});
+		
+		$('#div_nr_back').show();
+		$('#div_ar_back').hide();
+		$('#a_nr_back').click(function(){
+			$('#show_area').fadeOut("slow",function(){
+				$('#show_area').load('arDetal.do?id=$ar.id',function(){
+					$('#show_area').fadeIn("slow");
+				});
+			});
+		});
+		/*
+		$('#r_content').fadeOut("slow",function(){
+			$('#r_content').load('loadNr.info?id='+_id,function(){
+				$('#r_content').fadeIn("slow");
+			});
+		});*/
+	}
+	
+	function nrLoad(_id){
+		$('#r_content').load('loadNr.info?id='+_id,function(){});
+		$('#r_title').html(titleStr);//点击的时候又让他回到 : 福北村委会 >> 璋芳片,因为你点详情的时候已经改变了r_title,所以这里要让他回到原样
+	}
+	
+</script>

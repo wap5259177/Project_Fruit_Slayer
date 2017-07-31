@@ -1,0 +1,277 @@
+@CHARSET "UTF-8";
+
+@IMPORT url("../../themes/bootstrap/easyui.css");
+a.menuSelected {
+	border-color: gray;
+	font-weight: bold;
+	padding-right: 18px;
+	background: url('images/menu-selected.png') no-repeat top right;
+	text-decoration: none;
+}
+
+#sysChannelItems ul li.lastChannelSelected a {
+	background: url("images/menu-bg.gif") no-repeat scroll left top
+		transparent;
+	color: #FFFFFF;
+	float: left;
+	position: relative;
+	left: 0px;
+	font-weight: 900;
+}
+
+#sysChannelItems ul li.lastChannelSelected  a span {
+	background: url("images/menu-inner-bg.gif") no-repeat scroll right
+		top transparent;
+	float: left;
+	left: 13px;
+	position: relative;
+	color: #135684;
+	margin-top: 0px\9;
+}
+
+#sysChannelItems ul li.afterSelected a {
+
+}
+
+#sysChannelItems ul li.afterSelected  a span {
+}
+
+#sysChannelItems ul li.channelSelected {
+	
+}
+
+#sysChannelItems ul li.channelSelected a {
+	background: url("images/menu-bg.gif") no-repeat scroll left top
+		transparent;
+	color: #FFFFFF;
+	float: left;
+	position: relative;
+	left: 0px;
+	font-weight: 900;
+}
+
+#sysChannelItems ul li.channelSelected a span {
+	background: url("images/menu-inner-bg.gif") no-repeat scroll right top
+		transparent;
+	float: left;
+	left: 13px;
+	position: relative;
+	color: #135684;
+}
+
+#sysChannelItems ul,#sysChannelItems ul li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#sysChannelItems ul {
+	text-align: left;
+}
+
+#sysChannelItems ul li {
+	display: inline;
+	margin-right: .75em;
+}
+
+#sysChannelItems ul li.last {
+	margin-right: 0;
+}
+
+#sysChannelItems ul li a {
+	background: url("images/menu-over-bg.gif") no-repeat scroll left top
+		transparent;
+	cursor: pointer;
+	float: left;
+	font-size: 12px;
+	left: 10px;
+	line-height: 27px;
+	margin: 0;
+	overflow: visible;
+	padding: 0 0 1px 0px;
+	text-decoration: none;
+}
+
+#sysChannelItems ul li a span {
+	background: url("images/menu-inner-over-bg.gif") no-repeat scroll right
+		top transparent;
+	left: 13px;
+	/*padding: 0 12px 0 0; */
+	position: relative;
+	/* padding: 5px 1em; */
+	float: left;
+	left: 13px;
+	padding-right: 20px;
+	padding-left: 5px;
+}
+
+div.layoutTop {
+	height: 75px;
+	background-image: url(images/bg-top.png);
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+div.layoutTop table.title{
+	height:50px;
+	font-size:12px;
+}
+div.layoutTop table.nav{
+	
+}
+
+div.layoutFoot {
+	padding: 6px;
+	text-align: center;
+	font-size: 15px;
+	background-image: url(images/bg_foot.png);
+}
+
+div.pageLoading {
+	position: fixed !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 999;
+	background: #fff url(images/load.gif) no-repeat center center;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+div.pageLoading p {
+	color: #fff;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: 20px 0 0 -50px;
+	padding: 3px 10px;
+}
+
+.systemName {
+	font-size: 28px;
+	font-weight: bold;
+	font-family: '黑体';
+	color: #592D8B;
+}
+
+.layout-top-collapse {
+	padding-bottom: 7px;
+	padding-right: 7px;
+}
+
+.layout-top-collapse a {
+	display: inline-block;
+	height: 16px;
+	margin-left: 2px;
+	opacity: 0.6;
+	width: 16px;
+}
+
+table.top-tools {
+	margin: 0;
+	padding: 0;
+}
+
+table.top-tools tr {
+	background: #fff url(images/top-tools-bg.png) repeat-x;
+}
+
+table.top-tools th {
+	background: #fff url(images/sbg.png) no-repeat center center;
+	width: 2px;
+}
+
+table.top-tools td {
+	
+}
+
+table.top-tools td span {
+	line-height: 15px;
+	height: 15px;
+	color: purple;
+	padding-left: 5px;
+}
+
+/*  以下是参数设置使用的tabs的样式的定义   */
+div.parameterTabs {
+	float: left;
+	width: 100%;
+	background: #F4F4F4;
+	font-size: 100%;
+	line-height: normal;
+}
+
+div.parameterTabs ul {
+	margin: 0;
+	padding: 10px 10px 0 50px;
+	list-style: none;
+}
+
+div.parameterTabs li {
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+div.parameterTabs a {
+	float: left;
+	background: url("images/tableft.gif") no-repeat left top;
+	margin: 0;
+	padding: 0 0 0 4px;
+	text-decoration: none;
+}
+
+div.parameterTabs a span {
+	float: left;
+	display: block;
+	background: url("images/tabright.gif") no-repeat right top;
+	padding: 7px 15px 4px 6px;
+	color: #666;
+}
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+div.parameterTabs a span {
+	float: none;
+}
+/* End IE5-Mac hack */
+div.parameterTabs a:hover span {
+	color: #000;
+}
+
+li.tabsSelected {
+	
+}
+
+div.parameterTabs a:hover, li.tabsSelected a{
+	background-position: 0% -42px;
+}
+
+div.parameterTabs a:hover span, li.tabsSelected a span{
+	background-position: 100% -42px;
+}
+table.vacation-editor td{
+	width: 32px;
+	height: 32px;
+}
+table.vacation-editor td.vacation-month{
+	
+}
+table.vacation-editor td.vacation-week-delimiter{
+	width: 5px;
+}
+table.vacation-editor td.vacation-week td.vacation-week-day{
+	cursor: pointer;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 18px;
+}
+
+table.vacation-editor td.vacation-week{
+	background-color: #cccccc;
+}
+
+table.vacation-editor td.vacation-on-vacation{
+	background-image: url("images/on-vacation.png");
+	background-repeat: no-repeat;
+}

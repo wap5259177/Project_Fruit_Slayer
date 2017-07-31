@@ -1,0 +1,53 @@
+#set($layout="layout-empty.vm")
+    <tr>
+      <td align='center' class='items' style='width:161px;margin:0px;padding:0px;'>
+          <div style="padding-top:10px;">
+          <span style='font-weight:bold;'>请选择年度:</span> <select id='annual-re'style="width:60px;height:20px;line-height:20px;margin-bottom:220px;">
+              <option value ="2014">2014</option>
+              <option value ="2015">2015</option>
+              <option value ="2016">2016</option>
+              <option value ="2017">2017</option>
+          </select>
+          </div>
+      </td>
+      <td class='items' style='padding-bottom:40px;'><div id='cb-coreRurals' style="height:200px;overflow:auto;">$!coreRurals</div></td>
+    </tr>
+    <tr>
+      <td colspan='2' align='center' class='items'>
+	     <a id='submit'>提交</a>
+	     <a id='close'>关闭</a>
+	  </td>
+	</tr>
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#close').bupabutton({ 
+		flat:true
+	}).click(function() {
+	  $('.new-cls').remove();
+	  jQuery('#_editor').empty();
+	  jQuery('#_div').slideUp('slow');
+	  $("#_add").show();
+	});
+	
+	jQuery('#submit').bupabutton({ 
+		flat:true
+	}).click(function() {
+	if($('#re_count').val()==null){
+	   alert('请选择要添加的记录！');
+	   return;
+	} 
+	jQuery("#re-form-submit").bupform("submit",{success:function(rd){
+	rd = eval('(' + rd + ')');
+	if(rd.error){
+	alert(rd.msg);
+	return;
+	}
+	//alert("保存成功！");
+	jQuery("#_tbody").load("index.load");
+	}});
+		return false;
+	});
+   
+});
+</script>
+      

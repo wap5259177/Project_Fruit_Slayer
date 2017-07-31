@@ -1,0 +1,75 @@
+<div id="datagrid-tab" style='padding-left:10px;padding-top:5px;'>
+	<div>
+	$!{select}
+	</div>	
+	<a class="bupabutton" style='padding-left:10px' href="#" data-settings="iconClassname:'icon-excel'"
+		 onclick="this.href='index.excel?batch='+jQuery('#sel-batch').val()" target="_blank">导出Excel</a>
+	<div style="font-size:20px;text-align:center">广东省新农村连片示范建设工程台账簿 - 完成人居环境综合整治的自然村汇总统计</div>
+</div>
+
+<table class="bupgrid" fit="true" data-settings="nowrap:false" toolbar="#datagrid-tab">
+	<thead>
+		<tr>
+		   <th style="width:60px;" rowspan='3' data-settings="field:'item1'">序号</th>
+			<th style="width:60px;" rowspan='3' data-settings="field:'item2'">批次[A15]</th>
+			<th style="width:60px;" rowspan='3' data-settings="field:'item3'">报备年度[A14]</th>
+			<th style="width:120px;" rowspan='3' data-settings="field:'item4'">地市</th>
+			<th style="width:120px;" rowspan='3' data-settings="field:'item5'">县(区)</th>
+			<th style="width:150px;" rowspan='3' data-settings="field:'item6'">示范片名称[A12]</th>
+			<th style="width:150px;" rowspan='3' data-settings="field:'item7'">建设主题名称[A13]</th>
+			<th style='font-weight:bold;'colspan='4'>年度</th>
+		</tr>
+		<tr>
+		    
+			<th style="width:60px;height:30px;">2014年</th>
+			<th style="width:60px;height:30px;">2015年</th>
+			<th style="width:60px;height:30px;">2016年</th>
+			<th style="width:60px;height:30px;">2017年</th>
+		</tr>
+		<tr>
+		    <th style="width:60px;" data-settings="field:'item9'">村个数</th>
+			<th style="width:60px;" data-settings="field:'item10'">村个数</th>
+			<th style="width:60px;" data-settings="field:'item11'">村个数</th>
+			<th style="width:60px;" data-settings="field:'item12'">村个数</th>
+		</tr>
+	</thead>
+	<tbody id='_tbody'>$!{content}</tbody>
+</table>
+
+<style type="text/css">
+table.residential-cls{
+	font-size:16px;
+	width: 880px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+	margin: auto;
+}
+table.residential-cls td,table.residential-cls th,table.residential-cls td.items{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+	padding-left:4px;
+	text-align:center;
+	font-weight:normal;
+}
+table.residential-cls tr td input{
+	width:50px;
+	border:0px;
+	text-align:center;
+	border-bottom: solid 1px #000000;
+	color: #000000;
+	font-size:15px;
+	background-color: #ffffff;
+	padding:0 0 5px 0;
+}
+
+</style>
+
+<script>
+	$("#btn_load").bupabutton({
+        iconClassname: 'icon-search'
+    });
+</script>

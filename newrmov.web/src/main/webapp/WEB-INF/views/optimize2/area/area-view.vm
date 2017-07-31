@@ -1,0 +1,647 @@
+<!--一个弹出框-->
+<div id="myw" style="width:100%;height:100%;padding:5px;min-width:600px;min-height:400px;" >
+	<div id='myc'  data-settings="fit:true">
+		<div data-settings="zone:'east',split:true" style="width:300px">
+			<div id='_east' data-settings="fit:true,border:false">
+				<div title="示范片" style="padding:10px;" data-settings="selected:true" id='shifanpian'>
+					<ul style="list-style-type:none;" id='_adetal'>
+							<li style='padding:5px 50px 20px 5px ;'>
+								<a id='area_gner' href='#' onclick='areaGr();' title='示范片简介' data-settings='selected:true'><div class='hide-nowrap' style='width:10em;'>◇示范片简介</div></a>
+							</li>
+							<li style='padding:5px 50px 20px 5px ;'><!--style='float:left;padding:5px;'-->
+								<a id='area_base' href='#' onclick='areaBase();' title='示范片所在县(市、区)基本情况'><div class='hide-nowrap' style='width:10em;'>◇县(市/区)基本情况</div></a>
+							</li>
+							<li style='padding:5px 50px 20px 5px ;'>
+								<a id='ma_situation' href='#' onclick='ma_situation();' title='示范片总体情况'><div class='hide-nowrap' style='width:10em;'>◇示范片总体情况</div></a>
+							</li>
+							<li style='padding:5px 50px 20px 5px ;'>
+								<a id='contin_constru' href='#' onclick='contin_constru();' title='连片建设基本情况'><div class='hide-nowrap' style='width:10em;'>◇连片建设基本情况</div></a>
+							</li>
+							<li style='padding:5px 50px 20px 5px ;'>
+								<a id='area_income' href='#' onclick='income();' title='各年度城镇居民和农民人均纯收入'><div class='hide-nowrap' style='width:10em;'>◇各年度人均收入</div></a>
+							</li>
+					</ul>
+				</div>
+				<div title="连片村情况" style="padding:10px" id='lianpian'>
+					<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 item-close2'>主体行政村</p>
+					<ul style="list-style-type:none;" id='_urus'>
+						<div>
+							#foreach($it in $ars)
+								<li style='padding:5px 50px 12px 5px ;'>
+									<a href='#' id='ar_$it.id' onclick='arClick($it.id);' title='点击查看[$it.name]信息'><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it.name</div></a>
+								</li>
+							#end
+						</div>
+					</ul>
+						
+					<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-close2 item-open2 '>非主体行政村</p>
+					<ul style="list-style-type:none;" id='_urus'>	
+						<div>
+							#foreach($it in $uars)
+								<li style='padding:5px 50px 12px 5px ;'>
+									<a href='#' id='uar_$it.id' onclick='uarClick($it.id);' title='点击查看[$it.name]信息'><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it.name</div></a>
+								</li>
+							#end
+						</div>
+					</ul>
+				</div>
+				<div title="项目投入"   id='title_pj'>
+					<!--<ul style="list-style-type:none;" id='_urus'>
+						<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-close2 item-open2 '>工程项目</p>
+						<div>
+							#foreach($it in $pjs)
+								<li style='padding:5px 50px 20px 5px ;'>
+									<a id='pj_$it[0]'+ href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+								</li>
+							#end
+						</div>
+					</ul>-->
+					<!--------------------------use tab----------------------------------------->
+					<div id="pjtab" >
+						<div title="概况"   style="overflow:auto;padding:10px;">
+					    	
+							<span style='padding:5px 5px 10px 0px ;'>
+							<a id='pj_gner'  href='#' class='pj-remove-style' onclick='pjGner();' title='概况'><div class='hide-nowrap' style='width:4em;'>&nbsp&nbsp&nbsp概况&nbsp&nbsp</div></a>
+							</span>
+					    </div>
+					
+					
+					    <div title="规划设计" class='hide-nowrap'  style="overflow:auto;padding:5px;">
+					    	<!--<ul style="list-style-type:none;" id='_urus'>
+					    		#foreach($it in $pjs1)
+									<li style='padding:5px 5px 10px 0px ;'>
+										<a id='pj_$it[0]' href='#'  class='pj-remove-style' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+									</li>
+								#end
+							</ul>-->
+							#if($pjs1 && $pjs1.size()>0)	
+							#foreach($it in $pjs1)
+								<div style='padding:2px; 0px 3px 0px'><!--项目的间隙-->
+									<span style='padding: 0px ;'>
+									<a id='pj_$it[0]' href='#'   class='pj-remove-style' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+									</span>
+								</div>
+							#end
+							#else
+								<span style='color:red;'>无</span>
+							#end
+					    </div>
+					    
+					    <div title="村庄环境整治"   style="overflow:auto;padding:5px;">
+					    	#if($pjs2 && $pjs2.size()>0)
+					    	#foreach($it in $pjs2)
+					    		<div style='padding:2px; 0px 3px 0px'><!--项目的间隙-->
+									<span style='padding:0px ;'><!--<span style='padding:5px 5px 0px 0px ;'>-->
+									<a id='pj_$it[0]' href='#'  class='pj-remove-style' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+									</span>
+								</div>
+							#end
+							#else
+								<span style='color:red;'>无</span>
+							#end
+					    </div>
+					    
+					    <div title="外立面整治"   style="overflow:auto;padding:5px;">
+					    	#if($pjs3 && $pjs3.size()>0)
+					    	#foreach($it in $pjs3)
+						    	<div style='padding:2px; 0px 3px 0px'><!--项目的间隙-->
+									<span style='0px ;'>
+									<a id='pj_$it[0]' href='#' class='pj-remove-style' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+									</span>
+								</div>
+							#end
+							#else
+								<span style='color:red;'>无</span>
+							#end
+					    </div>
+					    <div title="旧村旧房改造"  style="overflow:auto;padding:10px;">
+					    	#if($pjs4 && $pjs4.size()>0)
+					    	#foreach($it in $pjs4)
+						    	<div style='padding:2px; 0px 3px 0px'><!--项目的间隙-->
+									<span >
+									<a id='pj_$it[0]' href='#' class='pj-remove-style' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+									</span>
+								</div>
+							#end
+							#else
+								<span style='color:red;'>无</span>
+							#end
+					    </div>
+					    
+					    <div title="文化传承保护"  style="overflow:auto;padding:5px;">
+					    	#if($pjs5 && $pjs5.size()>0)
+					    	#foreach($it in $pjs5)
+						    	<div style='padding:2px; 0px 3px 0px'><!--项目的间隙-->
+									<span style='0px ;'>
+									<a id='pj_$it[0]' href='#' class='pj-remove-style' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+									</span>
+								</div>
+							#end
+							#else
+								<span style='color:red;'>无</span>
+							#end
+					    </div>
+					    
+					    <div title="美化绿化建设"  style="overflow:auto;padding:5px;">
+					    	#if($pjs6 && $pjs6.size()>0)
+					    	#foreach($it in $pjs6)
+						    	<div style='padding:2px; 0px 3px 0px'><!--项目的间隙-->
+									<span style='padding:0px ;'>
+									<a id='pj_$it[0]' href='#' class='pj-remove-style' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+									</span>
+								</div>
+							#end
+							#else
+								<span style='color:red;'>无</span>
+							#end
+					    </div>
+					    <div title="基础设施建设"  style="overflow:auto;padding:5px;">
+					    	#if($pjs7 && $pjs7.size()>0)
+					    	#foreach($it in $pjs7)
+						    	<div style='padding:2px; 0px 3px 0px'><!--项目的间隙-->
+									<span style='padding:0px ;'>
+									<a id='pj_$it[0]' href='#' class='pj-remove-style' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+									</span>
+								</div>
+							#end
+							#else
+								<span style='color:red;'>无</span>
+							#end
+					    </div>
+					    
+					    <div title="连线工程"  style="overflow:auto;padding:5px;">
+					    	#if($pjs8 && $pjs8.size()>0)
+					    	#foreach($it in $pjs8)
+						    	<div style='padding:2px; 0px 3px 0px'><!--项目的间隙-->
+									<span style='padding:0px ;'>
+									<a id='pj_$it[0]' href='#' class='pj-remove-style' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+									</span>
+								</div>
+							#end
+							#else
+								<span style='color:red;'>无</span>
+							#end
+					    </div>
+					    
+					    <div title="道路硬底化"  style="overflow:auto;padding:5px;">
+					    	#if($pjs9 && $pjs9.size()>0)
+					    	#foreach($it in $pjs9)
+						    	<div style='padding:2px; 0px 3px 0px'><!--项目的间隙-->
+									<span style='padding:0px ;'>
+									<a id='pj_$it[0]' href='#' class='pj-remove-style' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+									</span>
+								</div>
+							#end
+							#else
+								<span style='color:red;'>无</span>
+							#end
+					    </div>
+					    <div title="村村通自来水"  style="overflow:auto;padding:5px;">
+					    	#if($pjs10 && $pjs10.size()>0)
+					    	#foreach($it in $pjs10)
+						    	<div style='padding:2px; 0px 3px 0px'><!--项目的间隙-->
+									<span style='padding:0px ;'>
+									<a id='pj_$it[0]' href='#' class='pj-remove-style' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+									</span>
+								</div>
+							#end
+							#else
+								<span style='color:red;'>无</span>
+							#end
+					    </div>
+					    <div title="卫厕改造项目"  style="overflow:auto;padding:5px;">
+					    	#if($pjs11 && $pjs11.size()>0)
+					    	#foreach($it in $pjs11)
+						    	<div style='padding:2px; 0px 3px 0px'><!--项目的间隙-->
+									<span style='padding:0px ;'>
+									<a id='pj_$it[0]' href='#' class='pj-remove-style' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+									</span>
+								</div>
+							#end
+							#else
+								<span style='color:red;'>无</span>
+							#end
+					    </div>
+					    <div title="其他"  style="overflow:auto;padding:5px;">
+					    	#if($pjs12 && $pjs12.size()>0)
+					    	#foreach($it in $pjs12)
+						    	<div style='padding:2px; 0px 3px 0px'><!--项目的间隙-->
+									<span style='padding:0px ;'>
+									<a id='pj_$it[0]' href='#' class='pj-remove-style' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+									</span>
+								</div>
+							#end
+							#else
+								<span style='color:red;'>无</span>
+							#end
+					    </div>
+					</div>
+				</div>
+				<!----------------------------use tab end--------------------------------------->
+				
+				
+				
+				
+				<div title="产业发展" style="padding:10px" id='canye'>
+					#if($ias && $ias.size()>0)
+					<ul style="list-style-type:none;padding:0px 5px 12px 35px ;" id='_urus'>
+						<li style='padding:5px 50px 0px 1px ;'><a href='#' id='ia_gner' onclick='iaGner();' style='width:12em;' title='概况'><div class='hide-nowrap' style='width:4em;'>&nbsp&nbsp&nbsp概况&nbsp&nbsp</div></a></li>
+					</ul>
+					<p  href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-close2 item-open2 '>产业发展</p>
+					<ul style="list-style-type:none;padding:0px 5px 12px 35px ;" id='_urus'>
+						<div>
+							#foreach($it in $ias)
+								<li style='padding:5px 50px 12px 1px ;'>
+									<a href='#' id='ia_$it[0]' style='width:12em;' onclick='iaClick($it[0]);' title='$it[1]'><div class='hide-nowrap' style='width:11em;'>$!{velocityCount}.$it[1]</div></a>
+								</li>
+							#end
+						</div>
+					</ul>
+					#else
+						<span style='color:red'>无</span>
+					#end
+				</div>
+				
+				
+				<div title="初步成效" style="padding:10px" id='chubu'>
+					<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-close2 item-open2 '>季度报表</p>
+					<ul style="list-style-type:none;padding:0px 5px 12px 35px ;" id='_urus'>
+						<div>
+							#foreach($it in $aqItems)
+								#set($period = $it.batch.quarter.period + 1 )
+								<li style='padding:5px 50px 12px 1px ;'>
+									<a href='#' id='aq_$it.id' style='width:12em;'  onclick='pReportClick($it.id);' title='$it.batch.quarter.annual - $period'><div class='hide-nowrap' style='width:12em;'>$it.batch.quarter.annual年第$period季度</div></a>
+								</li>
+							#end
+						</div>
+					</ul>
+					
+					<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-close2 item-open2 '>完成人居环境整治村名单</p>
+					<ul style="list-style-type:none;padding:0px 5px 12px 35px ;" id='_urus'>
+						<div>
+							#foreach($it in $listResAnnual)
+								<li style='padding:5px 50px 12px 1px ;'>
+									<a href='#' id='$it' style='width:12em;'  onclick='resClick($it);' title='$it'><div class='hide-nowrap' style='width:12em;'>$it年</div></a>
+								</li>
+							#end
+						</div>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		$ma.modelAreaImg.mapPath
+		<div id='show_area' data-settings="zone:'center'" style="padding:10px;">
+				
+			<img src="/../$ma.modelAreaImg.mapPath"  alt="示范片规划图" height="100%" width="100%"/>
+		</div>
+		<div data-settings="zone:'south',border:false" style="text-align:right;padding:5px 0 0;">
+			<!--<a id='ok' data-settings="iconCassname:'icon_ok'" href="javascript:void(0)" onclick="javascript:alert('ok')">确认</a>
+			<a id='cansal' data-settings="iconCassname:'icon_cancel'" href="javascript:void(0)" onclick="javascript:alert('cancel')">取消</a>
+			-->
+		</div>
+	</div>
+</div>
+
+<style>
+
+	#myc {
+		font:12px verdana, arial, sans-serif;
+	}
+	#myc, #myc li {
+		list-style:none;
+		padding:0;
+		margin:0;
+	}
+	
+	#shifanpian a,#lianpian a,#canye a,#chubu a{
+		display:block;
+		
+		padding:4px 10px;
+		//background:#3A4953;
+		background: #e0f0e9 ;//88ada6 ,f3f9f1 茶百  
+		color:#fff;
+		text-decoration:none;
+		//border-right:1px solid #000;//右边框线
+	}
+	
+	#shifanpian a:hover,#lianpian a:hover,#title_pj a:hover,#canye a:hover,#chubu a:hover {
+		background:#146C9C;
+		//background:red;
+		color:#fff;
+		text-decoration:none;
+		//border-right:1px solid #000;
+	}
+	
+	#pjtab div span a{
+		display:block;
+		
+		padding:4px 10px;
+		//background:#3A4953;
+		background: #e0f0e9 ;//88ada6 ,f3f9f1 茶百  
+		color:#fff;
+		text-decoration:none;
+		//border-right:1px solid #000;//右边框线
+	}
+	
+	#pjtab div li a:hover{
+		background:#146C9C;
+		//background:red;
+		color:#fff;
+		text-decoration:none;
+		//border-right:1px solid #000;
+	}
+	
+	/*#myc li a {
+		display:block;
+		
+		padding:4px 10px;
+		//background:#3A4953;
+		background: #e0f0e9 ;//88ada6 ,f3f9f1 茶百  
+		color:#fff;
+		text-decoration:none;
+		//border-right:1px solid #000;//右边框线
+	}*/
+	/*
+	.li-a{
+		display:block;
+		padding:4px 10px;
+		//background:#3A4953;
+		background: #e0f0e9 ;
+		text-decoration:none;
+	}
+	.li-a-select{
+		padding:4px 10px;
+		display:block;
+		background:#146C9C;
+		text-decoration:none;
+	}*/
+	
+	
+	/*鼠标移动到链接上显示的颜色,背景颜色*/
+	/*#myc li a:hover {
+		background:#146C9C;
+		//background:red;
+		color:#fff;
+		text-decoration:none;
+		//border-right:1px solid #000;
+	}*/
+	
+	#myc li a.last {
+		border-right:0;
+	}
+	
+	/*.select{
+		background:#146C9C;
+		color:#fff;
+		text-decoration:none;
+	}*/
+</style>
+
+<script type="text/javascript" src="#springUrl('/res/js/echarts-all.js')"></script>
+<script type='text/javascript'>
+	$(function(){
+		/*$('#_adetal a').bupabutton({
+	        iconClassname: '',
+	        face:'scorner',
+	        group:'_a',
+	        istoggle:true
+	    }); 
+	    $('#_urus a').bupabutton({
+	        iconClassname: '',
+	        face:'scorner',
+	        group:'_r',
+	        istoggle:true
+	    });*/
+	    
+	    $('#_adetal a').buptip();
+	    $('#_urus  a').buptip();
+	    
+	    $('#pjtab  a').buptip();
+	     
+		//弹出框
+		$('#myw').bupwin({
+			title:'$ma.name',
+			iconCassname:'icon_save',
+		    modal:true,
+		    //closed:true,
+		    maximized:true,
+		    onClose:function(){
+		    	//alert('关闭');
+		    	$('#myw').remove();
+		    },
+		    minimizable:false,
+		    maximizable:false
+		});
+		//布局
+		$('#myc').bupborderlayout();
+		
+		$('#_east').bupaccordion({
+		    animate:true,
+		    multiple:false
+		});
+		//一进来让,示范片简介是选中状态,其实也就给他加了一个样式
+		$('#area_gner').attr('style','color:white;background:#146C9C;');
+		
+		//pj那里使用bab
+		$('#pjtab').buptab({
+		    border:false,
+		    fit:true,
+		    tabPosition:'right',
+		    width:200,
+		    height:300,
+		    //tabWidth:100,
+		    tabHeight:35,//27
+		    headerWidth:110//tab卡切换栏的宽度，仅在'tabPosition'被设置为'left'|'right'时有效。
+		});
+		
+		//悬停切换tab
+		var tabs = $('#pjtab').buptab().buptab('tabs');
+		for(var i=0; i<tabs.length; i++){
+			tabs[i].bupply('settings').tab.unbind().bind('mouseenter',{index:i},function(e){
+				$('#pjtab').buptab('select', e.data.index);
+			});
+		}
+	});
+	
+	function areaBase(){
+		//$('#show_area').load("area_base.show?id=$ma.id");
+		$('#show_area').fadeOut("fast",function(){
+			$('#show_area').load("area_base.show?id=$ma.id",function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+		
+		$('#pjtab a.pj-remove-style').removeAttr("style");//清除项目那里比较特殊,有tab的style不能清除
+		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#area_base').attr('style','color:white;background:#146C9C;');
+		
+	}
+	function ma_situation(){
+		//$('#show_area').load("ma_situation.show?id=$ma.id");
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load("ma_situation.show?id=$ma.id",function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+		
+		$('#pjtab a.pj-remove-style').removeAttr("style");//清楚项目那里比较特殊,有tab的style不能清除
+		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#ma_situation').attr('style','color:white;background:#146C9C;');
+	}
+	function contin_constru(){
+		//$('#show_area').load("contin_constru.show?id=$ma.id");
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load("contin_constru.show?id=$ma.id",function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+		
+		
+		
+		$('#pjtab a.pj-remove-style').removeAttr("style");//清楚项目那里比较特殊,有tab的style不能清除
+		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#contin_constru').attr('style','color:white;background:#146C9C;');
+	}
+	function income(){
+		//$('#show_area').load("income.show?id=$ma.id");
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load("income.show?id=$ma.id",function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+		
+		$('#pjtab a.pj-remove-style').removeAttr("style");//清楚项目那里比较特殊,有tab的style不能清除
+		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#area_income').attr('style','color:white;background:#146C9C;');
+	}
+	function areaGr(){
+		//$('#show_area').html('<img src="/res/images/area-pic-demo.jpg"  alt="示范片规划图" />');
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').html('<img src="/../$ma.modelAreaImg.mapPath"  alt="示范片规划图" />');
+			$('#show_area').fadeIn("slow");
+		});
+		
+		
+		$('#pjtab a.pj-remove-style').removeAttr("style");//清楚项目那里比较特殊,有tab的style不能清除
+		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#area_gner').attr('style','color:white;background:#146C9C;');
+	}
+	
+	
+	function arClick(_id){
+		//$('#show_area').load('arDetal.do?id='+_id);
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load('arDetal.do?id='+_id,function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+		
+		$('#pjtab a.pj-remove-style').removeAttr("style");//清楚项目那里比较特殊,有tab的style不能清除
+		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#ar_'+_id).attr('style','color:white;background:#146C9C;');
+	}
+	function uarClick(_id){
+		//$('#show_area').load('uarDetal.do?id='+_id);
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load('uarDetal.do?id='+_id,function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+		
+		$('#pjtab a.pj-remove-style').removeAttr("style");//清楚项目那里比较特殊,有tab的style不能清除
+		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#uar_'+_id).attr('style','color:white;background:#146C9C;');
+		
+	}
+	
+	function pjClick(_id){
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load('pjDetal.do?id='+_id,function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+		$('#pjtab a.pj-remove-style').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的,加上.pj-remove-style,防止把tab的style都清除掉
+		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的//不能使用这句话,会吧tab的style也清除掉的.
+		$('#pj_'+_id).attr('style','color:white;background:#146C9C;');
+		
+		
+	}
+	
+	function iaClick(_id){
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load('iaDetal.do?id='+_id,function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+		
+		$('#pjtab a.pj-remove-style').removeAttr("style");//清楚项目那里比较特殊,有tab的style不能清除
+		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#ia_'+_id).attr('style','color:white;background:#146C9C;');
+	}
+	
+	function iaGner(){
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load('iaGener.do?id=$ma.id',function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+		
+		$('#pjtab a.pj-remove-style').removeAttr("style");//清楚项目那里比较特殊,有tab的style不能清除
+		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#ia_gner').attr('style','color:white;background:#146C9C;');
+	}
+	
+	//点击某个季度
+	function pReportClick(id){
+		//$("#myc li a").removeClass();
+		//$('#myc li a').addClass('li-a-select');
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load('loadQuarterReport.do?id='+id,function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+		$('#pjtab a.pj-remove-style').removeAttr("style");//清楚项目那里比较特殊,有tab的style不能清除
+		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#aq_'+id).attr('style','color:white;background:#146C9C;');
+	}
+	
+	
+	function pjGner(){
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load('pjGener.do?id=$ma.id',function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#pjtab a.pj-remove-style').removeAttr("style");//清楚项目那里比较特殊,有tab的style不能清除
+		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#pj_gner').attr('style','color:white;background:#146C9C;');
+	}
+	
+	
+	
+	function resClick(_annual){
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load('res.show?id=$ma.id&annual='+_annual,function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#pjtab a.pj-remove-style').removeAttr("style");//清楚项目那里比较特殊,有tab的style不能清除
+		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#'+_annual).attr('style','color:white;background:#146C9C;');
+	}
+	
+</script>

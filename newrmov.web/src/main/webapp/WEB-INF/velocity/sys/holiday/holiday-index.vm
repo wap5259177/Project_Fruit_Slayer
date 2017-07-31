@@ -1,0 +1,75 @@
+<link rel=stylesheet type="text/css" href="/res/css/holiday.css">
+
+<table class="editor" id="tb_holiday">
+$!{content}
+</table>
+<div style="width:100%;text-align:center;margin:15px 0 15px 0;">
+	<input type='button' id='btn_submit' value='提交'/>
+</div>
+
+<script type="text/javascript">
+jQuery(function(){
+	reloadcombox();
+	
+	jQuery('#btn_submit').click(function() {
+		var year = jQuery('#title_year').html(); // $('#sel_year').buppancombo('getValue');
+		var form_content = jQuery('<form></form>');
+		for (var i = 0; i < 12; i++) {
+			var values = '';
+			jQuery('td.selectedDay input.month' + i).each(function(i) {
+				values += jQuery(this).val() + ',';
+			});
+			values = values.substring(0, values.length - 1);
+			form_content.append('<input type="hidden" name="months" value="' + values + '" />');
+		}
+		form_content.append('<input type="hidden" name="year" value="' + year + '" />');
+		var holiday_data = form_content.serialize();
+
+		$.ajax({
+			type : 'post',
+			url : 'save',
+			data : holiday_data,
+			success : function(rd) {
+				if (typeof rd === "string")
+					rd = $.parseJSON(rd);
+				if(rd.error) {
+					$.bupmsg.alert('提示', rd.msg, 'error');
+					return;
+				}
+				alert('提交成功！');
+			},
+			error : function() {
+				alert('提交失败！');
+			}
+		});
+	});
+});
+	
+function reloadcombox(){
+	jQuery('#sel_year').buppancombo({
+		editable : false,
+		onChange : function(n, o) {
+			if(n != ""){
+			    this.href = "year/flush" ;
+				jQuery('#title_year').html(n);
+				jQuery.ajax({
+					type : "post",
+					url : "year/flush",
+					data : {
+						year : n
+					},
+					success: function(rd){
+						if (typeof rd === "string")
+							rd = $.parseJSON(rd);
+                        $('#tb_holiday').html(rd.data);
+                        reloadcombox();
+                    }
+				});
+			}
+		}
+	});
+	jQuery('td.day').click(function() {
+		jQuery(this).toggleClass('selectedDay');
+	});
+}
+</script>

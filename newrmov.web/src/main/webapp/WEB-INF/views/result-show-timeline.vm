@@ -1,0 +1,54 @@
+<link rel="stylesheet" type="text/css" href="#springUrl('/res/js/jQueryTimelinr/css/style.css')"></link>
+<script type="text/javascript" src="#springUrl('/res/js/jQueryTimelinr/jquery.timelinr-0.9.54.js')"></script>
+<div fit="true" style='padding:12px;height:96%;'>
+<div id="timeline">
+	<ul id="dates">
+		<li><a class='tl_dates' href="#tl_2014">2014</a></li>
+		<li><a class='tl_dates' href="#tl_2015">2015</a></li>
+		<li><a class='tl_dates' href="#tl_2016">2016</a></li>
+		<li><a class='tl_dates' href="#tl_2017">2017</a></li>
+		<li><a class='tl_dates' href="#tl_2018">2018</a></li>
+	</ul>
+	<ul id="issues">
+		<li id="tl_2014">
+			<div id='div_2014' style='text-align:center;'>
+				<img id='gd_map' width='900px' height='550px' src='/res/images/map_gd_red.png' usemap ="#planetmap" />
+				<map id='planetmap' name="planetmap">
+					<area href="#" class='gd_area' shape="circ" coords="433,233,10"/>
+					<area href="#" class='gd_area' shape="circ" coords="405,168,10"/>
+					<area href="#" class='gd_area' shape="circ" coords="298,278,10"/>
+					<area href="#" class='gd_area' shape="circ" coords="510,62,10"/>
+					<area href="#" class='gd_area' shape="circ" coords="632,187,10"/>
+				</map>
+			</div>
+		</li>
+		<li id="tl_2015"><div style='text-align:center;'><img width='900px' height='550px' src='/res/images/map_gd_red.png' /></div></li>
+		<li id="tl_2016"><div style='text-align:center;'><img width='900px' height='550px' src='/res/images/map_gd_red.png' /></div></li>
+		<li id="tl_2017"><div style='text-align:center;'><img width='900px' height='550px' src='/res/images/map_gd_red.png' /></div></li> 
+		<li id="tl_2018"><div style='text-align:center;'><img width='900px' height='550px' src='/res/images/map_gd_red.png' /></div></li>
+	</ul>
+	<a href="#" id="next">+</a>
+	<a href="#" id="prev">-</a>
+</div>
+
+</div>
+
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery().timelinr({
+		orientation: 'horizontal',
+		arrowKeys: 'true'
+	});
+	
+	jQuery('.gd_area').click(function() {
+		//jQuery('#gd_map').attr('src', '/r/images/example/7village_planning_diagram/6.景观资源评价图.jpg');
+		//jQuery('#div_2014').html(sb);
+		jQuery('#div_2014').hide();
+		jQuery('#div_2014').load('city_area');
+		jQuery('#div_2014').fadeIn(4000);
+		return false;
+	});
+	
+});
+
+</script>

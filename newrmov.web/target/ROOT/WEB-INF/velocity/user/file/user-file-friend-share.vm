@@ -1,0 +1,36 @@
+<div class="bupborderlayout" fit="true">
+<style type="text/css">
+	a.file_name{color:#333;}
+	a.file_name:hover{color:#1d60ff;}
+</style>
+	$!{share_files}
+</div>
+<div id='file_dlg' style="display:none;"></div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('.file_friend_share').buptip({
+	    hideEvent: 'none',
+	    content: function(){
+	    	var fid = jQuery(this).find('input.file_id').val();
+			return jQuery('#toolbar_' + fid);
+		},
+	    onShow: function(){
+			var t = jQuery(this);
+			t.buptip('tip').focus().unbind().bind('blur',function(){
+				t.buptip('hide');
+			});
+	    }
+    });
+
+	jQuery('.lbtn').bupabutton({flat : true});
+	jQuery('a.show_dialog').click(function() {
+		jQuery('#file_dlg').load(this.href);
+		return false;
+	});
+	jQuery('a.entity_delete').click(function() {
+		return false;
+	});
+	
+});
+</script>

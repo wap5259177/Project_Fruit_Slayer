@@ -1,0 +1,284 @@
+﻿<style type='text/css'> 
+	table { 
+		table-layout:fixed;
+		word-break: break-all; 
+		word-wrap: break-word; 
+		<!--font-size:12px;--> 
+	}  <!--固定table宽度显示控制-->
+</style> 
+<form id="formid"   method = 'post'   >
+
+
+<table class="bbys">
+<thead  style="background-color:#f5f5f5;">
+	 <tr>
+	    <td  width="70" rowspan="3">示范片区所在的<br/>市县名称</td>
+	    <td  width="70" rowspan="3">行政村数</td>
+	    <td  width="70" rowspan="3">自然村数</td>
+	    <td  width="60" rowspan="3" >户数 </td>
+	    <td  width="60" rowspan="3" >人数</td>
+	    <td colspan="2" class="bbyshead">完成村庄整治规划情况</td>
+	    <td  width="60" rowspan="3">通自来水<br/>自然村数<br/>（个）</td>
+	    <td  width="60" rowspan="3">完成卫生<br/>改厕所<br/>自然村数<br/>（个）</td>
+	    <td  width="60" rowspan="3">完成道路<br/>硬化建设<br/>自然村数<br/>（个）</td>
+	    <td  width="70" rowspan="3">完成民居<br/>外立面特色<br/>改造的<br/>自然村数<br/>（个）</td>
+	    <td colspan="3"  class="bbyshead">环境卫生综合整治情况</td>
+	    <td colspan='2' class="bbyshead">项目</td>
+	    <td colspan="9" class="bbyshead">资金投入情况（万元）</td>
+	    <td  width="80" rowspan="2">已成立村民理事会<br/>并制定了村规民约<br/>和章程的自然村数<br/>（个）</td>
+        <td  rowspan="2" style="background-color:#fff;border:none;padding:0 15px;"></td>
+     </tr> 
+   
+     <tr>
+	    <td  width="75" rowspan="2">行政村有编制<br/>规划设计<br/>村数（个）</td>
+	    <td  width="75" rowspan="2">自然村有编制<br/>规划设计<br/>村数（个）</td>
+	    <td  width="80" rowspan="2">完成卫生整治<br/>及建立保洁队<br/>和长效机制的<br/>自然村数（个）</td>
+	    <td  width="80" rowspan="2">实行雨污分流<br/>并建有污水<br/>处理设施<br/>自然村数（个）</td>
+	    <td  width="70" rowspan="2">实行人畜分离<br/>（集中圈养）的<br/>自然村数（个）</td>
+	    <td width="70" rowspan='2'>已启动的<br/>项目个数</td>
+        <td width="70" rowspan='2'>其中已竣工的<br/>项目个数</td>
+        <td  width="70" rowspan="2">累计投入资金总数</td>
+	    <td  width="70" rowspan="2">1.中央<br/>财政<br/>资金</td>
+	    <td  width="70" rowspan="2">2.省级新农村<br/>示范片建设<br/>补助资金</td>
+	    <td  width="70" rowspan="2">3.其他<br/>省级财政<br/>资金</td>
+	    <td  width="70" rowspan="2">4.市级<br/>财政<br/>资金</td>
+	    <td  width="70" rowspan="2">5.县级<br/>财政<br/>资金</td>
+	    <td  width="70" rowspan="2">6.社会<br/>投入<br/>资金</td>
+	    <td  width="70" rowspan="2">7.群众<br/>自筹<br/>资金</td>
+	    <td  width="70" rowspan="2">8.其他<br/>资金</td>
+     </tr>
+</thead>
+
+
+		<tr height='20'>
+			<td>$item.modelArea.cityName $item.modelArea.county</td>
+			<td>$item.arCount</td>
+			<td>$item.nrCount</td>
+			<td>$item.householdCount</td>
+			<td>$item.populationCount</td>
+			
+			<td>$item.arFinishPlan</td>
+			<td>$item.needFinish.needFinish1</td>
+			<td>$item.needFinish.needFinish2</td>
+			<td>$item.needFinish.needFinish3</td>
+			<td>$item.needFinish.needFinish4</td>
+			<td>$item.needFinish.needFinish5</td>
+			<td>$item.needFinish.needFinish6</td>
+			<td>$item.needFinish.needFinish7</td>
+			<td>$item.needFinish.needFinish8</td>
+			<td>$srart</td>
+			<td>$finish</td>
+			
+			<td>$totalfunds</td>
+			<td>$item.investment.stateFunds</td>
+			<td>$item.investment.specialFunds</td>
+			<td>$item.investment.provinceFunds</td>
+			<td>$item.investment.cityFunds</td>
+			<td>$item.investment.countyFunds</td>
+			<td>$item.investment.socialFunds</td><!--社会投入-->
+			<td>$item.investment.massFunds</td><!--群众自筹资金-->
+			<td>$item.investment.otherFunds</td><!--其他方面资金-->
+			
+			<td>$item.needFinish.needFinish9</td>
+			
+		</tr>
+		
+		#if($reportable)
+			<tr><td colspan="26">请按实际情况填报完成情况：</td></tr>
+		#end
+		#if($item.status == 3)
+	
+		
+		<tr><td style="border-color:#707070;" colspan="26" style="font-weight:bold;font-size:16px;">审核信息：<span  style="color:red;">驳回</span></td></tr>
+		<tr>
+			<td style="border-color:#707070;" colspan="2" class="tdRight">驳回原因：</td>
+			<td style="border-color:#707070;"  colspan="24"><textarea name="auditContent" readonly="readonly" style="resize:none;font-weight:bold;color:red;background:#f6fff6">$!{item.auditContent}</textarea></td>
+		</tr>
+			<tr>
+			<td style="border-color:#707070;" colspan="2" class="tdRight">审核人：</td>
+			<td style="border-color:#707070;" colspan="4" ><input type="text" value="$!{item.auditName}" readonly="readonly" style="background:#f6fff6"/></td>
+			<td style="border-color:#707070;" colspan="3" class="tdRight">审核时间：</td>
+			<td style="border-color:#707070;" colspan="17"><input  type="text" value="$!{item.auditAt}" readonly="readonly" style="background:#f6fff6"/></td>
+		</tr>
+	
+		#elseif($item.status == 1)
+			<tr><td style="border-color:#707070;" colspan="26" style="font-weight:bold;font-size:16px;">审核信息：<span style="color:blue;">审核通过</span></td></tr>
+			#if(${item.auditContent})
+				<tr>
+					<td style="border-color:#707070;" colspan="2" class="tdRight">审核内容：</td>
+					<td style="border-color:#707070;"  colspan="24"><textarea readonly="readonly" style="resize:none;color:red;font-weight:bold;background:#f6fff6">${item.auditContent}</textarea></td>
+				</tr>
+			#end
+			<tr>
+				<td style="border-color:#707070;" colspan="2" class="tdRight">审核人：</td>
+				<td style="border-color:#707070;" colspan="4" ><input type="text" value="$!{item.auditName}" readonly="readonly" style="background:#f6fff6"/></td>
+				<td style="border-color:#707070;" colspan="3" class="tdRight">审核时间：</td>
+				<td style="border-color:#707070;" colspan="17"><input  type="text" value="$!{item.auditAt}" readonly="readonly" style="background:#f6fff6"/></td>
+			</tr>
+		#end
+		
+		<tbody>
+			<!--遍历行政村-->
+			#foreach($qar in $qars)
+				<!--通过自然村拿不到行政村,虽然有自然村,但是这个行政村下面的所有自然村都不显示-->
+				<!--#if(${qar.adminRural})-->
+					<tr>
+						<td colspan="5" onclick="">
+							<a href="#" onclick="jQuery(this).toggleClass('item-close2');jQuery('.c-$qar.id').toggle();" class='item-open2 item-close2'>${qar.adminRural.name}</a>
+							<!--<a  href='#'>+ ${qar.adminRural.name}</a>-->
+						</td>
+						<td>
+							<!--<input type="hidden" name="qarids" value="${qar.id}"/>-->
+							
+							#if($qar.arFinishPlan == 1)
+								<a class="buptip" title="行政村有编制规划设计村数(个)" ><input type="checkbox" disabled="true" checked="checked" style="width:20px;padding:0;margin:0;"/></a>
+							#elseif($qar.arFinishPlan == 2)
+								<a class="buptip" title="行政村有编制规划设计村数(个)" ><input type="checkbox" onchange="changeValue(this)" checked="checked" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qar_${qar.id}_fp" value="2"/></a>
+								
+							#else
+								<a class="buptip" title="行政村有编制规划设计村数(个)" ><input onchange="changeValue(this)" type="checkbox" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end /><input type="hidden" name="qar_${qar.id}_fp" value="0"/></a>
+			
+							#end
+						</td>
+						<td colspan="20"></td>
+					</tr>
+					<!--遍历行政村下的自然村-->
+					#foreach($qnr in $qar.naturaRurals)
+						#if($qnr.getNewRural().getStatus()==1)
+						<tr class="c-$qar.id">
+							<td colspan="5" style="padding-left:50px;">$qnr.newRural.naturalVillage</td>
+							<!-- 9个选择项 + 后面的1个选项 -->
+							
+							<td>
+								<input type="hidden" name="qnrids" value="${qnr.id}"/>
+							</td>
+							<td>
+								#if($qnr.needFinish.needFinish1 == 1)
+									<a class="buptip" title="自然村有编制规划设计村数(个)" ><input type="checkbox" disabled="true" checked="checked" style="width:20px;padding:0;margin:0;"/></a>
+								#elseif($qnr.needFinish.needFinish1 == 2)
+									<a class="buptip" title="自然村有编制规划设计村数(个)" ><input type="checkbox" onchange="changeValue(this)" checked="checked" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_1" value="2"/></a>
+									
+								#else
+									<a class="buptip" title="自然村有编制规划设计村数(个)" ><input  type="checkbox" onchange="changeValue(this)" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_1" value="0"/></a>
+									
+								#end
+							</td>
+							<td>
+								#if($qnr.needFinish.needFinish2 == 1)
+									<a class="buptip" title="通自来水自然村数(个)" ><input type="checkbox" disabled="true" checked="checked" style="width:20px;padding:0;margin:0;"/></a>
+								#elseif($qnr.needFinish.needFinish2 == 2)
+									<a class="buptip" title="通自来水自然村数(个)" ><input  type="checkbox" onchange="changeValue(this)" checked="checked" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_2" value="2"/></a>
+									
+								#else
+									<a class="buptip" title="通自来水自然村数(个)" ><input  type="checkbox" onchange="changeValue(this)" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_2" value="0"/></a>
+									
+								#end
+							</td>
+							<td>
+								#if($qnr.needFinish.needFinish3 == 1)
+									<a class="buptip" title="完成卫生改厕所自然村数(个)" ><input  type="checkbox" disabled="true" checked="checked" style="width:20px;padding:0;margin:0;"/></a>
+								#elseif($qnr.needFinish.needFinish3 == 2)
+									<a class="buptip" title="完成卫生改厕所自然村数(个)" ><input  onchange="changeValue(this)" type="checkbox"  checked="checked" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_3" value="2"/></a>
+									
+								#else
+									<a class="buptip" title="完成卫生改厕所自然村数(个)" ><input  onchange="changeValue(this)" type="checkbox" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_3" value="0"/></a>
+									
+								#end
+							</td>
+							<td>
+								#if($qnr.needFinish.needFinish4 == 1)
+									<a class="buptip" title="完成道路硬化建设自然村数(个)" ><input type="checkbox" disabled="true" checked="checked" style="width:20px;padding:0;margin:0;"/></a>
+								#elseif($qnr.needFinish.needFinish4 == 2)
+									<a class="buptip" title="完成道路硬化建设自然村数(个)" ><input  onchange="changeValue(this)" type="checkbox" checked="checked" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_4" value="2"/></a>
+									
+								#else
+									<a class="buptip" title="完成道路硬化建设自然村数(个)" ><input  onchange="changeValue(this)" type="checkbox" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_4" value="0"/></a>
+									
+								#end
+							</td>
+							<td>
+								#if($qnr.needFinish.needFinish5 == 1)
+									<a class="buptip" title="完成民居外立面特色改造的自然村数(个)" ><input type="checkbox" disabled="true" checked="checked" style="width:20px;padding:0;margin:0;"/></a>
+								#elseif($qnr.needFinish.needFinish5 == 2)
+									<a class="buptip" title="完成民居外立面特色改造的自然村数(个)" ><input  onchange="changeValue(this)" type="checkbox" checked="checked" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_5" value="2"/></a>
+									
+								#else
+									<a class="buptip" title="完成民居外立面特色改造的自然村数(个)" ><input  onchange="changeValue(this)" type="checkbox" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_5" value="0"/></a>
+									
+								#end
+							</td>
+							<td>
+								#if($qnr.needFinish.needFinish6 == 1)
+									<a class="buptip" title="完成卫生整治及建立保洁队和长效机制的自然村数(个)" ><input type="checkbox" disabled="true" checked="checked" style="width:20px;padding:0;margin:0;"/></a>
+								#elseif($qnr.needFinish.needFinish6 == 2)
+									<a class="buptip" title="完成卫生整治及建立保洁队和长效机制的自然村数(个)" ><input  onchange="changeValue(this)" type="checkbox" checked="checked" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_6" value="2"/></a>
+									
+								#else
+									<a class="buptip" title="完成卫生整治及建立保洁队和长效机制的自然村数(个)" ><input  onchange="changeValue(this)" type="checkbox" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_6" value="0"/></a>
+									
+								#end
+							</td>
+							<td>
+								#if($qnr.needFinish.needFinish7 == 1)
+									<a class="buptip" title="实行雨污分流并建有污水处理设施自然村数(个)" ><input type="checkbox" disabled="true" checked="checked" style="width:20px;padding:0;margin:0;"/></a>
+								#elseif($qnr.needFinish.needFinish7 == 2)
+									<a class="buptip" title="实行雨污分流并建有污水处理设施自然村数(个)" ><input onchange="changeValue(this)" type="checkbox" checked="checked" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_7" value="2"/></a>
+									
+								#else
+									<a class="buptip" title="实行雨污分流并建有污水处理设施自然村数(个)" ><input onchange="changeValue(this)" type="checkbox" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_7" value="0"/></a>
+									
+								#end
+							</td>
+							<td>
+								#if($qnr.needFinish.needFinish8 == 1)
+									<a class="buptip" title="实行人畜分离(集中圈养)的自然村数(个)" ><input type="checkbox" disabled="true" checked="checked" style="width:20px;padding:0;margin:0;"/></a>
+								#elseif($qnr.needFinish.needFinish8 == 2)
+									<a class="buptip" title="实行人畜分离(集中圈养)的自然村数(个)" ><input type="checkbox" onchange="changeValue(this)" checked="checked" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_8" value="2"/></a>
+									
+								#else
+									<a class="buptip" title="实行人畜分离(集中圈养)的自然村数(个)" ><input  type="checkbox" onchange="changeValue(this)" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_8" value="0"/></a>
+									
+								#end
+							</td>
+							
+							<td colspan="11"></td>
+							<td>
+								#if($qnr.needFinish.needFinish9 == 1)
+									<a class="buptip" title="已成立村民理事会并制定了村规民约和章程的自然村数(个)" ><input type="checkbox" disabled="true" checked="checked" style="width:20px;padding:0;margin:0;"/></a>
+								#elseif($qnr.needFinish.needFinish9 == 2)
+									<a class="buptip" title="已成立村民理事会并制定了村规民约和章程的自然村数(个)" ><input  type="checkbox" onchange="changeValue(this)" checked="checked" style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_9" value="2"/></a>
+									
+								#else
+									<a class="buptip" title="已成立村民理事会并制定了村规民约和章程的自然村数(个)" ><input  type="checkbox" onchange="changeValue(this)"  style="width:20px;padding:0;margin:0;" #if(!$reportable)disabled='true'#end/><input type="hidden" name="qnr_${qnr.id}_9" value="0"/></a>
+									
+								#end
+							</td>
+						</tr>
+						#end
+					#end
+				<!--#end-->
+			#end
+		</tbody>
+</table>
+<input type="hidden" name="itemId" value="${itemId}"/>
+</form>
+<script>
+	jQuery(function(){
+		//alert('hhe');
+		//alert($("input").is(":hidden") );
+		$(".buptip").buptip();
+	});
+	$('#bupdateinput').bupdateinput({
+    	plyWidth:210               
+	});
+	function changeValue(box){
+	
+		var input = box.nextSibling;
+		if(box.checked==true){
+			input.value = "2";
+		}else{
+			input.value = "0";
+		}
+	
+	}
+</script>

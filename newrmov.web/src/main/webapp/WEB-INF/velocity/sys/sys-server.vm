@@ -1,0 +1,6 @@
+#set($layout="layout-empty.vm")
+<table style='width:100%;padding:10px 0 0 20px;' border='0'>
+	$!{servers}
+</table>
+<hr width='80%'/>
+<font color='blue' style="padding:10px 0 0 20px;">当前正在运行的服务器</font>

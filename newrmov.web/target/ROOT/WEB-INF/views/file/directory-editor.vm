@@ -1,0 +1,106 @@
+<div id="$di.id" title="权限管理" style="padding:4px;width:500px;height:300px;" buttons="#${di.id}-buttons" modal='true'>
+#if($cantEdit)
+	<div style="padding:50px 0 0 100px;font-size:20px;color:gray;">不允许修改目录！</div>
+#else
+<table class='editor' style="margin:auto;">
+	<tr>
+        <th>上级目录：</th>
+        <td colspan="3">
+         	$!{parent_name}
+    	</td>
+    </tr>
+    <tr>
+        <th>名称：</th>
+        <td colspan="3">
+        	<input type="text" name="name" id="name" style="width:250px;" value="$!{name}"/>
+        	<span style="color:red;">*</span>
+    	</td>
+    </tr>
+    <tr>
+        <th style="width:100px;" >限制文件：</th>
+        <td style="width:140px;"><input type="text" name="maxCount" id="maxCount" style="width:80px;" value="$!{maxCount}"/>&nbsp;个文件</td>
+        <th style="width:100px;" >限制大小：</th>
+        <td><input type="text" name="maxLength" id="maxLength" style="width:80px;" value="$!{maxLength}"/>&nbsp;kb</td>
+    </tr>
+    <tr>
+        <th>共享方式：</th>
+        <td>
+        	<select style="width:80px;" name="share" id="share">
+        		<option value="0" #if($!{share}==0)selected="true"#end >默认</option>
+        		<option value="1" #if($!{share}==1)selected="true"#end >共享</option>
+        		<option value="2" #if($!{share}==2)selected="true"#end >私有</option>
+        	</select>
+        </td>
+        <th>状态：</th>
+        <td>
+        	<select style="width:80px;" name="status" id="status">
+        		<option value="1" #if($!{status}==1)selected="true"#end >正常</option>
+        		<option value="-1" #if($!{status}==-1)selected="true"#end >禁止修改</option>
+        	</select>
+        </td>
+    </tr>
+    <tr>
+        <th>备注：</th>
+        <td colspan="3">
+        	<textarea name="remark" id="remark" style="resize:none;height:88px;width:98%;">$!{remark}</textarea>
+        </td>
+    </tr>
+</table>
+#end
+</div>
+<div id="${di.id}-buttons">
+	#if(!$cantEdit)
+	<a href="#" id='a_dir_node_save' onclick="btn_save();">提交</a> 
+	#end
+	<a href="#" id='a_dir_node_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+#if($cantEdit)
+jQuery(function() {
+	jQuery('#a_dir_node_close').bupabutton({flat : true});
+});
+#else
+jQuery(function() {
+	jQuery('#a_dir_node_save, #a_dir_node_close').bupabutton({flat : true});
+	jQuery('#maxCount').bupnuminput({
+		precision : 0
+	});
+	jQuery('#maxSize').bupnuminput();
+});
+function btn_save() {
+	var name = jQuery('#name').val();
+	if (null == name || name == '') {
+		alert('请输入目录名称！');
+		jQuery('#name').focus();
+		return false;
+	}
+	lock('正在保存目录...');
+	jQuery.ajax({
+		url : 'directory.submit',
+		type : 'post',
+		data : {
+			id : '$!{id}', 
+			parent_id : '$!{parent_id}', 
+			name : name, 
+			maxCount : jQuery('#maxCount').val(), 
+			maxLength : jQuery('#maxLength').val(), 
+			share : jQuery('#share').val(), 
+			status : jQuery('#status').val(), 
+			remark : jQuery('#remark').val()
+		},
+		success : function(rd) {
+			jQuery.unblockUI();
+			if (typeof rd === "string")
+				rd = jQuery.parseJSON(rd);
+			if(rd.error){
+				jQuery.bupmsg.alert('提示', rd.msg, 'error');
+				return;
+			}
+			P.tree.buptree('reload');
+			jQuery('#${di.id}').bupdlg('close');
+		}
+	});
+}
+#end
+</script>

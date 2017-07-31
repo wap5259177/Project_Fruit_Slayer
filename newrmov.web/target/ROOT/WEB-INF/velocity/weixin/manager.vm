@@ -1,0 +1,44 @@
+<table style='width:100%;'>
+	<tr><th style='width:120px;height:25px;'>appID</th><td style='width:370px;'>
+		<input type='text' style='width:350px;' value='wx846cc44d54ea4825'/>
+	</td><td></td></tr>
+	<tr><th style='height:25px;'>appsecret</th><td><input type='text' style='width:350px;' value='2cb725a9db606da1edf515d3a080a92b'/></td><td></td></tr>
+	<tr><td></td><td style='color:gray;height:30px;' valign='top'>以上为微信公众号申请的账户信息，需要登录微信的公众平台获取！</td><td></td></tr>
+	<tr><th style='height:25px;'>URL</th><td>
+		<input type='text' style='width:200px;' value='http://www.bonoon.cn'/>/wxaccess/[<a href='#' class='buptip' title='系统会自动根据用户所填写的信息(如：appID、appsecret等)来自动生成该用户用于微信公众号通信的唯一的key！'>自动生成</a>]
+	</td><td></td></tr>
+	<tr><th style='height:25px;'>Token</th><td><input type='text' style='width:350px;' value='bonoon'/></td><td>
+		<a href='#' class='bupabutton' data-settings="flat:true" >生成</a>
+	</td></tr>
+</table>
+<p style='color:red;padding-left:15px;'>
+<img src="#springUrl('/res/images/warning.png')" alt="提示" align="absmiddle"/>
+已经绑定微信公众号的可以重新绑定公众号、或重新设置数据访问的接口
+</p>
+<hr/>
+<table style='width:100%;'>
+	<tr><td style='width:40px;height:25px;'>可用的</td><th style='width:100px;'>URL</th>
+	<td style='width:340px;'>http://www.ffddd.com/gg/ss</td><td></td></tr>
+	<tr><td style='height:25px;'></td><th>Token</th><td>bonoon</td><td>
+		<a href='https://mp.weixin.qq.com/' target='_blank' class='bupabutton' data-settings="flat:true">进入微信公众平台</a>
+	</td></tr>
+</table>
+<p style="padding-top:20px;">
+对应填写，下面为微信公众账户接口配置信息截图：
+</p>
+<img src="#springUrl('/res/images/wxic.png')" alt="接口配置信息"/>
+
+<p style="padding-top:20px;">
+已绑定的微信公众号的状态：
+</p>
+<table style='width:100%;'>
+	<tr><td style='width:60px;'><th style='width:120px;'>access_tekon</th><td style='width:370px;'>
+		PLQcDVj3hNCu_XtbbEYL8mqtn3O3MTw1PokELdr905XTLyC9Yx0x2Wb_RQTbByum7YY9qxhnmIx-jQ6Wd7Lo_FukXB_B6FA_yM8qYgGUJJZGUYmJF07J-kAhDf0Vbc7OcvzDv5-KJjhO_B9nlFvtlw
+	</td><td><a style='href='#' class='bupabutton' data-settings="flat:true">刷新Tekon</a></td></tr>
+	<tr><td style='height:25px;'></td><th>状态</th><td>正常[过期]</td><td></td></tr>
+	<tr><td style='height:25px;'></td><th>周期(秒)</th><td>7200</td><td></td></tr>
+	<tr><td style='height:25px;'></td><th>过期时间</th><td>2014-3-3 12:12:12</td><td></td></tr>
+</table>
+<p style='padding:15px;'>
+关于接口绑定以及Tekon的一些说明
+</p>

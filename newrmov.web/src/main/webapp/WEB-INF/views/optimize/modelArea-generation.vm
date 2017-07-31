@@ -1,0 +1,89 @@
+<div id='province-view' style='width: 100%; height: 100%;'>
+	
+	<div style='border:1px solid red;'>
+		<div><h1>$!{ma.name}</br></div>
+		<div style=' padding:20px 50px 0px;'>主体村:行政村$map.acNum,自然村$map.nrNum</div>
+		<div style=' padding:20px 50px;'>非主体村:行政村$map.aucNum,自然村$map.prNum</div>
+	</div>
+	
+	<input type='hidden' id='type'/>
+	<div id='show_area' style='border:1px solid green;width:100%;height:80%;'>
+		
+		<div class='ma_icon' >
+			<a href='#' onclick='areaIntro();'>示范片简介</a>
+		</div>
+		<div class='ma_icon' >
+			<a href='#' onclick='coreRural();'>主体村</a>
+		</div>
+		<div class='ma_icon'>
+			<a href='#' onclick='uncoreRural();'>非主体村</a>
+		</div>
+		<div class='ma_icon'>
+			<a href='#'>项目投入</a>
+		</div>
+		<div class='ma_icon'>
+			<a href='#'>地图</a>
+		</div>
+		<div class='ma_icon'>
+			<a href='#'>规划情况</a>
+		</div>
+		<div class='ma_icon'>
+			<a href='#'>季度报表</a>
+		</div>
+		<div class='ma_icon'>
+			<a href='#'>连动整治情况</a>
+		</div>
+		<div class='ma_icon'>
+			<a href='#'>产业发展</a>
+		</div>
+		<div class='ma_icon'>
+			<a href='#'>初步成效</a>
+		</div>
+		<div class='ma_icon'>
+			<a href='#'>日志</a>
+		</div>
+		
+	</div>
+
+</div>
+
+<style type="text/css">
+	.ma_icon{
+		border:1px solid red;
+		float:left;
+		width:100px;
+		height:100px;
+		margin:20px 50px;
+		vertical-align:middle;
+	}
+</style>
+<script type='text/javascript'>
+	$(function(){
+		//alert('d');
+	});
+	//示范片简介
+	function areaIntro(){
+		//alert('点击示范片简介');
+		$("#show_area").html("");//清空
+		$("#show_area").load(//在Load新的内容进来
+			"ma.intro",
+			{id:$ma.id},
+			function(){
+				
+			}
+		);
+	}
+	
+	//主体村
+	function coreRural(){
+		$("#show_area").html("");//清空
+		$("#show_area").load("coreRural.intro",{id:$ma.id});
+	}
+	
+	//主体村
+	function uncoreRural(){
+		$("#show_area").html("");//清空
+		$("#show_area").load("uncoreRural.intro",{id:$ma.id});
+	}
+	
+</script>

@@ -1,0 +1,80 @@
+<script type="text/javascript" src="/res/js/jquery.form.js"></script>
+<div id="$di.id" title="上传文件" style="padding:12px;" buttons="#${di.id}-buttons" modal='true'>
+<form id='file_form' enctype='multipart/form-data'>
+<input type='hidden' value='$!{id}' name='id' />
+<input type='hidden' value='$!{area_child}' name='area_child' />
+<input type='hidden' value='$!{dir_flag}' name='dir_flag' />
+<table class='editor' style="margin:auto;">
+	<tr>
+        <th style="width:80px;">文件上传：</th>
+        <td><div id='fileQueue' style='width:100%;height:100%;'><input type="file" name="file_upload" id="file_upload"/></div></td>
+    </tr>
+	<tr>
+        <th>重命名：</th>
+        <td><input style="width:300px;" type="text" name="name" id="name" value="$!{name}"/><font color='red'>（不填则默认为文件名）</font></td>
+    </tr>
+    <tr>
+		<th>扩展属性：</th>
+		<td><input type="text" name="extendedAttributes" id="extendedAttributes" value="$!{extendedAttributes}" style="width:300px;" /></td>
+	</tr>
+	<tr>
+		<th>状态：</th>
+    	<td><select style="width:180px;" name="status" id="status">
+    		<option value="1" #if($!{status}==1)selected="true"#end >正常</option>
+    		<option value="-1" #if($!{status}==-1)selected="true"#end >禁止修改</option>
+    	</select></td>
+    </tr>
+    <tr>
+    	<th>文件类型：</th>
+    	<td><select style="width:180px;" name="type" id="type">
+    		<option value="DOC"   #if($!{type}=='DOC')  selected="true"#end >文档</option>
+    		<option value="IMAGE" #if($!{type}=='IMAGE')selected="true"#end >图片</option>
+    		#*<option value="MUSIC" #if($!{type}=='MUSIC')selected="true"#end >音频</option>
+    		<option value="VIDEO" #if($!{type}=='VIDEO')selected="true"#end >视频</option>
+    		<option value="OTHER" #if($!{type}=='OTHER')selected="true"#end >其它</option>
+    		*#
+    	</select></td>
+    </tr>
+    <tr>
+    	<th>发布时间：</th>
+    	<td><input type="text" name="issueAt" id="issueAt" /></td>
+    </tr>
+	<tr>
+        <th>备注：</th>
+        <td><textarea name="remark" id="remark" style="resize:none;height:80px;width:98%;font-size:12px;">$!{remark}</textarea></td>
+    </tr>
+</table>
+</form>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_save' onclick="btn_save();">提交</a>
+<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_save, #a_close').bupabutton({flat : true});
+	jQuery('#issueAt').bupdateinput({editable:false});
+	if ('$!{issueAt}' != '') {
+		jQuery('#issueAt').bupdateinput('setValue', '$!{issueAt}');
+	}
+});
+function btn_save() {
+	lock('正在上传附件...');
+	jQuery('#file_form').ajaxSubmit({
+		url:'/s/cl/area/file/document/save_upload',
+		type:'post',
+		dataType:'json',
+		success:function(rd) {
+			if (typeof rd === "string")
+				rd = $.parseJSON(rd);
+			if(rd.error) {
+				alert(rd.msg);
+				return;
+			}
+			$('#area_file').bupgrid("reload");
+			$('#${di.id}').bupdlg('close');
+		}
+	});
+}
+</script>

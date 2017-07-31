@@ -1,0 +1,46 @@
+<!--点击非主体行政村详情  参考adminrural/ar-info.vm-->
+
+
+	<div align='left' id='ar-tab' style="display: none;">
+		<div id="myt_aucr" style="" >
+			    <div title="基本情况" style="padding:0px;">
+			    	#parse('optimize2/rural/adminrural/ar-base-situation.vm')
+			    </div>
+			    <div title="农村公共服务情况" data-settings="" style="overflow:auto;padding:0px;">
+			    	#parse('optimize2/rural/adminrural/resource.vm')
+			    </div>
+			    
+			    
+			</div>
+		</div>
+		
+		<div id="_tabtools">
+			<a href="javascript:void(0)"  data-settings="flat:true,iconClassname:'icon_add'"onclick="">haha</a>
+			<a href="javascript:void(0)"  data-settings="flat:true,iconClassname:'icon_remove'"onclick="">aa</a>
+	 	</div>
+	</div>
+
+<script type='text/javascript'>
+jQuery(function() {
+	$('#myt_aucr').buptab({
+		tabWidth:150,
+		tabHeight:60,
+		width:964,
+	 	//fit: true,
+		height:620,
+		headerWidth:220,
+		//height:200,
+	    border:false,
+	    tabPosition: 'top',
+	    collapsible: true,
+	    onSelect:function(title){
+	       //alert(title + ' 被选中了！');
+	    },
+	    tools:'#_tabtools',
+	    plain:false
+	});
+	$('#tabtools a').bupabutton({
+		flat:true
+	});
+});
+</script>

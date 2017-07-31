@@ -1,0 +1,6 @@
+<div class="bupborderlayout" fit="true">
+<div data-settings="zone:'west',border:false" style="width:250px;">
+$!{maItems}
+</div>
+<div data-settings="zone:'center',border:false" id="ma-view-detail-content"></div>
+</div>

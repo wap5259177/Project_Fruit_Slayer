@@ -1,0 +1,32 @@
+<div id="$di.id" title="实时监控" style="padding:12px;width:650px;height:500px;" buttons="#${di.id}-buttons" modal='true'>
+
+<!--<iframe src="/html/video/03000801004C0A733CE44103E6B33EDE9C69D1-F95E-E4F0-B8BD-9F022E6F79E0.mp4" width="98%" height="98%" frameborder="0" style='margin-top:20px;'></iframe>-->
+
+<!-- .flv格式 -->
+<object class id="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="98%" height="98%">
+  <param name="movie" value="/html/video/flvplayer.swf">
+  <param name="quality" value="high">
+  <param name="allowFullScreen" value="true">
+  <param name="FlashVars" value="vcastr_file=/html/video/sightseeing.flv&LogoText=bonoon&BufferTime=3&IsAutoPlay=1">
+  <embed src="/html/video/flvplayer.swf" allowfullscreen="true" flashvars="vcastr_file=/html/video/sightseeing.flv&LogoText=bonoon&IsAutoPlay=1" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="98%" height="98%"></embed>
+</object>
+
+<!-- HTML5 label <video width="98%" height="98%" controls="controls">  
+        <source src="http://124.232.154.202/youku/677802F85244383D854AA73625/03000801004C0A733CE44103E6B33EDE9C69D1-F95E-E4F0-B8BD-9F022E6F79E0.mp4" type="video/mp4" >示例视频1</source>  
+
+    </video>-->
+
+
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='close_dlg' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+
+
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery('#close_dlg').bupabutton({flat : true});
+	
+});
+</script>

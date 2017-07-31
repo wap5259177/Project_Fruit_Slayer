@@ -1,0 +1,364 @@
+<div style="width:99%;height:400px;overflow:auto;letter-spacing:3px;">
+
+#if($reject-view)
+<div style="padding:10px 90px 0 90px;font-size:18px;color:red"><b>您提交的申请被驳回，驳回的内容如下：</b>
+<p style="padding-left:5px;">$!{rejectContent}</p>
+<div><span style="float:right;">$!{rejectAt}</span></div>
+</div>
+<hr style="clear:both;"/>
+#end
+
+#if($applicant-view)
+<p style="padding:20px 0 100px 300px;font-size:30px;font-weight:bold;">广东名村申报表</p>
+<div style="font-size:16px;padding:20px 0 20px 140px;">
+申请单位:<span style="text-decoration:underline">&nbsp;&nbsp;$!{form.countyName}&nbsp;&nbsp;</span>县（市、区）<span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;$!{form.townName}&nbsp;&nbsp;&nbsp;</span>镇
+<div style="padding:40px 0 40px 40px;"><span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$!{form.name}&nbsp;&nbsp;&nbsp;</span>村</div>
+联系人：<span style="text-decoration:underline">&nbsp;&nbsp;$!{form.contactName}&nbsp;&nbsp;</span>&nbsp;&nbsp;联系电话：<span style="text-decoration:underline">&nbsp;$!{form.contactPhone}&nbsp;</span>
+<br/><div style="padding-top:40px;">申报时间：$!{aat}</div></div><hr/>
+#end
+
+<div style="padding-left:80px;">
+#if($applicant-view)
+<p style="padding:20px 0 0 80px;font-size:30px;font-weight:bold;"><span style="text-decoration:underline">&nbsp;$!{form.name}&nbsp;</span>村创建名村项目建设记录表 </p>
+<table class="applicant-form" id="appl-form-items">
+<tr><td style="text-align:center;padding:0;width:40px;" valign="middle">序<br/>号</td><td style="text-align:center;padding:0;width:160px;">项目名称</td><td style="text-align:center;padding:0;width:100px;">建设<br/>内容</td><td style="text-align:center;padding:0;width:120px;">实施时间<br/>($!{year}年起)</td><td style="text-align:center;padding:0;width:100px;">预算<br/>投入<br/>(万元)</td><td style="text-align:center;padding:0;width:100px;">完成<br/>投入<br/>(万元)</td><td style="text-align:center;padding:0;width:80px;">实施<br/>主体</td></tr>
+$!{projectItems}</table>
+#else
+<p style="padding:20px 0 0 180px;font-size:30px;font-weight:bold;">创建名村项目建设记录表 </p>
+<table class="applicant-form">
+<tr><td style="text-align:center;padding:0;width:40px;" valign="middle">序<br/>号</td><td style="text-align:center;padding:0;width:140px;">项目名称</td><td style="text-align:center;padding:0;width:100px;">建设<br/>内容</td><td style="text-align:center;padding:0;width:120px;">实施时间<br/>($!{year}年起)</td><td style="text-align:center;padding:0;width:100px;">预算<br/>投入<br/>(万元)</td><td style="text-align:center;padding:0;width:100px;">完成<br/>投入<br/>(万元)</td><td style="text-align:center;padding:0;width:80px;">实施<br/>主体</td><td style="width:20px;"></td></tr>
+$!{projectItems}</table>
+<a href="#" id="btn-add-project">添加项目</a>
+<script type="text/javascript">
+	var projectCount = '$!{projectCount}';
+	var removeImg = "#springUrl('/res/images/remove.png')";
+	jQuery(function(){
+		jQuery("#btn-add-project").click(function(){
+			projectCount++;
+			var ipt = jQuery("<tr><td>-</td><td><input type='text' name='projectName-" 
+				+ projectCount + "'/><input type='hidden' name='projects' value='" 
+				+ projectCount + "'/></td><td><input type='text' name='projectContent-" 
+				+ projectCount + "'/></td><td class='dt-input-class'><input type='text' style='width:100px;' name='projectAt-" 
+				+ projectCount + "'/></td><td><input type='text' class='num-input-class' name='projectBudget-" 
+				+ projectCount + "'/></td><td><input type='text' class='num-input-class' name='projectDone-" 
+				+ projectCount + "'/></td><td><input type='text' name='projectExecutor-" 
+				+ projectCount + "'/></td><td><a href='#' onclick='jQuery(this).parent().parent().remove();return false;'><img src='" 
+				+ removeImg + "'/></a></td></tr>");
+			ipt.appendTo(jQuery(this).prev());
+			
+			ipt.find(".dt-input-class input").bupdateinput({editable:false});
+			ipt.find("input.num-input-class").bupnuminput({min:0, precision:4});
+			return false;
+		});
+	});
+</script>
+#end
+<p style="font-size:16px;padding-left:8px;">注：项目记录表是名村建设的项目台帐。</p>
+</div><hr/>
+
+<div style="padding-left:80px;">
+#if($applicant-view)
+<p style="padding:20px 0 0 80px;font-size:30px;font-weight:bold;"><span style="text-decoration:underline">&nbsp;$!{form.name}&nbsp;</span>村创建名村投入资金记录表 </p>
+#else
+<p style="padding:20px 0 0 180px;font-size:30px;font-weight:bold;">创建名村投入资金记录表 </p>
+#end
+<table class="applicant-form">
+  <tr>
+    <td width="116"><p align="center">累计投入 <br />
+      资金 <br />
+      （万元） </p></td>
+    <td width="97"><p align="center">1.中央 <br />
+      投入 </p></td>
+    <td width="97"><p align="center">2.省级 <br />
+      投入 </p></td>
+    <td width="97"><p align="center">3.地方 <br />
+      投入 </p></td>
+    <td width="97"><p align="center">4.社会 <br />
+      投入 </p></td>
+    <td width="97"><p align="center">5.群众 <br />
+      自筹 </p></td>
+    <td><p align="center">6.其它 </p></td>
+  </tr>
+  <tr style="height:50px;" id='num-need-sum'>
+    <td id='num-total-sum'>$!{totalInvestment}</td>
+    <td>$!{investmentNation}</td>
+    <td>$!{investmentProvince}</td>
+    <td>$!{investmentLocal}</td>
+    <td>$!{investmentSocial}</td>
+    <td>$!{investmentSelf}</td>
+    <td>$!{investmentOther}</td>
+  </tr>
+</table>
+<p style="font-size:16px;padding-left:8px;">注：1.中央投入：指该村获得的中央项目建设资金投入数；省级投入：指该村获得省
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;级财政资金投入数；地方投入：指该村获得市、县、镇、村集体各级资金（包
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;括实物折算）投入数；社会投入：指该村获得社会工商资本投入数；群众自筹：
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;指该村组织群众投工投劳（折算）、乡贤捐赠等投入数。 
+<br />&nbsp;&nbsp;&nbsp;2.累计投入资金=名村建设项目记录表完成投入合计数=1+2+3+4+5+6。 </p>
+</div><hr/>
+
+<p style="padding:20px 0 0 300px;font-size:30px;font-weight:bold;">广东名村建设评价</p>
+<div style="padding-left:80px;">
+<div style="font-size:16px;padding-left:11px;">村的名称：$!{place}</div>
+<style type="text/css">
+table.applicant-form{
+	font-size:16px;
+	width: 700px;
+	border-width: 1px;
+	border-color: #000000;
+	border-collapse: collapse;
+}
+table.applicant-form td{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+	padding-left:4px;
+	width:10px;
+}
+table.applicant-form td input{
+	width:90%;
+}
+table.applicant-form td textarea{
+	width:98%;
+	height:90px;
+}
+table.applicant-form td.small input{
+	width:250px;
+}
+</style>
+<table class="applicant-form">
+	<tr>
+      <td colspan="7" style="padding:10px 0 10px 0;">一、基本情况 </td>
+    </tr>
+    <tr>
+      <td style="width:350px;" colspan="4">村总人口（人）</td>
+      <td style="width:350px;" colspan="3">$!{population}</td>
+    </tr>
+    <tr>
+      <td colspan="4">$!{year}年村农民人均纯收入（元）</td>
+      <td colspan="3">${personIncome}</td>
+    </tr>
+    <tr>
+      <td colspan="4">是否组建专业合作社 </td>
+      <td colspan="3">${professionalCooperatives}</td>
+    </tr>
+    <tr>
+      <td colspan="4">是否成立村民理事会等自治组织</td>
+      <td colspan="3">${villagerCouncil}</td>
+    </tr>
+    <tr>
+      <td colspan="4">拥有的著名农产品商标名称 </td>
+      <td colspan="3" class="small">国家级：${famousBrandNation}<br />省　级：${famousBrandProvince}</td>
+    </tr>
+    <tr>
+      <td colspan="4">&nbsp;荣获各级称号名称 <br />&nbsp;（列出主要的1－2个）</td>
+      <td colspan="3" class="small">国家级：${honorNation} <br />省　级：${honorProvince} <br />市　级：${honorCity} </td>
+    </tr>
+    <tr>
+      <td colspan="4">名村创建主题或方向 </td>
+      <td colspan="3">${themeDirection}</td>
+    </tr>
+    <tr>
+      <td colspan="5" rowspan="2" style="text-align:center;" valign="middle">建 设 要 求 </td>
+      <td colspan="2" style="text-align:center;" valign="middle">得分（分）</td>
+    </tr>
+    <tr>
+      <td style="width:58px;text-align:center;" valign="middle">自评</td>
+      <td style="width:52px;text-align:center;" valign="middle">审核 </td>
+    </tr>
+    <tr>
+      <td colspan="7">二、基础要求（70分）</td>
+    </tr>
+    <tr>
+      <td rowspan="14" style="width:80px;text-align:center;" valign="middle">环境 <br /> 生态 <br />（58分） </td>
+      <td rowspan="4" style="width:80px;text-align:center;" valign="middle">生活垃<br />圾治理<br />(12分)</td>
+      <td colspan="3">每户村民家中设置垃圾桶；（3分）</td>$!{AA1}
+    </tr>
+    <tr>
+      <td colspan="3">村庄建设封闭垃圾屋；（3分）</td>$!{AA2}
+    </tr>
+    <tr>
+      <td colspan="3">村庄配置垃圾车；（3分） </td>$!{AA3}
+    </tr>
+    <tr>
+      <td colspan="3" style="letter-spacing:1px;">村有保洁员，建立环境卫生保洁长效机制。（3分）</td>$!{AA4}
+    </tr>
+    <tr>
+      <td rowspan="4" style="text-align:center;" valign="middle">生活污<br />水治理<br />(12分)</td>
+      <td rowspan="2" style="width:115px;text-align:center;" valign="middle">珠三角 </td>
+      <td colspan="2">村庄铺设污水管网，生活污水集<br />中处理或排入市政污水管网；（8<br />分）</td>$!{AB1}
+    </tr>
+    <tr>
+      <td colspan="2">村庄污水处理率≥80%。（4分） </td>$!{AB2}
+    </tr>
+    <tr>
+      <td rowspan="2" style="text-align:center;" valign="middle">其他地区 </td>
+      <td colspan="2">村庄实行雨污分流，采取符合卫<br />生标准的污水收集方式，建设生<br />物厌氧池、人工湿地、沼气池等<br />污水处理设施；（8分） </td>$!{AB3}
+    </tr>
+    <tr>
+      <td colspan="2">村庄污水处理率≥60%。（4分）</td>$!{AB4}
+    </tr>
+    <tr>
+      <td rowspan="3" style="text-align:center;" valign="middle">畜禽污<br />染治理<br />(10分)</td>
+      <td colspan="3">畜禽圈养，人居与畜禽养殖分离；（2分）</td>$!{AC1}
+    </tr>
+    <tr>
+      <td colspan="3">无害化卫生户厕普及率≥90%,公厕符合无害化<br />卫生要求；（6分） </td>$!{AC2}
+    </tr>
+    <tr>
+      <td colspan="3">村内无不符合国家环保产业政策的企业，无污染<br />事故，无破坏生态事件。（2分） </td>$!{AC3}
+    </tr>
+    <tr>
+      <td rowspan="3" style="text-align:center;" valign="middle">水体清<br />洁美观<br />(10分)</td>
+      <td colspan="3">加强村庄饮用水源保护，集中式饮用水源地水质<br />达标率100%；（4分） </td>$!{AD1}
+    </tr>
+    <tr>
+      <td colspan="3">制定村庄水体清淤制度，村域范围河流、湖泊、<br />池塘、沟渠等水体清洁，水道无垃圾、无异味、<br />无淤塞现象；（3分）</td>$!{AD2}
+    </tr>
+    <tr>
+      <td colspan="3" style="letter-spacing:2px;">美化村域水系水景，凸显岭南水乡特色。（3分） </td>$!{AD3}
+    </tr>
+    <tr>
+      <td rowspan="3"></td>
+      <td rowspan="3" style="text-align:center;" valign="middle">环境整<br />洁优美 <br />(6分)</td>
+      <td colspan="3">村域交通主干道、村主要出入口及景区周边地区<br />开展既鲜明醒目又朴素自然、与周边环境融为一<br />体的整体风貌设计；（2分） </td>$!{AE1}
+    </tr>
+    <tr>
+      <td colspan="3">村庄整洁、美观，无严重破、损、残建筑物，无<br />乱搭乱建乱堆放杂物现象。（2分） </td>$!{AE2}
+    </tr>
+    <tr>
+      <td colspan="3">村庄庭院绿地、道路绿化及风景林布局合理，景<br />观协调。（2分） </td>$!{AE3}
+    </tr>
+    <tr>
+      <td rowspan="12" style="text-align:center;" valign="middle">基础设 <br /> 施和公 <br />共服务<br />（20分） </td>
+      <td rowspan="2" style="text-align:center;" valign="middle">道路 <br />交通 <br />（4分） </td>
+      <td colspan="3">完成镇通行政村公路路面硬化任务，通500人及<br />以上自然村公路路面实现硬化；（1分） </td>$!{BA1}
+    </tr>
+    <tr>
+      <td colspan="3">自然村内实现村（巷）道硬底化。（3分） </td>$!{BA2}
+    </tr>
+    <tr>
+      <td rowspan="2" style="text-align:center;" valign="middle">水电 <br />通信 <br />（4分） </td>
+      <td colspan="3">供水供电设施完善，村民生活用水用电安全、方<br />便，自来水普及率100%；（2分） </td>$!{BB1}
+    </tr>
+    <tr>
+      <td colspan="3">实施“网络到镇、信息到村”工程。（2分）</td>$!{BB2}
+    </tr>
+    <tr>
+      <td rowspan="4" style="text-align:center;" valign="middle">文体 <br />设施 <br />（4分）</td>
+      <td colspan="3">村有文化室、文化小广场、农家书屋、宣传栏；（1分） </td>$!{BC1}
+    </tr>
+    <tr>
+      <td colspan="3">实现广播电视“村村通”；（1分） </td>$!{BC2}
+    </tr>
+    <tr>
+      <td colspan="3">村有休闲小公园；（1分） </td>$!{BC3}
+    </tr>
+    <tr>
+      <td colspan="3">实施农民健身工程，有文化体育健身器材供村民 <br />使用。（1分）</td>$!{BC4}
+    </tr>
+    <tr>
+      <td rowspan="2" style="text-align:center;" valign="middle">医疗 <br />卫生 <br />（4分） </td>
+      <td colspan="3">行政村有达到省标准化建设的村卫生站，基本设<br />备齐全；（2分） </td>$!{BD1}
+    </tr>
+    <tr>
+      <td colspan="3">年度绩效考核良好及以上，能按功能定位满足当<br />地群众基本医疗和卫生服务。（2分）</td>$!{BD2}
+    </tr>
+    <tr>
+      <td rowspan="2" style="text-align:center;" valign="middle">村务 <br /> 管理 <br />（4分） </td>
+      <td colspan="3">设立村民理事会等村民自治组织，重大事项由村<br />民讨论决定；（3分） </td>$!{BE1}
+    </tr>
+    <tr>
+      <td colspan="3">社会治安良好，无黄、赌、毒现象。无发生重大<br />社会群体事件（1分） </td>$!{BE2}
+    </tr>
+    <tr>
+      <td colspan="7">三、特色要求（30分）</td>
+    </tr>
+    <tr>
+      <td rowspan="2" style="text-align:center;" valign="middle">特色和 <br />效益 <br />（10分） </td>
+      <td colspan="4">在人文历史、乡村旅游、自然生态、农业渔业、农田水利<br />、基层建设和社会管理、民居风貌等一个或多个方面具有<br />主题突出、形象鲜明的特点，起示范带动作用的村庄。（<br />具备其中一项得5分）</td> $!{C1}
+    </tr>
+    <tr>
+      <td colspan="4">依托龙头企业、农民专业合作等组织，利用人文景观、自<br />然景观、生态特色发展经济，集体收益稳步提升，农民人<br />均纯收入高于当地平均水平。（5分）</td> $!{C2}
+    </tr>
+    <tr>
+      <td rowspan="3" style="text-align:center;" valign="middle">特色 <br />保护 <br />（20分） </td>
+      <td colspan="4">编制体现岭南特色和地方特色的民居建设规划，村庄60%<br />以上的民居统一建筑风格；（10分）</td> $!{D1}
+    </tr>
+    <tr>
+      <td colspan="4">制定保护传统文化的相关制度，传承飘色、龙舟等非物质<br />文化遗产；（5分）</td> $!{D2}
+    </tr>
+    <tr>
+      <td colspan="4">有村史馆、展览室等固定场所，宣传展示村庄的历史、文<br />化、产业和地方特色。（5分） </td>$!{D3}
+    </tr>
+    <tr>
+      <td style="text-align:center;" valign="middle">合计</td>
+      <td colspan="4" >&nbsp;</td>$!{E}
+    </tr>
+</table>
+<table class="applicant-form"> <tr>
+    <td style="width:140px;padding:0 10px 0 10px;"><p>县（市、区）名村建设工作牵头负责部门意见　 </p></td>
+    <td class="dt-input-class"><div style="height:100px;text-align:left;vertical-align:middle;">$!{opinion1}</div><div style="padding-left:250px;">单位(盖章)：</div><div style="padding:0 0 20px 240px;">$!{opinionAt1}</div></td>
+  </tr>
+  <tr>
+    <td style="width:140px;padding:0 10px 0 10px;"><p>地级以上市名村示范村建设工作牵头负责部门意见　 </p></td>
+    <td class="dt-input-class"><div style="height:100px;text-align:left;vertical-align:middle;">$!{opinion2}</div><div style="padding-left:250px;">单位(盖章)：</div><div style="padding:0 0 20px 240px;">$!{opinionAt2}</div></td>
+  </tr>
+  <tr>
+    <td style="width:140px;padding:0 10px 0 10px;"><p>地级以上市名镇名村示范村建设工作领导小组意见 </p></td>
+    <td class="dt-input-class"><div style="height:100px;text-align:left;vertical-align:middle;">$!{opinion3}</div><div style="padding-left:250px;">单位(盖章)：</div><div style="padding:0 0 20px 240px;">$!{opinionAt3}</div></td>
+  </tr>
+  <tr>
+    <td style="width:140px;padding:0 10px 0 10px;"><p align="center">省委农办意见 </p></td>
+    <td class="dt-input-class"><div style="height:100px;text-align:left;vertical-align:middle;">$!{opinion4}</div><div style="padding-left:250px;">单位(盖章)：</div><div style="padding:0 0 20px 240px;">$!{opinionAt4}</div></td>
+  </tr>
+  <tr>
+    <td style="width:140px;padding:0 10px 0 10px;"><p>省名镇名村示范村建设工作联席会议意见 </p></td>
+    <td class="dt-input-class"><div style="height:100px;line-height:100px;text-align:left;vertical-align:middle;">$!{opinion5}</div><div style="padding-left:250px;">单位(盖章)：</div><div style="padding:0 0 20px 240px;">$!{opinionAt5}</div></td>
+  </tr></table>
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery(".dt-input-class input").bupdateinput({editable:false});
+		jQuery("input.num-input-class").bupnuminput({min:0});
+		jQuery("#appl-form-items input.num-input-class").bupnuminput({precision:4});
+		
+		jQuery("#btn-add-picture").click(function(){
+		//	alert(123);
+			jQuery(this).prev().append("<li><input type='file' accept='image/*' name='pictures'/> - <a href='#' onclick='jQuery(this).parent().remove();return false;'>删除</a></li>");
+			return false;
+		});
+		
+		jQuery("input.num-input-class").each(function(i,v){
+			var bv = jQuery(this).bupnuminput('getValue');
+			if(!(jQuery.isNumeric(bv) && bv - 0 > 0)){
+				jQuery(this).bupnuminput('setValue', '');
+			}
+		});
+			
+		jQuery("#num-need-sum input.num-input-class").bupnuminput({precision:4, onChange:function(nv,ov){
+			var sval = 0;
+			jQuery("#num-need-sum input.num-input-class").each(function(i,v){
+				var bv = jQuery(this).bupnuminput('getValue');
+				if(jQuery.isNumeric(bv)){
+					sval += bv - 0;
+				}
+			});
+			jQuery("#num-total-sum").text(sval.toFixed(4));
+		}});
+	});
+</script></div>
+
+#if($pictures)
+<hr/><div style="font-size:16px;padding:0 0 15px 91px;">
+	<span>建设成果相片：</span>
+	${pictures}
+</div>
+#end
+
+#if($audit-editor)
+<hr/><div style="font-size:16px;padding:0 0 15px 91px;">
+<div style="width:99%;"><b>如果需要驳回，可以在这里填写驳回的理由！</b></div>
+<textarea name="rejectContent" style="width:90%;"></textarea></div>
+#end
+
+</div>

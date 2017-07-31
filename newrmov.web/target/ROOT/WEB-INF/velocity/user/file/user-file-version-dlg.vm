@@ -1,0 +1,43 @@
+<div id="$di.id" title="历史版本" style="padding:8px;overflow:auto;width:750px;height:500px;" modal='true'>
+	<style type="text/css" media="screen">
+		table.line {
+			border-collapse:collapse; /* 关键属性：合并表格内外边框(其实表格边框有2px，外面1px，里面还有1px哦) */
+			border:solid #999; /* 设置边框属性；样式(solid=实线)、颜色(#999=灰) */
+			border-width:1px 0 0 1px; /* 设置边框状粗细：上 右 下 左 = 对应：1px 0 0 1px */
+			width:100%;
+		}
+		table.line th{font-weight:bold;}
+		table.line th,table.line td {border:solid #999;border-width:0 1px 1px 0;padding:5px;}
+	</style>
+	<input type='hidden' value='$!{id}' id='id' />
+	<table class='line' style='padding-bottom:8px;'>
+		<tr>
+			<td>文件</td>
+			<td style='width:60px;'>大小</td>
+			<td style='width:40px;'>版本</td>
+			<td style='width:140px;'>更新时间</td>
+			<td style='width:80px;'>更新人</td>
+			<td style='width:90px;'>扩展属性</td>
+			<td style='width:50px;'>操作</td>
+		</tr>
+		#foreach($fh in $!{fhs})
+		<tr>
+			<td>$!{fh.name}</td>
+			<td>$!{fh.len}</td>
+			<td>$!{fh.version}</td>
+			<td>$!{fh.date}</td>
+			<td>$!{fh.creatorName}</td>
+			<td>$!{fh.extendedAttributes}</td>
+			<td>
+		        <a href="$!{fh.mapPath}" target='_blank'>下载</a>
+			</td>
+		</tr>
+		#end
+	</table>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_close').bupabutton({flat : true});
+});
+</script>

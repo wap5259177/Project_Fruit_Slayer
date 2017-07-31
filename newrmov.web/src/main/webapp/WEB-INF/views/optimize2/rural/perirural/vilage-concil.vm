@@ -1,0 +1,67 @@
+<table class=' editor' style="width:100%;margin: auto;">
+   
+	<tr>
+		<th class="tdRight" colspan=''>是否建立村民理事会[C37]：</th>
+		<td colspan='5'>
+		#if($form.council == '是')
+			<!--<input id="council-n" style='width:20px' type='radio' name='council' value='否' $!{disabled} onclick="jQuery('#councilAnnual').attr('disabled', true);"/><label for='council-n'>否</label>
+			<input id="council-y" style='width:20px' type='radio' name='council' value='是' $!{disabled} checked='checked' onclick="jQuery('#councilAnnual').removeAttr('disabled');" /><label for='council-y'>是</label>
+			(建立时间:
+				#if($readonly)
+					<input id="councilAnnual" type='text' name='councilAnnual' value='$!{form.councilAnnual}' readonly='readonly' />
+				#else
+					<select id='councilAnnual' name='councilAnnual'>$!{selyear}</select>	
+				#end
+			年)-->
+			是(建立时间:<input style='width:50px;' id="councilAnnual" type='text' name='councilAnnual' value='$!{form.councilAnnual}' readonly='readonly' />年)
+		#else
+			否
+		#end
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight" rowspan='3'>理事会成员数[C38]：</th>
+		<td rowspan='3'>
+			<input id="councilMember" style='width:60px;' type='text' class='number' name='councilMember' value='$!{form.councilMember}' min="0" precision="0" $!{readonly} />人
+			</td>
+		<th class="tdRight" rowspan='3' colspan='2'>理事会主要负责人[C39]：</th>
+		<th>姓名</th>
+		<th>联系电话</th>
+	</tr>
+	<tr>
+		<td>
+			<input type='text' id='councilName1' name='councilName1' value='$!{form.councilName1}' $!{readonly} />
+		</td>
+		<td>
+			<input id="councilHP1" type='text' name='councilHP1' value='$!{form.councilHP1}' $!{readonly} />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type='text' id='councilName2' name='councilName2' value='$!{form.councilName2}' $!{readonly} />
+		</td>
+		<td>
+			<input id="councilHP2" type='text' name='councilHP2' value='$!{form.councilHP2}' $!{readonly} />
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='1'>组织开展新农村建设工作情况<br/>(在新农村建设中发挥的作用)：</th>
+		<td colspan='5'>
+			<textarea style='width:98%;height:150px;' id='workSituation' name='workSituation' $!{readonly}>$!{form.workSituation}</textarea>
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='1'>是否制定村规民约和章程：</th>
+		<td colspan='5'>
+			<!--
+			<input style='width:20px' type='radio' id='constitu-n' name='constitu' value='否' $!{disabled} #if($!{form.constitu}=='' || $form.constitu == '否') checked='checked' #end/><label for='constitu-n'>否</label>
+			<input style='width:20px' type='radio' id='constitu-y' name='constitu' value='是' $!{disabled} #if($form.constitu == '是') checked='checked' #end/><label for='constitu-y'>是</label>
+			-->
+			#if($form.constitu == '是')
+			是
+			#else
+			否
+			#end
+		</td>
+	</tr>
+</table>

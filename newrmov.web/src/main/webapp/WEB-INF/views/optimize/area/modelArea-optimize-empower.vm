@@ -1,0 +1,68 @@
+<style >
+	body{ text-align:center} 
+</style>
+	<div id="$di.id" $!{di.dialogAttributes}>
+
+<table class="editor" title="优化将对行政村ownerID不是其所在片区的ownerID进行修改为所在片区的ownerID,对同一地区下具有俩个以上的行政村进行去除为仅剩一个行政村并将被去除的行政村所有的自然村划归到没有被删除仅剩的行政村下,对没有自然村的行政村进行删除,对没有行政村的自然村进行重新在该自然村所在地区查找行政村若查到则重新赋值上该行政村,没有则在自然村所在地区重新创建个行政村给自然村">
+
+<tr><th style="width:100px">授权者名称：
+	</th>
+	<td><input type="text" id="u-name" style="width:150px"/>
+	</td>
+</tr>
+<tr><th style="width:100px">授权者密码：
+	</th>
+	<td><input type="password" id="u-pwd" style="width:150px"/>
+	</td>
+</tr>
+
+</table>
+	 <ul  style="list-style:none" >
+		 <li  style="float:right"><a href="javascript:"   onclick="return optimize();" title='执行优化操作' id="optimizeMSG">优化</a></li>
+		 <li   style="float:right"><a href="javascript:" style="color:red"  onclick="return optimizeMSG();" title='显示优化信息' id="optimizeMSG">优化作用</a></li>
+	 </ul>
+		
+    </div>
+
+
+
+
+
+
+
+	<script >
+		function optimizeMSG(){
+		
+		alert("优化将对行政村ownerID不是其所在片区的ownerID进行修改为所在片区的ownerID\n对同一地区下具有俩个以上的行政村进行去除为仅剩一个行政村并将被去除的行政村所有的自然村划归到没有被删除仅剩的行政村下\n对没有自然村的行政村进行删除\n对没有行政村的自然村进行重新在该自然村所在地区查找行政村若查到则重新赋值上该行政村没有则在自然村所在地区重新创建个行政村给自然村");
+		}
+	function optimize(){
+		var un = jQuery("#u-name").val();
+		var up = jQuery("#u-pwd").val();
+		
+		if('' === un){
+			alert("请输入授权者名称！");
+			return false;
+		}
+		if('' === up){
+			alert("请输入授权者密码！");
+			return false;
+		}
+		
+		
+		
+		jQuery("#u-name,#u-pwd").val("");
+		
+		lock('正在优化...');
+		jQuery.post("index.optimize",
+			{id:${form},un:un,up:up},
+			function(__resultData){
+				$.unblockUI();
+				__resultData = __ajaxSuccess(__resultData);
+				if(__resultData){
+					alert("优化完成！");
+					jQuery("#$!{gridid}").bupgrid("reload");
+				}
+			});
+		return false;
+	}
+    </script>

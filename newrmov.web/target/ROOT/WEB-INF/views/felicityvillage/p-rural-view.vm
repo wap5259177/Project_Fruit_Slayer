@@ -1,0 +1,148 @@
+
+<div id="rural_myw" buttons="#_save">
+<form id="form_rural"  method="post"  >
+	<table class='applicant-form'>
+		<input type='hidden' name='id' value='$prural.id'>
+		<tr>
+			<td style='text-align:center' colspan='4'>
+				<font style='font-size:25px;color:red;'>
+				当前填报的是:$!{prural.modelArea.name}
+				</font>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>辐射村名称:</td>
+			<td><input type='text' id='prName' name='prName' value='$prural.name'/></td>
+			
+			<td>
+				所属的主体村:
+				<!--
+				<select  id='coreRural' name='coreRural'>
+					<option value ="-1">请选择主体村</option>
+					#foreach($it in $crs)
+					<option value ="$it.id" #if($prural.coreRural.id==$it.id) selected="selected"#end>$it.name</option>
+					#end
+				</select>
+				-->
+			</td>
+			<td>$!{prural.coreRural.name}</td>
+		</tr>
+		
+		<tr>
+			<td>类型:</td>
+			<td colspan='3'>
+				<input id='prType1'  type="radio" name='prType' value='行政村' #if($prural.type=='行政村') checked='checked'#end/>
+				<label for='prType1'>行政村</label>
+				<input id='prType2' type="radio" name='prType' value='自然村'  #if($prural.type=='自然村') checked='checked'#end/>
+				<label for='prType2'>自然村</label>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>项目个数:</td>
+			<td colspan='4'><input id='projectNum' class='number'  type="text" name='projectNum' value='$!{prural.projectNum}'/></td>
+		</tr>
+		
+		<tr>
+			<td>完成个数:</td>
+			<td colspan='4'><input id='projectFinishNum'  class='number' type="text" name='projectFinishNum' value='$!{prural.projectFinishNum}'/></td>
+		</tr>
+		<tr>
+			<td>启动时间:</td>
+			<td colspan='4'><input  type="text" id='startTime' name='startTime' value='$!{prural.startTime}'/></td>
+		</tr>
+		<tr>
+			<td>预计完成时间:</td>
+			<td colspan='4'><input  type="text" id='predictFinishTime' name='predictFinishTime' value='$!{prural.predictFinishTime}'/></td>
+		</tr>
+		
+		<tr>
+			<td>建设进度:</td>
+			<td colspan='4'><input class='number' type="text" name='constructProgress' value='$!{prural.constructProgress}'/>%</td>
+		</tr>
+		
+		
+		
+		
+	
+	</table>
+</form>
+</div>
+<div id='_save'>
+	<a href="#" id='_buttons' onclick='saveRural();' iconClassname="icon_save" flat="true">保存村</a>
+</div>
+
+<script>
+$(function(){
+	$("#predictFinishTime,#startTime").bupdateinput({editable:false});
+	jQuery("#_1_0").bupborderlayout({fit:true});
+	$("#_buttons").bupabutton();
+	$('#rural_myw').bupdlg({
+		title:'$title',
+		height:400,
+		width:700,
+		iconCassname:'icon_save',
+	    modal:true,
+	    //closed:true,
+	    //buttons:'#_buttons',
+	    maximized: false,//是否显示最大化
+	    onClose:function(){
+	    	//$('#rural_myw').remove();
+	    	jQuery('#rural_myw').bupdlg('destroy').remove();
+	    },
+	    minimizable:false,
+	    maximizable:false
+	});
+	
+	
+	$('.number').each(function(i, v){
+		var vf = v.value;
+		if(!$.isNumeric(vf) || vf == 0){
+			v.value = '';
+		}
+	});
+	jQuery(".number").bupnuminput();
+	
+});
+
+
+
+
+function saveRural(){
+	
+	$('#form_rural').bupform('submit', {
+	    url: "prural.save",
+	    onSubmit: function(){
+	    	//项目数和完成数的校验
+			var pf = $('#projectFinishNum').val();
+			var pn  = $('#projectNum').val();
+			if(pf==''){pf=0;}
+			if(pn==''){pn=0;}
+			//alert(pf+","+pn);
+			if((pf-0)>(pn-0)){
+				alert('项目个数必须大于完成个数!');
+				return false;
+			}
+	    },
+	    success: function(data){
+	    	//对启动时间和预计完成时间的校验
+	    	jQuery.unblockUI();
+			var data = eval('(' + data + ')');
+			if(data.error){
+				alert(data.msg);
+				return ;
+			}
+	    	//alert("开始上报成功，将自动刷新列表！");
+	    	//保存成功后,1.关闭弹出框  2.刷新datagrid 的数据
+	    	jQuery("#_1_1").bupgrid("reload");
+	    	jQuery('#rural_myw').bupdlg('destroy').remove();
+	    }
+  }); 
+}
+
+
+function checkRural(){
+}
+
+</script>

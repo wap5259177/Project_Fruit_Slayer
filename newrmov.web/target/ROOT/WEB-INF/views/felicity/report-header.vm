@@ -1,0 +1,53 @@
+<div style='padding-left:10px;padding-top:5px;'>
+  <div style="font-size:20px;text-align:center">$!{selectedYear}年原中央苏区县幸福村居（新农村）连片示范建设工程基本情况统计表</div>
+  <div style="font-size:16px;text-align:center">（统计起止时间xxx年xxx月xxx日至xxx年xxx月xxx日）</div>
+</div>
+<table class="_report" style="width:3245px;">
+		<tr>
+		    <th style="width:40px;" rowspan='2'>序号</th>
+			<th style="width:200px;" rowspan='2'>名称</th>
+			<th style="width:100px;" rowspan='2'>村庄建设类型</th>
+			<th style="width:75px;" rowspan='2'>A为行政村B为自然村</th>
+			<th style="width:80px;" rowspan='2'>村庄建设覆盖面积 ㎡</th>
+			<th style="width:80px;" rowspan='2'>户数</th>
+			<th style="width:80px;" rowspan='2'>人口数</th>
+			<th style="width:80px;" rowspan='2'>村建设特色及特点</th>
+			<th style="width:80px;" rowspan='2'>确定的建设项目数（个）</th>
+			<th style="width:80px;" rowspan='2'>项目建设进度（%）</th>
+			<th style="width:80px;" rowspan='2'>投入预算（万元）</th>
+			<th style="width:80px;" rowspan='2'>目前已完成投入（万元）</th>
+			<th colspan="9" style="text-align:center;">资金来源（万元）</th>
+			<th colspan="2" style="text-align:center;">规划设计</th>
+			<th colspan="2" style="text-align:center;">项目招投标</th>
+			<th colspan="9" style="width:150px;text-align:center;">建设成效</th>
+			<th style="width:200px;text-align:center;" rowspan='2'>下阶段打算</th>
+		</tr>
+		<tr>
+			<th style="width:80px;">小计</th>
+			<th style="width:80px;">省</th>
+			<th style="width:80px;">市</th>
+			<th style="width:80px;">县</th>
+			<th style="width:80px;">镇</th>
+			<th style="width:80px;">村</th>
+			<th style="width:80px;">群众</th>
+			<th style="width:80px;">社会</th>
+			<th style="width:80px;">其他</th>
+			<th style="width:70px;">完成或否</th>
+			<th style="width:70px;">规划进度（%）</th>
+			<th style="width:70px;">完成或否</th>
+			<th style="width:70px;">完成招投标比例（%）</th>
+			<th style="width:70px;">是否完成环境卫生整治</th>
+			<th style="width:70px;">是否统一民居外立面风貌</th>
+			<th style="width:70px;">是否解决垃圾问题</th>
+			<th style="width:70px;">是否建立污水处理设施</th>
+			<th style="width:70px;">是否建立村保洁队伍</th>
+			<th style="width:70px;">是否成立村民理事会</th>
+			<th style="width:70px;">是否完成村巷道硬底化建设</th>
+			<th style="width:70px;">是否解决通自来水</th>
+			<th style="width:70px;">其它</th>
+		</tr>
+</table>
+<style>
+._report{width:100%;letter-spacing:3px;font-size:14px;border-collapse:collapse;text-align:center;border:1px solid #000000;} 
+._report th{border:1px solid #000000;font-weight:bold;font-size:15px;}
+</style>

@@ -1,0 +1,392 @@
+
+
+<table id='_ids_detal' class=' editor' style="width:840px;margin: auto;" >
+	<tr>
+		<td colspan='5' class='tdCenter'>
+			<p class='item-open2 ' href='#' onclick="proClick(this);" id='p_pro' title='点击展开'>连片示范建设工程进展情况:</p>
+		</td>
+	</tr>
+</table>
+<table id='' class=' editor' style="width:840px;margin: auto;" >
+	<tr>
+		<th width='25%'>行政村数:</th>
+		<td>$item.arCount</td>
+		<th width='25%'>自然村数:</th>
+		<td>$item.nrCount</td>
+	</tr>
+	<tr>
+		<th>户数:</th>
+		<td>$item.householdCount</td>
+		<th>人数:</th>
+		<td>$item.populationCount</td>
+	</tr>
+	<tr>
+		<td colspan='4' class='tdRight'>
+			<hr/>
+		</td>
+	</tr>
+</table>
+
+<table  class=' editor' style="width:840px;margin: auto;display:none" id='_per_pro' > 
+	<!--<tr>
+		<td colspan='5' class='tdCenter'>
+			<p href='#' onclick="jQuery(this).toggleClass('item-close2').parent().parent().nextAll().slideToggle('slow'); " class='item-open2 item-close2'>连片示范建设工程进展情况:</p>
+			
+		</td>
+	</tr>
+	-->
+	<tr> 
+		<th rowspan='2' class="tdRight">完成村庄整治规划情况：</th> 
+		<th class="tdRight" colspan='2'>行政村有编制规划设计村数（个）</th> 
+		<td colspan='2'><input value='$item.arFinishPlan'/></td>
+		
+	</tr>
+	
+	<tr>
+		<th colspan='2'> 自然村有编制规划设计村数（个） </th> 
+		<td colspan='2'><input value='$item.needFinish.needFinish1'/></td>
+	</tr>
+	
+   <tr> 
+		
+		<th rowspan='3' class="tdRight">环境卫生综合整治情况：</th> 
+		 
+		<th class="tdRight" colspan='2'>完成卫生整治及建立保洁队和长效机制的自然村数（个）</th> 
+		<td colspan='2'><input value='$item.needFinish.needFinish6'/></td>
+	</tr>
+	
+	<tr> 
+		<th colspan='2'>实行雨污分流并建有污水处理设施自然村数（个） </th>
+		<td colspan='2'><input value='$item.needFinish.needFinish7'/></td>
+	</tr>
+	
+	<tr>
+		<th colspan='2'>实行人畜分离（集中圈养）的自然村数（个） </th> 
+		<td colspan='2'><input value='$item.needFinish.needFinish8'/></td> 
+	</tr>
+		
+	<tr>
+		<th rowspan='2' class="tdRight">项目：</th> 
+		<th class="tdRight" colspan='2'>已启动的项目个数</th> 
+		<td colspan='2'><input value='$start'/></td> 
+	</tr>
+	
+	<tr>
+		<th colspan='2'>其中已竣工的项目个数</th>
+		<td colspan='2'><input value='$finish'/></td> 
+	</tr>
+	
+	<tr>
+		<th colspan='3'>完成卫生改厕所自然村数（个）</th>
+		<td colspan='2'><input value='$item.needFinish.needFinish3'/></td>
+		
+	</tr>
+	<tr>
+		<th colspan='3'>完成道路硬化建设自然村数（个）</th>
+		<td colspan='2'><input value='$item.needFinish.needFinish4'/></td>
+	</tr>
+	
+	<tr>
+		<th colspan='3'>通自来水自然村数(个)</th>
+		<td colspan='2'><input value='$item.needFinish.needFinish2'/></td>
+	</tr>
+	
+	<tr>
+		<th colspan='3'>已成立村民理事会并制定了村规民约和章程的自然村数（个） </th>  
+		<td colspan='2'><input value='$item.needFinish.needFinish9'/></td> 
+	</tr>
+	
+	<tr>
+		<th colspan='3'>完成民居外立面特色改造的自然村数（个） </th>  
+		<td colspan='2'><input value='$item.needFinish.needFinish5'/></td> 
+	</tr>
+</table> 
+
+<table id='_invs_detal' class=' editor' style="width:840px;margin: auto;" >
+	<tr>
+		<td colspan='5' class='tdCenter'>
+			<p class='item-open2 ' href='#' onclick="invsClick(this); " id='p_invs' title='点击展开'>资金投入情况(万元):</p>
+		</td>
+	</tr>
+</table>
+
+<table id='_per_invs' class=' editor' style="width:840px;margin: auto;display:none" >
+	<tr>
+		<th colspan='2'>累计投入资金总数</th>
+		<td colspan='4'><input value='$totalfunds'/></td>
+	</tr>
+	<tr>
+		<th colspan='2'>1.中央财政资金</th>
+		<td><input value='$item.investment.stateFunds'/></td>
+		<th colspan='2'>2.省级新农村示范片建设补助资金</th>
+		<td><input value='$item.investment.specialFunds'/></td>
+	</tr>
+	<tr>
+		<th colspan='2'>3.其他省级财政资金</th>
+		<td><input value='$item.investment.provinceFunds'/></td>
+		<th colspan='2'>4.市级财政资金</th>
+		<td><input value='$item.investment.cityFunds'/></td>
+	</tr>
+	<tr>
+		<th colspan='2'>5.县级财政资金</th>
+		<td><input value='$item.investment.countyFunds'/></td>
+		<th colspan='2'>6.社会投入资金</th>
+		<td><input value='$item.investment.socialFunds'/></td>
+	</tr>
+	<tr>
+		<th colspan='2'>7.群众自筹资金</th>
+		<td><input value='$item.investment.massFunds'/></td>
+		<th colspan='2'>8.其它方面的资金</th>
+		<td><input value='$item.investment.otherFunds'/></td>
+	</tr>
+</table>
+
+
+
+
+<div id='per_rep' style='padding:50px 0 0;' >
+	<div id='main_p_pro' style='width:650px; height:450px;' ></div>
+	<div id='main_p_invs' style='position: relative; left:610px; top:-454px;width: 470px; height: 450px;'> </div>
+</div>
+
+<!--
+<div id='per_rep' style='padding:50px 0 0;' >
+	<div id='main_p_pro' style='width:650px; height:450px;border: 2px solid #0000FF;' ></div>
+	<div id='main_p_invs' style='position:absolute ; left:630px; top:170px;width: 470px; height: 450px;border: 2px solid #0000FF;'> </div>
+</div>
+-->
+
+<script type='text/javascript'>
+	var myChart1 = echarts.init(document.getElementById('main_p_pro'),'infographic'); 
+	var myChart2 = echarts.init(document.getElementById('main_p_invs'),'infographic');
+	var ecConfig = echarts.config;
+	var mapGeoData = echarts.util.mapData.params;
+	
+	var option1;
+	var option2;
+	
+	$(function(){
+		$('#p_pro,#p_invs').buptip({
+			position:'left'
+		});
+	
+		option1 = {
+		    title : {
+		        text: '连片示范建设工程进展情况',
+		        subtext: '完成指标的村数量',
+		        x:'center'
+		    },
+		    tooltip : {
+		        trigger: 'axis',
+		        formatter:'{b}<br/>{a}: {c}个'
+		    },
+		    legend: {
+		        data:[''],
+		        show:false
+		    },
+		    /*toolbox: {
+		        show : true,
+		        feature : {
+		            mark : {show: false},
+		            dataView : {show: false, readOnly: false},
+		            magicType : {show: true, type: ['line', 'bar']},
+		            restore : {show: true},
+		            saveAsImage : {show: true}
+		        }
+		    },*/
+		    grid:{
+		    	x:80,
+		    	y2:100
+		    },
+		    
+		    
+		    calculable : false,
+		    xAxis : [
+		        {
+		            type : 'category',
+		            boundaryGap : true,
+		            data : ['有编制规划行政村','有编制规划设计','通自来水村数','完成卫厕改造','完成道路硬化',
+		            		'完成民居外立面特色改造','完成卫生整治及建立保洁和长效机制',
+		            			'实行雨污分流并建立有污水处理设施','实行人畜分离(集中圈养)',
+		            				'已成立村民理事会并制定了村规民约章程'],
+		             axisLabel: {
+		                 show: true,
+		                 rotate:20,
+		                 interval: 'auto',
+		
+		                 textStyle: {
+		                     color: '#000000',
+		                     fontFamily: 'verdana',
+		                     fontSize: 12,
+		                     fontStyle: 'normal',
+		                     fontWeight: 'bold'
+		                 }
+		             }
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'value',
+		            axisLabel : {
+		                formatter: '{value} 个'
+		            }
+		        }
+		    ],
+		    series : [
+		        {
+		            name:'完成村数',
+		            type:'bar',
+		            //data:[11, 11, 15, 13, 12, 13, 10],
+		            data:$perPros,
+	            	//barWidth:70,
+		            markPoint : {
+		                data : [
+		                    {type : 'max', name: '最大值'},
+		                    {type : 'min', name: '最小值'}
+		                ]
+		            },
+		            /*markLine : {
+		                data : [
+		                    {type : 'average', name: '平均值'}
+		                ]
+		            },*/
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             //color: '#800080'
+		                         }
+		                     }
+		                 }
+		             }
+		        }
+		    ]
+		};
+		myChart1.setOption(option1);
+		
+		//----------------------------------------------------------------
+		
+		option2 = {
+		    title : {
+		        text: '资金投入情况',
+		        subtext: '',
+		        x:'center'
+		    },
+		    tooltip : {
+		        trigger: 'axis',
+		        //backgroundColor:'green'
+		        formatter:'{b}<br/>{a}: {c}万元'
+		    },
+		    legend: {
+		        data:[' '],
+		        show :false
+		    },
+		    /*toolbox: {
+		        show : true,
+		        feature : {
+		            mark : {show: false},
+		            dataView : {show: false, readOnly: false},
+		            magicType : {show: true, type: ['line', 'bar']},
+		            restore : {show: true},
+		            saveAsImage : {show: true}
+		        }
+		    },*/
+		    
+		    calculable : false,
+		    
+		    grid:{
+		    	x:80,
+		    	y2:93
+		    },
+		    xAxis : [
+		        {
+		            type : 'category',
+		            boundaryGap : true,
+		            data : ['中央财政资金','省示范片建设补助资金','其他省级财政资金','市级财政资金',
+		            		'县级财政资金','社会投入资金','群众自筹资金','其他方面的资金'],
+		             axisLabel: {
+		                 show: true,
+		                 rotate:25,
+		                 interval: 'auto',
+		
+		                 textStyle: {
+		                     color: '#000000',
+		                     fontFamily: 'verdana',
+		                     fontSize: 14,
+		                     fontStyle: 'normal',
+		                     fontWeight: 'bold'
+		                 }
+		             }
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'value',
+		            axisLabel : {
+		                formatter: '{value} 万元'
+		            }
+		        }
+		    ],
+		    series : [
+		        {
+		            name:'资金',
+		            type:'bar',
+		            //barWidth:70,
+		            //data:[11, 11, 15, 13, 12, 13, 10],
+		            data:$perInvs,
+		            markPoint : {
+		                data : [
+		                    {type : 'max', name: '最大值'},
+		                    {type : 'min', name: '最小值'}
+		                ],
+		                itemStyle :{
+		                	normal: {
+		                		color:'green'
+						    }
+		                }
+		            },
+		            markLine : {
+		                data : [
+		                    {type : 'average', name: '平均值'}
+		                ],
+		                itemStyle :{
+		                	normal: {
+		                		color:'green'
+						    }
+		                }
+		            },
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             //color: '#800080'
+		                         }
+		                     },
+		                     color:'green'
+		                 }
+		             }
+		        }
+		    ]
+		};
+		myChart2.setOption(option2);
+		
+	});
+	
+	function proClick(th){
+		$(th).toggleClass('item-open2 item-close2');
+		$('#_per_pro').toggle('slow'); 
+	}
+	
+	function invsClick(th){
+		//var h = $('#_invs_detal').height();
+		//alert(h)
+		//<div id='main_p_invs' style=''> </div>
+		//var p_h = $('#main_p_invs').height();
+		//var _h = p_h+h;
+		//$('#main_p_invs').attr('style','position:absolute ; left:630px; top:'+_h+'px;'+'width: 470px; height: 450px;border: 2px solid #0000FF;');
+		$(th).toggleClass('item-open2 item-close2');
+		$('#_per_invs').toggle('slow');
+	}
+</script>

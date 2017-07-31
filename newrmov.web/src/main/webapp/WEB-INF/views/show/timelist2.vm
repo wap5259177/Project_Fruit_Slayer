@@ -1,0 +1,20 @@
+#set($layout="layout-weixin.vm")
+<!DOCTYPE html>
+  <html lang="en-US">
+        <head>
+             <meta name="viewport" charset="UTF-8" content="width=device-width,initial-scale=1">
+             <title>示范片区信息查看</title>
+        </head>
+        <body>
+        <div data-role="page" id="mypage">
+          <div data-role="header">
+                  <a data-role='button' data-icon='back' data-rel='back'>返回</a>
+                  <h1>$!name</h1>
+                  <a href="http://192.168.1.15:8080/m/show/mas/index.do" data-role="button" data-icon="home">首页</a>
+          </div>
+          <div data-role="content">
+              $!ss
+          </div>
+        </div>
+        </body>
+  </html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="pragma" content="no-cache">  
+	<meta http-equiv="expires" content="-1">  
+
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/themes/default/easyui.css')" defer/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/skins/default/bupui.css')"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/icons.css')"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/global.css')"/>
+	<script type="text/javascript" src="#springUrl('/res/js/jquery.min.js')"></script>
+	##<script type="text/javascript" src="#springUrl('/res/js/jquery.easyui.min.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/bupui/jquery.bupui.min.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/bupui/loading.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/easyui-lang-zh_CN.js')"></script>
+	<script type="text/javascript">
+	$(function(){
+		$('#btnSubmit').click(function(){
+			$('#frmSubmit').bupform('submit', {
+				url:'form3_proc.php',
+				onSubmit:function(){
+					return $(this).bupform('validate');
+				},
+				success:function(data){
+					$.bupmsg.alert('Info', data, 'info');
+				}
+			});
+		});
+	});
+	</script>
+</head>
+<body>
+<form id="frmSubmit" method='post'>
+$!screen_content
+</form>
+
+<a href="#" id="btnSubmit">提交</a>
+</body>
+</html>

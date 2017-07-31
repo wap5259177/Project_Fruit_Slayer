@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>全景</title>
+<style type="text/css">
+*{
+    margin:0px;
+    padding:0px;
+}
+body, button, input, select, textarea {
+    font: 12px/16px Verdana, Helvetica, Arial, sans-serif;
+}
+p{
+    width:603px;
+    padding-top:3px;
+    overflow:hidden;
+}
+</style>
+<script src="http://map.qq.com/api/js?v=2.exp&key=INFBZ-75RAU-DW3VO-2ERJI-MIGCO-IOFFS"></script>
+<script>
+var init = function() {
+	/* var map = new qq.maps.Map(document.getElementById("container"),{
+		center: new qq.maps.LatLng(39.916527,116.397128),
+		zoomLevel: 13
+	})
+	//����·��ͼ��
+	var pano_layer = new qq.maps.PanoramaLayer();
+	pano_layer.setMap(map); */
+	// �����־�
+	var pano = new qq.maps.Panorama(document.getElementById('pano_holder'), {
+		pano: '261230W7140410144657300',
+		disableMove: false,
+		pov:{
+			heading:20,
+			pitch:15
+		},
+		zoom:1
+	});
+	pano_service = new qq.maps.PanoramaService();
+ 	qq.maps.event.addListener(map, 'click', function (evt){
+            var point = evt.latLng;
+            var radius;
+            pano_service.getPano(point, radius, function (result){
+                pano.setPano(result.svid);
+            });
+        }); 
+	
+}
+</script>
+</head>
+<body onLoad="init()">
+<!-- <div style="width:603px;height:300px" id="container"></div> -->
+<div style="width:900px;height:600px" id="pano_holder"></div>
+
+</body>
+</html>

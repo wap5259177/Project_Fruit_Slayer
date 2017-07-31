@@ -1,0 +1,157 @@
+<table class='applicant-form'><tbody>
+	<tr>
+ 	   <td class="tdRight" style="width:130px;">名称：</td> 
+		<td colspan="3"><input type="text" readonly="readonly" value="$!{form.cityName} $!{form.name}" style="width:95%;"/></td> 
+	</tr>
+	<tr>
+		<td class="tdRight" rowspan="2">村庄建设覆&nbsp;&nbsp;<br/>盖面积 ㎡：</td>
+		<td rowspan="2" style="width:170px;"><input class="number" type="text" readonly="readonly" value="$!{form.constructionArea}" precision="4"/></td>
+		<td class="tdRight" style="width:145px;">户数：</td>
+		<td><input class="number" type="text" readonly="readonly" value="$!{form.householdCount}" precision="0"/>户</td>
+	</tr>
+	<tr>
+		<td class="tdRight">人口数：</td>
+		<td><input class="number" type="text" readonly="readonly" value="$!{form.population}" precision="0"/>人</td>
+	</tr>
+	<tr>
+		<td class="tdRight">建设项目数：</td>
+		<td><input class="number" type="text" readonly="readonly" value="$!{form.projectCount}" precision="0"/>个</td>
+		<td class="tdRight">项目建设进度：</td>
+		<td><input class="number progress" type="text" name="projectProgress" value="$!{form.projectProgress}" min="0" max="100" precision="1" $!{readonly}/>% #if(!$readonly)<font color="blue">(需要填写)</font>#end</td>
+	</tr>
+	<tr>
+		<td class="tdRight">投入预算：</td>
+		<td><input class="number" type="text" readonly="readonly" value="$!{form.investmentBudget}" precision="4"/>万元</td>
+		<td class="tdRight">已完成投入：</td>
+		<td><input class="number" type="text" readonly="readonly" value="$!{form.investmentCompleted}" precision="4"/>万元</td>
+	</tr>
+	<tr>
+		<td colspan="2" style="font-weight:bold;font-size:16px;">资金来源（万元）</td>
+		<td colspan="2" style="font-weight:bold;font-size:16px;">建设成效</td>
+	</tr>
+	<tr>
+		<td class="tdRight">小计：</td>
+		<td><input class="number" type="text" value="$!{form.fundsTotal}" readonly="readonly" precision="4"/></td>
+		<td class="tdRight">环境卫生整治：</td>
+		<td><input type="text" value="$!{form.effectRemediationTrue}/$!{form.effectRemediationFalse}" readonly="readonly"/><font color="gray">(完成/未完成)</font></td>
+	</tr>
+	<tr>
+		<td class="tdRight">省：</td>
+		<td><input class="number" type="text" value="$!{form.fundsProvince}" readonly="readonly" precision="4"/></td>
+		<td class="tdRight">民居外立面风貌：</td>
+		<td><input type="text" value="$!{form.effectUniformStyleTrue}/$!{form.effectUniformStyleFalse}" readonly="readonly"/><font color="gray">(统一/未统一)</font></td>
+	</tr>
+	<tr>
+		<td class="tdRight">市：</td>
+		<td><input class="number" type="text" value="$!{form.fundsCity}" readonly="readonly" precision="4"/></td>
+		<td class="tdRight">垃圾问题：</td>
+		<td><input type="text" value="$!{form.effectSolveGarbageTrue}/$!{form.effectSolveGarbageFalse}" readonly="readonly"/><font color="gray">(解决/未解决)</font></td>
+	</tr>
+	<tr>
+		<td class="tdRight">县：</td>
+		<td><input class="number" type="text" value="$!{form.fundsCounty}" readonly="readonly" precision="4"/></td>
+		<td class="tdRight">污水处理设施：</td>
+		<td><input type="text" value="$!{form.effectSewageTreatmentTrue}/$!{form.effectSewageTreatmentFalse}" readonly="readonly"/><font color="gray">(建立/未建立)</font></td>
+	</tr>
+	<tr>
+		<td class="tdRight">镇：</td>
+		<td><input class="number" type="text" value="$!{form.fundsTown}" readonly="readonly" precision="4"/></td>
+		<td class="tdRight">村保洁队伍：</td>
+		<td><input type="text" value="$!{form.effectCleaningTeamTrue}/$!{form.effectCleaningTeamFalse}" readonly="readonly"/><font color="gray">(建立/未建立)</font></td>
+	</tr>
+	<tr>
+		<td class="tdRight">村：</td>
+		<td><input class="number" type="text" value="$!{form.fundsVillage}" readonly="readonly" precision="4"/></td>
+		<td class="tdRight">村民理事会：</td>
+		<td><input type="text" value="$!{form.effectCouncilTrue}/$!{form.effectCouncilFalse}" readonly="readonly"/><font color="gray">(成立/未成立)</font></td>
+	</tr>
+	<tr>
+		<td class="tdRight">群众：</td>
+		<td><input class="number" type="text" value="$!{form.fundsMasses}" readonly="readonly" precision="4"/></td>
+		<td class="tdRight">村巷道硬底化建设：</td>
+		<td><input type="text" value="$!{form.effectHardBottomTrue}/$!{form.effectHardBottomFalse}" readonly="readonly"/><font color="gray">(完成/未完成)</font></td>
+	</tr>
+	<tr>
+		<td class="tdRight">社会：</td>
+		<td><input class="number" type="text" value="$!{form.fundsSociety}" readonly="readonly" precision="4"/></td>
+		<td class="tdRight">解决通自来水：</td>
+		<td><input type="text" value="$!{form.effectThroughWaterTrue}/$!{form.effectThroughWaterFalse}" readonly="readonly"/><font color="gray">(解决/未解决)</font></td>
+	</tr>
+	<tr>
+		<td class="tdRight">其他：</td>
+		<td><input class="number" type="text" value="$!{form.fundsOther}" readonly="readonly" precision="4"/></td>
+		<td class="tdRight">其它：</td>
+		<td style="text-align:center;"> - </td>
+	</tr>
+	<tr>
+		<td colspan="2" style="font-weight:bold;font-size:16px;">规划设计</td>
+		<td colspan="2" style="font-weight:bold;font-size:16px;">项目招投标</td>
+	</tr>
+	<tr>
+		<td class="tdRight">完成或否：</td>
+		<td><input style="width:70px;" type="text" value="$!{form.planningCompletedTrue}/$!{form.planningCompletedFalse}" readonly="readonly"/><font color="gray">(完成/未完成)</font></td>
+		<td class="tdRight">完成或否：</td>
+		<td><input style="width:70px;" type="text" value="$!{form.biddingCompletedTrue}/$!{form.biddingCompletedFalse}" readonly="readonly"/><font color="gray">(完成/未完成)</font></td>
+	</tr>
+	<tr>
+		<td class="tdRight">规划进度：</td>
+		<td><input class="number progress" type="text" name="planningProgress" value="$!{form.planningProgress}" min="0" max="100" precision="1" $!{readonly}/>% #if(!$readonly)<font color="blue">(需要填写)</font>#end</td>
+		<td class="tdRight">完成招投标比例：</td>
+		<td><input class="number progress" type="text" name="biddingProgress" value="$!{form.biddingProgress}" min="0" max="100" precision="1" $!{readonly}/>% #if(!$readonly)<font color="blue">(需要填写)</font>#end</td>
+	</tr>
+#if($auditing && $form.statusValue == 2)
+	<tr><td colspan="4" style="height:10px;"></td></tr>
+	<tr><td colspan="4" style="font-weight:bold;font-size:16px;">审核信息：<span  style="color:blue;">正在审核</span></td></tr>
+	<tr>
+		<td class="tdRight">审核内容：</td>
+		<td  colspan="3"><textarea name="auditContent" value="$!{form.auditContent}" id="auditContent"></textarea></td>
+	</tr>
+	<tr>
+		<td class="tdRight">审核人：</td>
+		<td><input type="text" name="auditName" value="$!{form.auditName}" /></td>
+		<td class="tdRight">审核时间：</td>
+		<td><input  type="text" name="auditAt" value="$!{form.auditAt}" id="auditAt"/></td>
+	</tr>
+#elseif($form.statusValue == 3)
+	<tr><td colspan="4" style="height:10px;"></td></tr>
+	<tr><td colspan="4" style="font-weight:bold;font-size:16px;">审核信息：<span  style="color:red;">驳回</span></td></tr>
+	<tr>
+		<td class="tdRight">驳回原因：</td>
+		<td  colspan="3"><textarea name="auditContent" readonly="readonly">$!{form.auditContent}</textarea></td>
+	</tr>
+	<tr>
+		<td class="tdRight">审核人：</td>
+		<td><input type="text" value="$!{form.auditName}" readonly="readonly"/></td>
+		<td class="tdRight">审核时间：</td>
+		<td><input  type="text" value="$!{form.auditAt}" readonly="readonly"/></td>
+	</tr>
+#elseif($form.statusValue == 1)
+	<tr><td colspan="4" style="height:10px;"></td></tr>
+	<tr><td colspan="4" style="font-weight:bold;font-size:16px;">审核信息：<span style="color:blue;">审核通过</span></td></tr>
+	#if(${form.auditContent})
+	<tr>
+		<td class="tdRight">审核内容：</td>
+		<td  colspan="3"><textarea readonly="readonly">${form.auditContent}</textarea></td>
+	</tr>
+	#end
+	<tr>
+		<td class="tdRight">审核人：</td>
+		<td><input type="text" value="$!{form.auditName}" readonly="readonly"/></td>
+		<td class="tdRight">审核时间：</td>
+		<td><input  type="text" value="$!{form.auditAt}" readonly="readonly"/></td>
+	</tr>
+#end
+</tbody></table>
+<!--
+<div class="applicant-footer">
+<b>填报人：</b><input type="text" name="informant" value="$!{form.informant}" $!{readonly}/>
+<b>联系电话：</b><input type="text" name="contact" value="$!{form.contact}" $!{readonly}/>
+<b>上报时间：</b><input type="text" name="reportingAt" value="$!{form.reportingAt}" id="reportingAt" $!{readonly}/>
+</div>
+-->
+<div class="applicant-remark">
+	<div class="applicant-remark-title"></div>
+	<div>
+		<div class="applicant-remark-item"></div>
+	</div>
+</div>

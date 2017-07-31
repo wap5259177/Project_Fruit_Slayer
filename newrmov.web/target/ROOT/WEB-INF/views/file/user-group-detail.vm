@@ -1,0 +1,117 @@
+<div id="$di.id" title="用户管理" style="padding:8px;width:700px;height:350px" buttons="#${di.id}-buttons" modal='true'>
+#if($!{reportable})
+#else
+	<div>
+		<table style="padding:0px;margin:0px;background:#">
+			<tr>
+				<th>用户组名:</th>
+				<td><input type="text" id='sug_groupname' value='$groupname' readonly="readonly"/></td>
+				<th>备注:</th>
+				<td><input type="text" id='sug_remark' value='$remark' readonly="readonly"/></td>
+			</tr>
+		</table>
+	</div>
+#end
+	
+	<table id='file_share'></table>
+	<table id='file_share' class="applicant-form style="width:100%;" cellpadding="2" cellspacing="0" border="1">
+		<th>登录名</th>
+		<th>用户名</th>
+		<th>身份</th>
+		<th>状态</th>
+		<tbody id='user_group'>
+			#foreach($accounts in $accounts)
+				<tr>
+					<td>$accounts.loginName</td>
+					<td>$accounts.name</td>
+					
+					#if($accounts.flag == "ADMIN")
+						<td>管理员</td>
+						
+					#elseif($accounts.flag == "USER")
+						<td>普通用户</td>
+					#end
+					
+					
+						#if($accounts.status == 1)
+							<td>正常</td>
+						#else
+							<td>未启用</td>
+						#end
+					
+				</tr>
+			#end
+		</tbody>
+	</table>
+</div>
+<div id="${di.id}-buttons">
+
+		<a href="#" id='a_close'>关闭</a>
+	
+	
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_save, #a_close, #share_dg_btnSearch').bupabutton({flat : true});
+	jQuery('#a_close').click(function() {
+		jQuery('#${di.id}').bupdlg('close');
+		#if(${gridid})
+			fn_reload_dg_condition(); // 目录文档 菜单上的列表刷新
+		#end
+		return false;
+	});
+	
+	
+	jQuery('#share_dg_btnSearch').click(function() {
+		jQuery("#file_share").bupgrid('reload', {
+			searchName : jQuery('#dg_searchName').val(), 
+			searchLoginName : jQuery('#searchLoginName').val(),
+			hasPrivileges : jQuery('#searchHasPrivileges').val()
+		});
+		return false;
+	});
+	
+	jQuery('#a_save').click(function() {
+		var _actions = '';
+		
+		//getChecked
+		var its = jQuery('#file_share').bupgrid("getChecked");
+		jQuery.each(its, function(i, o){
+			_actions += o.id + ",";
+		});
+
+		//alert(_actions);
+
+		
+		jQuery.ajax({
+	    	url : 'privileges.save',
+	    	type : 'post',
+	    	data : {id : '$!{id}', actions : _actions},
+	    	success : function(rd) {
+	    		if (typeof rd === "string")
+					rd = $.parseJSON(rd); 
+				if(rd.error){
+					$.bupmsg.alert('提示', rd.msg, 'error');
+					return;
+				}
+				alert('保存成功！');
+				jQuery('#${di.id}').bupdlg('close');
+			}
+	    });	
+	   /* $.post(
+	    	"privileges.save",
+	    	{
+	    		id : $!{id}, 
+	    		actions : _actions
+	    	},
+	    	function(data){
+	    		alert('ok');
+	    	}
+	    );*/
+	    
+	});
+});
+
+
+</script>

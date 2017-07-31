@@ -1,0 +1,52 @@
+
+<div id='show-ac' >
+	
+	<div class='ma_icon' >
+		<a href='#' onclick='proInfo();'>项目详细信息</a>
+	</div>
+	<div class='ma_icon' >
+		<a href='#' onclick='proReport();'>项目月报</a>
+	</div>
+	<div class='ma_icon' >
+		<a href='#' onclick='proPic();'>项目图片</a>
+	</div>
+</div>
+
+
+
+<style type="text/css">
+	.ma_icon{
+		border:1px solid red;
+		float:left;
+		width:100px;
+		height:100px;
+		margin:20px 50px;
+		vertical-align:middle;
+	}
+</style>
+
+<script type='text/javascript'>
+	$(function(){
+		//alert('d');
+	});
+	
+	//项目详细信息
+	function proInfo(){
+		$('#show_ac').html('');
+		$("#show_area").load("project.info",{proId:$!{proId}});
+	}
+	
+	//项目月报
+	function proReport(){
+		$('#show_ac').html('');
+		$("#show_area").load("project.report",{proId:$!{proId}});
+	}
+	
+	//项目图片
+	function proPic(){
+		$('#show_ac').html('');
+		$("#show_area").load("project.pic",{proId:$!{proId}});
+	}
+	
+	
+</script>

@@ -1,0 +1,22 @@
+td.day {
+	cursor: pointer;
+	//cursor: default;
+	font-size: 12px;
+}
+td.selectedDay {
+	background-image: url(/res/images/holiday.png);
+	background-repeat: no-repeat;
+	background-position: top right; // center center
+}
+td.personalHoliday {
+	background-image: url(/res/images/windmill.png);
+	background-repeat: no-repeat;
+	background-position: top left;
+}
+td.schedule {
+	background-image: url(/res/images/detail.png);
+	background-repeat: no-repeat;
+	background-position: bottom left;
+}
+.item-open2 {background:url(images/open.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}
+.item-close2{background:url(images/close.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}

@@ -1,0 +1,16 @@
+<tr>
+	<th rowspan='2' data-settings="chalign:'center',field:'cityCountyMaName'" width="170">示范片名称</th>
+    <th colspan='7' data-settings="chalign:'center'" width="70">建设资金筹措(万元)</th>
+    <th rowspan='2' data-settings="chalign:'center',field:'invested'" width="70">已投入资金(万元)</th>
+    
+</tr>   
+   
+<tr>
+	<th  data-settings="chalign:'center',field:'totalFunds'" width="70">总计</th>
+	<th  data-settings="chalign:'center',field:'provinceFunds'" width="70">省级</th>
+	<th  data-settings="chalign:'center',field:'cityFunds'" width="70">市级</th>
+	<th  data-settings="chalign:'center',field:'countyFunds'" width="70">县级</th>
+	<th  data-settings="chalign:'center',field:'socialFunds'" width="70">社会团体</th>
+	<th  data-settings="chalign:'center',field:'massFunds'" width="70">群众集资</th>
+	<th  data-settings="chalign:'center',field:'otherFunds'" width="70">其他</th>
+</tr>

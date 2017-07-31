@@ -1,0 +1,37 @@
+<div id='${fo.id}'>
+	$screen_content
+</div>
+<div id='toolbar-${fo.id}' style='width:100%;text-align:center;'>
+	$!{fo.html}
+</div>
+$!{fo.includes}
+<script type="text/javascript">
+	$!{fo.script}
+	jQuery(function(){//由后台自动生成代码部分
+		jQuery('#toolbar-${fo.id} a').bupabutton({flat : true});
+		$!{fo.block}
+	});
+	function btn_${fo.id}_click(){
+		var title = this.href;
+		jQuery('#${fo.id} form').bupform('submit', {
+			url : this.href,
+			onSubmit : function() {
+				if (jQuery(this).bupform('validate')) {
+					lock('正在' + title + '数据...');
+					return true;
+				}
+				return false;
+			},
+			success : function(rd) {
+				$.unblockUI();
+				if (typeof rd === "string") rd = eval('(' + rd + ')');
+				if (rd.error) {
+					$.bupmsg.alert('提示', rd.msg, 'error');
+				}else{
+					alert(title + '成功!');
+				}
+			}
+		});
+		return false;
+	}
+</script>

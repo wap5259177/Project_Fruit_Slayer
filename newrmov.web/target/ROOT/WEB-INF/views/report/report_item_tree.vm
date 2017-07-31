@@ -1,0 +1,28 @@
+<table id="report_item_treegrid"></table>
+<script type="text/javascript">
+jQuery(function() {
+    jQuery('#report_item_treegrid').buptreegrid({
+        title:'详细',
+        iconClassname:'icon_ok',
+        width:730,
+        height:260,
+        showRownum: true,
+        animate:true,
+        collapsible:true,
+        fitColumns:true,
+        url:'/s/report/item/tree?report_id=' + '$!{id}',
+        method: 'get',
+        idField:'id',
+        treeField:'name',
+        showFooter:true,
+        showPagebar:true,
+        columns:[[
+            {field:'name',title:'名称',width:180},
+            {field:'type',title:'文件类型',width:60},
+            {field:'length',title:'文件大小',width:80},
+            {field:'operator',title:'操作人',width:80},
+            {field:'operateAt',title:'操作时间',width:120}
+        ]]
+    });
+});
+</script>

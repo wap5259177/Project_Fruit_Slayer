@@ -1,0 +1,47 @@
+
+#foreach($it in $items)
+	<tr>
+		<td>$!{it.batch}</td>
+		<td>$!{it.name}</td>
+		
+		<td>$!{it.Stp}</td>
+		<td>$!{it.Fp}</td>
+		<td>$!{it.endp}</td>
+		
+		<td>$!{it.invest.totalFunds}</td>
+		<td>$!{it.invest.stateFunds}</td>
+		<td>$!{it.invest.specialFunds}</td>
+		<td>$!{it.invest.provinceFunds}</td>
+		<td>$!{it.invest.cityFunds}</td>
+		<td>$!{it.invest.countyFunds}</td>
+		<td>$!{it.invest.socialFunds}</td>
+		<td>$!{it.invest.massFunds}</td>
+		<td>$!{it.invest.otherFunds}</td>
+		
+		
+		<!--
+		<td>$!{it.uncoreStp}</td>
+		<td>$!{it.uncoreFp}</td>
+		
+		<td>$!{it.uncoreInvest.totalFunds}</td>
+		<td>$!{it.uncoreInvest.stateFunds}</td>
+		<td>$!{it.uncoreInvest.specialFunds}</td>
+		<td>$!{it.uncoreInvest.provinceFunds}</td>
+		<td>$!{it.uncoreInvest.cityFunds}</td>
+		<td>$!{it.uncoreInvest.countyFunds}</td>
+		<td>$!{it.uncoreInvest.socialFunds}</td>
+		<td>$!{it.uncoreInvest.massFunds}</td>
+		<td>$!{it.uncoreInvest.otherFunds}</td>
+		-->
+	</tr>
+#end
+
+<script>
+	$(function(){
+		$("#t_pro_invest tbody tr").click(function(){
+			$("#t_pro_invest tbody tr").attr('style','text-align:center');
+			$(this).attr("style","background-color:#99ccff;text-align:center");
+		});
+	});
+
+</script>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/task 
+        http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+	<context:property-placeholder location="classpath:global.properties" ignore-unresolvable="true"/>
+
+   	<context:property-placeholder location="classpath:server-mysql.properties" ignore-unresolvable="true"/> 
+
+<!--     
+    <context:property-placeholder location="classpath:remote-mysql.properties" ignore-unresolvable="true"/> 
+ -->
+	<!-- 
+	<context:property-placeholder location="classpath:local-mysql.properties" ignore-unresolvable="true"/>
+	  -->
+    <bean id="fileManager" class="cn.bonoon.kernel.io.StandardFileManager">
+    	<!-- <property name="baseDirectory" value="${upload.file.path}"></property> -->
+    </bean> 
+    
+    <bean id="autoManager" class="cn.bonoon.handler.impl.StandardAutoManager" /> 
+    <bean id="serverMonitor" class="cn.bonoon.handler.impl.StandardServerMonitor"/> 
+	<bean id="accountRecycleHandler" class="cn.bonoon.handler.impl.AccountRecycleHandlerImpl"/>
+    <bean id="passwordVerify" class="cn.bonoon.handler.impl.PasswordVerifierImpl"/>  
+    <!-- <bean id="loginNameVerifier" class=" cn.bonoon.handler.impl.LoginNameVerifierImpl"/> -->
+	
+	
+	<context:annotation-config />
+	<import resource="applicationContext-jpa-datasource.xml" />
+	
+	<!--实现 -->
+	<context:component-scan base-package="cn.bonoon.services" />
+	<!-- <service-config base-package="cn.bonoon.core" impl-package="cn.bonoon.services"/> -->
+
+	<!-- 开启这个配置，spring才能识别@Scheduled注解   -->  
+	<!-- <task:annotation-driven /> -->
+    <!-- <task:annotation-driven scheduler="qbScheduler" mode="proxy"/>  
+    <task:scheduler id="qbScheduler" pool-size="10"/>  --> 
+	<!-- 服务器刷新 -->
+	<task:scheduled-tasks>
+        <task:scheduled ref="serverMonitor" method="monitor" cron="0 0/30 * * * ?"/>   
+	</task:scheduled-tasks>
+    
+	<import resource="applicationContext-security.xml" />
+	<import resource="applicationContext-kernel.xml" />
+</beans>

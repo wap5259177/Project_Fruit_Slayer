@@ -1,0 +1,15 @@
+#set($layout="layout-empty.vm")
+$!{privileges}
+
+<script>
+jQuery(function() {
+	jQuery("a[name='privileges_allsel']").click(function() {
+		var privileges_class = jQuery(this).attr('class');
+		jQuery("input[class^='"+privileges_class+"']").attr('checked', true);
+	});
+	jQuery("a[name='privileges_cancel']").click(function() {
+		var privileges_class = jQuery(this).attr('class');
+		jQuery("input[class^='"+privileges_class+"']").attr('checked', false);
+	});
+});
+</script>

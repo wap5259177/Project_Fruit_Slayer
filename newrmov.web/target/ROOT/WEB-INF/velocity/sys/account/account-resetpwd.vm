@@ -1,0 +1,90 @@
+<div id="$di.id" title="重置密码" style="width:500px;height:420px;padding:12px;" buttons="#${di.id}-buttons" modal='true'>
+<form id='form_resetpwd' method='post'>
+<input type='hidden' value='$!{id}' name='id'/>
+<table class='editor' style="margin:auto;">
+	<tr><td colspan='2' style='text-align:center;'>
+		<b style='color:blue;font-size:16px;'>$!{name}(登录名：$!{loginName})</b>
+	</td></tr>
+	<tr><th width="100px;">密码生成策略：</th><td>
+		<select id='ploy' id="ploy" name='ploy'>
+			<option value='0'>直接输入</option>
+			<option value='1'>随机生成</option>
+		</select>
+	</td></tr>
+	<tr><th>密码：</th><td>
+		<input type="password" style='width:93%;' id='pwd' name='pwd' placeholder="请输入新密码"/>
+	</td></tr>
+	<tr><th>确认密码：</th><td>
+		<input type="password" style='width:93%;' id='repwd' name='repwd' placeholder="请输入确认密码"/>
+	</td></tr>
+	<tr><th></th><td>
+		<input type="checkbox" id='enforce' name='enforce'/>
+		<label for='enforce'>强制登录时修改密码</label>
+	</td></tr>
+	<tr><th>邮件通知：</th><td>
+		<input type="text" style='width:93%;' id='email' name='email' placeholder="需要发送邮件通知时填写"/>
+	</td></tr>
+	<tr><th>短信通知：</th><td>
+		<input type="text" style='width:93%;' id='phone' name='phone' placeholder="需要发送手机短信通知时填写"/>
+	</td></tr>
+</table>
+</form>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_resetpwd_save' onclick="btn_save();">提交</a> 
+<a href="#" id='a_resetpwd_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+function btn_save() {
+	jQuery('#form_resetpwd').bupform('submit', {
+		url : 'pwd!save.b',
+		onSubmit : function() {
+			if (jQuery(this).bupform('validate')) {
+				lock('正在保存新密码...');
+				return true;
+			}
+			return false;
+		},
+		success : function(rd) {
+			callbackMessage(rd, function(da){
+				alert("用户$!{loginName}密码修改为 " + da["data"] + " ，请牢记密码！");
+				jQuery('#${di.id}').bupdlg('close');
+			});
+		}
+	});
+}
+jQuery(function(){
+	jQuery('#a_resetpwd_save, #a_resetpwd_close').bupabutton({flat : true});
+	jQuery("#ploy").bind("change", function(){
+		if(this.value==0){
+			jQuery("#pwd,#repwd").removeAttr("disabled");
+		}else{
+			jQuery("#pwd,#repwd").attr("disabled", "true");
+			jQuery("#pwd,#repwd").val("");
+		}
+	});
+	jQuery("#pwd").bupvalidator({
+		required:true,
+		validType:"password"
+	});
+	jQuery("#repwd").bupvalidator({
+		required:true, 
+		validType:"equals['#pwd']"
+	});
+	jQuery.extend(jQuery.fn.bupvalidator.defaults.rules, {   
+	    equals: {   
+	        validator: function(value,param){   
+	            return value == jQuery(param[0]).val();   
+	        },   
+	        message: '确认密码不正确！'  
+	    },
+	    password: {
+	        validator: function(value){   
+	            return /$!{pattern}/.test(value);   
+	        },   
+	        message: '$!{patternException}' 
+	    }
+	});  
+});
+</script>

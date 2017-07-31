@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>$!{title}</title>
+	<style type="text/css">
+		* {margin:0; padding:0;}
+		body{background:#fff url("#springUrl('/res/images/bodybg.jpg')") repeat-x;}
+		body,html{height:100%; overflow:hidden;}
+		.wrap {position:relative; top:20%;}
+		.main_body {
+			background:url("#springUrl('/res/images/mbg.png')") 0 8px repeat-x;
+			padding-left:150px;
+			width:100%;
+		}
+		.main_content {
+			height:286px;
+			width:330px;
+			background:url("#springUrl('/res/images/center_bg.png')") 14% 0 no-repeat;
+		}
+		.content-message{float:right;}
+		.loginBox {
+			background:url("#springUrl('/res/images/userlogin.png')") 20% 12% no-repeat;
+			height:286px;
+			color:#666666;
+			font-family:宋体;
+			font-size:12px;
+			padding:75px 0 0 40px;
+		}
+	</style>
+	<script type="text/javascript" src="#springUrl('/res/js/jquery.min.js')"></script>
+</head>
+<body>
+	<div class='wrap'>
+		<table class='main_body' border='0' cellpadding='0' cellspacing='0'>
+			<tr><td style='width:400px;'>
+				<div class='main_content'>
+					<div class='loginBox'>$!screen_content</div>
+				</div>
+			</td>
+			<td>
+				<p style='height:100px;font-size:25px;'><img src="#springUrl($!{logo})"/><b>$!{name}</b></p>
+				<div id='login-tooltip'></div>
+			</td></tr>
+		</table>
+		<div style='padding:30px 0 40px 20px;font: 12px/1.5 tahoma,arial,宋体;'>
+			如果您使用的IE浏览器版本低于7.0，或您使用的Firefox浏览器版本低于20，别担心，以下是我们为您提供的常用浏览器下载：
+			<font color="#333333"><a target="_blank" href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie">IE8下载</a></font>
+			<font color="#333333"><a target="_blank" href="http://firefox.com.cn/">Firefox下载</a></font>
+		</div>
+		<div style='text-align: center;width:100%;color:#808080;font: 12px/1.5 tahoma,arial,宋体;'>$!{foot}</div>
+	</div>
+</body>
+</html>

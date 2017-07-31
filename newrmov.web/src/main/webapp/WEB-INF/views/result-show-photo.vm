@@ -1,0 +1,72 @@
+<div id="$di.id" title="风貌展示" style="padding:12px;width:1200px;height:750px;" buttons="#${di.id}-buttons" modal='true'>
+<style>
+#dlg_timeline {
+	width: 130px;
+	height: 600px;
+	overflow: hidden;
+	margin: 40 auto;
+	position: relative;
+	background: url("/res/js/jQueryTimelinr/images/dot.gif") repeat-y scroll 3px top rgba(0, 0, 0, 0);
+}
+#dlg_dates {
+	width: 200px;
+	height: 600px;
+	overflow: hidden;
+	float: left;
+}
+#dlg_dates li {
+	list-style: outside none none;
+	width: 100px;
+	height: 150px;
+	padding-left: 10px;
+	line-height: 150px;
+	font-size: 24px;
+	text-align: center;
+	background: url("/res/js/jQueryTimelinr/images/biggerdot.png") no-repeat scroll left center rgba(0, 0, 0, 0);
+}
+#dlg_dates a {
+	line-height: 38px;
+	padding-bottom: 10px;
+	
+    text-decoration: none;
+    transition: all 0.5s ease 0s;
+}
+#dlg_dates .selected {
+    font-size: 38px;
+}
+
+</style>
+<div>
+<table>
+<tr>
+<td width='130px' style='padding-left:30px;'>
+	<div id="dlg_timeline">
+		<ul id="dlg_dates">
+			<li><a class='tl_dates' href="#tl_2015-2-2">2015-2-2</a></li>
+			<li><a class='tl_dates' href="#tl_2015-5-6">2015-5-6</a></li>
+			<li><a class='tl_dates' href="#tl_2015-7-8">2015-7-8</a></li>
+			<li><a class='tl_dates' href="#tl_2015-9-10">2015-9-10</a></li>
+			<li><a class='tl_dates' href="#tl_2016-3-18">2015-7-8</a></li>
+			<li><a class='tl_dates' href="#tl_2017-2-20">2015-9-10</a></li>
+		</ul>
+	</div>
+</td>
+<td>
+	<div>
+		$!{_photo_show}
+	<div>
+</td>
+</tr>
+</table>
+
+</div>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='close_dlg_1' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery('#close_dlg_1').bupabutton({flat : true});
+});
+</script>

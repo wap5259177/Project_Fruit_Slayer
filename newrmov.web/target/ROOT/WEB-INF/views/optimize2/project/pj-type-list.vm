@@ -1,0 +1,184 @@
+<ul style="list-style-type:none;" id='_urus'>
+	<li style='padding:5px 50px 10px 6px ;' >
+		#if($pjs && $pjs.size()>0)
+		<a id='pj_gner'  href='#' onclick='pjGner();' title='概况'><div class='hide-nowrap' style='width:4em;'>&nbsp&nbsp&nbsp概况&nbsp&nbsp</div></a>
+		#else
+			<span style='color:red;'>无</span>
+		#end
+	</li>
+	<!--全部项目
+	<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 '>工程项目</p>
+	<div style='display:none;'>
+		#foreach($it in $pjs)
+			<li style='padding:5px 50px 20px 5px ;'>
+				<a id='pj_$it[0]' href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+			</li>
+		#end
+	</div>
+	-->
+	#if($pjs1)
+	<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 '>规划设计</p>
+	<div style='display:none;'>
+		#foreach($it in $pjs1)
+			<li style='padding:5px 50px 20px 5px ;'>
+				<a id='pj_$it[0]' href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+			</li>
+		#end
+	</div>
+	#end
+	
+	#if($pjs2)
+	<p id='renv' title='村庄环境整治（垃圾、污水处理等）' href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 'style='white-space: nowrap;width: 8em;overflow: hidden;text-overflow: ellipsis;'>村庄环境整治（垃圾、污水处理等）</p>
+	<div style='display:none;'>
+		#foreach($it in $pjs2)
+			<li style='padding:5px 50px 20px 5px ;'>
+				<a id='pj_$it[0]' href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+			</li>
+		#end
+	</div>
+	#end
+	
+	#if($pjs3)
+	<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 '>村居外立面整治</p>
+	<div style='display:none;'>
+		#foreach($it in $pjs3)
+			<li style='padding:5px 50px 20px 5px ;'>
+				<a id='pj_$it[0]' href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+			</li>
+		#end
+	</div>
+	#end
+	
+	#if($pjs4)
+	<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 '>旧村旧房改造</p>
+	<div style='display:none;'>
+		#foreach($it in $pjs4)
+			<li style='padding:5px 50px 20px 5px ;'>
+				<a id='pj_$it[0]' href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+			</li>
+		#end
+	</div>
+	#end
+	
+	#if($pjs5)
+	<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 '>文化传承保护</p>
+	<div style='display:none;'>
+		#foreach($it in $pjs5)
+			<li style='padding:5px 50px 20px 5px ;'>
+				<a id='pj_$it[0]' href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+			</li>
+		#end
+	</div>
+	#end
+	
+	#if($pjs6)
+	<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 '>美化绿化建设</p>
+	<div style='display:none;'>
+		#foreach($it in $pjs6)
+			<li style='padding:5px 50px 20px 5px ;'>
+				<a id='pj_$it[0]' href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+			</li>
+		#end
+	</div>
+	#end
+	
+	#if($pjs7)
+	<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 '>基础设施建设</p>
+	<div style='display:none;'>
+		#foreach($it in $pjs7)
+			<li style='padding:5px 50px 20px 5px ;'>
+				<a id='pj_$it[0]' href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+			</li>
+		#end
+	</div>
+	#end
+	
+	#if($pjs8)
+	<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 '>连线工程项目</p>
+	<div style='display:none;'>
+		#foreach($it in $pjs8)
+			<li style='padding:5px 50px 20px 5px ;'>
+				<a id='pj_$it[0]' href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+			</li>
+		#end
+	</div>
+	#end
+	
+	#if($pjs9)
+	<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 '>道路硬底化项目</p>
+	<div style='display:none;'>
+		#foreach($it in $pjs9)
+			<li style='padding:5px 50px 20px 5px ;'>
+				<a id='pj_$it[0]' href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+			</li>
+		#end
+	</div>
+	#end
+	
+	#if($pjs10)
+	<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 '>村村通自来水项目</p>
+	<div style='display:none;'>
+		#foreach($it in $pjs10)
+			<li style='padding:5px 50px 20px 5px ;'>
+				<a id='pj_$it[0]' href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+			</li>
+		#end
+	</div>
+	#end
+	
+	#if($pjs11)
+	<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 '>卫厕改造项目</p>
+	<div style='display:none;'>
+		#foreach($it in $pjs11)
+			<li style='padding:5px 50px 20px 5px ;'>
+				<a id='pj_$it[0]' href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+			</li>
+		#end
+	</div>
+	#end
+	
+	#if($pjs12)
+	<p href='#' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle(); " class='item-open2 '>其他</p>
+	<div style='display:none;'>
+		#foreach($it in $pjs12)
+			<li style='padding:5px 50px 20px 5px ;'>
+				<a id='pj_$it[0]' href='#' onclick='pjClick($it[0]);' title='$it[1]' ><div class='hide-nowrap' style='width:10em;'>$!{velocityCount}.$it[1]</div></a>
+			</li>
+		#end
+	</div>
+	#end
+</ul>
+
+<style>
+	
+	#div_gner a {
+		display:block;
+		
+		padding:4px 10px;
+		//background:#3A4953;
+		background: #e0f0e9 ;//88ada6 ,f3f9f1 茶百  
+		color:#fff;
+		//color:green;
+		text-decoration:none;
+		//border-right:1px solid #000;//右边框线
+	}
+	/*鼠标移动到链接上显示的颜色,背景颜色*/
+	#div_gner a:hover {
+		background:#146C9C;
+		color:#fff;
+		text-decoration:none;
+		//border-right:1px solid #000;
+	}
+</style>
+
+<script>
+	function pjGner(){
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load('pjGener.do?id=$ma.id',function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+		$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
+		$('#pj_gner').attr('style','color:white;background:#146C9C;');
+	}
+</script>

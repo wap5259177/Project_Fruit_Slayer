@@ -1,0 +1,131 @@
+﻿<style type='text/css'> 
+	.ztcjs{      
+                                border-collapse:collapse;
+		word-break: break-all; 
+		word-wrap: break-word;   
+                               margin-bottom:10px;
+		<!--font-size:12px;--> 
+                            
+	} 
+               .ztcjs td{border:#bbb 2px solid;padding:5px 10px;color: #404040;}
+               .ztcjs td input,.ztcjs td textarea{width:90%;border:none;}
+
+ <!--固定table宽度显示控制-->
+</style> 
+
+<!--
+<table class=' editor' style="width:750px;margin: auto;">
+		<tr>
+			<th class="tdRight" rowspan="2">拆除危、旧、弃房情况</th>
+			<th class="tdRight" rowspan="">间数</th>
+			<td><input type='text' id='' name=''/></td>
+			<th class="tdRight" rowspan="">面积（平方米）</th>
+			<td><input type='text' id='' name=''/></td>
+		</tr>
+		
+</table>
+-->
+<table class="ztcjs">
+                          <tbody>
+		 <tr style="background-color: #f5f5f5;">
+		    <td colspan="2" style="background-color: #bbb;">拆除危、旧、弃房情况</td>
+		    <td rowspan="2" style="width:120px;">清理垃圾数<br/>(吨)</td>
+		    <td rowspan="2" style="width:120px;">复绿面积<br/>(平方米)</td>
+		    <td rowspan="2" style="width:120px;">种植绿化树<br/>(颗)</td>
+		    <td rowspan="2" style="width:120px;">完成村、巷道<br/>硬底化数(公里)</td>
+                                </tr>
+                                <tr style="background-color: #f5f5f5;">
+                                    <td style="width:120px;">间数</td>
+		    <td style="width:120px;">面积(平方米)</td>
+                                </tr>
+                                <tr>  
+
+                                    <td><input class='number bupnuminput-0' type='text' id='dismantleOldHouseNum' name='dismantleOldHouseNum' value='$!{item.dismantleOldHouseNum}'/></td>
+		    <td><input class='number' type='text' id='dismantleOldHouseArea;' name='dismantleOldHouseArea' value='$!{item.dismantleOldHouseArea}'/></td>
+		    <td><input class='number' type='text' id='cleanRubbish' name='cleanRubbish' value='$!{item.cleanRubbish}'/></td>
+		    <td><input class='number' type='text' id='greenArea' name='greenArea' value='$!{item.greenArea}'/></td>
+		    <td><input class='number bupnuminput-0' type='text' id='afforestationTree' name='afforestationTree' value='$!{item.afforestationTree}'/></td>
+		    <td><input class='number' type='text' id='hardRoad' name='hardRoad' value='$!{item.hardRoad}'/></td>
+
+                                </tr>
+                                <tr  style="background-color: #f5f5f5;">
+		    <td>完成卫生改<br/>厕数(个)</td>
+		    <td>完成民居外立<br/>面改造数(户)</td>
+		    <td>铺设雨污分流<br/>管网(公里)</td>
+		    <td>建设污水处理<br/>设施(座)</td>
+		    <td>铺设自来水管<br/>(公里)</td>
+		    <td>备注</td>
+                                </tr>
+	                <tr>
+
+                                    <td><input class='number bupnuminput-0' type='text' id='completeToilet' name='completeToilet' value='$!{item.completeToilet}'/></td>
+		    <td><input class='number bupnuminput-0' type='text' id='completeFacade' name='completeFacade' value='$!{item.completeFacade}'/></td>
+		    <td><input class='number' type='text' id='rainShunt' name='rainShunt' value='$!{item.rainShunt}'/></td>
+		    <td><input class='number bupnuminput-0' type='text' id='sewageTreatment' name='sewageTreatment' value='$!{item.sewageTreatment}'/></td>
+		    <td><input class='number' type='text' id='tapWater' name='tapWater' value='$!{item.tapWater}'/></td>
+		    <td><input  type='text' id='remark' name='remark' value='$!{item.remark}'/></td>
+
+                                </tr>
+            
+
+	</tbody>
+</table>
+<div>
+#if($reportable)
+                                          
+		#end
+		#if($item.status == 3)
+		<table class="ztcjs"><tbody>
+		          <tr>
+		<td  colspan="4" style="width:750px;font-weight:bold;font-size:16px;">审核信息：<span  style="color:red;">驳回</span></td></tr>
+
+		<tr>
+			<td  rowspan="2"  class="tdRight">驳回原因：</td>
+	<td  rowspan="2" ><textarea name="auditContent" readonly="readonly" style="resize:none;font-weight:bold;color:red;">$!{item.auditContent}</textarea></td>
+
+                <td class="tdRight">审核人：</td>
+			<td><input type="text" value="$!{item.auditName}" readonly="readonly"/></td>
+		</tr>
+
+			<tr>
+			<td class="tdRight">审核时间：</td>
+			<td><input  type="text" value="$!{item.auditAt}" readonly="readonly"/></td>
+		                </tr>
+		</table>
+		#elseif($item.status == 1)
+		<table class="ztcjs"><tbody><tr>
+		<td  colspan="4" style="width:750px;font-weight:bold;font-size:16px;">审核信息：<span style="color:blue;">审核通过</span></td></tr>
+			#if(${item.auditContent})
+				<tr>
+					<td  rowspan="2" class="tdRight">审核内容：</td>
+			<td   rowspan="2"><textarea readonly="readonly" style="resize:none;color:red;font-weight:bold;">${item.auditContent}</textarea></td>
+				<td class="tdRight">审核人：</td>
+				<td><input type="text" value="$!{item.auditName}" readonly="readonly"/></td>
+				</tr>
+			#end
+			<tr>
+				<td class="tdRight">审核时间：</td>
+				<td><input  type="text" value="$!{item.auditAt}" readonly="readonly"/></td>
+			</tr>
+		#end
+
+</tbody></table>
+
+
+
+
+
+
+</div>
+
+
+
+<input type="hidden" name="id" value="${id}"/>
+<script>
+	jQuery(function(){
+		//alert('hhe');
+		//alert($("input").is(":hidden") );
+		$(".buptip").buptip();
+	});
+	
+</script>

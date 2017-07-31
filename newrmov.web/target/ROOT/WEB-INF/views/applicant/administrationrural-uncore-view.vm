@@ -1,0 +1,29 @@
+<div class="applicant-form-main" style='height:400px'>
+	<div class="applicant-form-title">连片示范建设工程非主体建设行政村情况表 </div>
+	#parse('applicant/administrationrural-uncore-info.vm')
+</div>
+
+<script type="text/javascript">
+jQuery(function(){
+ 	$("a.area_file_upload").bupabutton({
+		flat : true, 
+		iconClassname : 'icon-file-upload'
+	});
+	_initial();
+});
+function _initial(){
+    var v=jQuery('#leaderHP').val();
+    if(v-0==0){
+       jQuery('#leaderHP').val("");
+    }
+}
+</script>
+
+#if($readonly)
+
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery(".number").bupnuminput();
+});
+</script>
+#end

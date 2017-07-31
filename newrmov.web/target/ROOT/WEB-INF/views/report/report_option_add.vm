@@ -1,0 +1,152 @@
+## 选择添加
+<style type="text/css">
+.active{background:none repeat scroll 0 0 #99def5; }
+.hover {background:none repeat scroll 0 0 #eaf2ff; }
+</style>
+
+<div id="$di.id" title="上报文档 | 选择添加" style="width:750px;height:500px;padding:6px;" buttons="#${di.id}-buttons" modal='true'>
+<div style='text-align:center;vertical-align:middle;width:100%;height:100%;'>
+<table class='editor' style="margin:auto;width:100%;height:100%;">
+<tr>
+	<th style='width:50%;text-align:left;'>目录文档选择&nbsp;<font color="red">（提示：单击选项添加）</font></th>
+	<th style='width:50%;text-align:left;'>已添加文件&nbsp;<font color="red">（提示：单击选项移除）</font></th>
+</tr>
+<tr>
+	<td style='text-align:left;vertical-align:top;padding:5px;height:340px;'>
+		<input name="directory" id="directory" style='width:250px;'/>&nbsp;&nbsp;<a href="#" id='all_append'>全部添加</a> 
+		<div id="dir_file" style="overflow:auto;width:100%;height:100%;"></div>
+	</td>
+	<td style='text-align:left;vertical-align:top;padding:5px;height:340px;'>
+		&nbsp;<a href="#" id='all_remove'>全部移除</a> 
+		<div style="overflow:auto;width:100%;height:100%;"><table style='border:0;width:100%;' id='tb_file_added'></table></div>
+	</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_save' onclick="dg_save();">保存</a> 
+<a href="#" id='a_close' onclick="dg_close();">关闭</a>
+</div>
+
+<script type="text/javascript">
+var added_fids = new Array(); // 暂存已添加的文件实体id
+jQuery(function() {
+	jQuery('#a_save, #a_close, #all_append, #all_remove').bupabutton({flat : true});
+	jQuery('#directory').buptreecombo({
+	    require : true,
+	    url : "#springUrl('/s/file/managemant/directory/node')",
+	    onChange : function(newValue, oldValue) {
+	    	jQuery.ajax({
+		    	url : "#springUrl('/s/document/report/files/find')",
+		    	type : 'post',
+		    	data : {dir_id : newValue, added_fids : added_fids.join(',')},
+		    	success : function(rd) {
+		    		if (typeof rd === "string")
+						rd = $.parseJSON(rd);
+					if(rd.error){
+						$.bupmsg.alert('提示', rd.msg, 'error');
+						return;
+					}
+					// 加载显示目录下的文件，并绑定单击和悬停事件
+					jQuery('#dir_file').html(rd.data);
+					jQuery('#tb_dir_file .file_list').click(function() {
+						file_append(jQuery(this));
+						return false;
+					});
+					jQuery('#tb_dir_file .file_list').hover(
+						function () {
+							if (!jQuery(this).hasClass('active'))
+								jQuery(this).addClass("hover");
+						},
+						function () {
+							jQuery(this).removeClass("hover");
+						}
+					);
+				}
+		    });
+	    }
+	});
+	
+	jQuery('#all_append').click(function() {
+		jQuery("#tb_dir_file .file_list").each(function() {
+			file_append(jQuery(this));
+		})
+		return false;
+	});
+	jQuery('#all_remove').click(function() {
+		jQuery("#tb_file_added .file_list").each(function() {
+			file_remove(jQuery(this));
+		})
+		return false;
+	});
+	
+});
+
+function dg_save() {
+	jQuery.ajax({
+    	url : 'document/save_option',
+    	type : 'post',
+    	data : {item_id : jQuery('#id').val(), file_ids : added_fids.join(',')},
+    	success : function(rd) {
+    		if (typeof rd === "string")
+				rd = $.parseJSON(rd); 
+			if(rd.error){
+				$.bupmsg.alert('提示', rd.msg, 'error');
+				return;
+			}
+			dg_close();
+		}
+    });
+	return false;
+}
+function dg_close() {
+	$('#report_document').bupgrid("reload");
+	$('#${di.id}').bupdlg('close');
+}
+
+// 添加文件：1.往数组添加id；2.设置元素样式后克隆到右边；3.设置左边样式为已选；4.右边的元素绑定事件
+function file_append(e) {
+	var _name = e.attr('name');
+	var _id = _name.substr(4);
+	if (added_fids.indexOf(_id) == -1) {
+		added_fids.push(_id);
+		//e.css("background", "none repeat scroll 0 0 #eaf2ff");
+		e.addClass("hover");
+		var tr = e.parent();
+		jQuery('#tb_file_added').append(tr.clone());
+		//e.css("background", "none repeat scroll 0 0 #99def5");
+		e.removeClass("hover");
+		e.addClass("active");
+		
+		jQuery('#tb_file_added .file_list').click(function() {
+			file_remove(jQuery(this));
+			return false;
+		});
+	}
+}
+// 移除文件：1.把id从数组中移除；2.移除右边的元素；3.去掉左边元素的样式；
+function file_remove(e) {
+	var _name = e.attr('name');
+	var _id = _name.substr(4);
+	if (added_fids.indexOf(_id) != -1) {
+		added_fids.remove(_id);
+		e.parent().remove();
+		jQuery("#tb_dir_file").find("[name='"+_name+"']").removeClass("active");//[class='file_list'] .css("background", "none repeat scroll 0 0 #ffffff");
+	}
+}
+
+Array.prototype.indexOf = function(val) {
+	for ( var i = 0; i < this.length; i++) {
+		if (this[i] == val)
+			return i;
+	}
+	return -1;
+};
+Array.prototype.remove = function(val) {
+	var index = this.indexOf(val);
+	if (index > -1) {
+		this.splice(index, 1);
+	}
+};
+</script>

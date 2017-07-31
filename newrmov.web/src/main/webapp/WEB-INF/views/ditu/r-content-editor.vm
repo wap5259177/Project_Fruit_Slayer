@@ -1,0 +1,158 @@
+<script type="text/javascript" src="/res/js/jquery.form.js"></script>
+#set($layout="layout-empty.vm")
+
+<div style='padding:8px;'>
+<b>${rural_title}:</b><br/>
+<!--<input type="hidden" id='ruralPointid'/>-->
+<!--
+<span id="r_name">$!{rural.name}</span><br/>
+坐标:<br/><span id='lot_marker'></span>,<span id='lat_marker'></span><br/>
+村子描述信息:<br/><textarea id="r_desc">$!{ruralPoint.describe}</textarea><br/>
+上传村的宣传图片:<br/><input id="r_pic" type="file" value='$!{ruralPoint.picture}' />
+-->
+	<form id='file_form' enctype='multipart/form-data'>
+		<span id="r_name">$!{rural.name}</span><br/>
+		<input type='hidden' name='serchName' id='serchName'/>
+		<input type='hidden' name='title' id='rtitle'/>
+		<input type='hidden' name='id' id='rid'/>
+		
+		坐标:<br/><input id='lot_marker' name='lon' readonly='true'/>,<input id='lat_marker' name='lat' readonly='true'/><br/>
+		村子描述信息:<br/><textarea id="r_desc" name='describe'>$!{ruralPoint.describe}</textarea><br/>
+		上传村的宣传图片:<br/><input id="r_pic" name='picture' type="file" value='$!{ruralPoint.picture}' accept="image/*"/>
+	</form>
+<div style="padding-left:50px;">
+<a id="btn-r-c" href="javascript:;" class="bupabutton" onclick="saveRural($!{rural.id},'${map.name}','${rural.name}');">提交</a>
+</div>
+<hr/>
+</div>
+
+<script type="text/javascript">
+
+	jQuery(function(){
+		jQuery("#btn-r-c").bupabutton();
+		//ma_marker.setVisible(false);
+		marker.setVisible(true);//设置编辑的村子标注显示
+		//设置用来查看的图标为隐藏,因为一次编辑就对应一个标注.
+		for(i=0;i<n_marker.length;i++){
+			n_marker[i].setMap(null);
+		}
+		for(i=0;i<p_marker.length;i++){
+			p_marker[i].setMap(null);
+		}
+		
+		
+		
+		
+		
+		
+		
+		//判断是否创建了村子如果创建了村子,则直接用已经存有的经纬度解析,否则按照村子名称解析
+		#if(${ruralPoint})
+			rural_lat=${ruralPoint.point.latitude};
+			rural_lot=${ruralPoint.point.longitude};
+			//alert(rural_lat+','+rural_lot);
+			var latlon = new qq.maps.LatLng(rural_lat,rural_lot);
+			map.setCenter(latlon);
+			marker.setPosition(latlon);
+			
+			/*
+			$("#lat_marker").text(rural_lat);
+			$("#lot_marker").text(rural_lot);
+			*/
+			$("#lat_marker").val(rural_lat);
+			$("#lot_marker").val(rural_lot);
+		#else
+			var geocoder = new qq.maps.Geocoder({
+			    complete:function(result){
+			        map.setCenter(result.detail.location);
+		        	marker.setPosition(result.detail.location);
+			        //设置经度,纬度在界面显示
+			        rural_lot = result.detail.location.lng;
+			        rural_lat = result.detail.location.lat;
+			        
+			        /*
+			        $("#lat_marker").text(rural_lat);
+			        $("#lot_marker").text(rural_lot);
+			        */
+			        $("#lat_marker").val(rural_lat);
+			        $("#lot_marker").val(rural_lot);
+			    }
+			});
+			geocoder.setError(function(){
+				alert("哎呀,在地图上找不到该地址...");
+			});
+			geocoder.getLocation("$!{map.name},$!{rural.name}");
+		#end
+		
+		marker.setTitle("${rural_title}".substring(0,3));
+		if("${rural_title}"=='主体村名'){
+			marker.setIcon(n_markerImage);
+		}else{
+			marker.setIcon(p_markerImage);
+		}
+		marker.setVisible(true);
+		map.setZoom(15);
+	});
+	
+	//------------------------------------------------------------------------------
+		//村子提交
+		function saveRural(id,mname,rname){
+			//alert(rname);
+			var serch_name = mname+','+rname;
+			//var title = rname;
+			//var r_lon = $("#lot_marker").val();
+			//var r_lat = $("#lat_marker").val();
+			
+			//var r_desc = $("#r_desc").val();
+			//var r_pic = $("#r_pic").val();
+			//var r_id = id;
+			
+			$('#serchName').val(serch_name);
+			$('#rtitle').val(rname);
+			$('#rid').val(id);
+			
+			
+			
+			//alert(r_lon+','+ r_lat+','+r_desc+','+r_pic+','+r_id+','+serch_name+','+title);
+			/*
+			$.post(
+		    	"ruralcommit.do",        
+		    	{ 
+		    		serchName:serch_name,
+		    		title:title,
+		    		lon:r_lon,
+		    		lat:r_lat,
+		    		describe:r_desc,
+		    		picture:r_pic,
+		    		id:r_id
+		    	},
+	   			function(data){
+//	   				alert(data);
+			
+	   		});
+	   		*/
+	   		
+	   		
+	   		jQuery('#file_form').ajaxSubmit({
+	   			url:"ruralcommit.do",
+				type:'post',
+				dataType:'json',
+				success:function(data) {
+					if(data=='1'){
+						alert('保存村信息成功!');
+					}
+					if(data=='2'){
+						alert('更新村信息成功!');
+					}
+					if(data=='0'){
+						alert('系统错误!');
+					}
+					if(data=='3'){
+						alert('请上传图片!');
+					}
+				}
+   			});
+	   		
+		}
+</script>
+

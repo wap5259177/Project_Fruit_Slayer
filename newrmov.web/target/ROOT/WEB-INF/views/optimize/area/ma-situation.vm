@@ -1,0 +1,106 @@
+<table class='applicant-form'>
+		<tr>
+			<td class="tdRight">示范片名称[A12]：</td>
+			<td colspan='2'><input readonly='readonly' type='text' name='cityName' value='$!{form.cityName}' maxlength='8' />市<input readonly='readonly' value='$!{form.county}' name='county' type='text' maxlength='8' />县示范片</td>
+			<td rowspan='2'>台账编码：&nbsp;$!{form.code}</td>
+		</tr>
+		<tr>
+			<td class="tdRight" class="tdRight">建设主题名称[A13]：</td>
+			<td colspan='2'><input type='text' name='themeName' value='$!{form.themeName}' style='width:200px;text-align:left;'  $!{readonly}/></td>
+		</tr>
+		<tr>
+			<td class="tdRight">报备年度[A14]：</td>
+			<td>
+				#if($readonly)
+					<input style="text-align:center" id="reportAnnual" type='text' value='$!{form.reportAnnual}' name='reportAnnual' maxlength='8' $!{readonly} />
+				#else
+				<select id='reportAnnual' name='reportAnnual'>
+					<option value="2014" #if($form.reportAnnual == '2014')selected='selected'#end>2014</option>
+					<option value="2015" #if($form.reportAnnual == '2015')selected='selected'#end>2015</option>
+					<option value="2016" #if($form.reportAnnual == '2016')selected='selected'#end>2016</option>
+				</select>
+				#end
+			年</td>
+			<td class="tdRight">批次[A15]：</td>
+			<td>第
+				#if($readonly)
+					<input type='text' value='$!{form.batch}' name='batch' style='width:30px;text-align:center;' ${readonly}/>
+				#else
+				<select id='select_id' name="batch">
+			        <option value="一" #if($form.batch == '一')selected='selected'#end>一</option>
+			        <option value="二" #if($form.batch == '二')selected='selected'#end>二</option>
+			        <option value="三" #if($form.batch == '三')selected='selected'#end>三</option>
+				</select>
+				#end
+			批</td>
+		</tr>
+		<tr>
+			<td class="tdRight">主体村个数[A16]：</td>
+			<td><input class="number" id="sumMAdmin" type='text' name='sumMAdmin' value='$!{form.sumMAdmin}' min="0" precision="0" maxlength='8' $!{readonly} />个<span style="font-size:16px;color:red">[行政村]</span></td>
+			<td class="tdRight">其中自然村个数：</td>
+			<td><input class="number" id="sumMRural" type='text' name='sumMRural' value='$!{form.sumMRural}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+		</tr>
+		<tr>
+			<td class="tdRight">非主体村个数[A17]：</td>
+			<td><input class="number" id="sumArAdmin" type='text' name='sumArAdmin' value='$!{form.sumArAdmin}' min="0" precision="0" maxlength='8' $!{readonly} />个<span style="font-size:16px;color:red">[行政村]</span></td>
+			<td class="tdRight">其中自然村个数：</td>
+			<td><input class="number" id="sumArRural" type='text' name='sumArRural' value='$!{form.sumArRural}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+		</tr>
+		<tr>
+			<td class="tdRight">覆盖乡镇数[A18]：</td>
+			<td colspan='3'><input  class="number" id="coverTown" type='text' name='coverTown' value='$!{form.coverTown}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+		</tr>
+		<tr>
+			<td rowspan='2' class="tdRight">示范片面积[A19]：</td>
+			<td class="tdRight" style="width:120px">主体建设村：</td>
+			<td colspan='2'><input  class="number" id="mainAreaAcreage" type='text' name='mainAreaAcreage' value='$!{form.mainAreaAcreage}' min="0" precision="2" maxlength='8' $!{readonly} />平方公里</td>
+		</tr>
+		<tr>
+			<td class="tdRight">非主体建设村：</td>
+			<td colspan='2'><input  class="number" id="aroundAreaAcreage" type='text' name='aroundAreaAcreage' value='$!{form.aroundAreaAcreage}' min="0" precision="2" maxlength='8' $!{readonly} />平方公里</td>
+		</tr>
+		
+		#if($readonly)
+			<tr>
+				<td rowspan='2' class="tdRight">总户数[A20]：</td>
+				<td class="tdRight">主体建设村：</td>
+				<td colspan='2'><input  class="number" id="mainSumHouse" type='text' name='mainSumHouse' value='$!{form.mainSumHouse}' min="0" precision="0" maxlength='8' $!{readonly} disabled="none"/>户<span style="font-size:16px;color:red">（从主体行政村获取）</span></td>
+			</tr>
+			<tr>
+				<td class="tdRight">非主体建设村：</td>
+				<td colspan='2'><input  class="number" id="aroundSumHouse" type='text' name='aroundSumHouse' value='$!{form.aroundSumHouse}' min="0" precision="0" maxlength='8' $!{readonly} disabled="none"/>户<span style="font-size:16px;color:red">（从非主体行政村获取）</span></td>
+				
+			</tr>
+			<tr>
+				<td rowspan='2' class="tdRight">总人口数[A21]：</td>
+				<td class="tdRight">主体建设村：</td>
+				<td colspan='2'><input  class="number" id="mainSumP" type='text' name='mainSumP' value='$!{form.mainSumP}' min="0" precision="0" maxlength='8' $!{readonly} disabled="none"/>人<span style="font-size:16px;color:red">（从主体行政村获取）</span></td>
+			</tr>
+			<tr>
+				<td class="tdRight">非主体建设村：</td>
+				<td colspan='2'><input  class="number" id="aroundSumP" type='text' name='aroundSumP' value='$!{form.aroundSumP}' min="0" precision="0" maxlength='8' $!{readonly} disabled="none"/>人<span style="font-size:16px;color:red">（从非行政村获取）</span></td>
+				
+			</tr>
+		#else
+			<tr>
+				<td rowspan='2' class="tdRight">总户数[A20]：</td>
+				<td class="tdRight">主体建设村：</td>
+				<td colspan='2'><input  class="number" id="mainSumHouse" type='text' name='mainSumHouse' value='$!{mainSumHouse}' min="0" precision="0" maxlength='8' $!{readonly} disabled="none"/>户<span style="font-size:16px;color:red">（从主体行政村获取）</span></td>
+			</tr>
+			<tr>
+				<td class="tdRight">非主体建设村：</td>
+				<td colspan='2'><input  class="number" id="aroundSumHouse" type='text' name='aroundSumHouse' value='$!{aroundSumHouse}' min="0" precision="0" maxlength='8' $!{readonly} disabled="none"/>户<span style="font-size:16px;color:red">（从非主体行政村获取）</span></td>
+				
+			</tr>
+			<tr>
+				<td rowspan='2' class="tdRight">总人口数[A21]：</td>
+				<td class="tdRight">主体建设村：</td>
+				<td colspan='2'><input  class="number" id="mainSumP" type='text' name='mainSumP' value='$!{mainSumP}' min="0" precision="0" maxlength='8' $!{readonly} disabled="none"/>人<span style="font-size:16px;color:red">（从主体行政村获取）</span></td>
+			</tr>
+			<tr>
+				<td class="tdRight">非主体建设村：</td>
+				<td colspan='2'><input  class="number" id="aroundSumP" type='text' name='aroundSumP' value='$!{aroundSumP}' min="0" precision="0" maxlength='8' $!{readonly} disabled="none"/>人<span style="font-size:16px;color:red">（从非行政村获取）</span></td>
+				
+			</tr>
+		#end
+	</table>

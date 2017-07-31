@@ -1,0 +1,113 @@
+#if($warningMessage)
+	<div class="applicant-form-warning">$warningMessage</div>
+#end
+#parse('applicant/peripheralrural-view.vm')
+<script type='text/javascript'>
+jQuery(function() {
+	_display();	
+	//$('#ruralArea,#arableLand,#hardBottom,#bottomDis,#toiletPercent,#culturalActArea,#ruralParkArea,#squareArea,#healthStationArea,#villageToiletArea,#farmland').bupnuminput({precision:2});
+	//$('#houseHold,#population,#labor,#annualIncome_13,#annualIncome_14,#annualIncome_15,#waterBase,#smallWater,#farmland,#toilet,#noValue,#buildAgain,#oldProtect,#planCount,#finishCount,#viewSpot,#culturalAct,#ruralPark,#ruralSquare,#healthStation,#villageToilet,#councilMember,#cleaners,#leaderHP,#leaderHP2').bupnuminput({min:0});
+ 	//在数字框里把所有非数字或0时输入框应该为空
+ 	/*
+	$('.number').each(function(i, v){
+		var vf = jQuery(v).bupnuminput('getValue');
+		if(!$.isNumeric(vf) || vf == 0){
+			jQuery(v).bupnuminput('setValue', '');
+		}
+	}); */
+	
+	$('.number').each(function(i, v){
+		var vf = v.value;
+		if(!$.isNumeric(vf) || vf == 0){
+			v.value = '';
+		}
+	});
+	jQuery(".number").bupnuminput();
+	
+	//-----------------
+	
+	 //验证总面积必须大于耕地面积
+    //$("#ruralArea,#arableLand").bupnuminput({
+    /*onChange:function(){
+		var sp = $("#ruralArea").bupnuminput('getValue');
+		var sf = $("#arableLand").bupnuminput('getValue');
+		if(sp - 0 < sf){
+			alert("总面积必须大于耕地面积");
+		}	
+	}*/
+	
+	//}); 
+	 //验证户数必须小于人口数、劳动人口不能超过村总人口
+   // $("#houseHold,#population,#labor").bupnuminput({
+    	/*onChange:function(){
+		var sp = $("#houseHold").bupnuminput('getValue');
+		var sf = $("#population").bupnuminput('getValue');
+		var la = $("#labor").bupnuminput('getValue');
+		if(sp - 0 > sf){
+			alert("户数必须小于人口数");
+		}	
+		if(la - 0 > sf){
+			alert("劳动人口不能超过村总人口");
+		}
+	}*/
+	//}); 
+	// 道路和入户路硬底化率只能0-100之间
+    //$("#hardBottom").bupnuminput({onChange:function(){
+		//var sp = $("#hardBottom").bupnuminput('getValue');
+		//if(sp - 0 < 0 || sp - 0 > 100){
+          //alert("道路和入户路硬底化率只能0-100之间");
+        //}	
+	//}});
+	//使用卫生厕所户数所占比例只能0-100之间
+	/*$("#toiletPercent").bupnuminput({onChange:function(){
+		var sf = $("#toiletPercent").bupnuminput('getValue');
+        if(sf - 0 < 0 || sf - 0 > 100){
+          alert("使用卫生厕所户数所占比例只能0-100之间");
+        }	
+	}});*/
+	jQuery("#council-n").click(function(){
+	    jQuery('#councilMember,#councilName1,#councilHP1,#councilName2,#councilHP2,#workSituation,#constitu-n,#constitu-y').attr('disabled', true);
+	    //$('#councilMember,#councilName1,#councilHP1,#councilName2,#councilHP2,#workSituation').val("");
+	});
+	jQuery("#council-y").click(function(){
+	    jQuery('#councilMember,#councilName1,#councilHP1,#councilName2,#councilHP2,#workSituation,#constitu-n,#constitu-y').removeAttr('disabled');  
+	});
+	//年度下拉
+	$('#newRural').val($!{form.newRural});
+	$('#annual').val($!{form.annual});
+	$('#pvAnnual').val($!{form.pvAnnual});
+	$('#tapAnnual').val($!{form.tapAnnual});
+	$('#fixAnnual').val($!{form.fixAnnual});
+	$('#badWaterAnn').val($!{form.badWaterAnn});
+	$('#fvAnnual').val($!{form.fvAnnual});
+	$('#psAnnual').val($!{form.psAnnual});
+	$('#eniPlanDate').val($!{form.eniPlanDate});
+	$('#councilAnnual').val($!{form.councilAnnual});
+	$('#culturalActAnn').val($!{form.culturalActAnn});
+	$('#ruralParkAnn').val($!{form.ruralParkAnn});
+	$('#squareAnn').val($!{form.squareAnn});
+	$('#healthStationAnn').val($!{form.healthStationAnn});
+	$('#villageToiletAnn').val($!{form.villageToiletAnn});
+	
+	$('#garbageAnnual').val($!{form.garbageAnnual});
+});
+//加载时判断B54-B57是否禁用
+function _display(){
+   //var n=jQuery('#council-n').val();
+    //var y=jQuery('#council-y').val();
+    if(jQuery('#council-n').is(':checked')==true){
+      jQuery('#councilMember,#councilName1,#councilHP1,#councilName2,#councilHP2,#workSituation,#constitu-n,#constitu-y').attr('disabled', true);
+      //$('#councilMember,#councilName1,#councilHP1,#councilName2,#councilHP2,#workSituation,#constitu-y').val("");
+    }else{
+      jQuery('#councilMember,#councilName1,#councilHP1,#councilName2,#councilHP2,#workSituation,#constitu-n,#constitu-y').removeAttr('disabled');
+    }
+}
+function _checkNumber(){
+	$('.number').each(function(i, v){
+		var vf = jQuery(v).bupnuminput('getValue');
+		if(!$.isNumeric(vf) || vf < 0){
+			jQuery(v).bupnuminput('setValue', '0');
+		}
+	});
+}
+</script>

@@ -1,0 +1,83 @@
+<div style="padding:10px 0 0 20px;">
+	<form method="post" id="re-form-submit" action="index.save">
+	<table class='residential-cls'>
+		<thead>
+			<tr style="height:30px;text-align:center;">
+			<th style="width:80px;">年度[F1]</th>
+			<th style="width:70px;">序号[F2]</th>
+			<th>自然村名单[F3]</th>
+			</tr>
+		</thead>
+		<tbody id='_tbody'>
+			#parse("residential-items.vm")
+		</tbody>
+	</table>
+	<p id='_div' style='display:none;padding:0;margin:0;'>
+	<table id='_editor' class='residential-cls'></table>
+	</p>
+	</form>
+	<div id="_add"><a id="add">添加</a></div>
+	<div style="padding:10px 0 0 10px;">
+	    <p><b>备注：</b></p>
+	    <p style="padding-left:20px;">1) 本表按年度实际完成情况填写，每完成一村填写一行,不够可加行。</p>
+	    <p style="padding-left:20px;">2) 序号按自然序数编排。</p>
+	</div>
+</div>
+<script type="text/javascript">
+//var ord1 = $('#_tbody').children().last().attr('ordinal');
+var ord = 0;
+jQuery(function() {
+	jQuery('#add').bupabutton({ 
+		flat:true,
+		iconClassname:"icon_add"
+	}).click(function() {
+	 	ord = $('#_tbody').children().last().attr('ordinal');
+		jQuery('#_editor').load('index.editor');
+		jQuery('#_div').slideDown('slow');
+		//alert($('#_tbody').children().last().html());
+		$("#_add").css('display','none');
+	});
+	
+});
+
+ // .children()
+//alert(ord);
+var count = 0;
+function getCore(obj, id, town, name, vname){	
+	var th = jQuery(obj);
+	var annual = jQuery("#annual-re").val();
+ 	if(jQuery.isNumeric(ord)){
+ 	  if($('#record_'+id+'_'+annual).length>0){
+ 		alert(town+name+vname+annual+"年度的记录已经存在！");
+ 		return false;
+ 	  }
+ 	  ord++;
+ 	}else{
+ 		ord = 1;
+ 	}
+ 	count ++;
+ 	//alert(th.parent().parent().parent().parent().html());	
+ 	jQuery("#_tbody").append('<tr class="new-cls" id="new-cls"><td style="text-align:center;"><font color="blue">*</font><input type="hidden" id="re_count" name="re_count" value="'
+ 	+ count + '"/><input type="hidden" name="id_'+count+'" value="'+id+'"/><input type="hidden" id="record_'+ id +'_'+annual+'" value="1"/><input type="text" style="width:50px;" value="'
+ 	+ annual + '" readonly="readonly" name="annual_'+count+'"/></td>'
+ 	+ '<td style="text-align:center;"><input type="text" style="width:50px;" value="'+ord+'" readonly="readonly" name="ordinal_'+count+'" class="ord"/></td>'
+ 	+ '<td style="text-align:left;"><input type="text" style="width:70px;" value="'+town+'" readonly="readonly"/> 镇 '
+ 	+ '<input type="text" style="width:90px;" value="'+name+'" readonly="readonly"/> 村 '
+ 	+ '<input type="text" style="width:100px;" value="'+vname + '" readonly="readonly"/> <font color="gray">自然村(或村民小组)</font><a href="#" onclick="return delrow(this);" class="icon-del" style="padding-left:20px;"> </a></td></tr>');
+
+ 	//点击X按钮时触发
+}
+  function delrow(t){
+       jQuery(t).parent().parent().remove();
+ 		ord = $('#_tbody tr[ordinal]').last().attr('ordinal');
+ 		if(!jQuery.isNumeric(ord)){
+	 		ord = 0;
+	 	}
+ 		jQuery('.ord').each(function() {
+ 		     ord ++;
+ 		     jQuery(this).val(ord);
+ 		});
+ 		return false;
+  } 
+ 
+</script>

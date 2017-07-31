@@ -1,0 +1,121 @@
+
+<!--点击打印查看的页面-->
+#set($layout="layout-empty.vm")
+
+<style type='text/css'> 
+	table { 
+		table-layout:fixed;
+		word-break: break-all; 
+		word-wrap: break-word; 
+		<!--font-size:12px;--> 
+	}  <!--固定table宽度显示控制-->
+</style> 
+
+<html>
+<head>
+
+
+<link type='text/css' href='/res/css/global.css' rel="stylesheet" media=""/>
+<script src='/res/js/jquery.min.js'></script> 
+<script type="text/javascript" src="/res/js/jquery.PrintArea.js"></script>   
+
+
+<script>  
+$(document).ready(function(){  
+  	$("input#biuuu_button").click(function(){  
+	  	$("div#_myPrint").printArea();  
+	});  
+});  
+</script>
+<style>
+ #biuuu_button{position: fixed; font-size:18px;  color:blue; text-decoration:underline; }
+</style>
+</head>
+<body>
+	<div>
+		<input id="biuuu_button" type="button" value="打印" ></input>
+	</div>  
+	<div id="_myPrint"    >
+		<div class="applicant-form-title" >
+			$title
+			<div style="font-size:16px;margin:0 auto;">(截止时间:$!{deadline})</div>
+		</div> 
+		<div style="height:100%;">
+				<div data-settings="zone:'center',border:false">
+					<style>
+						table.editor tr, table.editor-line tr, table.simplegrid tr{
+							height:auto;
+						}
+					</style>
+					<table style="width:100%;background:#ECF5FF;" class="applicant-form"> 
+						<thead>
+							<tr>
+								<th data-settings="field:'name'" width="80"><font style='font-size:11px;'>县（市、区）名称</font></th>
+						        <th data-settings="chalign:'center',field:'agriculturalHousehold'" width="80"><font style='font-size:11px;'>1.农业户数<br/>（户）</font></th>
+							    <th data-settings="chalign:'center',field:'agriculturalPopulation'" width="80"><font style='font-size:11px;'>2.农业人口<br/>数（人）</font></th>
+							    <th data-settings="chalign:'center',field:'villageCommittee'" width="80"><font style='font-size:11px;'>3.建制行政<br/>村或居委会<br/>(个)  </font></th>
+							    <th data-settings="chalign:'center',field:'naturalVillage'" width="80"><font style='font-size:11px;'>4.20户以上<br/>自然村<br/>（个）</font></th>
+							    <th data-settings="chalign:'center',field:'villagePlanning'" width="80"><font style='font-size:11px;'>5.已完成村<br/>庄规划的自<br/>然村（条）</font></th>
+							    <th data-settings="chalign:'center',field:'unifiedStyle'" width="80"><font style='font-size:11px;'>6.外立面统<br/>一装饰风格<br/>风貌的自然<br/>村（条）</font></th>
+							    <th data-settings="chalign:'center',field:'hardBottom'" width="80"><font style='font-size:11px;'>7.已实现村<br/>巷道硬底化<br/>的自然村<br/>(条)</font></th>
+							    <th data-settings="chalign:'center',field:'tapWater'" width="80"><font style='font-size:11px;'>8.已实现村<br/>村通自来水<br/>的自然村<br/>（条）</font></th>
+							    <th data-settings="chalign:'center',field:'spcvgb'" width="80"><font style='font-size:11px;'>9.建有小公<br/>园、文化活<br/>动场所或绿<br/>化带的自然<br/>村（条）</font></th>
+							    <th data-settings="chalign:'center',field:'villageRenovation'" width="80"><font style='font-size:11px;'>10.已完成<br/>村容村貌整<br/>治的自然村<br/>（条）</font></th>
+							    <th data-settings="chalign:'center',field:'cleaningTeam'" width="80"><font style='font-size:11px;'>11.建有卫<br/>生保洁队伍<br/>的自然村<br/>（条）</font></th>
+							    <th data-settings="chalign:'center',field:'rainSewageDiversion'" width="80"><font style='font-size:11px;'>12.已实行<br/>雨污分流的<br/>自然村<br/>（条）</font></th>
+							    <th data-settings="chalign:'center',field:'sewageTreatment'" width="80"><font style='font-size:11px;'>13.建有人<br/>工湿地、厌<br/>氧池、沼气<br/>池等处理生<br/>活污水的自<br/>然村（条）</font></th>
+							    <th data-settings="chalign:'center',field:'livestockConcentratedCaptive'" width="80"><font style='font-size:11px;'>14.实行畜<br/>禽集中圈养<br/>、人畜分离<br/>的自然村<br/>（条）</font></th>
+							    <th data-settings="chalign:'center',field:'villagerCouncil'" width="80"><font style='font-size:11px;'>15.健全村<br/>规民约、章<br/>程及村民理<br/>事会的自然<br/>村（条）</font></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr style='background-color:#7cd7f8;color:#333333;'>
+								<td style='text-align:center'><font style='font-size:15px;'>全市合计：</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.agriculturalHousehold</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.agriculturalPopulation</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.villageCommittee</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.naturalVillage</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.villagePlanning</font></td>
+								
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.unifiedStyle</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.hardBottom</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.tapWater</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.spcvgb</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.villageRenovation</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.cleaningTeam</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.rainSewageDiversion</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.sewageTreatment</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.livestockConcentratedCaptive</font></td>
+								<td style='text-align:center'><font style='font-size:15px;'>$sscity.villagerCouncil</font></td>
+							</tr>
+							#foreach($it in $sscs)
+							<tr>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.county.name</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.agriculturalHousehold</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.agriculturalPopulation</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.villageCommittee</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.naturalVillage</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.villagePlanning</font></td>
+								
+								<td style='text-align:center'><font style='font-size:11px;'>$it.unifiedStyle</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.hardBottom</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.tapWater</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.spcvgb</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.villageRenovation</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.cleaningTeam</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.rainSewageDiversion</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.sewageTreatment</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.livestockConcentratedCaptive</font></td>
+								<td style='text-align:center'><font style='font-size:11px;'>$it.villagerCouncil</font></td>
+							</tr>
+							#end
+						</tbody>
+					</table>
+				</div>
+		</div>
+	</div>
+</body>
+</html>
+
+
+

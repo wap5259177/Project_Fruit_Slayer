@@ -1,0 +1,76 @@
+<div id="_1_0_0" style="height:450px;">
+
+	<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:0;overflow:hidden;">
+		时间:
+		<select id='fvAnnual'  id='' onchange=""  >
+			<option value ="-1">请选择年度</option>
+			#foreach($it in $reports)
+				<option value ="$it.id">$it.name</option>
+			#end
+		</select>
+		项目库:
+		<select id='fvTable'  id='' onchange=""  >
+			<option value ="-1">请选择统计的表</option>
+			<option value ="1">项目库一</option>
+			<option value ="2">项目库二</option>
+			<option value ="3">项目库三</option>
+		</select>
+		<span style='position: relative;left: 15px;top: -18px;'><a id='statisTable' href='#' onclick='statisTable();'>统计</a></span>
+		<span style='position: relative;left: 300px;top: 8px;'>
+			<a id='exportTable' href='#' onclick='exportTable();' data-settings="iconClassname:'icon-excel'" >导出excel</a>
+		</span>
+	</div>
+	
+	<div data-settings="zone:'center',border:false" id='content'>
+		
+	</div>
+</div>
+
+
+<script>
+	$(function(){
+		jQuery("#_1_0_0").bupborderlayout({fit:true});
+		jQuery("#exportTable,#statisTable").bupabutton();
+	});
+	
+	
+	
+	
+	
+	function statisTable(){
+		var _reportId = $("#fvAnnual").val();
+		var _tableType = $("#fvTable").val();
+		if(_reportId==-1||_tableType==-1){
+			alert("请选择统计的时间或项目库");
+			return ;
+		}
+		//alert(_reportId+","+_tableType);
+		$("#content").load(
+			"loadContent.do",
+			{reportId:_reportId,tableType:_tableType},
+			function(){
+				
+			}
+		);
+	}
+	
+	function exportTable(){
+		var _reportId = $("#fvAnnual").val();
+		var _tableType = $("#fvTable").val();
+		if(_reportId==-1||_tableType==-1){
+			alert("请选择统计的时间或项目库");
+			return ;
+		}
+		location.href='table.excel?reportId='+_reportId+"&&tableType="+_tableType;
+	}
+	
+	
+	
+</script>
+
+
+
+
+
+
+

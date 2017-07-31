@@ -1,0 +1,168 @@
+<!--top批次选择-->
+<div id='bottom-batch' style='width: 100%;height:10%;' align='center'>
+	<a href="#" id="batch1" class="bupabutton" data-settings="iconClassname:'icon-batch1',istoggle:true,group:'g1',face:'scorner',selected: true" onclick="clickBactch('一');">第一批</a>
+	<a href="#" id="batch2" class="bupabutton" data-settings="iconClassname:'icon-batch2',istoggle:true,group:'g1',face:'scorner'" onclick="clickBactch('二');">第二批</a>
+	<a href="#" id="batch3" class="bupabutton" data-settings="iconClassname:'icon-batch3',istoggle:true,group:'g1',face:'scorner'" onclick="clickBactch('三');">第三批</a>
+	<a href="#" id="batch4" class="bupabutton" data-settings="istoggle:true,group:'g1',face:'scorner'" onclick="clickBactch('珠三角');">珠三角</a>
+</div>
+<div id='main' style='width: 100%; height: 100%;'>
+
+</div>
+
+<script type="text/javascript" src="#springUrl('/res/js/echarts-all.js')"></script>
+<script src='/res/js/jquery.min.js'></script><!--jquery-->
+
+<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/icons.css')"/>
+<link rel="stylesheet" type="text/css" href="/res/css/skins/bupicon.css">
+<link rel="stylesheet" type="text/css" href="/res/css/skins/default/bupui.css">
+<script type="text/javascript" src="/res/js/bupui/jquery.bupui.min.js"></script><!--bupui-->
+
+
+<script type='text/javascript'>
+	var myChart = echarts.init(document.getElementById('main'),'infographic'); 
+	var ecConfig = echarts.config;
+	var mapGeoData = echarts.util.mapData.params;
+	
+	var option;
+	$(function(){
+		option = {
+			title: {
+				text: '广东省新农村示范片地图',
+				subtext: '黄色区域为示范片区,灰色区域没有示范片'
+			},
+		    tooltip : {
+		        trigger: 'item',
+		        formatter: '{b}:第一批'
+		    },
+		    series : [
+		        {
+		            name: '广东',
+		            type: 'map',
+		            mapType: '广东',
+		            selectedMode : 'single',//是否可选,默认不可选
+		            itemStyle:{
+		                normal:{
+		                	label:{show:true},
+		                	borderWidth:4,
+		                    borderColor:'lightgreen',
+		                    color: 'orange'
+		                },//只显示选中的城市
+		                emphasis:{//设置得是选中的样式
+		                	label:{show:true},
+		                	borderWidth:2,
+		                    //borderColor:'lightgreen',
+		                    color: '#CCCCCC'//16进制的颜色码
+		                    //color: '#32cd32',
+		                }
+		            },
+		            data:[
+		               	$sList $cList
+		            ]
+		        }
+		    ]
+		};
+		myChart.on(ecConfig.EVENT.MAP_SELECTED, mapClick);
+		myChart.setOption(option);
+		
+		/*
+			第一批默认为选中状态
+		*/
+		$('#batch1,#batch2,#batch3,#batch4').bupabutton({
+	        //selected: true,
+	        face:'scorner',
+	        istoggle:true
+	    });
+	    
+	    
+	});
+	/*
+    	点击某个批次,显示某个批次下的片区
+    */
+	function clickBactch(_batch){
+		//绑定事件
+		
+    	$.post(
+    		'getModelArea.do',
+    		{batch:_batch},
+    		function(data){
+    			myChart.clear();
+    			var jsonObj=eval("("+data+")");
+    			option = {
+    				title: {
+						text: '广东省新农村示范片地图',
+						subtext: '黄色区域为示范片区,灰色区域没有示范片'
+					},
+				    tooltip : {
+				        trigger: 'item',
+				        formatter: '{b}:第'+_batch+'批'
+				    },
+				    series : [
+				        {
+				            name: '广东',
+				            type: 'map',
+				            mapType: '广东',
+				            selectedMode : 'single',//是否可选,默认不可选
+				            itemStyle:{
+				                normal:{
+				                	label:{show:true},
+				                	borderWidth:4,
+				                    borderColor:'lightgreen',
+				                    color: 'orange'
+				                },//只显示选中的城市
+				                emphasis:{
+				                	label:{show:true},
+				                	borderWidth:2,
+				                    //borderColor:'lightgreen',
+				                    color: '#CCCCCC'//16进制的颜色码
+				                    //color: '#32cd32',
+				                }
+				            },
+				            data: jsonObj
+				        }
+				    ]
+				};//--option结束
+				myChart.setOption(option);
+    		}
+    	);//--post结束
+    }
+	
+	
+	function mapClick(param){
+		var selected = param.selected;
+		var mapSeries = myChart.getOption().series[0];
+		
+	   // var seName = '';
+	    //var fStr = seName;
+	    //for (var p in selected) {
+	    //    if (selected[p]) {
+	   //         seName += p + ' ';
+	    //    }
+	   // }
+	    //if(fStr==seName){
+	    //	myChart.restore();//还原图表，各种状态均被清除，还原为最初展现时的状态。
+	    	//alert('该地区还没有示范片!!!');
+	    //	return;
+	   // }else{
+	   // 	myChart.restore();
+	   // 	alert('跳转到'+seName+'示范片...');
+	   // }
+	    //alert(seName);
+	    
+		
+		myChart.restore();//还原图表，各种状态均被清除，还原为最初展现时的状态。
+	    var name;
+	    var maId;
+		for (var p = 0, len = mapSeries.data.length; p < len; p++) {
+			name = mapSeries.data[p].name;//拿到所有的名字
+			if (selected[name]) {//是被选中的那个名字
+				//alert(name);
+				maId = mapSeries.data[p].value;
+				//alert(maId);
+				
+				window.parent.isCanToMa(1,maId);
+				break;
+				//清空这个frame
+			}
+		}
+	}
+</script>

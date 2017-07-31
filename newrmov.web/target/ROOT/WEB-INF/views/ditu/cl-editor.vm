@@ -1,0 +1,509 @@
+<script type="text/javascript" src="/res/js/jquery.form.js"></script>
+<div class="bupborderlayout" fit="true">
+	<div data-settings="zone:'center'">
+		<div style="width:100%;height:100%;" id="container"></div>
+	</div>
+
+	<div data-settings="zone:'east',width:350" id='ma-content'>
+		<!--两个隐藏的输入框,用于提交保存,插入数据库表-->
+		<!--
+		<input type="hidden" id="modelareaid" value="$!{modelArea.id}"/>
+		<input type="hidden" id="modelareapointid" value="$!{modelAreapoint.id}"/>
+		-->
+		<div>
+			<a href="#" onclick="serch_ma($!{modelAreapoint.id});return false;">$!{modelArea.name}</a>
+			<!--<span id='show_ma'><a href="#" onclick='add_ma_scope($!{modelAreapoint.id});'>添加示范片区的范围</a></span>-->
+			<!--<span id='show_nrural_marker'><a href="#" onclick='show_nrural_marker($!{modelAreapoint.id},"主体村");'>查看主体村位置</a></span>-->
+			<!--<span id='show_prural_marker'><a href="#" onclick='show_nrural_marker($!{modelAreapoint.id},"非主体村");'>查看非主体村位置</a></span>-->
+			<div id="ma-rural-list" style="padding-left:25px;">
+			
+				<!--主体村编辑的内容-->
+				<div class="r-name-cl">主体村</div>
+				<div style="padding-left:20px;">
+					#foreach($it in $nrurals)
+					<div>
+						<a href="#" onclick="serch_rural(this,${it.id});">$it.name&nbsp&nbsp$it.naturalVillage</a>
+						<!--<a href="#" onclick="serch_rural(this,${it.id});">$it.name</a>-->
+					</div>
+					<div style="display:none;" class='content-editor-cls'>
+						<!--编辑内容-->
+					</div>
+					#end
+				</div>
+				
+				<!--非主体村编辑的内容-->
+				<div class='r-name-cl'>非主体村</div>
+				<div style="padding-left:20px;">
+					#foreach($it in $prurals)
+					<div>
+						<a href="#" onclick="serch_rural(this,${it.id});">$it.name&nbsp&nbsp$it.naturalVillage</a>
+					</div>
+					<div class='content-editor-cls' id='p-content-editor_${it.id}' style="display:none;" >
+						<!--编辑内容-->
+					</div>
+					#end
+				</div>
+			</div>
+			
+			<!--示范片区编辑的内容-->
+			<div id="ma-content-editor" style="display:none;">
+					
+				<form id='file_form' enctype='multipart/form-data'>
+					<input type="hidden" id="modelareapointid" name='modelareapointid' value="$!{modelAreapoint.id}" />
+					<input type="hidden" id="modelareaid" name='modelareaid' value="$!{modelArea.id}"/>
+					<input type='hidden' name='polygonStr' id='polygonStr'/>
+					<input type='hidden' name='serchname' id='serchname'/>
+					
+					
+					<div>
+						<table cellpadding="2px" cellspacing="3px" width="100%"> 
+							<tr>
+								<td style="width:120px;">片区名称:</td>
+								<td>&nbsp;&nbsp;<input id="ma_name" name='title' value='$!{modelAreapoint.modelArea.name}' readonly='true'/></td>
+							</tr>
+							<tr>
+								<td >坐标:</td>
+								<td>&nbsp;&nbsp;<input id='ma_lon_marker' name='lng' value='$!{modelAreapoint.point.longitude}' readonly='true'/>,
+												<input id='ma_lat_marker' name='lat' value='$!{modelAreapoint.point.latitude}' readonly='true'/></td>
+							</tr>
+							<tr>
+								<td>片区描述:</td>
+								<td>&nbsp;&nbsp;<textarea id="ma_desc" name='desc' >$!{modelAreapoint.describe}</textarea></td>
+							</tr>
+							<tr>
+								<td>片区风貌图:</td>
+								<td>&nbsp;&nbsp;<input id="ma_pic" name='pic' type="file" accept="image/*"/></td>
+							</tr>
+							<tr >
+								<td></td>
+								<td align="center"><a href="javascript:;" class="bupabutton" onclick="saveArea();">提交</a></td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			
+			
+			
+				<!--
+				<form id='file_form' enctype='multipart/form-data'>
+					<div>
+						<table cellpadding="2px" cellspacing="3px" width="100%"> 
+							<tr>
+								<td style="width:120px;">片区名称:</td>
+								<td>&nbsp;&nbsp;<span id="ma_name">$!{modelAreapoint.modelArea.name}</span></td>
+							</tr>
+							<tr>
+								<td >坐标:</td>
+								<td>&nbsp;&nbsp;<span id='ma_lon_marker'>$!{modelAreapoint.point.longitude}</span>,
+												<span id='ma_lat_marker'>$!{modelAreapoint.point.latitude}</span></td>
+							</tr>
+							<tr>
+								<td>片区描述:</td>
+								<td>&nbsp;&nbsp;<textarea id="ma_desc">$!{modelAreapoint.describe}</textarea></td>
+							</tr>
+							<tr>
+								<td>片区风貌图:</td>
+								<td>&nbsp;&nbsp;<input id="ma_pic" type="file" value="$!{modelAreapoint.picture}"/></td>
+							</tr>
+							<tr >
+								<td></td>
+								<td align="center"><a href="javascript:;" class="bupabutton" onclick="saveArea();">提交</a></td>
+							</tr>
+						</table>
+					</div>
+				</form>
+				-->
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+<script type="text/javascript">
+	
+	//片区提交
+	function saveArea(){
+	 //data:揭阳市,揭东县   	116.412947	23.569887	diqumiaosu 	QQPCSoftMgr.exe
+		var lng = $("#ma_lon_marker").val();//经度
+	    var lat = $("#ma_lat_marker").val();//纬度
+	    var desc = $("#ma_desc").val();//地区描述
+	    var pic  = $("#ma_pic").val();//风貌图片
+	    var title = $("#ma_name").val();//片区名称
+	    var modelareaid = $("#modelareaid").val();//片区id
+	    var modelareapointid = $("#modelareapointid").val();
+	    
+		var serchname = "$!{cityName},$!{countyName}";//县的搜索名称
+	    var pg = polygon.getPath();//保存片区范围的多边形数组
+		var pgStr ='';
+	    pg.forEach(function(element,index){
+	    	pgStr +=(element+';');
+	    });
+	    //alert(pgStr);23.652133351306556,117.0308891113281|23.635464691703657, 116.96325452880856|23.692695362866072, 116.93716199951169|23.686721903753913, 117.05183179931637|
+	    //alert(serchname+','+title+','+lng+','+lat+','+desc+','+pic+','+modelareaid+','+modelareapointid);
+	    /*
+	    $.post(
+	    	"save.do", 
+	    	{ 
+	    		modelareapointid: modelareapointid,
+	    		modelareaid: modelareaid,
+	    		serchname:serchname,
+	    		title: title,
+	    		lng:lng,
+	    		lat:lat,
+	    		desc:desc,
+	    		pic:pic,
+	    		polygonStr:pgStr
+	    	},
+   			function(data){
+   				#if($modelAreapoint)
+   					var ma_center = new qq.maps.LatLng(lat,lng);
+   					ma_marker.setPosition(ma_center);//提交成功后设置片区标注位置
+   					map.setCenter(ma_center);
+				#else
+					setTimeout(function(){
+     					alert(data);
+     					window.location = 'index.do';
+     				},1000);
+				#end
+   		});
+   		*/
+   		
+   		$('#polygonStr').val(pgStr);
+   		$('#serchname').val(serchname);
+   		
+   		jQuery('#file_form').ajaxSubmit({
+   			url:"save.do",
+			type:'post',
+			dataType:'json',
+			success:function(data) {
+				if(data=='3'){
+					alert('系统错误!');
+				}
+   				#if($modelAreapoint)
+   					if(data=='1'){
+   						alert('更新片区信息成功!');
+   						//alert(lat+','+lng);
+	   					var ma_center = new qq.maps.LatLng(lat,lng);
+	   					ma_marker.setPosition(ma_center);//提交成功后设置片区标注位置
+	   					map.setCenter(ma_center);
+   					}
+				#else
+					if(data=='2'){
+						alert('请上传图片!');
+					}
+					setTimeout(function(){
+     					if(data=='0'){
+     						alert('保存片区信息成功!');
+	     					window.location = 'index.do';
+     					}
+     				},1000);
+				#end
+			}
+   		});
+   		
+	};
+	
+
+	//----------------------------------------------------
+	#*
+		点击村子在地图上显示相应的标注
+	*#
+	function serch_rural(t,id){
+		//alert(pname+","+sname);
+		polygon.setVisible(false);//将多边形隐藏
+		polygon.setMap(null);
+		var editor = jQuery(t).parent().next();
+		if(editor.is(':visible')==true){//判断编辑内容是否是隐藏的
+			jQuery('div.content-editor-cls').html('').hide();//将编辑html内容全部清空
+		}else{
+			jQuery('div.content-editor-cls').html('').hide();
+			editor.slideToggle().load("loadRuralEditor.do",{id:id});//加载编辑的div进来
+		}
+	};
+	
+	function serch_ma(id){
+		marker.setVisible(false);//设置村子图标不显示
+		map.setZoom(12);
+		map.setCenter(new qq.maps.LatLng(ma_lat,ma_lot));
+		var h = document.getElementById("ma-content-editor").offsetHeight;
+		//slideToggle()这个动画效果只调整元素的高度，可以使匹配的元素以“滑动”的方式隐藏或显示。隐藏的div高度就是0.
+		jQuery('#ma-rural-list, #ma-content-editor').slideToggle("fast",function(){
+			if(h==0){
+				polygon.setMap(map);
+				polygon.setVisible(true);
+			}else{
+				polygon.setMap(null);
+				polygon.setVisible(false);
+			}
+		});
+		#if($modelAreapoint)
+		#else
+			//如果toggle里的参数为true ，那么匹配的元素将显示;如果false ，元素将隐藏的
+			//$('#ma-content-editor').toggle($('#ma-content-editor').is(':visible'));
+		#end
+	};
+	
+//-------------------------------不要-----------------------------------------------------------------	
+	var n_flag = true;//控制主体村图标显示的开关
+	var n_marker = new Array();//存放主体村图标的数组
+	var p_flag = true;
+	var p_marker = new Array();
+	function show_nrural_marker(id,type){
+		map.setZoom(12);
+		marker.setVisible(false);
+		if(type == '主体村' && n_flag){
+			$.post(
+				"showRuralMarker.do",
+				{
+					id:id,
+					type:type
+				},
+				function(data){
+					/*将json 字符串变成一个对象*/
+					if (typeof data === "string"){
+						data = eval('(' + data + ')');
+					}
+					if(data!=null && data.length>0){
+						//标注出主体村的图标
+						for(i=0;i<data.length;i++){
+							var marker = new qq.maps.Marker({
+						        map:map,
+						        draggable:true,//设置标注可以拽动
+						        position: new qq.maps.LatLng(data[i].latitude,data[i].longitude),
+						       	title:type,
+						       	icon:new qq.maps.MarkerImage('/res/images/n-rural-marker.png'),
+						        visible:true
+						    }); 
+						    n_marker[i] = marker;
+						}
+						n_flag = false;
+					}else{
+						alert('您还没有创建主体村位置!');
+					}
+				}
+			);
+			//n_flag = false;
+		}else{
+			for(i=0;i<n_marker.length;i++){
+				n_marker[i].setMap(null);
+			}
+			n_flag=true;
+		}
+		
+		if(type == '非主体村' && p_flag){
+			$.post(
+				"showRuralMarker.do",
+				{
+					id:id,
+					type:type
+				},
+				function(data){
+					/*将json 字符串变成一个对象*/
+					if (typeof data === "string"){
+						data = eval('(' + data + ')');
+					}
+					if(data!=null && data.length>0){
+						//标注出主体村的图标
+						for(i=0;i<data.length;i++){
+							var _marker = new qq.maps.Marker({
+								map:map,
+						        draggable:true,//设置标注可以拽动
+						        position: new qq.maps.LatLng(data[i].latitude,data[i].longitude),
+						       	title:type,
+						       	icon:new qq.maps.MarkerImage('/res/images/p-rural-marker.png'),
+						        visible:true
+						    }); 
+							p_marker[i] = _marker;
+						}
+						p_flag = false;
+					}else{
+						alert('您还没有创建非主体村位置!');
+					}
+				}
+			);
+			//p_flag = false;
+		}else{
+			for(i=0;i<p_marker.length;i++){
+				p_marker[i].setMap(null);
+			}
+			p_flag=true;
+		}
+	}
+//------------------------------------------------------------------	
+	
+var map;
+var marker;//村子的标注
+var ma_marker;//片区的标注
+
+var p_markerImage ;
+var n_markerImage ;
+
+
+var ma_lat, ma_lot;
+var rural_lat, rural_lot;
+
+var polygon;//多边形,用于编辑查看示范片的范围
+
+//界面加载完以后执行
+jQuery(function(){
+    var center = new qq.maps.LatLng(39.916527,116.397128);//创建中心点坐标
+    map = new qq.maps.Map(document.getElementById('container'),{//创建地图
+        center: center,
+        zoom: 12
+    });
+    
+    //查看片区范围,多边形覆盖物
+    polygon = new qq.maps.Polygon({
+        strokeColor: '#000000',
+        strokeWeight: 2,
+       // fillColor: '#111111',
+       	visible:false,
+       	editable:true
+    });
+    
+	//给多边形初始化,这里并没有让多边形显示,只有点击了示范片区才让他显示给用户编辑
+	var _polygon = "$!{modelAreapoint.polygon}";
+	var pg = _polygon.split(';');
+	var pathArr = new Array();
+	var lat_lng ;
+			
+	for(i=0;i<pg.length;i++){
+		if(pg[i]!=null&&""!=pg[i]){
+			lat_lng = pg[i].split(',');
+			pathArr[i] = new qq.maps.LatLng(lat_lng[0].trim(),lat_lng[1].trim());
+		}
+	}
+	//polygon.setMap(map);
+	polygon.setPath(pathArr);
+    //rural
+    marker = new qq.maps.Marker({
+        map:map,
+        draggable:true,//设置标注可以拽动
+        position: center,
+        visible:false
+    });
+    //marker.setVisible(false);
+    
+    //model
+	ma_marker = new qq.maps.Marker({
+        map:map,
+        draggable:true,//设置标注可以拽动
+        position: center,
+        icon:new qq.maps.MarkerImage('/res/images/modelarea-marker.png'),
+        title:'示范片区'
+    });
+    
+    n_markerImage = new qq.maps.MarkerImage('/res/images/n-rural-marker.png'); 
+    p_markerImage = new qq.maps.MarkerImage('/res/images/p-rural-marker.png');
+    
+    
+    /*
+    	1.示范片区已经编辑过:设置地图中心位置,设置图标位置
+    	2.刚开始加载整个页面的时候,从数据库中查找不到mapoint(即:示范片区未编辑),要加载片区编辑内容,让他显示给用户编辑,同时显示多边形给用户编辑
+    */
+    #if($modelAreapoint)
+    	//alert($modelAreapoint.point.latitude+','+$modelAreapoint.point.longitude);
+	    ma_lat = $modelAreapoint.point.latitude;
+	    ma_lot = $modelAreapoint.point.longitude;
+	    rural_lat = ma_lat;
+	    rural_lot = ma_lot;
+    	map.setCenter(new qq.maps.LatLng(ma_lat,ma_lot));
+    	ma_marker.setPosition(new qq.maps.LatLng(ma_lat,ma_lot));
+    	
+    #else   
+		var geocoder = new qq.maps.Geocoder({
+		    complete:function(result){
+		        map.setCenter(result.detail.location);
+	        	ma_marker.setPosition(result.detail.location);
+		        //设置经度,纬度在界面显示
+		        ma_lot = result.detail.location.lng;
+		        ma_lat = result.detail.location.lat;
+			    rural_lat = ma_lat;
+			    rural_lot = ma_lot;
+			    
+			    /*
+			    	如果没有编辑过map,默认给个多边形给用户编辑
+			    */
+			    /*
+			    path = [
+			        new qq.maps.LatLng((result.detail.location.lat + 0.0001),(result.detail.location.lng - 0.06)),
+			        new qq.maps.LatLng((result.detail.location.lat + 0.02),(result.detail.location.lng + 0.04)),
+			        new qq.maps.LatLng((result.detail.location.lat - 0.02),(result.detail.location.lng + 0.05)),
+			        new qq.maps.LatLng((result.detail.location.lat - 0.041),(result.detail.location.lng - 0.04))
+			    ];
+			    */
+			    path = [
+			        new qq.maps.LatLng((result.detail.location.lat + 0.05750),(result.detail.location.lng - 0.0209427)),
+			        new qq.maps.LatLng((result.detail.location.lat - 0.057914),(result.detail.location.lng - 0.045662)),
+			        new qq.maps.LatLng((result.detail.location.lat - 0.05035851),(result.detail.location.lng + 0.063171))
+			    ];
+			    
+			    
+	    		polygon.setMap(map);
+				polygon.setPath(path);
+				polygon.setVisible(true);
+			    
+			    $("#ma-content-editor").show();//编辑内容显示
+			    jQuery('div.r-name-cl').hide();//主体村,非主体村这几个字隐藏
+			    
+			    /*
+			    $("#ma_lat_marker").text(ma_lat);
+				$("#ma_lon_marker").text(ma_lot);
+				$("#ma_name").text('${modelArea.name}');
+				*/
+				$("#ma_lat_marker").val(ma_lat);
+				$("#ma_lon_marker").val(ma_lot);
+				$("#ma_name").val('${modelArea.name}');
+				$("#modelareaid").val($!{modelArea.id});
+				
+		    }
+		});
+		geocoder.getLocation("$!{cityName},$!{countyName}");
+    #end
+    #if(!$isModelArea)
+    	alert("警告！新农村示范片区未创建！！");
+    	$('#ma-content').html('').hide();
+    	var geocoder = new qq.maps.Geocoder({
+		    complete:function(result){
+		        map.setCenter(result.detail.location);
+		    }
+		});
+		geocoder.getLocation("广东省,广州市");
+    #end
+		        
+    //	标注停止移动时触发的事件:重新设置界面显示的坐标
+    qq.maps.event.addListener(ma_marker,'dragend',function(event){
+	    ma_lat = event.latLng.getLat();
+	    ma_lot = event.latLng.getLng();
+	    
+	    /*
+	    jQuery("#ma_lat_marker").text(ma_lat);
+	    jQuery("#ma_lon_marker").text(ma_lot);
+	    */
+	    jQuery("#ma_lat_marker").val(ma_lat);
+	    jQuery("#ma_lon_marker").val(ma_lot);
+    });
+    qq.maps.event.addListener(marker,'dragend',function(event){
+	    rural_lat = event.latLng.getLat();
+	    rural_lot = event.latLng.getLng();
+	    
+	    /*
+	    jQuery("#lat_marker").text(rural_lat);
+	    jQuery("#lot_marker").text(rural_lot);
+	    */
+	    jQuery("#lat_marker").val(rural_lat);
+	    jQuery("#lot_marker").val(rural_lot);
+    });
+    //标注点击触发的事件
+    qq.maps.event.addListener(ma_marker,'click',function(){
+    	jQuery('#ma-rural-list, #ma-content-editor').slideToggle();
+    });
+    //TODO:点击村子坐标,显示对应的编辑框
+    qq.maps.event.addListener(marker,'click',function(){
+    	
+    });
+    
+});
+</script>
+
+

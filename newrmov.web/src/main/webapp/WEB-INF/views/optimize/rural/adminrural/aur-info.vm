@@ -1,0 +1,266 @@
+<div class="applicant-head">年度：
+#if($readonly)
+	<input class="outsideInput" type="text" value='$!{form.annual}' name='annual' id="annual" readonly="readonly"/>
+#else
+	<select id='annual' name='annual' style="width:80px;">
+		<option>2013</option>
+		<option>2014</option>
+		<option>2015</option>
+		<option>2016</option>
+	</select>
+#end
+</div>
+<table class='applicant-form'>
+	<tr>
+		<td style='font-weight:bold;' colspan='6'>(一)基本情况</td>
+	</tr>
+	<tr>
+		<td class="tdRight">序号：</td>
+		<td><input type="text" value='$!{form.code}' name='code' id="code" $!{readonly}/></td>
+		<td class="tdRight" style="width:100px;">村名称：</td>
+		<td colspan='3'>
+			<input type="text" value='$!{form.town}' readOnly="true" style='width:120px'/>&nbsp;镇
+			<input type="text" value='$!{form.name}' style='width:120px' readOnly="true" />&nbsp;村委会
+		</td>
+	</tr>
+	
+	
+	<!--
+	<tr>
+		<td class="tdRight">自然村个数:</td>
+		<td><input id="natralruralNum" type='text' style="width:60px;" value='$!{form.natrualruralNum}' min="0" precision="0" class='number' name='natrualruralNum' $!{readonly}/>个</td>
+		<td class="tdRight">自然村名单:</td>
+		<td colspan='3'>
+			<textarea  id='natrualruralList' name='natrualruralList'  $!{readonly} >$!{form.natrualruralList}</textarea>
+		</td>
+	</tr>
+	-->
+	
+	#if($readonly)
+		<tr>
+			<td class="tdRight">自然村个数: </td>
+			<td><input id="natralruralNum" type='text' style="width:60px;" value='$!{form.natrualruralNum}' class='number' readOnly="true"/>个</td>
+			<td class="tdRight">自然村名单： </td>
+			<td colspan='3'>
+				<textarea  id='natrualruralList'   readOnly="true" >$!{form.natrualruralList}</textarea>
+			</td>
+		</tr>
+	#else
+		<tr>
+			<td class="tdRight">自然村个数: </td>
+			<td><input id="natralruralNum" type='text' style="width:60px;" value='$!{natralruralNum}' class='number' readOnly="true" name='natrualruralNum'/>个</td>
+			<td class="tdRight">自然村名单： </td>
+			<td colspan='3'>
+				<textarea  id='natrualruralList' name='natrualruralList'  readOnly="true" >$!{natureList}</textarea>
+			</td>
+		</tr>
+	#end
+	
+	<tr>
+		<td class="tdRight">总面积：</td>
+		<td colspan='2'><input style="width:60px;" id="ruralArea" type='text' class='number' value='$!{form.ruralArea}' min="0" precision="2" name='ruralArea' $!{readonly}/>亩</td>
+		<td colspan='2' class="tdRight">耕地面积：</td>
+		<td><input id="arableLand" type='text' style="width:60px;" class='number' value='$!{form.arableLand}' min="0" precision="2" name='arableLand' $!{readonly}/>亩</td>
+	</tr>
+	<tr>
+		<td class="tdRight">户数：</td>
+		<td><input style="width:60px;" id="houseHold" type='text' value='$!{form.houseHold}' min="0" precision="0" class='number' name='houseHold' $!{readonly}/>户</td>
+		<td class="tdRight">人口数：</td>
+		<td><input id="population" style="width:50px;" type='text' value='$!{form.population}' min="0" precision="0" class='number' name='population' $!{readonly}/>人</td>
+		<td class="tdRight">劳动力总人数：</td>
+		<td><input id="labor" type='text' style="width:60px;" value='$!{form.labor}' min="0" precision="0" class='number' name='labor' $!{readonly}/>人</td>
+	</tr>
+	
+	
+	<tr>
+		<td class="tdRight" colspan='2'>贫困户数：</td>
+		<td  ><input style="width:60px;" id="poorHouseHold" type='text' value='$!{form.poorHouseHold}' min="0" precision="0" class='number' name='poorHouseHold' $!{readonly}/>户</td>
+		<td class="tdRight">贫困人口数：</td>
+		<td colspan='2'><input id="poorPopulation" style="width:50px;" type='text' value='$!{form.poorPopulation}' min="0" precision="0" class='number' name='poorPopulation' $!{readonly}/>人</td>
+	</tr>
+	
+	<tr>
+		<td class="tdRight" colspan='2'>低保户数：</td>
+		<td ><input style="width:60px;" id="lowHouseHold" type='text' value='$!{form.lowHouseHold}' min="0" precision="0" class='number' name='lowHouseHold' $!{readonly}/>户</td>
+		<td class="tdRight">低保人口数：</td>
+		<td colspan='2'><input id="lowPopulation" style="width:50px;" type='text' value='$!{form.lowPopulation}' min="0" precision="0" class='number' name='lowPopulation' $!{readonly}/>人</td>
+	</tr>
+	
+	<tr>
+		<td class="tdRight" colspan='2'>五保户数：</td>
+		<td ><input style="width:60px;" id="wubaoHouseHold" type='text' value='$!{form.wubaoHouseHold}' min="0" precision="0" class='number' name='wubaoHouseHold' $!{readonly}/>户</td>
+		<td class="tdRight">需改造的危房户数：</td>
+		<td colspan='2'><input id="dangerHouse" style="width:50px;" type='text' value='$!{form.dangerHouse}' min="0" precision="0" class='number' name='dangerHouse' $!{readonly}/>户</td>
+	</tr>
+	
+	
+	
+	
+	<tr>
+		<td class="tdRight" colspan='3'>是否省级扶贫开发重点村(贫困村)：</td>
+		<td colspan='3'>
+			#if($form.poorVillage == '是')
+				<input id="poorVillage-n" style='width:20px' type='radio' name='poorVillage' value='否' $!{disabled} onclick="jQuery('#helpUnit').attr('disabled', true);"/><label for="poorVillage-n">否</label>
+				<input id="poorVillage-y" style='width:20px' type='radio' name='poorVillage' value='是' $!{disabled} checked='checked' onclick="jQuery('#helpUnit').removeAttr('disabled');"/><label for="poorVillage-y">是</label>
+				(帮扶单位名称:<input id="helpUnit" style='width:160px;text-align:left;' type='text' value='$!{form.helpUnit}' name='helpUnit' $!{readonly}/>)
+			#else
+				<input id="poorVillage-n" style='width:20px' type='radio' name='poorVillage' value='否' $!{disabled} checked='checked' onclick="jQuery('#helpUnit').attr('disabled', true);"/><label for="poorVillage-n">否</label>
+				<input id="poorVillage-y" style='width:20px' type='radio' name='poorVillage' value='是' $!{disabled} onclick="jQuery('#helpUnit').removeAttr('disabled');"/><label for="poorVillage-y">是</label>
+				(帮扶单位名称:<input id="helpUnit" style='width:160px;text-align:left;' type='text' value='$!{form.helpUnit}' name='helpUnit' disabled='true'/>)
+			#end
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="tdRight" colspan='2'>各年度农民年人均纯收入：</td>
+		<td colspan='4'>
+			2013&nbsp年度：<input id="annualIncome_13" type='text' name='annualIncome_13' class='number'  value='$!{form.annualIncome_13}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+			2014&nbsp年度：<input id="annualIncome_14" type='text' name='annualIncome_14' class='number'  value='$!{form.annualIncome_14}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+			2015&nbsp年度：<input id="annualIncome_15" type='text' name='annualIncome_15' class='number'  value='$!{form.annualIncome_15}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+			2016&nbsp年度：<input id="annualIncome_16" type='text' name='annualIncome_16' class='number'  value='$!{form.annualIncome_16}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+			2017&nbsp年度：<input id="annualIncome_17" type='text' name='annualIncome_17' class='number'  value='$!{form.annualIncome_17}' min="0" precision="2"$!{readonly} />元
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td  style='font-weight:bold;' colspan='6'>(二)农村公共服务情况</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>文化活动场所：</td>
+		<td colspan='4'>
+			<input style="width:60px;" id="culturalAct" class='number' type='text' value='$!{form.culturalAct}' min="0" precision="0" name='culturalAct' $!{readonly} />个，
+			<input style="width:60px;" id="culturalActArea" class='number' type='text' value='$!{form.culturalActArea}' min="0" precision="2" name='culturalActArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="culturalActAnn" type='text' value='$!{form.culturalActAnn}' name='culturalActAnn' readonly='readonly' />
+			#else
+				<select id='culturalActAnn' name='culturalActAnn'>$!{selyear}</select>
+			#end	
+			年
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>乡村公园：</td>
+		<td colspan='4'>
+			<input style="width:60px;" id="ruralPark" type='text' class='number' value='$!{form.ruralPark}' min="0" precision="0" name='ruralPark' $!{readonly} />个，
+			<input style="width:60px;" id="ruralParkArea" class='number' type='text' value='$!{form.ruralParkArea}' min="0" precision="2" name='ruralParkArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="ruralParkAnn" type='text' value='$!{form.ruralParkAnn}' name='ruralParkAnn' readonly='readonly' />
+			#else
+				<select id='ruralParkAnn' name='ruralParkAnn'>$!{selyear}</select>
+			#end	
+			年
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>文体广场：</td>
+		<td colspan='4'>
+			<input style="width:60px;" id="ruralSquare" type='text' class='number' value='$!{form.ruralSquare}' min="0" precision="0" name='ruralSquare' $!{readonly} />个，
+			<input style="width:60px;" id="squareArea" class='number' type='text' value='$!{form.squareArea}' min="0" precision="2"name='squareArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="squareAnn" type='text' value='$!{form.squareAnn}' name='squareAnn' readonly='readonly' />
+			#else
+				<select id='squareAnn' name='squareAnn'>$!{selyear}</select>
+			#end
+			年
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>村级卫生站：</td>
+		<td colspan='4'>
+			<input style="width:60px;" id="healthStation" type='text' class='number' value='$!{form.healthStation}' min="0" precision="0" name='healthStation' $!{readonly} />个，
+			<input style="width:60px;" id="healthStationArea" class='number' type='text' value='$!{form.healthStationArea}' min="0" precision="2" name='healthStationArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="healthStationAnn" type='text' value='$!{form.healthStationAnn}' name='healthStationAnn' readonly='readonly' />
+			#else
+				<select id='healthStationAnn' name='healthStationAnn'>$!{selyear}</select>
+			#end
+			年
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>乡村公厕：</td>
+		<td colspan='4'>
+			<input style="width:60px;" id="villageToilet" type='text' class='number' value='$!{form.villageToilet}' min="0" precision="0" name='villageToilet' $!{readonly} />个，
+			<input style="width:60px;" id="villageToiletArea" class='number' type='text' value='$!{form.villageToiletArea}' min="0" precision="2" name='villageToiletArea' $!{readonly} />平方米，
+			年度：
+			#if($readonly)
+				<input id="villageToiletAnn" type='text' value='$!{form.villageToiletAnn}' name='villageToiletAnn' readonly='readonly' />
+			#else
+				<select id='villageToiletAnn' name='villageToiletAnn'>$!{selyear}</select>
+			#end
+			年
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='3'>是否建立统一的村级公共服务管理平台：</td>
+		<td colspan='3'>
+			#if($form.publicService == '是')
+				<input id="publicService-n" style='width:20px' type='radio' name='publicService' value='否' $!{disabled}  onclick="jQuery('#psAnnual').attr('disabled', true);"/><label for='publicService-n'>否</label>
+				<input id="publicService-y" style='width:20px' type='radio' name='publicService' value='是' $!{disabled} checked='checked' onclick="jQuery('#psAnnual').removeAttr('disabled');" /><label for='publicService-y'>是</label>
+				(年度：
+					#if($readonly)
+						<input id="psAnnual" type='text' value='$!{form.psAnnual}' name='psAnnual' readonly='readonly' />
+					#else
+						<select id='psAnnual' name='psAnnual'>$!{selyear}</select>
+					#end	
+				年)
+			#else
+				<input id="publicService-n" style='width:20px' type='radio' name='publicService' value='否' $!{disabled} checked='checked'  onclick="jQuery('#psAnnual').attr('disabled', true);"/><label for='publicService-n'>否</label>
+				<input id="publicService-y" style='width:20px' type='radio' name='publicService' value='是' $!{disabled} onclick="jQuery('#psAnnual').removeAttr('disabled');" /><label for='publicService-y'>是</label>
+				(年度：
+					#if($readonly)
+						<input id="psAnnual" type='text' name='psAnnual' disabled='true' />
+					#else
+						<select id='psAnnual' name='psAnnual' disabled='true'>$!{selyear}</select>
+					#end	
+				年)
+			#end
+		</td>
+	</tr>
+	
+</table>
+
+
+<div class="applicant-remark">
+	<div class="applicant-remark-title">备注：</div>
+	<div>
+		<div class="applicant-remark-item">1)&nbsp;每村一表</div>
+		<div class="applicant-remark-item">2)&nbsp;初次填写,第一次报省委农办备案是初次填写。<br/>&nbsp;&nbsp;年度填写：以后示范片建设周期内的 每个年度末或考核验收前在上一次填写上修改有变化的数据项目</div>
+		<div class="applicant-remark-item">3)&nbsp;各代码指标数值累计到填写年度的数。</div>
+		<div class="applicant-remark-item">4)&nbsp;序号[B2]：按自然序数1、2、3、…排。</div>
+		<div class="applicant-remark-item">5)&nbsp;村庄类型[B3]：单选。</div>
+		<div class="applicant-remark-item">6)&nbsp;村名称[B4]：如果是行政村，可以不填村名小组</div>
+		<div class="applicant-remark-item">7)&nbsp;是否省级扶贫开发重点村（贫困村）[B10]：其中是贫困村时需要填写帮扶单位，如果有多个单位的，只填牵头单位即可。</div>
+		<div class="applicant-remark-item">8)&nbsp;村名使用卫生厕所户数[B22]：不能超过总户数[B7]。</div>
+		<div class="applicant-remark-item">9)&nbsp;注明了需上传电子版上传的，需要准备好对应的电子版以便在信息系统中上传。</div>
+		<div class="applicant-remark-item">10)&nbsp;资源特色[B31-B37]：按类型进行简短描述，内部包括历史时间、数量、规模、效益以及社会影响力。</div>
+		<div class="applicant-remark-item">11)&nbsp;工作小组[B46]：名单可以有多个，不够可以自行添加单元格填写。</div>
+		<div class="applicant-remark-item">12)&nbsp;专家指导组名单[B48]：名单可以有多个，不够可以自行添加单元格填写。</div>
+		<div class="applicant-remark-item">13)&nbsp;规划设计单位[B52]：名单可以有多个，不够可以自行添加单元格填写。</div>
+		<div class="applicant-remark-item">14)&nbsp;理事会主要负责人[B55]：至多填两人即可。</div>
+	</div>
+</div>
+<!--
+<script type="text/javascript">
+jQuery(function(){
+ 	$("a.area_file_upload").bupabutton({
+		flat : true, 
+		iconClassname : 'icon-file-upload'
+	});
+	_initial();
+});
+function _initial(){
+    var v=jQuery('#leaderHP').val();
+    if(v-0==0){
+       jQuery('#leaderHP').val("");
+    }
+}
+</script>
+-->
+

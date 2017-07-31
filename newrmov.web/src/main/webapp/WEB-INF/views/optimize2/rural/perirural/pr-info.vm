@@ -1,0 +1,174 @@
+<table class=' editor' style="width:100%;margin: auto;" id='_table'>
+	<tr>
+		<th colspan='2' class="tdRight" class="tdCenter">被纳入主体村的辐射带动范围</th>
+		<td colspan='4'>
+		#if($readonly)
+			<input type='text' style='width:98%;' value='$!{form.nrName}' name='nrName' readOnly="true"/>
+		#else
+			$!{newRural}
+		#end				
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight">总面积[B5]：</th>
+		<td colspan='2'><input style="width:60px;" id="ruralArea" type='text' class='number' value='$!{form.ruralArea}' min="0" precision="2" name='ruralArea' $!{readonly}/>亩</td>
+		<th colspan='2' class="tdRight">耕地面积[B6]：</th>
+		<td><input id="arableLand" type='text' style="width:60px;" class='number' value='$!{form.arableLand}' min="0" precision="2" name='arableLand' $!{readonly}/>亩</td>
+	</tr>
+	
+	<tr>
+		<th class="tdRight">人口数[B8]：</th>
+		<td><input id="population" style="width:60px;" type='text' value='$!{form.population}' min="0" precision="0" class='number' name='population' $!{readonly}/>人</td>
+		<th class="tdRight" colspan='2'>劳动力总人数[B9]：</th>
+		<td colspan='2'><input id="labor" type='text' style="width:60px;" value='$!{form.labor}' min="0" precision="0" class='number' name='labor' $!{readonly}/>人</td>
+	</tr>
+	<tr>
+		<th class="tdRight">户数：</th>
+		<td colspan='6'><input style="width:60px;" id="houseHold" type='text' value='$!{form.houseHold}' min="0" precision="0" class='number' name='houseHold' $!{readonly}/>户</td>
+	</tr>
+	
+	
+	<tr style='color:red;'>
+		<th class="tdRight" ><span >贫困户数：</span></th>
+		<td  ><input style="width:60px;" id="poorHouseHold" type='text' value='$!{form.poorHouseHold}' min="0" precision="0" class='number' name='poorHouseHold' $!{readonly}/>户</td>
+		<th class="tdRight" colspan='2'><span >贫困人口数：</span></th>
+		<td colspan='2'><input id="poorPopulation" style="width:60px;" type='text' value='$!{form.poorPopulation}' min="0" precision="0" class='number' name='poorPopulation' $!{readonly}/>人</td>
+	</tr>
+	
+	<tr >
+		<th class="tdRight" ><span >低保户数：</span></th>
+		<td ><input style="width:60px;" id="lowHouseHold" type='text' value='$!{form.lowHouseHold}' min="0" precision="0" class='number' name='lowHouseHold' $!{readonly}/>户</td>
+		<th class="tdRight" colspan='2'><span >低保人口数：</span></th>
+		<td colspan='2'><input id="lowPopulation" style="width:60px;" type='text' value='$!{form.lowPopulation}' min="0" precision="0" class='number' name='lowPopulation' $!{readonly}/>人</td>
+	</tr>
+	
+	<tr >
+		<th class="tdRight" ><span >五保户数：</span></th>
+		<td ><input style="width:60px;" id="wubaoHouseHold" type='text' value='$!{form.wubaoHouseHold}' min="0" precision="0" class='number' name='wubaoHouseHold' $!{readonly}/>户</td>
+		<th class="tdRight" colspan='2'><span >需改造的危房户数：</span></th>
+		<td colspan='2'><input id="dangerHouse" style="width:60px;" type='text' value='$!{form.dangerHouse}' min="0" precision="0" class='number' name='dangerHouse' $!{readonly}/>户</td>
+	</tr>
+	
+	
+	<tr>
+		<th colspan='6' class='title'><a href='#' class='item-open2 ' onclick="pDetal();" >详情</a></th>
+	</tr>
+</table>
+<div align='left' id='ma-tab' style="display: none;">
+	<div id="nr_myt" style="" >
+	    <div title="基本情况" style="padding:0px;">
+	    	#parse('optimize2/rural/perirural/pr-base.vm')
+	    </div>
+	    <div title="基础设施和环境卫生" data-settings="" style="overflow:auto;padding:0px;">
+	    	#parse('optimize2/rural/perirural/insta-environ.vm')
+	    </div>
+	   
+	    <div title="农村旧房整治" data-settings="iconClassname:''" style="padding:0px;">
+	    	#parse('optimize2/rural/perirural/old-house.vm')
+	    </div>
+	     <div title="规划进展" data-settings="" style="overflow:auto;padding:0px;">
+	    	#parse('optimize2/rural/perirural/plan-progress.vm')
+	    </div>
+	    <div title="村名理事会" data-settings="iconClassname:''" style="padding:0px;">
+	    	#parse('optimize2/rural/perirural/vilage-concil.vm')
+	    </div>
+	    <div title="民生问题调查" data-settings="iconClassname:''" style="padding:0px;">
+	    	#parse('optimize2/rural/perirural/livelihood-issues.vm')
+	    </div>
+	</div>
+</div>
+<div id='main_house' style='width: 400px; height: 350px;padding:40px 0 0 300px;'> </div>
+	
+<script type='text/javascript'>
+	var myChart2 = echarts.init(document.getElementById('main_house'),'infographic');
+	jQuery(function() {
+		$('#nr_myt').buptab({
+			tabWidth:150,
+			tabHeight:60,
+			width:964,
+		 	//fit: true,
+			height:620,
+			headerWidth:220,
+			headerWidth:220,
+			//height:200,
+		    border:false,
+		    tabPosition: 'top',
+		    collapsible: true,
+		    onSelect:function(title){
+		       //alert(title + ' 被选中了！');
+		    }
+		});
+		
+		
+		
+		
+		
+		option2 = {
+		    title : {
+		        text: '$!{form.naturalVillage}',
+		        subtext: '村户数',
+		        x:'center'//标题位置
+		    },
+		    tooltip : {
+		        trigger: 'item',
+		        formatter: "{b} : {c}户 ({d}%)"
+		    },
+		    legend: {
+		        orient : 'vertical',
+		        x : 'left',
+		        data:['贫困户数','低保户数','五保户数','需改造的危房户数','其他']
+		    },
+		    
+		    calculable : true,
+		    series : [
+		        {
+		            name:'户数',
+		            type:'pie',
+		            radius : '55%',
+		            center: ['50%', '60%'],
+		            data:[
+		                {value:$form.poorHouseHold, name:'贫困户数'},
+		                {value:$form.lowHouseHold, name:'低保户数'},
+		                {value:$form.wubaoHouseHold, name:'五保户数'},
+		                {value:$form.dangerHouse, name:'需改造的危房户数'},
+		                {value:$form.houseHold - ($form.poorHouseHold + $form.lowHouseHold + $form.wubaoHouseHold), name:'其他'}
+		            ],
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             //color: '#800080'
+		                         },
+		                         position:'outer',
+		                         formatter: '{b}:\n{c}户 ({d}%)'
+		                     },
+		                     color: function(params) {
+		                        // build a color map as your need.
+		                        /*var colorList = [
+		                          '#C1232B','#B5C334','#6495ED','#E87C25','#27727B',
+		                           '#FF4500','#B03060','#26C0C0','#F3A43B','#8B8B00',
+		                           '#D7504B','#C6E579','#F4E001','#F0805A','#A2CD5A'
+		                        ];
+		                        return colorList[params.dataIndex]*/
+		                    }
+		                 }
+		             }
+		        }
+		    ]
+		};
+		myChart2.setOption(option2);
+	});
+
+	function pDetal(){
+		var title = $('#r_title').html();
+		$('#r_title').html(title+"  >>  详情");
+		
+		$(this).toggleClass('item-open2 item-close2');
+		$('#_table').toggle('slow');
+		document.getElementById('ma-tab').style.display='';
+		$('#main_house').toggle('slow');
+		
+	}
+</script>
+	

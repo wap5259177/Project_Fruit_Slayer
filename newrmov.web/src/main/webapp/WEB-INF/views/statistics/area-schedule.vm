@@ -1,0 +1,217 @@
+@set($layout="layout-empty.vm")
+<table class="applicant-form" style="width:100%">
+		<tr>
+		    <td rowspan='3'>示范片区所<br/>在市县名称</td>
+			<td rowspan='3'>行政村数</td>
+			<td rowspan='3'>自然村数</td>
+			<td rowspan='3'>户数</td>
+			<td rowspan='3'>人数</td>
+			
+			<td colspan='2'>完成村庄整<br/>治规划情况</td>
+			
+			<td rowspan='3'>通自来<br/>水自然<br/>村数<br/>（个）</td>
+			<td rowspan='3'>完成卫<br/>生改厕<br/>所自然<br/>村数<br/>（个）</td>
+			<td rowspan='3'>完成道<br/>路硬化<br/>建设自<br/>然村数<br/>（个）</td>
+			<td rowspan='3'>完成民<br/>居外立<br/>面特色<br/>改造的<br/>自然村<br/>数<br/>（个）</td>
+			
+			<td colspan='3'>环境卫生综合整治情况</td>
+			<td colspan='7'>资金投入情况（万元）</td>
+			
+			<td rowspan='3'>已成立村<br/>民理事会<br/>并制定了<br/>村规民约<br/>和章程的<br/>自然村数<br/>（个）</td>
+		</tr>
+		<tr>
+			<td rowspan='2'>行政村<br/>有编制<br/>规划设<br/>计村数<br/>（个）</td>
+			<td rowspan='2'>自然村<br/>有编制<br/>规划设<br/>计村数<br/>（个）</td>
+		    
+			<td rowspan='2'>完成卫<br/>生整治<br/>及建立<br/>保洁队<br/>和长效<br/>机制的<br/>自然村<br/>数<br/>（个）</td>
+			<td rowspan='2'>实行雨<br/>污分流<br/>并建有<br/>污水处<br/>理设施<br/>自然村<br/>数<br/>（个）</td>			
+			<td rowspan='2'>实行人<br/>畜分离<br/>（集中<br/>圈养）<br/>的自然<br/>村数<br/>（个）</td>
+
+			<td colspan='7' style="height:30px;"></td>
+		</tr>
+		<tr>
+		   
+			<td>累计投入<br/>资金总数</td>
+			<td>1.中央财<br/>政资金</td>
+			<td>2.省级新<br/>农村示范<br/>片建设补<br/>助资金</td>
+			<td>3.其他省<br/>级财政资<br/>金</td>
+			<td>4.市级财<br/>政资金</td>
+			<td>5.县级财<br/>政资金</td>
+			<td>6.社会投<br/>入及群众<br/>自筹资金</td>
+			
+		</tr>
+		
+		<tr>
+			<td>汕头南澳县</td>
+			<td>5</td>
+			<td>9</td>
+			<td>1772</td>
+			<td>6804</td>
+			
+			<td>5</td>
+			<td>9</td>
+			<td>9</td>
+			<td>6</td>
+			<td>7</td>
+			
+			<td>0</td>
+			<td>9</td>
+			<td>2</td>
+			<td>9</td>
+			<td>600</td>
+			
+			<td>0</td>
+			<td>600</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			
+			<td>0</td>
+			<td>5</td>
+		</tr>
+		<tr><td colspan="22">请按实际情况填报完成情况：</td></tr>
+		<tr><td colspan="5" onclick="jQuery(this).parent().next().toggle();">+ 行政村一</td><td colspan="17"></td></tr>
+		<tbody>
+		<tr><td colspan="5" style="padding-left:50px;">自然村一</td>
+		
+		<!-- 9个选择项 + 后面的1个选项 -->
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;" checked="true" disabled="false"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		
+		<td colspan="7"></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		
+		</tr>
+		
+		<tr><td colspan="5" style="padding-left:50px;">自然村二</td>
+		
+		<!-- 9个选择项 + 后面的1个选项 -->
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;" checked="true" disabled="false"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		
+		<td colspan="7"></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		
+		</tr>
+		<tr><td colspan="5" style="padding-left:50px;">自然村三</td>
+		
+		<!-- 9个选择项 + 后面的1个选项 -->
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;" checked="true" disabled="false"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		
+		<td colspan="7"></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		
+		</tr>
+		</tbody>
+		<tr><td colspan="5" onclick="jQuery(this).parent().next().toggle();">- 行政村二</td><td colspan="17"></td></tr>
+		<tr><td colspan="5" onclick="jQuery(this).parent().next().toggle();">- 行政村三</td><td colspan="17"></td></tr>
+		
+		<tr><td colspan="5" onclick="jQuery(this).parent().next().toggle();">+ 行政村四</td><td colspan="17"></td></tr>
+		<tbody>
+		<tr><td colspan="5" style="padding-left:50px;">自然村四</td>
+		
+		<!-- 9个选择项 + 后面的1个选项 -->
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;" checked="true" disabled="false"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		
+		<td colspan="7"></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		
+		</tr>
+		
+		<tr><td colspan="5" style="padding-left:50px;">自然村五</td>
+		
+		<!-- 9个选择项 + 后面的1个选项 -->
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;" checked="true" disabled="false"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		
+		<td colspan="7"></td>
+		<td><input type="checkbox" style="width:20px;padding:0;margin:0;"/></td>
+		</tr>
+		
+		#if($auditing && $form.statusValue == 4)
+			<tr><td colspan="22" style="font-weight:bold;font-size:16px;">审核信息：<span  style="color:blue;">正在审核</span></td></tr>
+			<tr>
+				<td colspan="4"class="tdRight">审核内容：</td>
+				<td  colspan="18"><textarea name="auditContent" value="$!{form.auditContent}" id="auditContent"></textarea></td>
+			</tr>
+			<tr>
+				<td colspan="4" class="tdRight">审核人：</td>
+				<td colspan="6"><input type="text" name="auditName" value="$!{form.auditName}" /></td>
+				<td colspan="3" class="tdRight">审核时间：</td>
+				<td colspan="9"><input id="bupdateinput" type="text" type="text" name="auditAt" value="$!{form.auditAt}" id="auditAt"></input></td>
+				
+			</tr>
+		#elseif($form.statusValue == 3)
+	
+		<tr><td colspan="22" style="font-weight:bold;font-size:16px;">审核信息：<span  style="color:red;">驳回</span></td></tr>
+		<tr>
+			<td colspan="4" class="tdRight">驳回原因：</td>
+			<td  colspan="18"><textarea name="auditContent" readonly="readonly">$!{form.auditContent}</textarea></td>
+		</tr>
+			<tr>
+			<td colspan="4" class="tdRight">审核人：</td>
+			<td colspan="6" ><input type="text" value="$!{form.auditName}" readonly="readonly"/></td>
+			<td colspan="3" class="tdRight">审核时间：</td>
+			<td colspan="9"><input  type="text" value="$!{form.auditAt}" readonly="readonly"/></td>
+		</tr>
+	
+		#elseif($form.statusValue == 1)
+			<tr><td colspan="22" style="font-weight:bold;font-size:16px;">审核信息：<span style="color:blue;">审核通过</span></td></tr>
+			#if(${form.auditContent})
+			<tr>
+				<td colspan="4" class="tdRight">审核内容：</td>
+				<td  colspan="18"><textarea readonly="readonly">${form.auditContent}</textarea></td>
+			</tr>
+			#end
+			<tr>
+				<td colspan="4" class="tdRight">审核人：</td>
+				<td colspan="6" ><input type="text" value="$!{form.auditName}" readonly="readonly"/></td>
+				<td colspan="3" class="tdRight">审核时间：</td>
+				<td colspan="9"><input  type="text" value="$!{form.auditAt}" readonly="readonly"/></td>
+			</tr>
+		#end
+		</tbody>
+</table>
+<div style="padding:20px 0 0 250px;"><button>提交</button></div>
+<script type="text/javascript">
+	$('#bupdateinput').bupdateinput({
+    plyWidth:210               
+});
+</script>

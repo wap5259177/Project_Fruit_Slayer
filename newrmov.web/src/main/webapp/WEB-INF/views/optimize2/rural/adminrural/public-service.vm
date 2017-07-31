@@ -1,0 +1,52 @@
+<table class=' editor' style="width:100%;margin: auto;" >
+	<tr>
+		<th class="tdRight" colspan='2'>文化活动场所[B39]：</th>
+		<td colspan='4' >
+			<input style="width:50px;" id="culturalAct" class='number' type='text' value='$!{ar.culturalAct}' min="0" precision="0" name='culturalAct' $!{readonly} />个，
+			<input style="width:60px;" id="culturalActArea" class='number' type='text' value='$!{ar.culturalActArea}' min="0" precision="2" name='culturalActArea' $!{readonly} />平方米，
+			年度:$!{ar.culturalActAnn}年
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='2'>乡村公园[B40]：</th>
+		<td colspan='4'>
+			<input style="width:50px;" id="ruralPark" type='text' class='number' value='$!{ar.ruralPark}' min="0" precision="0" name='ruralPark' $!{readonly} />个，
+			<input style="width:60px;" id="ruralParkArea" class='number' type='text' value='$!{ar.ruralParkArea}' min="0" precision="2" name='ruralParkArea' $!{readonly} />平方米，
+			年度:$!{ar.ruralParkAnn}年
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='2'>文体广场[B41]：</th>
+		<td colspan='4'>
+			<input style="width:50px;" id="ruralSquare" type='text' class='number' value='$!{ar.ruralSquare}' min="0" precision="0" name='ruralSquare' $!{readonly} />个，
+			<input style="width:60px;" id="squareArea" class='number' type='text' value='$!{ar.squareArea}' min="0" precision="2"name='squareArea' $!{readonly} />平方米，
+			年度:$!{ar.squareAnn}年
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='2'>村级卫生站[B42]：</th>
+		<td colspan='4'>
+			<input style="width:50px;" id="healthStation" type='text' class='number' value='$!{ar.healthStation}' min="0" precision="0" name='healthStation' $!{readonly} />个，
+			<input style="width:60px;" id="healthStationArea" class='number' type='text' value='$!{ar.healthStationArea}' min="0" precision="2" name='healthStationArea' $!{readonly} />平方米，
+			年度:$!{ar.healthStationAnn}年
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='2'>乡村公厕[B43]：</th>
+		<td colspan='4'>
+			<input style="width:50px;" id="villageToilet" type='text' class='number' value='$!{ar.villageToilet}' min="0" precision="0" name='villageToilet' $!{readonly} />个，
+			<input style="width:60px;" id="villageToiletArea" class='number' type='text' value='$!{ar.villageToiletArea}' min="0" precision="2" name='villageToiletArea' $!{readonly} />平方米，
+			年度:$!{ar.villageToiletAnn}年
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='3'>是否建立统一的村级公共服务管理平台：</th>
+		<td colspan='3'>
+			#if($ar.publicService == '是')
+				是(年度:$!{ar.psAnnual})年
+			#else
+				否
+			#end
+		</td>
+	</tr>
+</table>

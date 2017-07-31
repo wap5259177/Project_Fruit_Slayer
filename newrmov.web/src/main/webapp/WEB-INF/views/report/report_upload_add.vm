@@ -1,0 +1,55 @@
+## 直接添加
+<script type="text/javascript" src="/res/js/jquery.form.js"></script>
+<div id="$di.id" title="$!{title} | 直接添加" style="width:550px;height:270px;padding:8px;" buttons="#${di.id}-buttons" modal='true'>
+	<form id='file_form' enctype='multipart/form-data'>
+		<input type='hidden' id='item_id' name='item_id' value='$!{id}'>
+		<table class='editor' style="margin:auto;">
+			<tr>
+		        <th style="width:80px;">文件上传：</th>
+		        <td><input type="file" name="file_upload" id="file_upload" style="width:98%;"/></td>
+		    </tr>
+			<tr>
+		        <th>重命名：</th>
+		        <td><input style="width:260px;" type="text" name="name" id="name" value="$!{name}"/><font color='red'>（不填则默认为文件名）</font></td>
+		    </tr>
+		    <tr>
+				<th>扩展属性：</th>
+				<td><input type="text" name="extendedAttributes" id="extendedAttributes" value="$!{extendedAttributes}" style="width:98%;" /></td>
+			</tr>
+			<tr>
+		        <th>备注</th>
+		        <td><textarea name="remark" id="remark" style="resize:none;height:80px;width:98%;font-size:12px;">$!{remark}</textarea></td>
+		    </tr>
+		</table>
+	</form>
+</div>
+<div id="${di.id}-buttons">
+	<a href="#" id='a_save_0' onclick="dg_save();">保存</a> 
+	<a href="#" id='a_close_0' onclick="$('#${di.id}').bupdlg('close');">关闭</a>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_save_0, #a_close_0').bupabutton({flat : true});
+});
+function dg_save() {
+	lock('正在保存文档...');
+	jQuery('#file_form').ajaxSubmit({
+		url:'document/save_upload',
+		type:'post',
+		dataType:'json',
+		success:function(rd) {
+			jQuery.unblockUI();
+			if (typeof rd === "string")
+				rd = $.parseJSON(rd);
+			if(rd.error) {
+				alert(rd.msg);
+				return;
+			}
+			$('#report_document').bupgrid("reload");
+			$('#${di.id}').bupdlg('close');
+		}
+	});
+	return false;
+}
+</script>

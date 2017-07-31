@@ -1,0 +1,140 @@
+<div style="padding:8px;" id="ddl-annual-selector">
+	#parse('felicity/annual-selector.vm')
+</div>
+<input type="hidden" id="temp" name="id" value="100"/>
+<input type="hidden" id="hid-year" name="year" value="${selectedYear}"/>
+<input type="hidden" id="hid-month" name="month" value="${lastMonth}"/>
+<div style="float:right;#if(!$editable)display:none;#end" id="btn-pj-rep-editor">
+	<a class="bupabutton" data-settings="iconClassname:'icon_save',face:'scorner'" href='#' onclick='submitReport(this);return false;'>提交</a> 
+	<a class="bupabutton" data-settings="iconClassname:'icon_save',face:'scorner'" href='#' onclick='saveReport(this);return false;'>暂存</a>
+</div>
+#parse("felicity/report-header.vm")
+<style>
+		//.fund,s-fund,.t-fund,.c-fund{width:90%;}
+		.reportMessage{height:50px;font-size:24px;color:red;text-align:center;vertical-align:middle;}
+		.reportMessage a{color:blue;font-weight:bold;font-size:22px;}
+		#tb-project-report-items, #tb-project-report-head{width:100%;letter-spacing:3px;font-size:14px;border-collapse:collapse;text-align:center;border:solid 1px #000000;}
+		#tb-project-report-items th,#tb-project-report-head th{border:solid 1px #000000;font-weight:normal;font-size:14px;}
+		#tb-project-report-items th input, #tb-project-report-items th select{width:90%;}
+		#tb-project-report-head th.sortable{cursor: pointer;}
+		#tb-project-report-head th.sortable:hover{color:blue;}
+		#tb-project-report-head th.sortable-selected{color:gray;}
+		#tb-project-report-items tr.searchable{}
+		#tb-project-report-items tr.searchable td{border:solid 1px blue;}
+		
+</style>
+  <form id="frm-submit-data" action="report.save" method="POST" style="padding:0;margin:0;">
+    <table id='tb-project-report-items' style="width:3245px;">$!{bodyContent}</table>
+  </form>
+<script type="text/javascript">
+    jQuery(function(){
+	    $('#_reportAt').bupdateinput({
+           plyWidth:210                
+        });
+        $('._sele').buppancombo({
+        	valueField:'id',
+    		textField:'name',
+    		multiple:true
+        });
+        jQuery(".c-fund").bupnuminput({
+			precision:4,
+				onChange:function(){
+					var th = jQuery(this).parent().parent();
+					var tf = 0;
+					jQuery(".c-fund", th).each(function(i, v){
+						var vf = jQuery(v).bupnuminput('getValue');
+						if($.isNumeric(vf)){
+							tf += vf - 0;
+						}
+					});
+					jQuery(".t-fund", th).val(tf);
+				}
+			});
+        
+    });
+	var reportId = '$!{report.id}';
+	var editable = '$!{editable}';
+	function gotoAnnual(t){
+		jQuery('#ddl-annual-selector').load(t.href,{
+			selectedYear : jQuery('#hid-year').val(),
+			selectedMonth : jQuery('#hid-month').val()
+		});
+		return false;
+	}
+	
+	function loadReport(t, mid){
+		var sednode;
+		if(mid){
+			sednode = jQuery("#monthly_" + mid);
+		}else{
+			sednode = jQuery(t);
+		}
+		if(editable){
+			if(!confirm("正在编辑，请注意保存好数据，是否继续操作？")){
+				return false;
+			}
+		}else{
+			if(sednode.hasClass("annual-new")){
+				if(!confirm("是否确定创建项目月报？")){
+					return false;
+				}
+			}
+		}
+		
+		jQuery("td.annual-monthly").removeClass("annual-selected");
+		if(sednode.length > 0){
+			sednode.parent().addClass("annual-selected");
+		}
+		jQuery("#tb-project-report-items").load(t.href);
+		return false;
+	}
+	function submitReport(th){
+		alert('123');
+		jQuery("#frm-submit-data").bupform({
+			onSubmit:function(p){
+				if(!confirm("提交后将不允许修改，是否确定要提交？")){
+					return false;
+				}
+				p.toSubmit = "true";
+				p.rid = reportId;
+			},
+			success:function(data){
+				if(__ajaxSuccess(data)){
+					jQuery.bupmsg.show({
+						title:'消息',
+						msg:'项目月度报告提交成功',
+						timeout:3000
+					});
+					jQuery("#frm-submit-data input,#frm-submit-data select").attr("disabled", "disabled");
+					jQuery("#btn-pj-rep-editor").hide();
+					var seldnode = jQuery("#ddl-annual-selector th.annual-selected");
+					if(seldnode.length > 0){
+						jQuery("a", seldnode).removeClass().addClass("annual-finish");
+					}
+				}
+			}
+		}).submit();
+	}
+	function saveReport(){
+		try{
+			jQuery("#frm-submit-data").bupform({
+				onSubmit:function(p){
+					p.toSubmit = "false";
+					p.rid = reportId;
+				},
+				success:function(data){
+					if(__ajaxSuccess(data)){
+						jQuery.bupmsg.show({
+							title:'消息',
+							msg:'项目月度报告暂存成功',
+							timeout:3000
+						});
+					}
+				}
+			}).submit();
+		}catch(e){
+			alert(e);
+		}
+	}
+	
+</script>

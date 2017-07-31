@@ -1,0 +1,228 @@
+<div style="width:99%;height:400px;overflow:auto;letter-spacing:3px;">
+
+#if($reject-view)
+<div style="padding:10px 90px 0 90px;font-size:18px;color:red"><b>您提交的申请被驳回，驳回的内容如下：</b>
+<p style="padding-left:5px;">$!{rejectContent}</p>
+<div><span style="float:right;">$!{rejectAt}</span></div>
+</div><hr style="clear:both;"/>
+#end
+ 
+#if($applicant-view)
+<p style="padding:20px 0 100px 300px;font-size:30px;font-weight:bold;">广东名镇申报表</p>
+<div style="font-size:16px;padding:20px 0 20px 140px;">
+申请单位:<span style="text-decoration:underline">&nbsp;&nbsp;$!{form.countyName}&nbsp;&nbsp;</span>县（市、区）<span style="text-decoration:underline">&nbsp;&nbsp;&nbsp;$!{form.name}&nbsp;&nbsp;&nbsp;</span>镇
+<div style="padding:0 0 50px 400px;">（加盖镇政府公章）</div>
+联系人：<span style="text-decoration:underline">&nbsp;&nbsp;$!{form.contactName}&nbsp;&nbsp;</span>&nbsp;&nbsp;联系电话：<span style="text-decoration:underline">&nbsp;$!{form.contactPhone}&nbsp;</span>
+<br/><div style="padding-top:40px;">申报时间：$!{aat}</div></div><hr/>
+#end
+
+<div style="padding-left:80px;">
+#if($applicant-view)
+<p style="padding:20px 0 0 100px;font-size:30px;font-weight:bold;"><span style="text-decoration:underline">&nbsp;$!{form.name}&nbsp;</span>镇创建名镇项目建设记录表 </p>
+<table class="applicant-form">
+<tr><td style="text-align:center;padding:0;width:40px;" valign="middle">序<br/>号</td><td style="text-align:center;padding:0;">项目名称</td><td style="text-align:center;padding:0;width:100px;">建设<br/>内容</td><td style="text-align:center;padding:0;width:120px;">实施时间<br/>($!{year}年起)</td><td style="text-align:center;padding:0;width:100px;">预算<br/>投入<br/>(万元)</td><td style="text-align:center;padding:0;width:100px;">完成<br/>投入<br/>(万元)</td><td style="text-align:center;padding:0;width:80px;">实施<br/>主体</td></tr>
+$!{projectItems}</table>
+#else
+<p style="padding:20px 0 0 180px;font-size:30px;font-weight:bold;">创建名镇项目建设记录表 </p>
+<table class="applicant-form" id="appl-form-items">
+<tr><td style="text-align:center;padding:0;width:40px;" valign="middle">序<br/>号</td><td style="text-align:center;padding:0;">项目名称</td><td style="text-align:center;padding:0;width:100px;">建设<br/>内容</td><td style="text-align:center;padding:0;width:120px;">实施时间<br/>($!{year}年起)</td><td style="text-align:center;padding:0;width:100px;">预算<br/>投入<br/>(万元)</td><td style="text-align:center;padding:0;width:100px;">完成<br/>投入<br/>(万元)</td><td style="text-align:center;padding:0;width:80px;">实施<br/>主体</td><td style="width:20px;"></td></tr>
+$!{projectItems}</table>
+<a href="#" id="btn-add-project">添加项目</a>
+<script type="text/javascript">
+	var projectCount = '$!{projectCount}';
+	var removeImg = "#springUrl('/res/images/remove.png')";
+	jQuery(function(){
+		jQuery("#btn-add-project").click(function(){
+			projectCount++;
+			var ipt = jQuery("<tr><td>-</td><td><input type='text' name='projectName-" 
+				+ projectCount + "'/><input type='hidden' name='projects' value='" 
+				+ projectCount + "'/></td><td><input type='text' name='projectContent-" 
+				+ projectCount + "'/></td><td class='dt-input-class'><input type='text' style='width:100px;' name='projectAt-" 
+				+ projectCount + "'/></td><td><input type='text' class='num-input-class' name='projectBudget-" 
+				+ projectCount + "'/></td><td><input type='text' class='num-input-class' name='projectDone-" 
+				+ projectCount + "'/></td><td><input type='text' name='projectExecutor-" 
+				+ projectCount + "'/></td><td><a href='#' onclick='jQuery(this).parent().parent().remove();return false;'><img src='" 
+				+ removeImg + "'/></a></td></tr>");
+			ipt.appendTo(jQuery(this).prev());
+			
+			ipt.find(".dt-input-class input").bupdateinput({editable:false});
+			ipt.find("input.num-input-class").bupnuminput({min:0, precision:4});
+			return false;
+		});
+	});
+</script>
+#end
+<p style="font-size:16px;padding-left:8px;">注：填写从$!{year}年以来开始项目建设情况，项目记录表是名镇建设的项目台账。</p>
+</div><hr/>
+
+<div style="padding-left:80px;">
+#if($applicant-view)
+<p style="padding:20px 0 0 100px;font-size:30px;font-weight:bold;"><span style="text-decoration:underline">&nbsp;$!{form.name}&nbsp;</span>镇创建名镇投入资金记录表 </p>
+#else
+<p style="padding:20px 0 0 180px;font-size:30px;font-weight:bold;">创建名镇投入资金记录表 </p>
+#end
+<table class="applicant-form">
+  <tr>
+    <td width="116"><p align="center">累计投入 <br />
+      资金 <br />
+      （万元） </p></td>
+    <td width="97"><p align="center">1.中央 <br />
+      投入 </p></td>
+    <td width="97"><p align="center">2.省级 <br />
+      投入 </p></td>
+    <td width="97"><p align="center">3.地方 <br />
+      投入 </p></td>
+    <td width="97"><p align="center">4.社会 <br />
+      投入 </p></td>
+    <td width="97"><p align="center">5.群众 <br />
+      自筹 </p></td>
+    <td><p align="center">6.其它 </p></td>
+  </tr>
+  <tr style="height:50px;" id='num-need-sum'>
+    <td id='num-total-sum'>$!{totalInvestment}</td>
+    <td>$!{investmentNation}</td>
+    <td>$!{investmentProvince}</td>
+    <td>$!{investmentLocal}</td>
+    <td>$!{investmentSocial}</td>
+    <td>$!{investmentSelf}</td>
+    <td>$!{investmentOther}</td>
+  </tr>
+</table>
+<p style="font-size:16px;padding-left:8px;">注：1.中央投入：指该镇获得的中央项目建设资金投入数；省级投入：指该镇获得省<br/>&nbsp;&nbsp;&nbsp;&nbsp;级财政资金投入数；地方投入：指该镇获得市、县各级资金投入数；社会投入：<br/>&nbsp;&nbsp;&nbsp;&nbsp;指该镇获得社会工商资本投入数和社会捐赠投入数。 <br />
+  &nbsp;&nbsp;&nbsp;2.累计投入资金=名村建设项目记录表完成投入合计数=1+2+3+4+5+6。 <br/>
+  &nbsp;&nbsp;&nbsp;3.填写从$!{year}年以来的资金投入情况。</p>
+</div><hr/>
+
+<p style="padding:20px 0 0 300px;font-size:30px;font-weight:bold;">广东名镇建设评价</p>
+<div style="padding-left:80px;">
+<div style="font-size:16px;padding-left:11px;">镇的名称：$!{place}</div>
+<style type="text/css">
+table.applicant-form{
+	font-size:16px;
+	width: 700px;
+	border-width: 1px;
+	border-color: #000000;
+	border-collapse: collapse;
+}
+table.applicant-form td{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+	padding-left:4px;
+}
+table.applicant-form td input{
+	width:90%;
+}
+table.applicant-form td textarea{
+	width:98%;
+	height:90px;
+}
+table.applicant-form td.small input{
+	width:400px;
+}
+</style>
+<table class="applicant-form">
+<tr><td colspan="6">一、基本情况(定性要求)</td></tr>
+<tr><td colspan="2">户籍总人口(人)</td><td style="width:110px;">$!{population}</td><td style="width:220px;">城镇人口(人)</td><td colspan="2">${cityPopulation}</td></tr>
+<tr><td colspan="2">农业人口(人)</td><td>${farmerPopulation}</td><td>半年以上暂住人口(人)</td><td colspan="2">${tempPopulation}</td></tr>
+<tr><td colspan="2">镇域面积(平方公里)</td><td>${area}</td><td>镇建成区面积(平方公里)</td><td colspan="2">${downtownArea}</td></tr>
+<tr><td colspan="2">全镇GDP(万元)</td><td>${gdp}</td><td rowspan="2">地方可支配性<br/>财政收入(万元)</td><td colspan="2" rowspan="2">${financialIncome}</td></tr>
+<tr><td colspan="2">镇区人均纯收入(元)</td><td>${personIncome}</td></tr>
+
+<tr><td colspan="2">拥有的著名产品商标<br/>名称</td><td colspan="4" class="small">国家级：${famousBrandNation}<br/>省　级：${famousBrandProvince}</td></tr>
+<tr><td colspan="2">荣获各级称号或被列<br/>为试点的名称（列出<br/>主要的1-2个）</td><td colspan="4" class="small">国家级：${honorNation}<br/>省　级：${honorProvince}<br/>市　级：${honorCity}</td></tr>
+<tr><td colspan="2">名镇创建主题或方向</td><td colspan="4">${themeDirection}</td></tr>
+
+<tr><td colspan="4" rowspan="2" style="text-align:center;" valign="middle">考核内容</td><td colspan="2" style="text-align:center;">得分(分)</td></tr>
+<tr><td style="text-align:center;width:80px;">自评</td><td style="text-align:center;">审核</td></tr>
+<tr><td colspan="6">二、基础要求(定量考核，70分)</td></tr>
+<tr><td rowspan="19" style="width:85px;text-align:center;" valign="middle">家居环<br/>境建设<br/>(50分)</td><td rowspan="7" style="width:85px;text-align:center;" valign="middle">安康<br/>(18分)</td><td colspan="2">城镇低保、住房困难家庭住房保障率<br/>100%；(3分)</td>$!{AA1}</tr>
+<tr><td colspan="2">供水入户水质合格率100%；(3分)</td>$!{AA2}</tr>
+<tr><td colspan="2">生活垃圾封闭漕运率或无害化处理率<br/>100%；(3分)</td>$!{AA3}</tr>
+<tr><td colspan="2">生活污水处理率>80%；(3分)</td>$!{AA4}</tr>
+<tr><td colspan="2">创建工作开展以来，镇区无发生较大地<br/>质灾害；(2分)</td>$!{AA5}</tr>
+<tr><td colspan="2">社会治安良好，无黄、赌、毒现象；无<br/>发生重大社会群体事故；(2分)</td>$!{AA6}</tr>
+<tr><td colspan="2">创建工作开展以来，无发生较大环境污<br/>染、生产安全事故。(2分)</td>$!{AA7}</tr>
+
+<tr><td rowspan="6" style="width:85px;text-align:center;" valign="middle">便捷<br/>(20分)</td><td colspan="2">人均道路面积>15平方米；(4分)</td>$!{AB1}</tr>
+<tr><td colspan="2">人均公共体育活动场地面积>0.2平方<br/>米；(4分)</td>$!{AB2}</tr>
+<tr><td colspan="2">人均图书馆、文化馆等文化场所面积<br/>>1.5平方米；(4分)</td>$!{AB3}</tr>
+<tr><td colspan="2">实施“网络到镇、信息到村”工程；(3<br/>分)</td>$!{AB4}</tr>
+<tr><td colspan="2">适龄儿童入学率100%；(3分)</td>$!{AB5}</tr>
+<tr><td colspan="2">每千人医师数>3人。(2分)</td>$!{AB6}</tr>
+
+<tr><td rowspan="3" style="width:85px;text-align:center;" valign="middle">舒适<br/>(10分)</td><td colspan="2">建成区绿地率>35%；(3分)</td>$!{AC1}</tr>
+<tr><td colspan="2">人均公园绿地面积>12平方米；(4分)</td>$!{AC2}</tr>
+<tr><td colspan="2">建成区主要河流、湖泊水质达IV类以上<br/>。(3分)</td>$!{AC3}</tr>
+
+<tr><td rowspan="3" style="width:85px;text-align:center;" valign="middle">优美<br/>(10分)</td><td colspan="2">镇域交通主干道、镇区主要出入口及景<br/>区周边地区整体风貌清新、自然，与周<br/>边环境相协调；(4分)</td>$!{AD1}</tr>
+<tr><td colspan="2">镇区建设规范、整洁、美观；城镇环境<br/>整治成效显著，建筑物和公共场地无严<br/>重破、损、残现象；无乱搭乱建乱堆放<br/>杂物现象；(4分)</td>$!{AD2}</tr>
+<tr><td colspan="2">镇区河流、湖泊水面清洁、水景美化，<br/>凸显岭南水乡特色。(2分)</td>$!{AD3}</tr>
+
+<tr><td rowspan="3" style="width:85px;text-align:center;" valign="middle">名镇创<br/>建工作<br/>(12分)</td><td style="width:85px;text-align:center;" valign="middle">制定规则<br/>(4分)</td><td colspan="2">按照《广东省名镇名村示范村建设规划<br/>编制指引(试行)》的要求，制定名镇建<br/>设规划或行动计划。(4分)</td>$!{BA1}</tr>
+<tr><td rowspan="2" style="width:85px;text-align:center;" valign="middle">创建机制<br/>(8分)</td><td colspan="2">建立起名镇创建的工作机制，包括明确<br/>工作机构、工作计划、工作目标责任制<br/>等；(4分)</td>$!{BB1}</tr>
+<tr><td colspan="2">具体建设项目的责任主体明确、建设资<br/>金落实、项目建设按基本建设程序顺利<br/>进行；(4分)</td>$!{BB2}</tr>
+
+<tr><td colspan="6">三、特色要求(定量考核，30分)</td></tr>
+<tr><td rowspan="5" style="width:85px;text-align:center;" valign="middle">特色风<br/>貌营造<br/>与保护<br/>(30分)</td><td colspan="3">按照名镇建设的要求，在特色工农业名镇、交通枢纽<br/>名镇、商贸中心名镇、生态山水名镇、历史文化名镇<br/>、特色旅游名镇等不同类型的名镇建设成效显著，主<br/>题突出、形象鲜明，示范带动作用明显；(5分)</td>$!{C1}</tr>
+<tr><td colspan="3">依托名镇建设成果提升镇的知名度，促进经济发展，<br/>提高居民的收入水平(提供名镇创建前后居民人均收<br/>入水平统计数据等相关证明材料)；(5分)</td>$!{C2}</tr>
+<tr><td colspan="3">开展名镇特色研究，挖掘地方特色资源，充实和扩大<br/>名镇的内涵；(5分)</td>$!{C3}</tr>
+<tr><td colspan="3">充分利用媒体开展名镇的宣传推介，成效显著(提供<br/>已在县级以上媒体的宣传、推介的材料、视频、网络<br/>资料等相关证明材料)；(5分)</td>$!{C4}</tr>
+<tr><td colspan="3">名镇建设取得省级以上荣誉(如被授予省级历史文化<br/>名镇等称号)。(10分)</td>$!{C5}</tr>
+
+<tr><td style="width:85px;text-align:center;" valign="middle">合计</td><td colspan="3"></td>$!{D}</tr>
+
+<tr style="height:5px;"><td colspan="6"></tr>
+<tr><td colspan="2">县（市、区）名镇建设工作牵头负责部门意见</td><td colspan="4" class="dt-input-class"><div style="height:100px;text-align:center;vertical-align:middle;">$!{opinion1}</div><div style="padding-left:250px;">单位(盖章)：</div><div style="padding:0 0 20px 240px;">$!{opinionAt1}</div></td></tr>
+<tr><td colspan="2">地级以上市名镇建设工作牵头负责部门意见</td><td colspan="4" class="dt-input-class"><div style="height:100px;text-align:center;vertical-align:middle;">$!{opinion2}</div><div style="padding-left:250px;">单位(盖章)：</div><div style="padding:0 0 20px 240px;">$!{opinionAt2}</div></td></tr>
+<tr><td colspan="2">地级以上市名镇名村示范村建设工作领导小组意见</td><td colspan="4" class="dt-input-class"><div style="height:100px;text-align:center;vertical-align:middle;">$!{opinion3}</div><div style="padding-left:250px;">单位(盖章)：</div><div style="padding:0 0 20px 240px;">$!{opinionAt3}</div></td></tr>
+<tr><td colspan="2">省住房城乡建设厅意见</td><td colspan="4" class="dt-input-class"><div style="height:100px;text-align:center;vertical-align:middle;">$!{opinion4}</div><div style="padding-left:250px;">单位(盖章)：</div><div style="padding:0 0 20px 240px;">$!{opinionAt4}</div></td></tr>
+<tr><td colspan="2">省名镇名村示范村建设工作联席会议意见</td><td colspan="4" class="dt-input-class"><div style="height:100px;text-align:center;vertical-align:middle;">$!{opinion5}</div><div style="padding-left:250px;">单位(盖章)：</div><div style="padding:0 0 20px 240px;">$!{opinionAt5}</div></td></tr>
+</table>
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery(".dt-input-class input").bupdateinput({editable:false});
+		jQuery("input.num-input-class").bupnuminput({min:0});
+		jQuery("#appl-form-items input.num-input-class").bupnuminput({precision:4});
+		
+		jQuery("#btn-add-picture").click(function(){
+			jQuery(this).prev().append("<li><input type='file' accept='image/*'  name='pictures'/> - <a href='#' onclick='jQuery(this).parent().remove();return false;'>删除</a></li>");
+			return false;
+		});
+		
+		
+		jQuery("input.num-input-class").each(function(i,v){
+			var bv = jQuery(this).bupnuminput('getValue');
+			if(!(jQuery.isNumeric(bv) && bv - 0 > 0)){
+				jQuery(this).bupnuminput('setValue', '');
+			}
+		});
+			
+		jQuery("#num-need-sum input.num-input-class").bupnuminput({precision:4, onChange:function(nv,ov){
+			var sval = 0;
+			jQuery("#num-need-sum input.num-input-class").each(function(i,v){
+				var bv = jQuery(this).bupnuminput('getValue');
+				if(jQuery.isNumeric(bv)){
+					sval += bv - 0;
+				}
+			});
+			jQuery("#num-total-sum").text(sval.toFixed(4));
+		}});
+	});
+</script></div>
+
+#if($pictures)
+<hr/><div style="font-size:16px;padding:0 0 15px 91px;">
+	<span>建设成果相片：</span>
+	${pictures}
+</div>
+#end
+
+#if($audit-editor)
+<hr/><div style="font-size:16px;padding:0 0 15px 91px;">
+<div style="width:99%;"><b>如果需要驳回，可以在这里填写驳回的理由！</b></div>
+<textarea name="rejectContent" style="width:90%;"></textarea></div>
+#end
+
+</div>

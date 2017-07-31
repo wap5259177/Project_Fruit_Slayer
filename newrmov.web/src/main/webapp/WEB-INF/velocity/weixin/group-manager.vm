@@ -1,0 +1,7 @@
+<div style="width:600px;height:350px;padding:10px;background:#fafafa;">  
+    <p>panel content.</p>  
+    <p>panel content.</p>  
+</div>
+<script>
+alert("dd");
+</script>

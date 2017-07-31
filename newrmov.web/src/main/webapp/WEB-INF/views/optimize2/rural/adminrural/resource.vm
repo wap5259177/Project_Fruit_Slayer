@@ -1,0 +1,75 @@
+<table class=' editor' style="width:100%;margin: auto;" ><!--applicant-form-->
+	<tr>
+		<th class="tdCenter" rowspan='8'>资源特色</th>
+		<th style='font-weight:bold;'>特色类型名称</th>
+		<th style='font-weight:bold;text-align:center' colspan='4'>描述</th>
+	</tr>
+	<tr>
+		<th class="tdCenter">人文历史[B31]：</th>
+		<td colspan='4'><textarea style='width:98%;' name='histroyDesc' $!{readonly}>$!{ar.histroyDesc}</textarea></td>
+	</tr>
+	<tr>
+		<th class="tdCenter">自然生态[B32]：</th>
+		<td colspan='4'><textarea style='width:98%;' name='ecologicalDesc' $!{readonly}>$!{ar.ecologicalDesc}</textarea></td>
+	</tr>
+	<tr>
+		<th class="tdCenter">民居风貌[B33]：</th>
+		<td colspan='4'><textarea style='width:98%;' name='civilianDesc' $!{readonly}>$!{ar.civilianDesc}</textarea></td>
+	</tr>
+	<tr>
+		<th class="tdCenter">乡村旅游[B34]：</th>
+		<td colspan='4'><textarea style='width:98%;' name='tourDesc' $!{readonly}>$!{ar.tourDesc}</textarea></td>
+	</tr>
+	<tr>
+		<th class="tdCenter">特色产业[B35]：</th>
+		<td colspan='4'><textarea style='width:98%;' name='industryDesc' $!{readonly}>$!{ar.industryDesc}</textarea></td>
+	</tr>
+	<tr>
+		<th class="tdCenter">渔业渔港[B36]：</th>
+		<td colspan='4'><textarea style='width:98%;' name='fisheryDesc' $!{readonly}>$!{ar.fisheryDesc}</textarea></td>
+	</tr>
+	<tr>
+		<th class="tdCenter">其他[B37]：</th>
+		<td colspan='4'><textarea style='width:98%;' name='otherDesc' $!{readonly}>$!{ar.otherDesc}</textarea></td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='2'>现有的或正在打造的旅游景点或节点[B38]：</th>
+		<td colspan='4'>
+			
+			#if($!{ar.viewSpot} == 0)
+				无
+			#end
+			
+			#if($!{ar.viewSpot} == 1)
+				（1）$!{ar.viewSpot1}
+			#end
+			#if($!{ar.viewSpot} == 2)
+				（1）$!{ar.viewSpot1},（2）$!{ar.viewSpot2}
+			#end
+			
+			#if($!{ar.viewSpot} == 3)
+				（1）$!{ar.viewSpot1},（2）$!{ar.viewSpot2},（3）$!{ar.viewSpot3}
+			#end
+			<!--
+			<input style="width:60px;" id="viewSpot" type='text' name='viewSpot' class='number' value='$!{ar.viewSpot}' min="0" precision="0" $!{readonly} />个，
+			名称分别是：&nbsp;
+			#if($!{ar.viewSpot} == 0)
+			（1）<input style="width:150px;" type='text' id='viewSpot1' name='viewSpot1' value='$!{ar.viewSpot1}' $!{readonly} '/><br />
+			（2）<input style="width:150px;" type='text' id='viewSpot2' name='viewSpot2' value='$!{ar.viewSpot2}' $!{readonly} '/>
+			（3）<input style="width:150px;" type='text' id='viewSpot3' name='viewSpot3' value='$!{ar.viewSpot3}' $!{readonly} '/>
+		    #elseif($!{ar.viewSpot} == 1)
+		    （1）<input style="width:150px;" type='text' id='viewSpot1' name='viewSpot1' value='$!{ar.viewSpot1}' $!{readonly}/><br />
+			（2）<input style="width:150px;" type='text' id='viewSpot2' name='viewSpot2' value='$!{ar.viewSpot2}' $!{readonly} readonly='true'/>
+			（3）<input style="width:150px;" type='text' id='viewSpot3' name='viewSpot3' value='$!{ar.viewSpot3}' $!{readonly} readonly='true'/>
+		    #elseif($!{ar.viewSpot} == 2)
+		    （1）<input style="width:150px;" type='text' id='viewSpot1' name='viewSpot1' value='$!{ar.viewSpot1}' $!{readonly}/><br />
+			（2）<input style="width:150px;" type='text' id='viewSpot3'' name='viewSpot2' value='$!{ar.viewSpot2}' $!{readonly}/>
+			（3）<input style="width:150px;" type='text' id='viewSpot4' name='viewSpot3' value='$!{ar.viewSpot3}' $!{readonly}  readonly='true'/>
+		    #else
+		    （1）<input style="width:150px;" type='text' id='viewSpot1' name='viewSpot1' value='$!{ar.viewSpot1}' $!{readonly}/><br />
+			（2）<input style="width:150px;" type='text' id='viewSpot2' name='viewSpot2' value='$!{ar.viewSpot2}' $!{readonly}/>
+			（3）<input style="width:150px;" type='text' id='viewSpot3' name='viewSpot3' value='$!{ar.viewSpot3}' $!{readonly}/>
+		    #end-->
+		</td>
+	</tr>
+</table>

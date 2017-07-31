@@ -1,0 +1,280 @@
+#set($layout="layout-empty.vm")
+<html lang="zh-cn">
+	<head>
+		<title>地图全景</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="target-densitydpi=device-dpi,width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <style>
+			body {
+				//background-color: #000000;//背景
+				margin: 10px;
+				overflow: hidden;
+			}
+           // @-ms-viewport { width: device-width; }
+            @media only screen and (min-device-width: 800px) { html { overflow:hidden; } }
+            
+            .lrp{margin:7px 4px;width:150px;height:100px;float:left;cursor:pointer;display:inline;border:1px solid #3af;}
+            .sel{border:4px solid #3af;}
+            .ovf{border:2px solid #252525;}
+		</style>
+		<script src='/res/js/jquery.min.js'></script>
+		<script src="/res/js/three.min.js"></script>
+		<script>
+			var camera, scene, renderer;//相机,场景,渲染器
+			var fov = 120,//值越小,相当于镜头拉的越近
+			isUserInteracting = false,
+			onMouseDownMouseX = 0, onMouseDownMouseY = 0,
+			lon = 0, onMouseDownLon = 0,
+			lat = 0, onMouseDownLat = 0,
+			phi = 0, theta = 0;
+			
+			var container, mesh;
+			jQuery(function(){
+				init();
+				animate();
+				$($('li')[0]).addClass("sel");
+				$('li').mouseover(function(){
+				 		if(!jQuery(this).hasClass("sel")){
+				 			$(this).addClass("ovf");
+				 		}
+				 	}).mouseout(function(){
+				        $(this).removeClass("ovf");
+				    }).click(function(){
+				    	$('li').removeClass("sel");
+				        $(this).addClass("sel");
+				    });
+			});
+			
+			
+			function show_panorama(pano){
+				//alert(pano);
+				renderer.clear();
+				mesh.material = new THREE.MeshBasicMaterial( {
+					map:THREE.ImageUtils.loadTexture(pano+"") //全景图
+					//color:0xff0000
+				} );
+				requestAnimationFrame( animate );//重新渲染
+			}
+			
+			function init() {
+				/*
+					1.渲染器
+				*/
+				renderer = new THREE.WebGLRenderer({
+					canvas:document.getElementById('rural_panorama')
+				});
+				renderer.setClearColor(0x000000);
+				
+				
+				/*
+					2.场景
+				*/
+				scene = new THREE.Scene();
+				
+				/*
+					3.照相机
+				*/
+				camera = new THREE.PerspectiveCamera( fov, window.innerWidth / window.innerHeight, 1, 1100 );//相机分两种,这里是透视相机.透视相机有很多参数
+				camera.target = new THREE.Vector3( 0, 0, 0 );//确定相机的位置点( 或者:camera.position.set(0,0,5) )
+				scene.add(camera);
+				
+				/*
+					4.物体:
+						a.几何结构 new THREE.CubeGeometry(1,1,1)   wireframe:true  不是实心的
+						b.材质
+							aa).纹理
+							bb).颜色color:0xff0000,
+							...
+				*/
+				
+				
+				
+
+				
+				
+				/*
+				var urls = [ 
+				'/res/images/we.jpg', 
+				'/res/images/we2.jpg', 
+				'/res/images/we3.jpg', 
+				'/res/images/sheng.png', 
+				'/res/images/login2.jpg', 
+				'/res/images/map_gd_3.jpg' 
+				], 
+				*/
+				
+				
+				
+				
+				
+				
+				// 打包成我们需要的对象 
+				//cubemap = THREE.ImageUtils. 
+				//loadTextureCube(urls); 
+				// 设置格式为RGB 
+				//cubemap.format = THREE.RGBFormat; 
+				
+				
+				
+				//1.球体
+				var geometry = new THREE.SphereGeometry( 500, 60, 40 );
+				//cube
+				//var cubeGeometry = new THREE.CubeGeometry(260, 35, 185, 1, 1, 1);
+				geometry.applyMatrix( new THREE.Matrix4().makeScale( -1, 1, 1 ) );
+				//2.Lambert材质
+					//a.纹理
+//					var texture = THREE.ImageUtils.loadTexture( '/res/images/we.jpg' );
+					#if($ruralPanos&&$ruralPanos.size()!=0){
+						var texture = THREE.ImageUtils.loadTexture( '$ruralPanos.get(0).panorama' );
+						var material = new THREE.MeshBasicMaterial( {
+							//color:0xffff00, //指定材质的颜色
+							//opacity:0.75,		//透明度
+							map:texture
+						} );
+						mesh = new THREE.Mesh( geometry, material );
+						scene.add( mesh );
+					}
+					#else
+						$('#box').html('<h1 style="color:red;TEXT-ALIGN: center;">该村子没有全景图!</h1>');
+					#end
+				/*
+				var material = new THREE.MeshBasicMaterial( {
+					map:texture
+				} );
+				*/
+				
+				/*
+				var material = new THREE.MeshLambertMaterial({ 
+					color: 0xffffff, 
+					envMap: cubemap 
+				}); 
+				*/
+				//mesh = new THREE.Mesh( geometry, material );//mesh模型,网格模型,给物体贴上皮肤(纹理),物体就活灵活现了.无数个物体就组成了我们的3D世界
+				//scene.add( mesh );
+				//renderer.render( scene, camera );
+				
+				
+				
+				//绑定事件     
+				$('#rural_panorama').on( 'mousedown', onDocumentMouseDown);
+				$('#rural_panorama').on( 'mousemove', onDocumentMouseMove);
+				$('#rural_panorama').on( 'mouseup', onDocumentMouseUp);
+				document.addEventListener( 'mousewheel', onDocumentMouseWheel, false );
+				document.addEventListener( 'DOMMouseScroll', onDocumentMouseWheel, false);
+				window.addEventListener( 'resize', onWindowResize, false );
+				
+			}		
+				
+				
+			/*
+				循环渲染
+			*/	
+			function animate(){
+				requestAnimationFrame(animate);
+				render();
+			}
+			
+			function render(){
+				lat = Math.max( - 85, Math.min( 85, lat ) );
+				phi = THREE.Math.degToRad( 90 - lat );//经度弧度
+				theta = THREE.Math.degToRad( lon );//纬度弧度
+
+				camera.target.x = 500 * Math.sin( phi ) * Math.cos( theta );
+				camera.target.y = 500 * Math.cos( phi );
+				camera.target.z = 500 * Math.sin( phi ) * Math.sin( theta );
+
+				camera.lookAt( camera.target );
+				renderer.render( scene, camera );
+			}
+			
+			
+			
+			
+			
+			
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function onDocumentMouseDown( event ) {
+				//alert('down');
+				event.preventDefault();
+
+				isUserInteracting = true;
+
+				onPointerDownPointerX = event.clientX;
+				onPointerDownPointerY = event.clientY;
+
+				onPointerDownLon = lon;
+				onPointerDownLat = lat;
+
+			}
+
+			function onDocumentMouseMove( event ) {
+				//alert('move');
+				if ( isUserInteracting ) {
+
+					lon = ( onPointerDownPointerX - event.clientX ) * 0.1 + onPointerDownLon;
+					lat = ( event.clientY - onPointerDownPointerY ) * 0.1 + onPointerDownLat;
+
+				}
+			}
+
+			function onDocumentMouseUp( event ) {
+				//alert('up');
+				isUserInteracting = false;
+
+			}
+
+			function onDocumentMouseWheel( event ) {
+				//alert('wheel');
+				// WebKit
+				if ( event.wheelDeltaY ) {
+					fov -= event.wheelDeltaY * 0.05;
+				// Opera / Explorer 9
+				} else if ( event.wheelDelta ) {
+					fov -= event.wheelDelta * 0.05;
+				// Firefox
+				} else if ( event.detail ) {
+					//alert(event.detail );
+					fov += event.detail * 1.0;
+				}
+
+				camera.projectionMatrix.makePerspective( fov, window.innerWidth / window.innerHeight, 1, 1100 );
+				render();
+			}
+		</script>
+	</head>
+	<body>
+		<div id='_content'>
+			<div id="container">
+				<canvas id='rural_panorama' width='915px' height='450px'></canvas>
+			</div>
+			
+	 		<div id='_bottom' style='whidth:915px;height:150px;'>
+				<div style="position:relative;height:150px;width:915px;">
+		          	<div style="margin-left:-28px;width:100%;height:140px;overflow-x:auto;overflow-y:hidden;background:#99CC99;" id="box" class="box">
+			            <ul style="margin:-1px auto;width:2000px;height:100px;float:left;">
+			            
+			            	#foreach($it in $ruralPanos)
+				               <li class='lrp'><!--#333-->
+				               		<a  href="javascript:;" onclick="show_panorama('$it.panorama');">
+				               			<img  title="" src="$it.thumbnail" style="width:150px;height:100px" >
+				               		</a>
+				               </li>
+			            	#end
+			            	
+			          	</ul>
+		         	</div>
+	    		</div>
+			</div>
+ 		</div>
+	</body>
+</html>
+
+
+

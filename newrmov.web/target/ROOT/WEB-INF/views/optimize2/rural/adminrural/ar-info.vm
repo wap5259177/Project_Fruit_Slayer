@@ -1,0 +1,34 @@
+
+	<!--<div align='left' id='ar-tab' style="display: none;">-->
+		<div id="myt_ar" style="display: none;" >
+			    <div title="基本情况" style="padding:0px;">
+			    	#parse('optimize2/rural/adminrural/ar-base-situation.vm')
+			    </div>
+			    <div title="本村资源优势情况" data-settings="" style="overflow:auto;padding:0px;">
+			    	#parse('optimize2/rural/adminrural/resource.vm')
+			    </div>
+			    <div title="农村公共服务情况" data-settings="iconClassname:''" style="padding:0px;">
+			    	#parse('optimize2/rural/adminrural/public-service.vm')
+			    </div>
+			    <div title="挂点县领导" data-settings="iconClassname:''" style="padding:0px;">
+			    	#parse('optimize2/rural/adminrural/hang-leader.vm')
+			    </div>
+			    <div title="工作小组" data-settings="iconClassname:''" style="padding:0px;">
+			    	#parse('optimize2/rural/adminrural/workgroup.vm')
+			    </div>
+			    <div title="规划进展" data-settings="iconClassname:''" style="padding:0px;">
+			    	#parse('optimize2/rural/adminrural/plan-progress.vm')
+			    </div>
+			    
+			</div>
+		</div>
+		
+		
+	
+
+<script type='text/javascript'>
+jQuery(function() {
+	//$("#_tabtools a").bupabutton();
+	
+});
+</script>

@@ -1,0 +1,111 @@
+<table width="100%">
+	<tr>
+		<th style="width:50%;text-align:center;">主体村</th>
+		<th style="text-align:center;">非主体村</th>
+	</tr>
+	<tr>
+		<td><div id='cb-coreRurals' style="height:140px;overflow:auto;">$!{coreRurals}</div></td>
+		<td><div id='cb-peripheralRurals' style="height:140px;overflow:auto;">$!{peripheralRurals}</div></td>
+	</tr>
+
+</table>
+<table width="100%">
+	<tr style="height:28px;">
+		<th style="width:50%;text-align:center;">已选主体村<span id="sel-coreRurals-count" style="color:blue;" title="已选中的主体村"></span></th>
+		<th style="text-align:center;">已选非主体村<span id="sel-peripheralRurals-count" style="color:blue;" title="已选中的非主体村"></span></th>
+	</tr>
+	
+	<tr>
+		<td title="已选主体村">
+			<div id="core" style="overflow:auto;height:145px;border:1px dashed #000;padding:4px;">
+			#foreach($it in $cores)
+				<div style='padding-bottom:5px;'>
+					<a href='#' onclick='return delCore(this);' class='icon-del' style='padding-left:20px;'> </a>
+					<span class='core-ordinal'></span>. <span title='${it[1]}'>${it[2]} : </span>
+					<input type='hidden' name='scrid_${it[0]}' value='${it[0]}'/>
+					<input type='text' name='scrnv_${it[0]}' placeholder='自然村(或村民小组)' value="${it[3]}" style='border:0px;border-bottom: solid 1px #000000;'/>
+				</div>
+			#end
+			</div>			
+		</td>
+		<td title="已选非主体村">
+			<div id="periphera" style="overflow:auto;height:145px;border:1px dashed #000;padding:4px;">
+			#foreach($it in $peris)
+			<div style='padding-bottom:5px;'>
+				<a href='#' onclick='return delPeri(this);' class='icon-del' style='padding-left:20px;'> </a>
+				<span class='peri-ordinal'></span>. <span title='${it[1]}'>${it[2]} : </span>
+				<input type='hidden' name='sprid_${it[0]}' value='${it[0]}'/>
+				<input type='text' name='sprnv_${it[0]}' placeholder='自然村(或村民小组)' value="${it[3]}" style='border:0px;border-bottom: solid 1px #000000;'/>
+			</div>
+			#end
+			</div>
+		</td>
+	</tr>
+</table>
+<script>
+	var corecount = 0, pericount = 0;
+	function coreOrder(){
+		var ord = 0;
+		jQuery("#core span.core-ordinal").each(function(i, v){
+			ord++;
+			jQuery(v).text(ord);
+		});
+		if(ord > 0){
+			jQuery("#sel-coreRurals-count").html("[" + ord + "]");
+		}else{
+			jQuery("#sel-coreRurals-count").html("");
+		}
+	}
+	function periOrder(){
+		var ord = 0;
+		jQuery("#periphera span.peri-ordinal").each(function(i, v){
+			ord++;
+			jQuery(v).text(ord);
+		});
+		if(ord > 0){
+			jQuery("#sel-peripheralRurals-count").html("[" + ord + "]");
+		}else{
+			jQuery("#sel-peripheralRurals-count").html("");
+		}
+	}
+	function delCore(t){
+		jQuery(t).parent().remove();
+		coreOrder();
+		return false;
+	}
+	
+	function delPeri(t){
+		jQuery(t).parent().remove();
+		periOrder();
+		return false;
+	}
+	
+	function getCore(obj, tna, vid, vna){
+		var txt = "<div style='padding-bottom:5px;'><a href='#' onclick='return delCore(this);' class='icon-del' style='padding-left:20px;'> </a><span class='core-ordinal'></span>. <span title='";
+		txt += tna + "'>" + vna + " : </span>";
+		txt += "<input type='hidden' name='crorder' value='" + corecount + "'/>";
+		txt += "<input type='hidden' name='crid_" + corecount + "' value='" + vid + "'/>";
+		txt += "<input type='text' name='crnv_" + corecount + "' placeholder='自然村(或村民小组)' style='border:0px;border-bottom: solid 1px #000000;'/>";
+		txt += "</div>";
+  		jQuery("input[type='text']", jQuery(txt).appendTo(jQuery("#core"))).bupvalidator({required: true});
+ 		coreOrder();
+ 		corecount++;
+	}
+	function getPeripheral(obj, tna, vid, vna){
+		var txt = "<div style='padding-bottom:5px;'><a href='#' onclick='return delPeri(this);' class='icon-del' style='padding-left:20px;'> </a><span class='peri-ordinal'></span>. <span title='";
+		txt += tna + "'>" + vna + " : </span>";
+		txt += "<input type='hidden' name='prorder' value='" + pericount + "'/>";
+		txt += "<input type='hidden' name='prid_" + pericount + "' value='" + vid + "'/>";
+		txt += "<input type='text' name='prnv_" + pericount + "' placeholder='自然村(或村民小组)' style='border:0px;border-bottom: solid 1px #000000;'/>";
+		txt += "</div>";
+ 		jQuery("input[type='text']", jQuery(txt).appendTo(jQuery("#periphera"))).bupvalidator({required: true});
+ 		periOrder();
+ 		pericount++;
+	}
+	jQuery(function(){
+		coreOrder();
+		periOrder();
+		jQuery("#core input[type='text']").bupvalidator({required: true});
+		jQuery("#periphera input[type='text']").bupvalidator({required: true});
+	});
+</script>

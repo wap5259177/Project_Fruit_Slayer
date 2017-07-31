@@ -1,0 +1,46 @@
+<table class='applicant-form'>
+		<tr>
+			<td class="tdRight">全县农村面积[A1]：</td>
+			<td colspan='3'><input class="number" id="ruralsArea" type='text' name='ruralsArea' value='$!{form.ruralsArea}' min="0" precision="2" maxlength='8' $!{readonly}/>平方公里</td>
+		</tr>
+		<tr>
+			<td class="tdRight">乡镇个数[A2]：</td>
+			<td><input class="number" type='text' id="townNumber" name='townNumber' value='$!{form.townNumber}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+			<td class="tdRight">行政村个数[A3]：</td>
+			<td><input class="number" type='text' id="adminVN" name='adminVN' value='$!{form.adminVN}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+		</tr>
+		<tr>
+			<td class="tdRight">自然村个数[A4]：</td>
+			<td><input class="number" id="naturalVN" type='text' name='naturalVN' value='$!{form.naturalVN}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+			<td class="tdRight">村民小组数[A5]：</td>
+			<td><input class="number" id="villagersGroup" type='text' name='villagersGroup' value='$!{form.villagersGroup}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+		</tr>
+		<tr>
+			<td class="tdRight">县人口总户数[A6]：</td>
+			<td><input class="number" id="popHous" type='text' name='popHous' value='$!{form.popHous}' min="0" precision="0" maxlength='8' $!{readonly} />户</td>
+			<td class="tdRight">县农村总户数[A7]：</td>
+			<td><input class="number" id="farmerHous" type='text' name='farmerHous' value='$!{form.farmerHous}' min="0" precision="0" maxlength='8' $!{readonly} />户</td>
+		</tr>
+		<tr>
+			<td class="tdRight">县总人口数[A8]：</td>
+			<td><input class="number" id="sumTownPopu" type='text' name='sumTownPopu' value='$!{form.sumTownPopu}' min="0" precision="0" maxlength='8' $!{readonly} />人</td>
+			<td class="tdRight">县农村总人口数[A9]：</td>
+			<td><input class="number" id="sumFarmers" type='text' name='sumFarmers' value='$!{form.sumFarmers}' min="0" precision="0" maxlength='8' $!{readonly} />人</td>
+		</tr>
+		
+		<tr>
+			<td class="tdRight" colspan='2'>各年度城镇居民人均纯收入[A10]：</td>
+			<td colspan='2'>2013年：<input class="number" type='text' id='ci3' name='ci3' value='$!{form.ci3}' min="0" precision="2" $!{readonly}/>元，&nbsp;2014年：<input class="number" id='ci4' type='text' name='ci4' value='$!{form.ci4}' min="0" precision="2" $!{readonly}/>元
+					<br />2015年：<input class="number" id='ci5' type='text' name='ci5' value='$!{form.ci5}' min="0" precision="2" $!{readonly}/>元，&nbsp;2016年：<input class="number" id='ci6' type='text' name='ci6' value='$!{form.ci6}' min="0" precision="2" $!{readonly}/>元
+					<br />2017年：<input class="number" type='text' id='ci7' name='ci7' value='$!{form.ci7}' min="0" precision="2" $!{readonly}/>元
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>各年度农民人均纯收入[A11]：</td>
+			<td colspan='2'>2013年：<input class="number" type='text' id='vi3' name='vi3' value='$!{form.vi3}' min="0" precision="2" $!{readonly}/>元，&nbsp;2014年：<input class="number" id='vi4' type='text' name='vi4' value='$!{form.vi4}' min="0" precision="2" $!{readonly}/>元
+					<br />2015年：<input class="number" type='text' id='vi5' name='vi5' value='$!{form.vi5}' min="0" precision="2" $!{readonly}/>元，&nbsp;2016年：<input class="number" type='text' id='vi6' name='vi6' value='$!{form.vi6}' min="0" precision="2" $!{readonly}/>元
+					<br />2017年：<input class="number" type='text' id='vi7' name='vi7' value='$!{form.vi7}' min="0" precision="2" $!{readonly}/>元
+			</td>
+		</tr>
+		
+	</table>

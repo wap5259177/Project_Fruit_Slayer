@@ -1,0 +1,124 @@
+<table class=' editor' style="width:100%;margin: auto;" id='_table'>
+	<tr>
+		<th class="tdRight" colspan='4'>村内道路和入户路硬底化率：</th>
+		<td colspan='2'>
+			&nbsp;<input id="hardBottom" style='width:60px' type='text' name='hardBottom' class='number' value='$!{form.hardBottom}' min="0" max="100" precision="2" $!{readonly}/>%
+			(<input id="bottomDis" style='width:60px' type='text' name='bottomDis' class='number' value='$!{form.bottomDis}' min="0" precision="2" $!{readonly} />公里)
+		</td>
+	</tr>
+	<tr>
+		<th colspan='4' class="tdRight">是否通自来水[B15]：</th>
+		<td colspan='2'>
+			#if($form.tapWater == '是')
+				是
+				
+				(时间:
+					#if($readonly)
+						<input type="text" style='width:60px' id='tapAnnual' name='tapAnnual' readonly="readonly" value="$!{form.tapAnnual}"/>
+					#else
+						<select id='tapAnnual' name='tapAnnual'>$!{selyear}</select>	
+					#end
+				年)
+			#else
+				否
+			#end
+		</td>
+	</tr>
+	
+	<tr>
+		<th class="tdRight" colspan='4'>开展农田水利基础设施和现代渔港建设[B16]：</th>
+		<td colspan='2'><input class="number" id="waterBase" style='width:60px' type='text' name='waterBase' value='$!{form.waterBase}' min="0" $!{readonly} />宗</td>
+		
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='4'>整治小山塘、小灌区、小水坡、小泵站和小堤防[B17]：</th>
+		<td colspan='2'><input class="number" id="smallWater" style='width:60px' type='text' name='smallWater' value='$!{form.smallWater}' min="0" $!{readonly} />个</td>
+	</tr>
+	<tr>
+		<th class="tdRight" colspan='4'>配套建设高标准基本农田、标准鱼塘[B18]：</th>
+		<td colspan='2'><input class="number" id="farmland" style='width:60px' type='text' name='farmland' value='$!{form.farmland}' min="0" $!{readonly} />亩</td>
+	</tr>
+	
+	<tr>
+		<th class="tdRight" colspan='2'>是否已完成环境卫生整治[B19]：</th>
+		<td colspan='4'>
+			#if($form.hyFix == '是')
+				是
+				(完成年度:
+					#if($readonly)
+						<input type="text" id='fixAnnual' name='fixAnnual'  readonly="readonly" value="$!{form.fixAnnual}"/>
+					#else
+						<select id='fixAnnual' name='fixAnnual'>$!{selyear}</select>	
+					#end	
+				年)
+			#else
+				否
+			#end
+		</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<th class="tdRight" colspan='2'>是否开展村庄垃圾治理[B20]：</th>
+		<td colspan='4'>
+			#if($form.villageManage == '是')
+				是
+				(完成年度:
+					#if($readonly)
+						<input type="text" id='garbageAnnual' name='garbageAnnual'  readonly="readonly" value="$!{form.garbageAnnual}"/>
+					#else
+						<select id='garbageAnnual' name='garbageAnnual'>$!{selyear}</select>	
+					#end	
+				年)
+				</span>
+			#else
+				否
+			#end
+		</td>
+	</tr>
+	
+	
+	
+	
+	<tr>
+		<th class="tdRight" colspan='2'>是否建立村保洁队伍[B21]：</th>
+		<td colspan='4'>
+			#if($form.cleanTeam == '是')
+				是
+				(保洁员:<input id="cleaners" style='width:60px' class='number'  type='text' name='cleaners' value='$!{form.cleaners}' min="0" precision="0" $!{readonly}/>个)
+			#else
+				否
+			#end
+		</td>
+	</tr>
+	
+	<tr>
+		<th class="tdRight" colspan='4'>村民使用卫生厕所户数[B22]：</th>
+		<td colspan='2'>
+			占<input id="toiletPercent" style='width:40px' type='text' class='number' name='toiletPercent' value='$!{form.toiletPercent}' min="0" max="100" precision="2" $!{readonly} />%
+			&nbsp;&nbsp;<input id="toilet" style='width:40px' type='text' class='number' name='toilet' value='$!{form.toilet}' min="0" precision="0" $!{readonly} />户
+		</td>
+	</tr>
+	
+	
+	
+	
+	<tr>
+		<th class="tdRight" colspan='4'>是否建立污水处理设施[B23]：</th>
+		<td style="width:140px;" colspan='4'>
+			#if($form.badWater == '是')
+				是
+				(完成时间:
+					#if($readonly)
+						<input type="text" id='badWaterAnn' name='badWaterAnn' value='$!{form.badWaterAnn}' $readonly/>
+					#else
+						<select id='badWaterAnn' name='badWaterAnn'>$!{selyear}</select>	
+					#end
+				年)
+			#else
+				否
+			#end
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>$!{title}</title>
+	<style type="text/css">
+		* {margin:0; padding:0;}
+		body{background:#fff; position:relative;}
+		body,html{height:100%; overflow:hidden;}
+		.wrap {
+			//background: url("#springUrl('/res/images/login_newrmov.jpg')") center 0 no-repeat;
+			width: 100%;
+			height: 100%;
+			position: relative;
+			margin:0 auto;
+		}
+		.main_content {
+			float: left;
+			overflow:hidden;
+		}
+		.loginBox {
+			font-family:宋体;
+			font-size:12px;
+    		overflow:hidden;
+		}
+		.content-message{
+			font: 13px/2 tahoma,arial,宋体;
+			overflow:hidden;
+			//position: absolute;
+			//left: 280px;
+  			//top: 570px;
+		}
+	</style>
+	<script type="text/javascript" src="#springUrl('/res/js/jquery.min.js')"></script>
+</head>
+<body style="text-align:center;">
+	<!-- <div class='wrap'> -->
+		<div style='margin:0 auto;text-align:center;width:1024px;position:relative;'>
+			<img src="#springUrl('/res/images/login2.jpg')" border='0' alt="登录"/>
+			<div class='main_content' style='position: absolute;left: 266px;top: 360px;'>
+				<div class='loginBox'>$!screen_content</div>
+				<div style="height:40px;width:130px;margin:15px 0 0 0;cursor:pointer;font-size:26px;color:blue;" onclick="$('#login_form').submit();">
+				<img src="#springUrl('/res/images/5.png')"/>
+				</div>
+				<div style="padding:4px 0 0 0;">
+					<table>
+						<tr><td align='center' style='padding-top:10px;'>
+							#if($error)
+								<span style="color:red;font-size:13px;">$error</span>
+						    #else
+						    	<span style="color:blue;font-size:13px;">请输入您的用户名和密码</span>
+							#end
+						</td></tr>
+					</table>
+				</div>
+			</div>
+				
+			<div class='content-message' style='position: absolute;left: 80px;top: 560px;'>
+				如果您使用的IE浏览器版本低于8.0，或您使用的Firefox浏览器版本低于20，别担心，以下是我们为您提供的常用浏览器下载：
+				<font color="#333333"><a target="_blank" href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie">IE8下载</a></font>&nbsp;&nbsp;&nbsp;&nbsp;
+				<font color="#333333"><a target="_blank" href="http://firefox.com.cn/">Firefox下载</a></font>
+			</div>
+			<!--
+			<div style='position: absolute;left: 444px;top: 194px;color:red;'>
+				<img src="/res/images/validatebox_warning.png"/>
+				<b>当前为测试系统，正式系统2015年5月18日（星期一）开通，之前<br/>的数据将会被清空。</b>
+			</div>
+			-->
+		</div>
+	<!-- </div> -->
+</body>
+</html>

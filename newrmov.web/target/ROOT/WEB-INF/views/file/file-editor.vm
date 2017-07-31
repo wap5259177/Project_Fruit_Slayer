@@ -1,0 +1,98 @@
+<script type="text/javascript" src="/res/js/jquery.form.js"></script>
+<div id="$di.id" title="上传文件" style="padding:8px;width:600px;" buttons="#${di.id}-buttons" modal='true'>
+#if($cantEdit)
+	<div style="padding:50px 0 0 100px;font-size:20px;color:gray;">不允许修改文件！</div>
+#else
+<form id='file_form' enctype='multipart/form-data'>
+<input type='hidden' value='$!{id}' id='id' name='id' />
+<input type='hidden' value='$!{directory_id}' id='directory_id' name='directory_id' />
+<table class='editor' style="margin:auto;">
+	<tr>
+        <th>文件上传：</th>
+        <td colspan="3">
+        	<input type="file" name="file_upload" id="file_upload"/>
+        	#if($path)
+        	<div style="float:right;padding-right:5px;" title="下载附件">
+	        	<a target="_blank" href="#springUrl('/files/download')?id=$!{id}">
+	        		<img src="/res/images/download.png"/>
+	        	<a>
+        	</div>
+        	#end
+        </td>
+    </tr>
+	<tr>
+        <th>重命名：</th>
+        <td colspan="3"><input style="width:300px;" type="text" name="name" id="name" value="$!{name}"/><font color='red'>（不填则默认为文件名）</font></td>
+    </tr>
+    <tr>
+		<th>扩展属性：</th>
+		<td colspan="3"><input type="text" name="extendedAttributes" id="extendedAttributes" value="$!{extendedAttributes}" style="width:98%;" /></td>
+	</tr>
+    <tr>
+    	<th>版本号：</th><td>$!{version}</td>
+    	<th>文件类型：</th>
+    	<td><select style="width:180px;" name="type" id="type">
+    		<option value="DOC"   #if($!{type}=='DOC')  selected="true"#end >文档</option>
+    		<option value="IMAGE" #if($!{type}=='IMAGE')selected="true"#end >图片</option>
+    		<option value="MUSIC" #if($!{type}=='MUSIC')selected="true"#end >音频</option>
+    		<option value="VIDEO" #if($!{type}=='VIDEO')selected="true"#end >视频</option>
+    		<option value="OTHER" #if($!{type}=='OTHER')selected="true"#end >其它</option>
+    	</select></td>
+    </tr>
+    <tr>
+		<th style="width:80px;">状态：</th>
+    	<td style="width:190px;"><select style="width:180px;" name="status" id="status">
+    		<option value="1" #if($!{status}==1)selected="true"#end >正常</option>
+    		<option value="-1" #if($!{status}==-1)selected="true"#end >禁止修改</option>
+    	</select></td>
+    	<th style="width:80px;">发布时间：</th>
+    	<td><input type="text" name="issueAt" id="issueAt" value="$!{issueAt}"/></td>
+    </tr>
+	<tr>
+        <th>备注：</th>
+        <td colspan="3"><textarea name="remark" id="remark" style="resize:none;height:80px;width:98%;font-size:12px;">$!{remark}</textarea></td>
+    </tr>
+</table>
+</form>
+#end
+</div>
+<div id="${di.id}-buttons">
+	#if(!$cantEdit)
+	<a href="#" id='a_save' onclick="btn_save();">提交</a>
+	#end
+	<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+<script type="text/javascript">
+#if($cantEdit)
+jQuery(function() {
+	jQuery('#a_close').bupabutton({flat : true});
+});
+#else
+jQuery(function() {
+	jQuery('#a_save, #a_close').bupabutton({flat : true});
+	jQuery('#issueAt').bupdateinput();
+});
+function btn_save() {
+	lock('正在保存文档...');
+	//alert('xxxx');
+	//return false;
+	jQuery('#file_form').ajaxSubmit({
+		url:"#springUrl('/files/upload')",
+		type:'post',
+		dataType:'json',
+		success:function(rd) {
+			jQuery.unblockUI();
+			if (typeof rd === "string")
+				rd = $.parseJSON(rd);
+			if(rd.error) {
+				alert(rd.msg);
+				return;
+			}
+			//$('#directoryFile').bupgrid("reload");
+			P.f();
+			$('#${di.id}').bupdlg('close');
+		}
+	});
+}
+#end
+</script>

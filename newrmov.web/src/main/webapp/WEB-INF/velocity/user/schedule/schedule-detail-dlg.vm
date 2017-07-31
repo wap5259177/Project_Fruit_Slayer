@@ -1,0 +1,58 @@
+<div id="$di.id" title="行程安排" style="padding:12px;" buttons="#${di.id}-buttons" modal='true'>
+<input type='hidden' value='$!{id}' id='id' />
+<table class='editor' style="margin:auto;">
+	<tr>
+		<th style="width:120px;">名称</th>
+		<td colspan='3'>$!{name}</td>
+	</tr>
+	<tr>
+		<th>是否提醒</th>
+        <td style='width:140px;'>#if($!{alarm}) 是 #else 否 #end</td>
+        <th style="width:120px;">类型</th>
+        <td style='width:140px;'>
+        	#if($!{type}==0)日程安排
+        	#elseif($!{type}==1)工作安排
+        	#end
+        </td>
+    </tr>
+	<tr>
+		<th>提醒方式</th>
+		<td>
+		#if($!{alarm} && $!{alarmType}==0)邮件 
+		#elseif($!{alarm} && $!{alarmType}==1)短信
+		#elseif($!{alarm} && $!{alarmType}==2)邮件 和短信#end
+		</td>
+		<th>提醒时间(单位:小时)</th>
+		<td>#if($!{alarm}) $!{alarmTime} #end</td>
+	</tr>
+	<tr>
+		<th>创建时间</th>
+		<td>$!{createAt}</td>
+		<th>创建人</th>
+		<td>$!{creatorName}</td>
+	</tr>
+	<tr>
+		<th>修改时间</th>
+		<td>$!{updateAt}</td>
+		<th>修改人</th>
+		<td>$!{updaterName}</td>
+	</tr>
+	<tr>
+        <th>内容</th>
+        <td style="height:80px;font-size:12px;" valign="top" colspan='3'>$!{content}</td>
+    </tr>
+	<tr>
+        <th>备注</th>
+        <td style="height:80px;font-size:12px;" valign="top" colspan='3'>$!{remark}</td>
+    </tr>
+</table>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_close').bupabutton({flat : true});
+});
+</script>

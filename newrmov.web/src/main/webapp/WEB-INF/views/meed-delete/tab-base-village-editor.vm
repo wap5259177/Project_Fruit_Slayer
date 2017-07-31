@@ -1,0 +1,986 @@
+<div id="$di.id" title="主体村" style="padding:12px;height:600px;" buttons="#${di.id}-buttons" modal='true'>
+<p style="padding:20px 0 0 0px;font-size:30px;text-align:center;font-weight:bold;">连片示范建设工程主体村情况表</p>
+<div style='align:center;padding:10px;text-align:left;width:700px'>
+<form id="baseVillageInfo">
+	<!-- 村ID -->
+	<input type='hidden' name='id' value='$!{id}' />
+	<!-- 片区ID -->
+	<input type='hidden' name='modelareaId' value='$!{areaId}' />
+	<p>&nbsp;&nbsp;&nbsp;&nbsp;年度[B1]：
+		<select id='annual' name='annual'>
+			<option>2009</option>	
+			<option>2010</option>
+			<option>2011</option>
+			<option>2012</option>
+			<option>2013</option>
+			<option>2014</option>
+			<option>2015</option>
+		</select>
+	</p>
+		
+	<table class='applicant-form' style="width:650px">
+		<tr>
+			<td style='font-weight:bold;' colspan='6'>(一)主体村情况</td>
+		</tr>
+		<tr>
+			<td class="tdRight">序号[B2]：</td>
+			<td>-</td>
+			<td class="tdRight">村庄类型[B3]：</td>
+			<td colspan='3'>
+				<input style='width:20px' type='radio' checked='checked' name='type' value='行政村' />行政村
+				<input style='width:20px' type='radio' name='type' value='自然村' />自然村
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight">村名称[B4]：</td>
+			<td colspan='5'>
+				$!{place}
+				<input type='text' value='$!{baseVillageInfo.naturalVillage}' name='naturalVillage' /> 自然村(或村民小组)
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight">总面积[B5]：</td>
+			<td colspan='2'>
+				<input type='text' class='number' value='$!{baseVillageInfo.ruralArea}' name='ruralArea' />亩
+				</td>
+			<td  colspan='2' class="tdRight">耕地面积[B6]：</td>
+			<td>
+				<input type='text' class='number' value='$!{baseVillageInfo.arableLand}' name='arableLand' />亩
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight">户数[B7]：</td>
+			<td>
+				<input type='text' value='$!{baseVillageInfo.houseHold}' class='number' name='houseHold' />户
+			</td>
+			<td  class="tdRight">人口数[B8]：</td>
+			<td>
+				<input style="width:50px;" type='text' value='$!{baseVillageInfo.houseHold}' type='text' value='$!{baseVillageInfo.population}' class='number' name='population' />人
+			</td>
+			<td class="tdRight">劳动力总人数[B9]：</td>
+			<td>
+				<input type='text' value='$!{baseVillageInfo.houseHold}' type='text' value='$!{baseVillageInfo.labor}' class='number' name='labor' />人
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>是否省级扶贫开发重点村(贫困村)[B10]：</td>
+			<td colspan='4'>
+				<input style='width:20px' type='radio' checked='checked' name='poorVillage' value='否' />否
+				<input style='width:20px' type='radio' name='poorVillage' value='是' />是
+				(帮扶单位名称:<input style='width:160px' type='text' value='$!{baseVillageInfo.helpUnit}' name='helpUnit' />)
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>是否广东名村[B11]：</td>
+			<td colspan='4'>
+				<input style='width:20px' type='radio' checked='checked' name='famousVillage' value='否' />否
+				<input style='width:20px' type='radio' name='famousVillage' value='是' />是
+				(批次:
+					<input style='width:20px' type='radio' checked='checked' name='famousBatch' value='第一批' />第一批
+					<input style='width:20px' type='radio' name='famousBatch' value='第二批' />第二批)
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>是否"两不具备"整村搬迁村[B12]：</td>
+			<td colspan='4'>
+				<input style='width:20px' type='radio' checked='checked' name='pushVillage' value='否' />否
+				<input style='width:20px' type='radio' name='pushVillage' value='是' />是
+				(年度:
+				<select id='pvAnnual' name='pvAnnual'>
+					<option>2009</option>	
+					<option>2010</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+				</select>
+				年)
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>农民年人均纯收入[B13]：</td>
+			<td colspan='4'>
+				
+				<!--<div id="annualIncome">填数字</div>-->
+				<input onfocus="$('#annualIncome_13').toggle()"  onblur="$('#annualIncome_13').toggle()" type='text' name='annualIncome_13' class='number' value='$!{baseVillageInfo.annualIncome_13}' />元
+				<input onfocus="$('#annualIncome_14').toggle()"  onblur="$('#annualIncome_14').toggle()" type='text' name='annualIncome_14' class='number' value='$!{baseVillageInfo.annualIncome_14}' />元
+				<input onfocus="$('#annualIncome_15').toggle()"  onblur="$('#annualIncome_15').toggle()" type='text' name='annualIncome_15' class='number' value='$!{baseVillageInfo.annualIncome_15}' />元
+			</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold;' colspan='6'>(二)基础设施建设和环境卫生整治情况</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>村内道路和入户路硬底化率[B14]：</td>
+			<td>
+				<input style='width:40px' type='text' name='hardBottom' class='number' value='$!{baseVillageInfo.hardBottom}' />%
+				<br />
+				(<input style='width:40px' type='text' name='bottomDis' class='number' value='$!{baseVillageInfo.bottomDis}' />公里)
+			</td>
+			<td class="tdRight">是否通自来水[B15]：</td>
+			<td colspan='2'>
+				<input style='width:20px' type='radio' checked='checked' name='tapWater' value='否' />否
+				<input style='width:20px' type='radio' name='tapWater' value='是' />是
+				<br />
+				(时间:
+				<select id='tapAnnual' name='tapAnnual'>
+					<option>2009</option>	
+					<option>2010</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+				</select>	
+				年)
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>开展农田水利基础设施和现代渔港建设[B16]：</td>
+			<td><input style='width:60px' type='text' name='waterBase' value='$!{baseVillageInfo.waterBase}' />宗</td>
+			<td class="tdRight" colspan='2'>整治小山塘、小灌区、小水坡、小泵站和小堤防[B17]：</td>
+			<td><input style='width:60px' type='text' name='smallWater' value='$!{baseVillageInfo.smallWater}' />个</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='3'>配套建设高标准基本农田、标准鱼塘[B18]：</td>
+			<td colspan='3'><input style='width:60px' type='text' name='farmland' value='$!{baseVillageInfo.farmland}' />亩</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>是否已完成环境卫生整治[B19]：</td>
+			<td colspan='4'>
+				<input style='width:20px' type='radio' checked='checked' name='hyFix' value='否' />否
+				<input style='width:20px' type='radio' name='hyFix' value='是' />是
+				(完成年度:
+				<select id='fixAnnual' name='fixAnnual'>
+					<option>2009</option>	
+					<option>2010</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+				</select>		
+				年)
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>是否开展村庄垃圾治理[B20]：</td>
+				<td>
+					<input style='width:15px' type='radio' checked='checked' name='villageManage' value='否' />否
+					<input style='width:15px' type='radio' name='villageManage' value='是' />是
+				</td>
+			<td class="tdRight" colspan='2'>是否建立村保洁队伍[B21]：</td>
+			<td>
+				<input style='width:20px' type='radio' checked='checked' name='cleanTeam' value='否' />否
+				<input style='width:20px' type='radio' name='cleanTeam' value='是' />是<br />
+				(保洁员:<input style='width:40px' class='number'  type='text' name='cleaners' value='$!{baseVillageInfo.cleaners}' />个)
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>村民使用卫生厕所户数[B22]：</td>
+			<td>
+				占<input style='width:60px' type='text' class='number' name='toiletPercent' value='$!{baseVillageInfo.toiletPercent}' />%
+				<br /><input style='width:60px' type='text' class='number' name='toilet' value='$!{baseVillageInfo.toilet}' />户
+			</td>
+			<td class="tdRight" colspan='2'>是否建立污水处理设施[B23]：</td>
+			<td>
+				<input style='width:20px' type='radio' checked='checked' name='badWater' value='否' />否
+				<input style='width:20px' type='radio' name='badWater' value='是' />是<br />
+				完成时间:
+				<select id='badWaterAnn' name='badWaterAnn'>
+					<option>2009</option>	
+					<option>2010</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+				</select>	
+					年
+			</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold;' colspan='6'>(三)农村旧房整治情况</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>无价值旧村旧房拆除[B24]：</td>
+			<td><input style='width:50px' class='number' type='text' name='noValue' value='$!{baseVillageInfo.noValue}' />间</td>
+			<td class="tdRight" colspan='2'>统一拆旧建新[B25]：</td>
+			<td><input style='width:50px' class='number' type='text' name='buildAgain' value='$!{baseVillageInfo.buildAgain}' />间</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>古建筑保护[B26]：</td>
+			<td colspan='4'><input style='width:50px' class='number' type='text' name='oldProtect' value='$!{baseVillageInfo.oldProtect}' />间</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='3'>是否编制旧房整治改造规划[B27]：</td>
+			<td colspan='3'>
+				<input style='width:20px' type='radio' checked='checked' name='changePlan' value='否' />否
+				<input style='width:20px' type='radio' name='changePlan' value='是' />是
+				<div id='plan'> 
+		    		<input type="file" name="plans_upload" id="plans_upload" multiple="true" />
+			    </div> 
+			  	<a href="javascript:$('#plans_upload').uploadify('upload', '*')">开始上传</a>   
+			 	<a href="javascript:$('#plans_upload').uploadify('cancel', '*')">全部取消上传</a>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='3'>是否提供民居住宅设计标准图[B28]：</td>
+			<td colspan='3'>
+				<input style='width:20px' type='radio' checked='checked' name='designPic' value='否' />否
+				<input style='width:20px' type='radio' name='designPic' value='是' />是
+				<div id='design'> 
+		    		<input type="file" name="design_upload" id="design_upload" multiple="true" />
+			    </div> 
+			  	<a href="javascript:$('#design_upload').uploadify('upload', '*')">开始上传</a>   
+			 	<a href="javascript:$('#design_upload').uploadify('cancel', '*')">全部取消上传</a>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='3'>农家(乡村)旅馆[B29]：</td>
+			<td colspan='3'>规划建设<input style='width:50px' class='number' type='text' name='planCount' value='$!{baseVillageInfo.planCount}' />间;
+			完成建设<input style='width:50px' class='number' type='text' name='finishCount' value='$!{baseVillageInfo.finishCount}' />间</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>是否统一民居外立面风貌[B30]：</td>
+			<td colspan='4'>
+				<input style='width:20px' type='radio' checked='checked' name='faceView' value='否' />否
+				<input style='width:20px' type='radio' name='faceView' value='是' />是
+				(风格:<input style='width:50px' type='text' name='faceStyle' value='$!{baseVillageInfo.faceStyle}' />，
+				完成时间:
+				<select id='fvAnnual' name='fvAnnual'>
+					<option>2009</option>	
+					<option>2010</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+				</select>	
+				年)
+			</td>
+		</tr>
+		<tr>
+			<td style='font-weight:bold;' colspan='6'>(四)资源优势情况</td>
+		</tr>
+		<tr>
+			<td class="tdCenter" rowspan='8'>资源特色</td>
+			<td style='font-weight:bold;'>特色类型名称</td>
+			<td style='font-weight:bold;text-align:center' colspan='4'>描述</td>
+		</tr>
+		<tr>
+			<td class="tdCenter">人文历史[B31]：</td>
+			<td colspan='4'>
+				<textarea name='histroyDesc'>$!{baseVillageInfo.histroyDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdCenter">自然生态[B32]：</td>
+			<td colspan='4'>
+				<textarea name='ecologicalDesc'>$!{baseVillageInfo.ecologicalDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdCenter">民居风貌[B33]：</td>
+			<td colspan='4'>
+				<textarea name='civilianDesc'>$!{baseVillageInfo.civilianDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdCenter">乡村旅游[B34]：</td>
+			<td colspan='4'>
+				<textarea name='tourDesc'>$!{baseVillageInfo.tourDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdCenter">特色产业[B35]：</td>
+			<td colspan='4'>
+				<textarea name='industryDesc'>$!{baseVillageInfo.industryDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdCenter">渔业渔港[B36]：</td>
+			<td colspan='4'>
+				<textarea name='fisheryDesc'>$!{baseVillageInfo.fisheryDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdCenter">其他[B37]：</td>
+			<td colspan='4'>
+				<textarea name='otherDesc'>$!{baseVillageInfo.otherDesc}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>现有的或正在打造的旅游景点或节点[B38]：</td>
+			<td colspan='4'>
+				<input type='text' class='number' onfocus="$('#viewSpot').toggle()"  onblur="$('#viewSpot').toggle()" name='viewSpot' class='number' value='$!{baseVillageInfo.viewSpot}' />个，
+				<!--<div style='float:left' id="viewSpot">填数字</div>-->
+				名称分别是：
+				（1）<input type='text' name='viewSpot1' value='$!{baseVillageInfo.viewSpot1}' /><br />
+				（2）<input type='text' name='viewSpot2' value='$!{baseVillageInfo.viewSpot2}' />
+				（3）<input type='text' name='viewSpot3' value='$!{baseVillageInfo.viewSpot3}' />
+			</td>
+		</tr>
+		<tr>
+			<td  style='font-weight:bold;' colspan='6'>(五)农村公共服务情况</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>文化活动场所[B39]：</td>
+			<td colspan='4'>
+				<nobr>
+					<input type='text' class='number' value='$!{baseVillageInfo.culturalAct}' name='culturalAct' />个，
+ 					<input class='number' type='text' value='$!{baseVillageInfo.culturalActArea}' name='culturalActArea' />平方米，
+					年度：
+				<select id='culturalActAnn' name='culturalActAnn'>
+					<option>2009</option>	
+					<option>2010</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+				</select>	
+					年
+				</nobr>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>乡村公园[B40]：</td>
+			<td colspan='4'>
+				<nobr> 
+					<input type='text' class='number' value='$!{baseVillageInfo.ruralPark}' name='ruralPark' />个，
+					<input class='number' type='text' value='$!{baseVillageInfo.ruralParkArea}' name='ruralParkArea' />平方米，
+					年度：
+				<select id='ruralParkAnn' name='ruralParkAnn'>
+					<option>2009</option>	
+					<option>2010</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+				</select>
+					年
+				</nobr>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>文体广场[B41]：</td>
+			<td colspan='4'>
+				<nobr>
+					<input type='text' class='number' value='$!{baseVillageInfo.ruralSquare}' name='ruralSquare' />个，
+					<input class='number' type='text' value='$!{baseVillageInfo.squareArea}' name='squareArea' />平方米，
+					年度：
+				<select id='squareAnn' name='squareAnn'>
+					<option>2009</option>	
+					<option>2010</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+				</select>
+					年
+				</nobr>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>村级卫生站[B42]：</td>
+			<td colspan='4'>
+				<nobr>
+					<input  type='text' class='number'  value='$!{baseVillageInfo.healthStation}' name='healthStation' />个，
+					<input class='number' type='text' value='$!{baseVillageInfo.healthStationArea}' name='healthStationArea' />平方米，
+					年度：
+				<select id='healthStationAnn' name='healthStationAnn'>
+					<option>2009</option>	
+					<option>2010</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+				</select>
+					年
+				</nobr>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>乡村公厕[B43]：</td>
+			<td colspan='4'>
+				<nobr>
+					<input  type='text' class='number'  value='$!{baseVillageInfo.villageToilet}' name='villageToilet' />个，
+					<input class='number' type='text' value='$!{baseVillageInfo.villageToiletArea}' name='villageToiletArea' />平方米，
+					年度：
+				<select id='villageToiletAnn' name='villageToiletAnn'>
+					<option>2009</option>	
+					<option>2010</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+				</select>
+					年
+				</nobr>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='3'>是否建立统一的村级公共服务管理平台[B44]：</td>
+			<td colspan='3'>
+				<input style='width:20px' type='radio' checked='checked' name='publicService' value='否' />否
+				<input style='width:20px' type='radio' name='publicService' value='是' />是
+				(年度：
+				<select id='psAnnual' name='psAnnual'>
+					<option>2009</option>	
+					<option>2010</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+				</select>	
+				年)
+			</td>
+		</tr>
+		<tr>
+			<td colspan='6' style='font-weight:bold;'>（二）挂点县领导[B45]：</td>
+		</tr>
+		<tr>
+			<td>挂点领导姓名</td>
+			<td>职务</td>
+			<td>联系电话</td>
+			<td colspan='3'>单位属性</td>
+		</tr>
+		<tr>
+			<td>
+				<input type='text' name='leaderName' value='$!{baseVillageInfo.leaderName}' />
+			</td>
+			<td>
+				<input type='text' name='leaderJob' value='$!{baseVillageInfo.leaderJob}' />	
+			</td>
+			<td>
+				<input type='text' name='leaderHP' class='number' value='$!{baseVillageInfo.leaderHP}' />
+			</td>
+			<td colspan='3'>
+				<input style='width:20px' type='radio' checked='checked' name='unitProperty' value='党委' />党委
+				<input style='width:20px' type='radio' name='unitProperty' value='人大' />人大
+				<input style='width:20px' type='radio' name='unitProperty' value='政府' />政府
+				<input style='width:20px' type='radio' name='unitProperty' value='政协' />政协
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type='text' name='leaderName2' value='$!{baseVillageInfo.leaderName2}' />
+			</td>
+			<td>
+				<input type='text' name='leaderJob2' value='$!{baseVillageInfo.leaderJob2}' />	
+			</td>
+			<td>
+				<input type='text' name='leaderHP2' value='$!{baseVillageInfo.leaderHP2}' />
+			</td>
+			<td colspan='3'>
+				<input style='width:20px' type='radio' checked='checked' name='unPro2' value='党委' />党委
+				<input style='width:20px' type='radio' name='unPro2' value='人大' />人大
+				<input style='width:20px' type='radio' name='unPro2' value='政府' />政府
+				<input style='width:20px' type='radio' name='unPro2' value='政协' />政协
+			</td>
+		</tr>
+	</table>
+	<table class='baseVillage-form' name='temp' style="width:650px">
+		<tr>
+			<td style='font-weight:bold' colspan='6'>(七)工作小组[B46]：</td>
+		</tr>
+		<tr>
+			<td>序号</td>
+			<td>姓名</td>
+			<td colspan='2'>单位名称及职务</td>
+			<td>联系电话</td>
+			<td>备注</td>
+		</tr>
+		$!{sb}
+	</table>
+	<!-- <a href="#" id="btn-workGroup">添加工作小组</a> -->
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button  id="btn-workGroup">添加工作小组</button>
+	<!--<a href="#" id="del-workGroup">删除小组</a>--> 
+	<script type="text/javascript">
+		jQuery(function(){
+			jQuery("#btn-workGroup").click(function(){
+				var ipt = jQuery("<tr>"
+					+"<td>-</td>"
+					+"<td><input type='text' name='workName'/></td>"
+					+"<td><input type='text' style='width:180px' name='unitJob'/></td>"
+					+"<td colspan='2'><input type='text'  class='number' name='workPhone'/></td>"
+					+"<td><input type='text' name='workRemark'/></td>"
+					+"</tr>");
+				ipt.appendTo(jQuery(this).prev());
+				return false;
+		});
+		$('#del-workGroup').click(function() {
+			//$('table[name="temp"]:last-child').remove();
+			$('table:last-child').remove();
+		});
+	});
+</script>
+	<table class='baseVillage-form' style="width:650px">
+		<tr>
+			<td style='font-weight:bold' colspan='6'>(八)规划进展</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>是否建立规划专家指导组[B47]：</td>
+			<td colspan='4'>
+				<input style='width:20px' type='radio' checked='checked' name='expertGroup' value='否' />否
+				<input style='width:20px' type='radio' name='expertGroup' value='是' />是
+			</td>
+		</tr>
+		<tr>
+			<td colspan='6'>专家指导组名单[B48]：</td>
+		</tr>
+		<tr>
+			<td>序号</td>
+			<td>姓名</td>
+			<td colspan='2'>单位名称及职务</td>
+			<td>联系电话</td>
+			<td>备注</td>
+		</tr>
+		$!{sb1}
+	</table>
+	&nbsp;&nbsp;&nbsp;&nbsp;<button id="btn-expertGroup">添加专家小组</button>
+	<!--<a href="#" id="btn-expertGroup">添加专家小组</a>-->
+	<script type="text/javascript">
+		jQuery(function(){
+			jQuery("#btn-expertGroup").click(function(){
+				var ipt = jQuery("<tr>"
+					+"<td>-</td>"
+					+"<td><input type='text' name='expertName'</td>"
+					+"<td><input type='text' style='width:180px' name='expertJob'</td>"
+					+"<td colspan='2'><input type='text' name='expertPhone'</td>"
+					+"<td><input type='text' name='expertRemark'</td>"
+					+"</tr>");
+				ipt.appendTo(jQuery(this).prev());
+				
+				return false;
+			});
+		});
+	</script>
+	<table class='baseVillage-form' style="width:650px">
+		<tr>
+			<td class="tdRight" colspan='2'>是否完成总体规划[B49]：</td>
+			<td colspan='4'>
+				<input style='width:20px' type='radio' checked='checked' name='generalPlan' value='否' />否
+				<input style='width:20px' type='radio' name='generalPlan' value='是' />是
+				(时间:<input style='width:100px' type='text' id='gpDate' name='gpDate' value='$!{baseVillageInfo.gpDate}'  />)
+				<div id='total'> 
+		    		<input type="file" name="total_upload" id="total_upload" multiple="true" />
+			    </div> 
+			  	<a href="javascript:$('#total_upload').uploadify('upload', '*')">开始上传</a>   
+			 	<a href="javascript:$('#total_upload').uploadify('cancel', '*')">全部取消上传</a>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>是否完成连线连片规划[B50]：</td>
+			<td colspan='4'>
+				<input style='width:20px' type='radio' checked='checked' name='areaPlan' value='否' />否
+				<input style='width:20px' type='radio' name='areaPlan' value='是' />是
+				(时间:<input style='width:100px' type='text' id='apDate' name='apDate' value='$!{baseVillageInfo.apDate}'  />)
+				<div id='line'> 
+		    		<input type="file" name="line_upload" id="line_upload" multiple="true" />
+			    </div> 
+			  	<a href="javascript:$('#line_upload').uploadify('upload', '*')">开始上传</a>   
+			 	<a href="javascript:$('#line_upload').uploadify('cancel', '*')">全部取消上传</a>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='3'>是否完成村庄深度规划设计(含节点规划设计效果图)[B51]：</td>
+			<td colspan='3'>
+				<input style='width:20px' type='radio' checked='checked' name='depthPlanning' value='否' />否
+				<input style='width:20px' type='radio' name='depthPlanning' value='是' />是
+				(时间:<input style='width:100px' type='text' id='dpDate' name='dpDate' value='$!{baseVillageInfo.dpDate}'  />)
+				<div id='point'> 
+		    		<input type="file" name="point_upload" id="point_upload" multiple="true" />
+			    </div> 
+			  	<a href="javascript:$('#point_upload').uploadify('upload', '*')">开始上传</a>   
+			 	<a href="javascript:$('#point_upload').uploadify('cancel', '*')">全部取消上传</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='6'>规划设计单位[B52]：</td>
+		</tr>
+		<tr>
+			<td>序号</td>
+			<td colspan='2'>规划设计单位名称</td>
+			<td>注册地址</td>
+			<td>联系人</td>
+			<td>联系电话</td>
+		</tr>
+		$!{sb2}
+	</table>
+	&nbsp;&nbsp;&nbsp;&nbsp;<button id="btn-units">添加单位</button>
+	<!--<a href="#" id="btn-units">添加单位</a>-->
+	<script type="text/javascript">
+		jQuery(function(){
+			jQuery("#btn-units").click(function(){
+				var ipt = jQuery("<tr>"
+					+"<td>-</td>"
+					+"<td><input type='text' name='unitName'</td>"
+					+"<td colspan='2'><input style='width:180px' type='text' name='registeredAddress'</td>"
+					+"<td><input type='text' name='ucName'</td>"
+					+"<td><input type='text' name='unitPhone'</td>"
+					+"</tr>");
+				ipt.appendTo(jQuery(this).prev());
+				
+				return false;
+		});
+	});
+
+</script>
+	<table class='baseVillage-form' style="width:650px">
+		<tr>
+			<td colspan='6' style='font-weight:bold'>(九)村民理事会</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>是否建立村民理事会[B53]：</td>
+			<td colspan='4'>
+				<input style='width:20px' type='radio' checked='checked' name='council' value='否' />否
+				<input style='width:20px' type='radio' name='council' value='是' />是
+				(建立时间:
+				<select id='councilAnnual' name='councilAnnual'>
+					<option>2009</option>	
+					<option>2010</option>
+					<option>2011</option>
+					<option>2012</option>
+					<option>2013</option>
+					<option>2014</option>
+					<option>2015</option>
+				</select>	
+				年)
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" rowspan='3'>理事会成员数[B54]：</td>
+			<td rowspan='3'>
+				<input onfocus="$('#councilMember').toggle()"  onblur="$('#councilMember').toggle()" type='text' class='number' name='councilMember' value='$!{baseVillageInfo.councilMember}' />人
+				<!--<div id="councilMember">填数字</div>-->
+				</td>
+			<td class="tdRight" rowspan='3' colspan='2'>理事会主要负责人[B55]：</td>
+			<td>姓名</td>
+			<td>联系电话</td>
+		</tr>
+		<tr>
+			<td>
+				<input type='text' name='councilName1' value='$!{baseVillageInfo.councilName1}' />
+			</td>
+			<td>
+				<input type='text' name='councilHP1' value='$!{baseVillageInfo.councilHP1}' />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type='text' name='councilName2' value='$!{baseVillageInfo.councilName2}' />
+			</td>
+			<td>
+				<input type='text' name='councilHP2' value='$!{baseVillageInfo.councilHP2}' />
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>组织开展新农村建设工作情况（在新农村建设工作中发挥的作用）[B56]：</td>
+			<td colspan='4'>
+				<textarea name='workSituation'>$!{baseVillageInfo.workSituation}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>是否制定村规民约和章程[B57]：</td>
+			<td colspan='4'>
+				<input style='width:20px' type='radio' checked='checked' name='constitu' value='否' />否
+				<input style='width:20px' type='radio' name='constitu' value='是' />是
+			</td>
+		</tr>
+	</table>
+</form>
+</div>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_submit'>提交</a>
+<!-- <a href="#" id='a_save'>暂存</a> -->
+<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<style type="text/css">
+#hous,#labor,#pop,#annualIncome,#annualIncome_13,#annualIncome_14,#annualIncome_15,#ruralArea,#arableLand,#hardBottom,#toilet,#culturalAct,#culturalActArea,#ruralPark,#ruralParkArea,#ruralSquare,#squareArea,#healthStation,#healthStationArea,#viewSpot,#councilMember{
+	width: 50px; 
+	text-align:center; 
+	font-size:13px; 
+	color:#7B7B7B; 
+	border: 1px dashed #CCCCCC;
+	background-color: #FFFFCC; 
+	display:none
+}
+table.baseVillage-form{
+	font-size:16px;
+	width: 880px;
+	border-width: 1px;
+	border-color: #000000;
+	border-collapse: collapse;
+	margin: auto;
+}
+table.baseVillage-form td{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+/*	padding-left:4px;*/
+}
+table.baseVillage-form td.tdRight{
+	text-align: right;
+}
+table.baseVillage-form td.tdCenter{
+	text-align: center;
+}
+table.baseVillage-form tr td input{
+	width:80px;
+	border:0px;
+	border-bottom: solid 1px #000000;
+	text-align:center;
+}
+table.baseVillage-form tr td textarea{
+	width:98%;
+	height:80px;
+}
+</style>
+
+<link href="/html/planning/uploadify.css" rel="stylesheet" type="text/css" />  
+<script type='text/javascript'>
+jQuery(function() {
+	
+	
+	
+	//上传
+	$("#plans_upload, #design_upload, #total_upload, #line_upload, #point_upload").uploadify({  
+        method  : 'post',  
+        auto	: false,
+        removeCompleted : true,		//上传成功后是否在队列中删除
+        removeTimeout : 2,	//上传成功后队列显示时间s
+        multi	: true,
+      //  queueID : 'plan',
+        swf           : '/html/planning/uploadify.swf',  // uploadify.swf在项目中的路径  
+        uploader      : '/utils/uploadify',  // 后台UploadController处理上传的方法  
+        fileSizeLimit : '20MB',  
+        buttonText      : '选择文件',  
+        height        : 30,  
+        width         : 120,
+      	onQueueComplete : function(event, queueID, fileObj, response, data) {//当单个文件上传完成后触发
+                //event:事件对象(the event object)
+                //ID:该文件在文件队列中的唯一表示
+                //fileObj:选中文件的对象，他包含的属性列表
+                //response:服务器端返回的Response文本，我这里返回的是处理过的文件名称
+                //data：文件队列详细信息和文件上传的一般数据
+
+               alert('上传成功');
+            },
+       cancel : function(event, queueID, fileObj, response, data){
+       	
+       }
+    });  
+	
+	//年度下拉
+	$('#annual').val($!{baseVillageInfo.annual});
+	$('#pvAnnual').val($!{baseVillageInfo.pvAnnual});
+	$('#tapAnnual').val($!{baseVillageInfo.tapAnnual});
+	$('#fixAnnual').val($!{baseVillageInfo.fixAnnual});
+	$('#badWaterAnn').val($!{baseVillageInfo.badWaterAnn});
+	$('#fvAnnual').val($!{baseVillageInfo.fvAnnual});
+	$('#psAnnual').val($!{baseVillageInfo.psAnnual});
+	$('#councilAnnual').val($!{baseVillageInfo.councilAnnual});
+	$('#culturalActAnn').val($!{baseVillageInfo.culturalActAnn});
+	$('#ruralParkAnn').val($!{baseVillageInfo.ruralParkAnn});
+	$('#squareAnn').val($!{baseVillageInfo.squareAnn});
+	$('#healthStationAnn').val($!{baseVillageInfo.healthStationAnn});
+	$('#villageToiletAnn').val($!{baseVillageInfo.villageToiletAnn});
+	
+	//设置村的下拉列表
+	$('#place').val($!{vId});
+
+	back_radios();
+	$('input[class = "number"]').bupnuminput({});	
+	$('#gpDate, #apDate, #dpDate').bupdateinput({});
+	jQuery('#a_close, #a_submit, #a_save').bupabutton({flat : true});
+	jQuery('#a_save').click(function() {
+		_save(0);
+	});
+	jQuery('#a_submit').click(function() {
+		
+		//检查数据完整性
+	/*
+		var flag = true;
+		if(flag == true) {
+			jQuery('table.baseVillage-form tr td input,textarea').each(function(){
+				var temp = jQuery(this).val();
+				if(null == temp || temp == "") {
+					flag = false;
+					if(this.name == "naturalVillage" || this.name == 'councilName2' || this.name == 'councilHP2'){
+						if($('input[name = "naturalVillage"]').val() == "" || $('input[name = "councilName2"]').val() == "" || $('input[name = "councilHP2"]').val() == "") {
+							flag = true;
+							return flag;
+						}
+					}
+				}
+				return flag;
+			});
+		}
+		if(flag == false) {
+			alert('请将数据填完整!');
+			return flag;
+		}
+		
+		if(parseInt($('input[name="houseHold"]').val()) < parseInt($('input[name="toilet"]').val())) {
+			alert('村民使用卫生厕所户数不能超过总户数!');
+			return false;
+		}
+		*/
+		
+		var workGroupIDs = get_val($('input[name = "workGroupID"]'));
+		var workNames = get_val($('input[name = "workName"]'));
+		var unitJobs = get_val($('input[name = "unitJob"]'));
+		var workPhones = get_val($('input[name = "workPhone"]'));
+		var workRemarks = get_val($('input[name = "workRemark"]'));
+		var expertGroupIDs = get_val($('input[name = "expertGroupID"]'));
+		var expertNames = get_val($('input[name = "expertName"]'));
+		var expertJobs = get_val($('input[name = "expertJob"]'));
+		var expertPhones = get_val($('input[name = "expertPhone"]'));
+		var expertRemarks = get_val($('input[name = "expertRemark"]'));
+		var unitIDs = get_val($('input[name = "unitID"]'));
+		var unitNames = get_val($('input[name = "unitName"]'));
+		var registeredAddresses = get_val($('input[name = "registeredAddress"]'));
+		var ucNames = get_val($('input[name = "ucName"]'));
+		var unitPhones = get_val($('input[name = "unitPhone"]'));
+		
+		$.ajax({
+            url : 'base_village/save?workGroupIDs=' + workGroupIDs + '&workNames=' + workNames + '&unitJobs=' + unitJobs
+            	 + '&workPhones=' + workPhones + '&workRemarks=' + workRemarks + '&expertGroupIDs=' + expertGroupIDs
+            	 + '&expertNames=' + expertNames + '&expertJobs=' + expertJobs + '&expertPhones=' + expertPhones + '&expertRemarks=' + expertRemarks
+            	 + '&unitIDs=' + unitIDs + '&unitNames=' + unitNames + '&registeredAddresses=' + registeredAddresses + '&ucNames=' + ucNames + "&unitPhones=" + unitPhones,
+            type : "post",
+            data : $('#baseVillageInfo').serialize(),
+            error : function(request) {
+                alert("error");
+            },
+            success : function(data) {
+				$('#${di.id}').bupdlg('close');
+        		alert('提交成功');
+				jQuery('#base_village').bupgrid('reload');
+            }
+        });
+	});
+	
+	function get_val(e) {
+		var arr_ids = [];
+		var flag = true;
+		jQuery(e).each(function(){
+			var temp = jQuery(this).val();
+			if(null != temp || temp != "") {
+				arr_ids.push(jQuery(this).val());
+			}
+		});
+		return flag ? arr_ids.join(',') : flag;
+	}
+	
+	function back_radios() {
+		b_type = '$!{baseVillageInfo.type}';
+		b_poorVillage = '$!{baseVillageInfo.poorVillage}';
+		b_famousVillage = '$!{baseVillageInfo.famousVillage}';
+		b_famousBatch = '$!{baseVillageInfo.famousBatch}';
+		b_pushVillage = '$!{baseVillageInfo.pushVillage}';
+		b_villageManage = '$!{baseVillageInfo.villageManage}';
+		b_tapWater = '$!{baseVillageInfo.tapWater}';
+		b_faceView = '$!{baseVillageInfo.faceView}';
+		b_hyFix = '$!{baseVillageInfo.hyFix}';
+		b_cleanTeam = '$!{baseVillageInfo.cleanTeam}';
+		b_publicService = '$!{baseVillageInfo.publicService}';
+		b_unitProperty = '$!{baseVillageInfo.unitProperty}';
+		b_expertGroup = '$!{baseVillageInfo.expertGroup}';
+		b_generalPlan = '$!{baseVillageInfo.generalPlan}';
+		b_areaPlan = '$!{baseVillageInfo.areaPlan}';
+		b_depthPlanning = '$!{baseVillageInfo.depthPlanning}';
+		b_council = '$!{baseVillageInfo.council}';
+		b_constitu = '$!{baseVillageInfo.constitu}';
+	
+		if(b_type == '') {
+		} else if($('input[name = "type"]:checked').val() != b_type) {
+			$('input[name = "type"]:eq(1)').attr("checked", true);
+		}
+		if(b_poorVillage == '') {
+		} else if($('input[name = "poorVillage"]:checked').val() != b_poorVillage) {
+			$('input[name = "poorVillage"]:eq(1)').attr("checked", true);
+		}
+		if(b_famousVillage == '') {
+		} else if($('input[name = "famousVillage"]:checked').val() != b_famousVillage) {
+			$('input[name = "famousVillage"]:eq(1)').attr("checked", true);
+		}
+		if(b_famousBatch == '') {
+		} else if($('input[name = "famousBatch"]:checked').val() != b_famousBatch) {
+			$('input[name = "famousBatch"]:eq(1)').attr("checked", true);
+		}
+		if(b_pushVillage == '') {
+		} else if($('input[name = "pushVillage"]:checked').val() != b_pushVillage) {
+			$('input[name = "pushVillage"]:eq(1)').attr("checked", true);
+		}
+		if(b_villageManage == '') {
+		} else if($('input[name = "villageManage"]:checked').val() != b_villageManage) {
+			$('input[name = "villageManage"]:eq(1)').attr("checked", true);
+		}
+		if(b_tapWater == '') {
+		} else if($('input[name = "tapWater"]:checked').val() != b_tapWater) {
+			$('input[name = "tapWater"]:eq(1)').attr("checked", true);
+		}
+		if(b_faceView == '') {
+		} else if($('input[name = "faceView"]:checked').val() != b_faceView) {
+			$('input[name = "faceView"]:eq(1)').attr("checked", true);
+		}if(b_hyFix == '') {
+		} else if($('input[name = "hyFix"]:checked').val() != b_hyFix) {
+			$('input[name = "hyFix"]:eq(1)').attr("checked", true);
+		}
+		if(b_cleanTeam == '') {
+		} else if($('input[name = "cleanTeam"]:checked').val() != b_cleanTeam) {
+			$('input[name = "cleanTeam"]:eq(1)').attr("checked", true);
+		}if(b_publicService == '') {
+		} else if($('input[name = "publicService"]:checked').val() != b_publicService) {
+			$('input[name = "publicService"]:eq(1)').attr("checked", true);
+		}
+		if(b_unitProperty == '') {
+		} else if(b_unitProperty == '党委') {
+			$('input[name = "unitProperty"]:eq(0)').attr("checked", true);
+		} else if(b_unitProperty == '人大') {
+			$('input[name = "unitProperty"]:eq(1)').attr("checked", true);
+		} else if(b_unitProperty == '政府') {
+			$('input[name = "unitProperty"]:eq(2)').attr("checked", true);
+		} else {
+			$('input[name = "unitProperty"]:eq(3)').attr("checked", true);
+		}
+		if(b_expertGroup == '') {
+		} else if($('input[name = "expertGroup"]:checked').val() != b_expertGroup) {
+			$('input[name = "expertGroup"]:eq(1)').attr("checked", true);
+		}
+		if(b_generalPlan == '') {
+		} else if($('input[name = "generalPlan"]:checked').val() != b_generalPlan) {
+			$('input[name = "generalPlan"]:eq(1)').attr("checked", true);
+		}if(b_areaPlan == '') {
+		} else if($('input[name = "areaPlan"]:checked').val() != b_areaPlan) {
+			$('input[name = "areaPlan"]:eq(1)').attr("checked", true);
+		}
+		if(b_depthPlanning == '') {
+		} else if($('input[name = "depthPlanning"]:checked').val() != b_depthPlanning) {
+			$('input[name = "depthPlanning"]:eq(1)').attr("checked", true);
+		}if(b_council == '') {
+		} else if($('input[name = "council"]:checked').val() != b_council) {
+			$('input[name = "council"]:eq(1)').attr("checked", true);
+		}
+		if(b_constitu == '') {
+		} else if($('input[name = "constitu"]:checked').val() != b_constitu) {
+			$('input[name = "constitu"]:eq(1)').attr("checked", true);
+		}
+	}
+});
+	
+
+</script>

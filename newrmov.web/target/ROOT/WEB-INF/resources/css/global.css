@@ -1,0 +1,339 @@
+@CHARSET "UTF-8";
+
+a {
+	text-decoration: none;
+}
+
+a:link {
+	color: #505abc;
+	text-decoration: none;
+}
+*{font-size:14px;}
+a:visited {
+	color: #505abc;
+}
+
+a:hover {
+	color: #1d60ff;
+	text-decoration: none;
+}
+
+a:active {
+	color: #12eb87;
+}
+
+a img {
+	border: none;
+}
+
+.clear {
+	clear: both;
+}
+
+.error {
+	color: Red;
+}
+/* a.l-btn-plain{
+	padding-right: 0;
+} */
+span.request {color: Red;}
+
+/***********************editor,simplegrid css***********************/
+table.editor,table.editor-line,table.simplegrid {
+	background: #EDEDED;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+table.editor tr,table.editor-line tr,table.simplegrid tr {
+	background: white;
+	height: 28px;
+}
+
+table.editor tr.top,table.editor-line tr.top {
+	vertical-align: top;
+}
+
+table.editor td,table.editor-line td,table.simplegrid td {
+	color: #000;
+	line-height: 22px;
+	padding: 0px;
+	text-align: left;
+}
+
+table.editor th,table.editor-line th,table.simplegrid th {
+	text-indent: 5px;
+	background: #F0FFEF;
+	color: #15428B;
+	line-height: 24px;
+	font-weight: normal;
+	text-align: right;
+	padding: 0px;
+}
+
+table.simplegrid th {
+	background: #CCCCCC;
+	text-align: center;
+}
+table.editor-line td input{
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-left-width: 0px;
+    border-bottom: #787878 1px solid;
+    background-color: #ffffff;
+}
+
+.surveyclass{float:left;margin: 0;padding: 0; }
+.surveyclass label{padding: 0;margin: 0;}
+.surveyclass input{padding: 0;margin: 0;}
+
+/***********************end editor,simplegrid css***********************/
+
+.faqs dl,.faqs dt,.faqs dd{padding:0;margin:0}
+.faqs {padding-top:5px;font-size:1.2em;line-height:170%;margin-bottom:20px;}
+.faqs dt{color: #505abc;text-decoration: none;background:url(images/q.gif) 0 4px no-repeat;padding:3px 0 15px 30px;position:relative;}
+.faqs dt:hover{cursor:pointer;color: #1d60ff;text-decoration: none;}
+.faqs dd{background:url(images/a.gif) 0 2px no-repeat;padding:0 0 5px 30px;position:relative;color:#333}
+.faqs .hover{color:#990000;text-decoration:underline}
+
+.form-helper{color:gray; font-size: 11px;}
+.form-helper-tooltip{}
+
+.item-close{background:url(images/close.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}
+.item-open {background:url(images/open.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}
+
+.item-open2 {background:url(images/open.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}
+.item-close2{background:url(images/close.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}
+
+.item-up {background:url(images/point-up.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}
+.item-down {background:url(images/point-down.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}
+
+.item-down2{background:url(images/point-down.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}
+.item-up2 {background:url(images/point-up.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}
+
+.item-right {background:url(images/point-right.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}
+.item-left {background:url(images/point-left.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}
+
+.item-left2{background:url(images/point-left.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}
+.item-right2 {background:url(images/point-right.png) 0 0 no-repeat;padding:0 0 0 20px;cursor: pointer;}
+
+table.residential-cls{
+	font-size:16px;
+	width: 650px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+}
+table.residential-cls td,table.residential-cls th,table.residential-cls td.items{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+	padding-left:4px;
+}
+table.residential-cls tr td input{
+	width:50px;
+	border:0px;
+	text-align:center;
+	border-bottom: solid 1px #000000;
+	color: #000000;
+	font-size:15px;
+	background-color: #ffffff;
+	padding:0 0 5px 0;
+}
+
+/* 以下是系统首页里的样式 */
+.embed-content-message{padding:15px 0 0 15px;font-size:14px;line-height:35px;}
+.embed-content-message a{color:blue;font-size:14px;font-weight:bold;}
+.embed-content-title{font-size:16px;font-weight:bold;}
+.embed-content-title a{color:blue;font-size:14px;}
+.embed-content-item{padding:15px 0 0 15px;}
+
+/* 以下是统一表单的样式 */
+div.applicant-form-main{
+	overflow:auto;
+}
+div.applicant-form-warning{
+	color:red;
+	background-image:url(images/32.png);
+	background-repeat: no-repeat;
+	padding-left:18px;
+	padding-top:0px;
+}
+div.applicant-form-title{
+	padding:20px 0 10px 0;font-size:20px;text-align:center;font-weight:bold;
+}
+div.applicant-head{
+	padding:0 0 8px 40px;
+}
+div.applicant-head input{
+	width: 100px;
+}
+div.applicant-head input,
+div.applicant-head select{
+	border:0px;
+	border-bottom: solid 1px #000000;
+}
+table.applicant-form{
+	font-size:16px;
+	width: 650px;
+	border-width: 1px;
+	border-color: #000000;
+	border-collapse: collapse;
+	margin: auto;
+}
+table.applicant-form td,
+table.applicant-form th{
+	font-size:16px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+	padding-left:4px;
+}
+table.applicant-form th{
+	text-align: center;
+}
+table.applicant-form td.title{
+	font-weight:bold;
+	font-size:18px;
+}
+table.applicant-form td.tdRight{
+	text-align: right;
+}
+div.applicant-footer{
+	width: 650px;
+	margin: auto;
+	padding-top:8px;
+}
+div.applicant-footer b{
+	padding:5px 0 0 8px;
+}
+div.applicant-footer input{
+	width:100px;
+	border:0px;
+	border-bottom: solid 1px #000000;
+}
+table.applicant-form tr td input:text{
+	width:80px;
+}
+table.applicant-form tr td input,
+table.applicant-form tr td select{
+	border:0px;
+	border-bottom: solid 1px #000000;
+}
+table.applicant-form tr td input.number{
+	text-align:center;
+}
+table.applicant-form tr td textarea{
+	width:98%;
+	height:80px;
+	font-size:15px;
+	color: #000000;
+	border:0px;
+	background-color: #ffffff;
+}
+div.applicant-remark{
+	padding:20px 40px 0 40px;
+}
+div.applicant-remark div.applicant-remark-title{
+	font-weight:bold;
+	font-size:14px;
+	
+}
+div.applicant-remark div.applicant-remark-item{
+	padding-left:20px;
+	font-size:13px;
+}
+
+/* 以下是月度报表的样式 */
+#ddl-annual-selector{height:95px;}
+
+table.annual-main{position:absolute;top:10px;left:10px;}
+table.annual-main td.annual-monthly-title{
+	vertical-align: top;
+	font-weight: bold;
+	padding-top: 4px;
+	padding-left:10px;
+}
+table.annual-main td.annual-title{
+	text-align: center;
+	font-size:14px;
+	font-weight:vertical-align: middle;
+	color:#0288d1 ;	
+}
+table.annual-main td.annual-monthly{
+	width: 50px;
+	height:45px;
+	text-align: center;
+	vertical-align: top;
+	font-size: 16px;
+	font-weight: bold;
+	color: black;
+	
+}
+table.annual-main td.annual-selected{
+	background-image:url(images/annual/G_selected.png);
+	background-position:center 43%;
+	background-repeat:no-repeat;
+}
+table.annual-main a.annual-pre-year{
+	padding:5px 20px;
+}
+table.annual-main a.annual-next-year{
+	padding:5px 20px;
+}
+table td.anpre{
+	background-image:url(images/annual/G_pre.png);
+	background-position: center center;
+	background-repeat:no-repeat;
+	}
+table td.annext{
+	background-image:url(images/annual/G_next.png);
+	background-position: center center;
+	background-repeat:no-repeat;
+    }
+tr.yuef td{padding-top:20px;}
+
+table.annual-main td.annual-monthly a{padding:15px;}
+/* table.annual-main td.annual-monthly div{padding-top: 10px;} */
+table.annual-main td.annual-monthly a.annual-editing,
+table.annual-main td.annual-monthly a.annual-finish,
+table.annual-main td.annual-monthly a.annual-new,
+table.annual-main td.annual-monthly a.annual-reject{
+	
+	/* opacity:0.5;
+	filter:"alpha(opacity=50)";
+	-moz-opacity:0.5;
+	-ms-filter:"alpha(opacity=50)";  *//* 旧版IE */
+	
+	background-position: center center;
+	background-repeat:no-repeat;
+	height: 24px;
+}
+
+/*以下 是html 让超出的内容显示为省略号*/
+div.hide-nowrap{
+	
+	overflow: hidden; /*自动隐藏文字*/
+	text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+	white-space: nowrap;/*强制不换行*/
+	width: 4em;/*不允许出现半汉字截断*/
+	/*width: 50px;/*不允许出现半汉字截断*/
+	/*color:#6699ff;*/
+	/*border:1px #ff8000 dashed;*/
+	
+}
+
+table.annual-main td.annual-monthly a.annual-editing{background-image:url(images/annual/G_edit.png);background-position:bottom right;}
+table.annual-main td.annual-monthly a.annual-finish{background-image:url(images/annual/G_ok.png);background-position:bottom right;}
+table.annual-main td.annual-monthly a.annual-new{background-image:url(images/annual/G_new.png);background-position:bottom right;}
+table.annual-main td.annual-monthly a.annual-reject{background-image:url(images/annual/reject.png);}
+table.annual-main td.annual-monthly a.annual-auditing{background-image:url(images/annual/auditing.png);}
+
+table.annual-main td.annual-monthly a.annual-disabled{color:#d75455;background-image:url(images/annual/G_weizhi.png);background-repeat:no-repeat;background-position:bottom right;)
+
+
+

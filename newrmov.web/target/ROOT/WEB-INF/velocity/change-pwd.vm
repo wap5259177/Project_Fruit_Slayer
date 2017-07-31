@@ -1,0 +1,110 @@
+<form id="frm-change-pwd" method='post'>
+<input type="hidden" name="id" value="-1"/>
+<table class='' align='center'; style="margin-top:20px;">
+	<tr style="height:40px;"><td align="right" style="padding-right:10px;">旧密码：</td>
+	  <td>
+		<input type="password" style='width:200px;' id='oldPwd' placeholder="请输入您的旧密码"/>
+	  </td>
+	</tr>
+	<tr style="height:40px;"><td align="right" style="padding-right:10px;">新密码：</td>
+	<td>
+		<input type="password" style='width:200px;' id='newPwd' placeholder="请输入您的新密码"/><br/>
+	</td></tr>
+	<tr>
+		<td></td>
+		<td style="font-size:12px;color:#939393">6-16位，区分大小写，只能使用字母、数字、特殊字符</td>
+	</tr>
+	<tr style="height:60px;"><td align="right" style="padding-right:10px;">确认密码：</td>
+	<td>
+		<input type="password" style='width:200px;' id='cfPwd' placeholder="请输入您的确认密码"/>
+	</td></tr>
+	<tr style="height:40px;"><td align="right" style="padding-right:10px;"> 验证码：</td>
+	    <td>
+			<input class="validatecode" style='width:80px;'id="validateCode" name="validateCode" placeholder="验证码" />&nbsp;&nbsp;
+			<img id='imgverifycode' title='点击刷新验证码' alt='重新加载'/>
+		</td>
+	</tr>
+	<tr style="height:40px;"><td></td>
+		##<td><input id="btn-submit-pwd" class='submitcss' type="button" value="提交"/></td>
+		<td><a href='javascript:void(0)' id="btn-submit-pwd" data-settings="flat:true">&nbsp;提交&nbsp;</a></td>
+	</tr>	
+</table>
+<script type="text/javascript">
+	var src = "#springUrl('/comm/verifycode.b?type=1&_=')";
+	jQuery(function(){
+		jQuery('#imgverifycode').click(function(){
+			this.src = src + Math.random();
+		});
+		jQuery('#imgverifycode').attr('src', src + Math.random());
+		jQuery("#oldPwd").bupvalidator({required:true});
+		jQuery("#newPwd").bupvalidator({
+			required:true,
+			validType:"password"
+		});
+		jQuery("#cfPwd").bupvalidator({
+			required:true, 
+			validType:"equals['#newPwd']"
+		});
+		jQuery.extend(jQuery.fn.bupvalidator.defaults.rules, {   
+		    equals: {   
+		        validator: function(value,param){   
+		            return value == jQuery(param[0]).val();   
+		        },   
+		        message: '确认密码不正确！'  
+		    },
+		    password: {
+		        validator: function(value){   
+		            return /$!{pattern}/.test(value);   
+		        },   
+		        message: '$!{patternException}' 
+		    }
+		});  
+		jQuery('#btn-submit-pwd').bupabutton().click(function(){
+			if(jQuery(this).bupform('validate')){
+			
+				setMaxDigits(129);
+				var key = new RSAKeyPair("$!{exponent}", "", "$!{modulus}");
+				var oldPwd = encryptedString(key, $("#oldPwd").val());
+				var newPwd = encryptedString(key, $("#newPwd").val());
+				var cfPwd = encryptedString(key, $("#cfPwd").val());
+				
+				jQuery.post("#springUrl('/s/user/change/submit.b')", 
+				{oldPwd:oldPwd,newPwd:newPwd,cfPwd:cfPwd}, 
+				function(data){    
+			       if(__ajaxSuccess(data)){
+						alert("密码修改成功！");
+						#if($isDialog)
+							jQuery('#${di.id}').bupdlg('close');
+						#else
+							jQuery('#frm-change-pwd').bupform('clear');
+						#end
+					} 
+			    });
+			}
+			/*
+			jQuery('#frm-change-pwd').bupform('submit', {    
+			    url:"#springUrl('/s/user/change/submit.b')",    
+			    onSubmit: function(){    
+			    	if(jQuery(this).bupform('validate')){
+						return true;
+					}
+					return false;
+			    },    
+			    success:function(data){    
+			       if(__ajaxSuccess(data)){
+						alert("密码修改成功！");
+						#if($isDialog)
+							jQuery('#${di.id}').bupdlg('close');
+						#else
+							jQuery('#frm-change-pwd').bupform('clear');
+						#end
+					} 
+			    }    
+			});
+			*/	
+			
+			return false;
+		});
+	});
+</script>
+</form>

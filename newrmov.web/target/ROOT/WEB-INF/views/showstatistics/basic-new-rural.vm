@@ -1,0 +1,82 @@
+<div id="datagrid-tab" style='padding-left:10px;padding-top:5px;'>
+	<div>
+	$!{select}
+	</div>	
+	<a class="bupabutton" style='padding-left:10px' href="#" data-settings="iconClassname:'icon-excel'"
+		 onclick="this.href='index.excel?batch='+jQuery('#sel-batch').val()" target="_blank">导出Excel</a>
+	<div style="font-size:20px;text-align:center">广东省新农村连片示范建设工程台账簿 - 所有主体村情况累计汇总统计</div>
+</div>
+
+<table class="bupgrid" fit="true" data-settings="nowrap:false" toolbar="#datagrid-tab" id='mygrid'>
+	<thead data-settings="frozen:true">
+		<tr>
+		   <th style="width:60px;" rowspan='3' data-settings="field:'code'">序号</th>
+			<th style="width:60px;" rowspan='3' data-settings="field:'code2'">批次[A15]</th>
+			<th style="width:60px;" rowspan='3' data-settings="field:'code3'">报备年度[A14]</th>
+			<th style="width:120px;" rowspan='3' data-settings="field:'code4'">地市</th>
+			<th style="width:120px;" rowspan='3' data-settings="field:'code5'">县(区)</th>
+			<th style="width:150px;" rowspan='3' data-settings="field:'code6'">示范片名称[A12]</th>
+		</tr>
+	</thead>
+	<thead>
+		<tr>
+			
+			<th style="width:150px;" rowspan='3' data-settings="field:'code7'">建设主题名称[A13]</th>
+			<th style="width:150px;" rowspan='3' data-settings="field:'code8'">行政村名</th>
+			<th style="width:150px;" rowspan='3' data-settings="field:'code9'">自然村名</th>
+			
+			<th style="width:60px;text-align:center;font-weight:bold;" colspan='13'>（一）基本情况</th>
+
+		</tr>
+		<tr>
+		    
+			<th style="width:60px;">总面积</th>
+			<th style="width:60px;">耕地面积</th>
+			<th style="width:60px;">户数</th>
+			<th style="width:60px;">人口数</th>
+			<th style="width:60px;">劳动力总人数</th>
+			<th style="width:60px;">贫困户数</th>
+			<th style="width:60px;">贫困人口数</th>
+			<th style="width:60px;">低保户数</th>
+			<th style="width:60px;">低保人口数</th>
+			<th style="width:60px;">五保户数</th>
+			<th style="width:60px;">需改造的危房户数</th>
+			<th style="width:60px;">是否是广东名村</th>
+			<th style="width:60px;">是否是“两不具备”整村推进村</th>
+			
+		</tr>
+		<tr>
+		   
+			<th style="width:60px;" data-settings="field:'item1'">B5[亩]</th>
+			<th style="width:60px;" data-settings="field:'item2'">B6[亩]</th>
+			<th style="width:60px;" data-settings="field:'item3'">B7[户]</th>
+			<th style="width:60px;" data-settings="field:'item4'">B8[人]</th>
+			<th style="width:60px;" data-settings="field:'item5'">B9[人]</th>
+			<th style="width:60px;" data-settings="field:'item6'"></th>
+			<th style="width:60px;" data-settings="field:'item7'"></th>
+			<th style="width:60px;" data-settings="field:'item8'"></th>
+			<th style="width:60px;" data-settings="field:'item9'"></th>
+			<th style="width:60px;" data-settings="field:'item10'"></th>
+			<th style="width:60px;" data-settings="field:'item11'"></th>
+			<th style="width:60px;" data-settings="field:'item12'">B11</th>
+			<th style="width:60px;" data-settings="field:'item13'">B12</th>
+			
+		</tr>
+	</thead>
+	<tbody id='_tbody'>$!{content}</tbody>
+	
+</table>
+
+<script>
+	$("#btn_load").bupabutton({
+        iconClassname: 'icon-search'
+    });
+    jQuery(function(){
+    //$('#mygrid').bupgrid('hideColumn',"code");
+    $('#mygrid').bupgrid('hideColumn',"code6");
+    $('#mygrid').bupgrid('hideColumn',"code2");
+    $('#mygrid').bupgrid('hideColumn',"code3");
+    $('#mygrid').bupgrid('hideColumn',"code4");
+    $('#mygrid').bupgrid('hideColumn',"code7");
+    });
+</script>

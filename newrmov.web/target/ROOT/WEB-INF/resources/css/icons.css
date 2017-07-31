@@ -1,0 +1,184 @@
+@CHARSET "UTF-8";
+
+@IMPORT url("skins/bupicon.css");
+
+.icon-title {
+	background: url('icons/title.png') no-repeat;
+}
+
+.icon-return {
+	background: url('icons/return.png') no-repeat;
+}
+
+.icon-view {
+	background: url('icons/view.png') no-repeat;
+}
+
+.icon-date {
+	background: url('icons/date.png') no-repeat;
+}
+
+.icon-error {
+	background: url('icons/error.png') no-repeat;
+}
+
+.icon-computer {
+	background: url('icons/computer.png') no-repeat;
+}
+
+.icon-forbid {
+	background: url('icons/close.png') no-repeat;
+}
+
+.icon-accept {
+	background: url('icons/accept.png') no-repeat;
+}
+
+.icon-del {
+	background: url('icons/delete.png') no-repeat;
+}
+
+.icon-more {
+	background: url('themes/metro/images/layout_arrows.png') no-repeat;
+}
+
+.icon-add2 {
+	background: url('icons/add.png') no-repeat;
+}
+
+.icon-excel {
+	background: url('icons/excel-file.gif') no-repeat;
+}
+
+.icon-pdf {
+	background: url('icons/pdf.jpg') no-repeat;
+}
+
+.icon-clearAll {
+	background: url('icons/clearAll.gif') no-repeat;
+}
+
+.icon-refresh{
+	background: url('icons/refresh.png') no-repeat;
+}
+
+.icon-menus{
+	background: url('icons/menus.png') no-repeat;
+}
+
+.icon-menu{
+	background: url('icons/menu.png') no-repeat;
+}
+
+.icon-group{
+	background: url('icons/group.png') no-repeat;
+}
+
+.icon-multisys{
+	background: url('icons/multisys.png') no-repeat;
+}
+
+.icon-tools{
+	background: url('icons/tools.png') no-repeat;
+}
+
+.icon-exit{
+	background: url('icons/exit.png') no-repeat;
+}
+
+.icon-message{
+	background: url('icons/message.png') no-repeat;
+}
+
+.icon-message-add{
+	background: url('icons/message-add.png') no-repeat;
+}
+
+.icon-message-sys{
+	background: url('icons/message-sys.png') no-repeat;
+}
+
+.icon-message-user{
+	background: url('icons/message-user.png') no-repeat;
+}
+
+.icon-server{
+	background: url('icons/server.png') no-repeat;
+}
+
+.icon-faq{
+	background: url('icons/faq.png') no-repeat;
+}
+
+.icon-ann{
+	background: url('icons/ann.png') no-repeat;
+}
+
+.icon-sys{
+	background: url('icons/sys.png') no-repeat;
+}
+
+.icon-users{
+	background: url('icons/users.png') no-repeat;
+}
+
+.icon-user{
+	background: url('icons/user.png') no-repeat;
+}
+
+.icon-pwd{
+	background: url('icons/pwd.png') no-repeat;
+}
+
+.icon-safe{
+	background: url('icons/safe.png') no-repeat;
+}
+
+.icon-mainmenu{
+	background: url('icons/mainmenu.png') no-repeat;
+}
+
+.icon-explain{
+	background: url('icons/explain.png') no-repeat;
+}
+
+.icon-schedule {
+	background: url('icons/detail.png') no-repeat;
+}
+.icon-personal-holiday {
+	background: url('icons/windmill.png') no-repeat;
+}
+
+.icon-favorites {
+	background: url('icons/favorites.png') no-repeat;
+}
+.icon-share {
+	background: url('icons/share_16.png') no-repeat;
+}
+.icon-file-upload {
+	background: url('icons/file_upload.png') no-repeat;
+}
+.icon-download {
+	background: url('icons/download.png') no-repeat;
+}
+
+
+.icon-batch1 {
+	background: url('icons/icon-batch1.png') no-repeat;
+}
+.icon-batch2 {
+	background: url('icons/icon-batch2.png') no-repeat;
+}
+.icon-batch3 {
+	background: url('icons/icon-batch3.png') no-repeat;
+}
+
+.icon-list-model{
+	background: url('icons/icon-list-model.png') no-repeat;
+}
+.icon-map-model{
+	background: url('icons/icon-map-model.png') no-repeat;
+}
+
+
+

@@ -1,0 +1,20 @@
+<div id="$di.id" title="图片浏览" style="padding:12px;width:800px;height:550px;" buttons="#${di.id}-buttons" modal='true'>
+<div style='text-align:center;vertical-align:middle;width:100%;height:100%;'>
+	<table style='width:100%;height:100%;'><tr><td style="valign:middle;align:center;">
+		<img class="img_dlg" style='text-align:center;vertical-align:middle;' src='$!{src}'/>
+	</td></tr></table>
+</div>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='close_dlg_2' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+##<script type="text/javascript" src="#springUrl('/res/js/bupui/jquery.bupui.min.js')"></script>
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery('#close_dlg_2').bupabutton({flat : true});
+	jQuery(".img_dlg").each(function() {
+		resize_image($(this), 780, 530);
+	});
+});
+</script>

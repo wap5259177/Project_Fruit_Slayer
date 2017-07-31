@@ -1,0 +1,51 @@
+<div id="$di.id" title="文件 移动/复制 到..." style="padding:8px;overflow:auto;width:400px;height:400px;" buttons="#${di.id}-buttons" modal='true'>
+<ul id="file_operate_directory"></ul>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_save'>确定</a> 
+<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_save, #a_close').bupabutton({flat : true});
+	
+	jQuery('#file_operate_directory').buptree({url : 'directory.node'});
+	
+	jQuery('#a_save').click(function() {
+		var node = jQuery('#file_operate_directory').buptree('getSelected');
+		if (null == node) {
+			alert("请选择目录！");
+		}else if(node.id == 0){
+			alert("不能移动/复制到根目录！");
+		}else if(node.id == $!{source_node_id}){
+			alert("不能移动/复制到同一目录！");
+		}else{
+			jQuery.ajax({
+				url : 'file/operator.submit',
+				type : 'post',
+				data : {
+					'ids' : '$!{ids}', 
+					'type' : '$!{type}', 
+					'source_node_id' : '$!{source_node_id}', 
+					'target_node_id' : node.id
+				},
+				success : function(rd) {
+					if (typeof rd === "string")
+						rd = jQuery.parseJSON(rd);
+					if(rd.error){
+						jQuery.bupmsg.alert('提示', rd.msg, 'error');
+						return;
+					}
+					jQuery('#${di.id}').bupdlg('close');
+					fn_reload_dg_condition();
+				},
+				error : function() {
+					alert('恢复出错，请重试');
+				}
+			});
+		}
+		return false;
+	});
+});
+</script>

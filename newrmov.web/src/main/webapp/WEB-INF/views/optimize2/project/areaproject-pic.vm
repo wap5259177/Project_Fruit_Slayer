@@ -1,0 +1,120 @@
+<div  id='_pj_pic' style="width:1100px;height:550px;">
+	<div data-settings="zone:'north'" style="height:73px;">
+		<h1  align='center' id='_pj_title'></h1>
+		<div align='right' style='padding:0 30px 0 0' id='div_pj_back'><a id='btn_pj_back' href='#' onclick="pj_back();">返回</a></div>
+	</div>
+	<div data-settings="zone:'east',split:true,collapsible: true" title="建设后" style="width:540px;" id='_after'>
+		#if($after)
+		<img src='/files/detail?id=$!{after[0].id}' alt="$it.name" style="width:100%;height:98%"/>
+		#else
+			<h1 style=color:red;' align='center'>无图片</h1>
+		#end
+	</div>
+	<div data-settings="zone:'center',iconClassname:''"></div>
+	<div data-settings="zone:'west',split:true,collapsible: true" title="建设前" style="width:540px;" id='_before'>
+		
+			#if($before)
+			<img src='/files/detail?id=$!{before[0].id}' alt="$it.name" style="width:100%;height:98%"/>
+			#else
+				<h1 style='color:red;' align='center'>无图片</h1>
+			#end			
+		
+	</div>
+	<div data-settings="zone:'south',split:true" style="height:5px;"></div>
+	
+</div>
+
+
+<div  id='_pj_pic2' style="width:1100px;height:108px;">
+	<!--建设后-->
+	<div data-settings="zone:'east',split:true"  style="width:540px;height:100%;">
+		<ul style="list-style-type:none;width:1000px;height:70%;background:#99CC99;">
+		#if($after)
+        	#foreach($it in $after)
+               <li style='float:left;padding:5px;'><!--#333-->
+					<a href='#' onclick='_after($it.id)'>
+						#if($!{velocityCount}==1)
+							<img src='/files/detail?id=$it.id' alt="$it.name" style="width:80px;height:50px;border:3px solid #333; z-index:1;"/>
+						#else
+							<img src='/files/detail?id=$it.id' alt="$it.name" style="width:80px;height:50px;"/>
+						#end
+					</a>
+               </li>
+        	#end
+      	#else
+      		<h1 style='color:red;' align='left'>无图片</h1>
+      	#end
+      	</ul>
+      	
+	</div>
+	
+	<!--建设前-->
+	<div data-settings="zone:'west',split:true"  style="width:540px;height:100%;">
+        <ul style="list-style-type:none;width:1000px;height:70%;background:#99CC99;">
+		#if($before)
+        	#foreach($it in $before)
+               <li style='float:left;padding:5px;'><!--#333-->
+					<a href='#' onclick='_before($it.id)'>
+						#if($!{velocityCount}==1)
+							<img src='/files/detail?id=$it.id' alt="$it.name" style="width:80px;height:50px;border:3px solid #333; z-index:1;"/>
+						#else
+							<img src='/files/detail?id=$it.id' alt="$it.name" style="width:80px;height:50px;"/>
+						#end
+					</a>
+               </li>
+        	#end
+      	#else
+      		<h1 style='color:red;' align='left'>无图片</h1>
+      	#end
+      	</ul>
+	</div>
+	
+</div>
+
+<style>
+	#div_pj_back a:link{text-decoration:none;}
+	#div_pj_back a:visited{text-decoration:none;}
+	#div_pj_back a:hover{
+		text-decoration:underline;
+		color:red;
+		//background-color:yellow;
+	} 
+</style>
+
+<script>
+	$(function(){
+		$('#_pj_pic,#_pj_pic2').bupborderlayout();
+		//$("#btn_pj_back").bupabutton({face:'scorner'});
+		$('#_pj_title').text("$!{pj.name}"+"  >>  项目图片");
+		//showImg();
+	});
+
+	//function showImg(){            
+		//$("#content img").each(function(index, element) {
+            //var bili= 6/10;//图片按照宽:高   = 10:6                
+            //var width = $(element).width();                
+            //$(element).css("height",300);            
+    	//});            
+	//}
+	
+	//点击建设前缩略图
+	function _before(_id){
+		var _src = "'/files/detail?id="+_id+"'";
+		$('#_before').html("<img src="+_src+"alt='' style='width:100%;height:98%'/>");
+	}
+	//点击建设后缩略图
+	function _after(_id){
+		var _src = "'/files/detail?id="+_id+"'";
+		$('#_after').html("<img src="+_src+"alt='' style='width:100%;height:98%'/>");
+	}
+	
+	//点击返回按钮
+	function pj_back(){
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load('pjDetal.do?id=$!{pj.id}',function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+	}
+
+</script>

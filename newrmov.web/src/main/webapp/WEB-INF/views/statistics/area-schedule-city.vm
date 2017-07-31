@@ -1,0 +1,65 @@
+<div id="datagrid-tab" style='padding-left:10px;padding-top:5px;'>
+	<div>
+	$!{select}
+	</div>	
+	<a class="bupabutton" style='padding-left:10px' href="#" data-settings="iconClassname:'icon-excel'"
+		 onclick="return excel_()" target="_self">导出Excel</a>
+	<div id='div' style='text-align:center;'>
+	<lable>批次：</lable>
+	<select id='batchName'>
+		<option value="0">第一批</option>
+		<option value="1">第二批</option>
+		<option value="2">第三批</option>
+		<option value="3">珠三角</option>
+	</select>
+	
+	<lable>年度：</lable>
+	<!--<select id='annual'>
+		<option value="2011">2011年</option>
+		<option value="2015">2015年</option>
+		<option value="2016">2016年</option>
+		<option value="2017">2017年</option>
+	
+	</select>
+	-->
+	<select id='annual' name='annual'>$!{selyear}</select>	
+	<lable>季度：</lable>
+	<select id='period'>
+		<option value="0">第一季度</option>
+		<option value="1">第二季度</option>
+		<option value="2">第三季度</option>
+		<option value="3">第四季度</option>
+	</select>
+	<input type="button" value="统计" onclick="butOnclick()">
+</div>
+	
+</div>
+<div id="content" style="width:100%"></div>
+<script type='text/javascript'>
+	function butOnclick(){
+		
+		var annual = jQuery("#annual").val();
+		if( annual==''){
+			alert("请选择统计的年度！");
+			return ;
+		}
+		jQuery("#content").load("quarter.statistics", {
+			batchName:jQuery("#batchName").val(),
+			period:jQuery("#period").val(),
+			annual:jQuery("#annual").val(),
+			ownerId:$ownerId
+		});
+	}
+	function excel_(){
+	   var batch=jQuery("#batchName").val();
+	   var period=jQuery("#period").val();
+	   var annual=jQuery("#annual").val();
+	   var ownerId=$ownerId;
+	   if(annual==''){
+	   		alert("请选择统计的年度！");
+	   }else{
+	  		 location.href="/s/cls/sms/index.excel?batchName="+batch+"&ownerId="+ownerId+"&period="+period+"&annual="+annual;
+		}
+	}
+	
+</script>

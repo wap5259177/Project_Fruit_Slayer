@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="pragma" content="no-cache">  
+	<meta http-equiv="expires" content="-1">  
+	<link rel="shortcut icon" href="#springUrl('/r/favicon.ico')" type="image/x-icon"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/icons.css')"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/layout/default/layout.css')"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/global.css')"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/skins/default/bupui.css')"/>
+	<script type="text/javascript">
+		var CONTEXT_PATH = '$!{request.contextPath}';
+		window.CONTEXT_PATH = CONTEXT_PATH;
+	</script>
+	<script type="text/javascript" src="#springUrl('/res/js/jquery.min.js')"></script>
+	##<script type="text/javascript" src="#springUrl('/res/js/jquery.easyui.min.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/bupui/jquery.bupui.min.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/bupui/loading.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/easyui-lang-zh_CN.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/jquery.bonoon.kernel.js')"></script>
+</head>
+<body>
+<div id='${fo.id}'>
+	$screen_content
+</div>
+<div id='toolbar-${fo.id}' style='width:100%;text-align:center;'>
+	$!{fo.html}
+</div>
+</body>
+</html>
+$!{fo.includes}
+<script type="text/javascript">
+	$!{fo.script}
+	jQuery(function(){//由后台自动生成代码部分
+		jQuery('#toolbar-${fo.id} a').bupabutton({flat : true});
+		$!{fo.block}
+	});
+	function btn_${fo.id}_click(){
+		var title = this.href;
+		jQuery('#${fo.id} form').bupform('submit', {
+			url : this.href,
+			onSubmit : function() {
+				if (jQuery(this).bupform('validate')) {
+					lock('正在' + title + '数据...');
+					return true;
+				}
+				return false;
+			},
+			success : function(rd) {
+				$.unblockUI();
+				if (typeof rd === "string") rd = eval('(' + rd + ')');
+				if (rd.error) {
+					$.bupmsg.alert('提示', rd.msg, 'error');
+				}else{
+					alert(title + '成功!');
+				}
+			}
+		});
+		return false;
+	}
+</script>

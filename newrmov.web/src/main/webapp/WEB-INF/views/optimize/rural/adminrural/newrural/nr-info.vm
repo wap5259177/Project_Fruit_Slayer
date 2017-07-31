@@ -1,0 +1,83 @@
+<table class='applicant-form' id='_table'>
+	<tr>
+		<td style='font-weight:bold;' colspan='6'>(一)基本情况</td>
+	</tr>
+	<tr>
+		<td class="tdRight">序号[B2]：</td>
+		<td><input type="text" value='$!{form.code}' name='code' id="code" $!{readonly}/></td>
+		<td class="tdRight" style="width:100px;">村庄类型[B3]：</td>
+		<td colspan='3' style='color:red;'>主体建设自然村</td>
+			
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight">村名称[B4]：</td>
+		<td colspan='5'>
+			<input type="text" value='$!{form.town}' readOnly="true" style='width:120px'/>&nbsp;镇
+			<input type="text" value='$!{form.name}' style='width:120px' readOnly="true" />&nbsp;村委会
+			<input type='text' value='$!{form.naturalVillage}' readOnly="true"/> 自然村(或村民小组)
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight">总面积[B5]：</td>
+		<td colspan='2'><input style="width:60px;" id="ruralArea" type='text' class='number' value='$!{form.ruralArea}' min="0" precision="2" name='ruralArea' $!{readonly}/>亩</td>
+		<td colspan='2' class="tdRight">耕地面积[B6]：</td>
+		<td><input id="arableLand" type='text' style="width:60px;" class='number' value='$!{form.arableLand}' min="0" precision="2" name='arableLand' $!{readonly}/>亩</td>
+	</tr>
+	<tr>
+		<td class="tdRight">户数[B7]：</td>
+		<td><input style="width:60px;" id="houseHold" type='text' value='$!{form.houseHold}' min="0" precision="0" class='number' name='houseHold' $!{readonly}/>户</td>
+		<td class="tdRight">人口数[B8]：</td>
+		<td><input id="population" style="width:50px;" type='text' value='$!{form.population}' min="0" precision="0" class='number' name='population' $!{readonly}/>人</td>
+		<td class="tdRight">劳动力总人数[B9]：</td>
+		<td><input id="labor" type='text' style="width:60px;" value='$!{form.labor}' min="0" precision="0" class='number' name='labor' $!{readonly}/>人</td>
+	</tr>
+	
+	
+	
+	<tr>
+		<td colspan='6' class='title'><a href='#' onclick="$('#_table').toggle();document.getElementById('ma-tab').style.display='';" >详细信息</a></td>
+	</tr>
+</table>
+<div align='left' id='ma-tab' style="display: none;">
+	<div id="myt" style="" >
+	    <div title="示范片所在县(市,区)基本情况" style="padding:0px;">
+	    	#parse('optimize/rural/adminrural/newrural/nr-base.vm')
+	    </div>
+	    <div title="基础设施建设和环境卫生整治情况" data-settings="" style="overflow:auto;padding:0px;">
+	    	#parse('optimize/rural/adminrural/newrural/insta-environ.vm')
+	    </div>
+	    <div title="农村旧房整治情况" data-settings="iconClassname:''" style="padding:0px;">
+	    	#parse('optimize/rural/adminrural/newrural/old-house.vm')
+	    </div>
+	    <div title="村名理事会" data-settings="iconClassname:''" style="padding:0px;">
+	    	#parse('optimize/rural/adminrural/newrural/vilage-concil.vm')
+	    </div>
+	    <div title="民生问题调查梳理情况" data-settings="iconClassname:''" style="padding:0px;">
+	    	#parse('optimize/rural/adminrural/newrural/livelihood-issues.vm')
+	    </div>
+	    <div title="备注" data-settings="iconClassname:''" style="padding:0px;">
+	    	#parse('optimize/rural/adminrural/newrural/nr-remark.vm')
+	    </div>
+	</div>
+</div>
+	
+	
+<script type='text/javascript'>
+jQuery(function() {
+	$('#myt').buptab({
+		width:1000,
+	 	//fit: true,
+		height:400,
+		headerWidth:220,
+		//height:200,
+	    border:false,
+	    tabPosition: 'left',
+	    collapsible: true,
+	    onSelect:function(title){
+	       //alert(title + ' 被选中了！');
+	    }
+	});
+});
+</script>
+	

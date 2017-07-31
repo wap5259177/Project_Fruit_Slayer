@@ -1,0 +1,127 @@
+<style type='text/css'> 
+	table { 
+		table-layout:fixed;
+		word-break: break-all; 
+		word-wrap: break-word; 
+		
+		<!--font-size:12px;--> 
+	}  <!--固定table宽度显示控制-->
+</style> 
+<div title="$!{title}" style="width:950px;" modal='true'>
+		<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="width:910px;height:60px;padding:0;overflow:hidden;background:#CCFFFF;position:fixed">
+			$title
+			<div style="font-size:16px;margin:0 auto;">(截止时间：${deadline})</div>
+		</div>
+</div>
+<div title="$!{title}" style="width:950px;height:400px;" modal='true'>
+	<div  fit="true">
+		
+
+		<div data-settings="zone:'center',border:false" style="margin-top:60px">
+		<table class="applicant-form" style="width:100%" border="2" cellpadding="5" cellspacing="1" bgcolor="#add3ef">
+		<tr id="trbg">
+		
+		    <td bgcolor="#add3ef"; bgcolor="#add3ef"; rowspan='3'  width='150' align='center'>示范片区<br/>所在的市县名称</td>
+			<td bgcolor="#add3ef"; rowspan='3' width='30' align='center'>行<br/>政<br/>村<br/>数</td>
+			<td bgcolor="#add3ef"; rowspan='3' width='30' align='center'>自<br/>然<br/>村<br/>数</td>
+			<td bgcolor="#add3ef"; rowspan='3' width='30' align='center'>户<br/>数</td>
+			<td bgcolor="#add3ef"; rowspan='3' width='30' align='center'>人<br/>数</td>
+			
+			<td bgcolor="#add3ef"; colspan='2' width='110' align='center'>完成村庄整<br/>治规划情况</td>
+			
+			<td bgcolor="#add3ef"; rowspan='3' width='50'>通自来水自然村数<br/>（个）</td>
+			<td bgcolor="#add3ef"; rowspan='3' width='50'>完成卫生改厕所自然村数<br/>（个）</td>
+			<td bgcolor="#add3ef"; rowspan='3' width='50'>完成道路硬化建设自然村数<br/>（个）</td>
+			<td bgcolor="#add3ef"; rowspan='3' width='50'>完成民居外立面特色改造的自然村数<br/>（个）</td>
+			
+			<td bgcolor="#add3ef"; colspan='3' width='220' align='center'>环境卫生综合整治情况</td>
+			<td bgcolor="#add3ef"; colspan='2' width='150' align='center'>项目</td>
+			<td bgcolor="#add3ef"; colspan='9' width='460' align='center'>资金投入情况（万元）</td>
+			
+			<td bgcolor="#add3ef"; rowspan='3' width='70'>已成立村<br/>民理事会<br/>并制定了<br/>村规民约<br/>和章程的<br/>自然村数<br/>（个）</td>
+		</tr>
+		<tr>
+			<td bgcolor="#add3ef"; rowspan='2'>行政村<br/>有编制<br/>规划设<br/>计村数<br/>（个）</td>
+			<td bgcolor="#add3ef"; rowspan='2'>自然村<br/>有编制<br/>规划设<br/>计村数<br/>（个）</td>
+		    
+			<td bgcolor="#add3ef"; rowspan='2' width='100'>完成卫生整治及建立保洁队和长效机制的自然村数<br/>（个）</td>
+			<td bgcolor="#add3ef"; rowspan='2'>实行雨污分流并建有污水处理设施自然村数<br/>（个）</td>			
+			<td bgcolor="#add3ef"; rowspan='2'>实行人畜分离（集中圈养）的自然村数<br/>（个）</td>
+			<td bgcolor="#add3ef"; rowspan='2'>已启动的项目个数</td>
+			<td bgcolor="#add3ef"; rowspan='2'>其中已竣工的项目个数</td>	
+			<td bgcolor="#add3ef"; colspan='9' style="height:30px;"></td>
+		</tr>
+		<tr>
+		   
+			<td bgcolor="#add3ef";>累计投入资金总数</td>
+			<td bgcolor="#add3ef";>1.中央财政资金</td>
+			<td bgcolor="#add3ef"; width='300'>2.省级新农村示范片建设补助资金</td><!---->
+			<td bgcolor="#add3ef"; width='300'>3.其他省级财政资金</td>
+			<td bgcolor="#add3ef";>4.市级财政资金</td>
+			<td bgcolor="#add3ef";>5.县级财政资金</td>
+			<td bgcolor="#add3ef";>6.社会投入资金</td>
+			<td bgcolor="#add3ef";>7.群众自筹资金</td>
+			<td bgcolor="#add3ef";>8.其它方面的资金</td>
+			
+			
+		</tr>
+		<tr height='20'>
+			<td bgcolor="#add3ef";>$item.modelArea.cityName $item.modelArea.county</td>
+			<td bgcolor="#add3ef";>$item.arCount</td>
+			<td bgcolor="#add3ef";>$item.nrCount</td>
+			<td bgcolor="#add3ef";>$item.householdCount</td>
+			<td bgcolor="#add3ef";>$item.populationCount</td>
+			
+			<td bgcolor="#add3ef";>$item.arFinishPlan</td>
+			<td bgcolor="#add3ef";>$item.needFinish.needFinish1</td>
+			<td bgcolor="#add3ef";>$item.needFinish.needFinish2</td>
+			<td bgcolor="#add3ef";>$item.needFinish.needFinish3</td>
+			<td bgcolor="#add3ef";>$item.needFinish.needFinish4</td>
+			<td bgcolor="#add3ef";>$item.needFinish.needFinish5</td>
+			<td bgcolor="#add3ef";>$item.needFinish.needFinish6</td>
+			<td bgcolor="#add3ef";>$item.needFinish.needFinish7</td>
+			<td bgcolor="#add3ef";>$item.needFinish.needFinish8</td>
+			
+			<td bgcolor="#add3ef";>$srart</td>
+			<td bgcolor="#add3ef";>$finish</td>
+			
+			<td bgcolor="#add3ef";>$totalfunds</td>
+			<td bgcolor="#add3ef";>$item.investment.stateFunds</td>
+			<td bgcolor="#add3ef";>$item.investment.specialFunds</td>
+			<td bgcolor="#add3ef";>$item.investment.provinceFunds</td>
+			<td bgcolor="#add3ef";>$item.investment.cityFunds</td>
+			<td bgcolor="#add3ef";>$item.investment.countyFunds</td>
+			<td bgcolor="#add3ef";>$item.investment.socialFunds</td><!--社会投入-->
+			<td bgcolor="#add3ef";>$item.investment.massFunds</td><!--群众自筹资金-->
+			<td bgcolor="#add3ef";>$item.investment.otherFunds</td>
+			
+			<td bgcolor="#add3ef";>$item.needFinish.needFinish9</td>
+		</tr>
+		
+		
+		#if($auditing && $form.statusValue == 4)
+			<tr><td bgcolor="#add3ef"; colspan="26" style="font-weight:bold;font-size:16px;">审核信息：<span  style="color:blue;">正在审核</span></td></tr>
+			<tr>
+				<td bgcolor="#add3ef"; colspan="2"class="tdRight">审核内容：$form</td>
+				<td bgcolor="#add3ef";  colspan="24"><textarea name="auditContent" value="$!{item.auditContent}" id="auditContent" style="resize:none;"  ></textarea></td>
+			</tr>
+			<tr>
+				<td bgcolor="#add3ef"; colspan="2" class="tdRight">审核人：</td>
+				<td bgcolor="#add3ef"; colspan="4"><input type="text" name="auditName" value="$!{item.auditName}" /></td>
+				<td bgcolor="#add3ef"; colspan="3" class="tdRight">审核时间：</td>
+				<td bgcolor="#add3ef"; colspan="17"><input id="bupdateinput" type="text" type="text" name="auditAt" value="$!{item.auditAt}" id="auditAt"></input></td>
+				
+			</tr>
+		#end
+		
+</table>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	
+	#if($auditing)
+	jQuery("#bupdateinput").bupdateinput({ editable:false});
+	#end
+</script>

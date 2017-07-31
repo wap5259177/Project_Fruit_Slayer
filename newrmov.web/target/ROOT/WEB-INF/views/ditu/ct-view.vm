@@ -1,0 +1,353 @@
+<div class="bupborderlayout" fit="true">
+	<div data-settings="zone:'center'">
+		<div style="width:100%;height:100%;" id="container"></div>
+	</div>
+
+	<!--<div data-settings="zone:'east',width:350" id='ma-content'>
+	</div>-->
+</div>
+
+<script type="text/javascript">
+
+
+
+	var map;
+	var marker;
+	var polygon;
+	var maPoints = {};
+	
+	var ma_markerArr = new Array();
+	var n_markerArr = new Array();
+	var p_markerArr = new Array();
+	var polygonArr = new Array();
+	
+	//界面加载完以后执行	
+	jQuery(function(){
+	    //创建地图
+	    map = new qq.maps.Map(document.getElementById('container'),{
+	        center: new qq.maps.LatLng(23.125178,113.280637),
+	        mapTypeControl:false,//设置地图,卫星控件隐藏
+	        zoom: 11
+	    });
+	    
+	    //地址解析器
+	    var geocoder = new qq.maps.Geocoder({
+		    complete:function(result){
+		        map.setCenter(result.detail.location);
+		    }
+		});
+	    
+	    /*
+	    	地图上的控件
+	    */
+	    var controlDiv = new Array();//地图上控件div
+	    var controlStyle = "padding:5px;border:2px solid #86acf2;background:#ffffff";
+	    for(i=0;i<4;i++){
+	    	controlDiv[i] = document.createElement("div");//创建节点
+		    controlDiv[i].style.cssText = controlStyle;//样式
+			controlDiv[i].index = (i+1); //设置在当前布局中的位置
+			if(i==0){
+				controlDiv[i].innerHTML = "<input type='checkbox' id='show_all_map' onchange='show_all_map(this);' class='cb' name='selected' /><label for='show_all_map'>示范片区</label>";
+				controlDiv[i].style.margin = '1 20px';
+			}
+			if(i==1){
+				controlDiv[i].innerHTML = "<input type='checkbox' id='show_all_nrural' value='' onchange='show_all_nrural(this);' class='cb' name='selected'/><label for='show_all_nrural'>主体村</label>";
+				controlDiv[i].style.margin = '1 10px';
+			}
+			if(i==2){
+				controlDiv[i].innerHTML = "<input type='checkbox' id='show_all_prural' onchange='show_all_prural(this);' class='cb' name='selected'/><label for='show_all_prural'>非主体村</babel>";
+			}
+			if(i==3){
+				controlDiv[i].innerHTML = "<input type='checkbox' id='controlAll' onclick='selectAll();' class='cb' name='controlAll'/><label for='controlAll'>所有</babel>";
+			}
+			map.controls[qq.maps.ControlPosition.TOP_CENTER].push(controlDiv[i]);
+	    }
+	    
+	    
+	    /*
+			片区
+		*/
+		var info = new qq.maps.InfoWindow({ map: map });
+	    var latlng;
+	    var flag = 0;
+	    #if($mps.size()>0)
+	    	#foreach($it in $mps)
+				//标注
+				latlng = new qq.maps.LatLng($it.point.latitude, $it.point.longitude);
+				if(flag==0){
+					geocoder.getLocation("广东省,$it.modelArea.cityName");
+					flag = 1;
+				}
+				marker = new qq.maps.Marker({
+					draggable:false,
+					position: latlng, 
+					map: map, 
+					title:"$it.modelArea.name"
+				});
+				
+				var batch = '$it.modelArea.batch';
+				switch (batch){
+					case '一':
+						marker.setIcon(new qq.maps.MarkerImage('/res/images/batch1.png'));
+						break;
+					case '二':
+						marker.setIcon(new qq.maps.MarkerImage('/res/images/batch2.png'));
+						break;
+					case '三':
+						marker.setIcon(new qq.maps.MarkerImage('/res/images/batch3.png'));
+						break;
+					case '珠三角':
+						marker.setIcon(new qq.maps.MarkerImage('/res/images/batch4.png'));
+						break;
+				}
+				ma_markerArr[($!{velocityCount} - 1)] = marker;//示范片坐标数组
+				
+				
+				
+				//多边形
+				polygon = new qq.maps.Polygon({
+			        strokeColor: '#000000',
+			        strokeWeight: 2,
+			       // fillColor: '#111111',
+			       	visible:false,//一进来多边形隐藏
+			       	editable:false
+			    });
+			    
+				var _polygon = "$!{it.polygon}";
+				var pg = _polygon.split(';');
+				var pathArr = new Array();
+				var lat_lng ;
+				for(i=0;i<pg.length;i++){
+					if(pg[i]!=null&&""!=pg[i]){
+						lat_lng = pg[i].split(',');
+						pathArr[i] = new qq.maps.LatLng(lat_lng[0].trim(),lat_lng[1].trim());
+					}
+				}
+				polygon.setMap(map);
+				polygon.setPath(pathArr);
+				polygonArr[($!{velocityCount} - 1)] = polygon;
+					
+				
+				qq.maps.event.addListener(marker, 'click', function() {
+			        info.open();
+			        info.setContent(null);
+			        var cd = jQuery("<div></div>").load("loadMapInfo.do?id=$it.id", function(){
+			        
+				        info.setContent("<div id='_title' style='white-space:nowrap;margin:2px;'><p style='text-align:center;height:43px;line-height:43px;background-color:#EDEDED;'>$it.title</p></div>"
+				        	+ "<div id='_content' style='height:250px;width:500px;overflow-x:hidden;overflow-y:scroll'>"
+				        	+jQuery(this).html()
+				        	+"</div>"
+				        );
+		        	});
+		        	info.setPosition(this.getPosition());//设置弹出框的位置
+			        
+			        
+			        //当包含 InfoWindow 的内容的附加到 DOM 时，会触发此事件
+			        qq.maps.event.addListener(info, 'domready', function() {
+				        //TODO:load村子建设的图片,视频界面
+			        	
+			        });
+			         
+			        /*
+			        jQuery('#detail-name').text("$it.modelArea.name");
+			        jQuery('#detail-loader').load("view.detail?id=$it.modelArea.id", function(){
+			        	jQuery('#ditu-container').slideUp(function(){
+			        		jQuery('#detail-container').show();
+			    		});
+			        });
+			        */
+			        
+			        
+			        
+			        
+			    });
+			    //创建mapoint对象
+			    /*
+				maPoints['_$it.id'] = {
+					name:"$it.name",
+					point:latlng,
+					marker:marker
+				};
+				*/
+			#end
+	    #else
+	    	alert('没有示范片点!');
+    		//将地图上自定义的复选框清除
+    		for(i=0;i<controlDiv.length;i++){
+    			controlDiv[i].style = "";
+    			controlDiv[i].innerHTML = "";
+    		}
+	    #end
+		
+
+
+		/*
+			主体村
+		*/
+		#foreach($it in $n_rurals)
+			//标注
+			marker = new qq.maps.Marker({
+		        map:map,
+		        draggable:false,
+		        position: new qq.maps.LatLng($it.point.latitude,$it.point.longitude),
+		       	title:'$it.title',
+		       	icon:new qq.maps.MarkerImage('/res/images/n-rural-marker.png'),
+		        visible:false
+		    });
+		    n_markerArr[($!{velocityCount} - 1)] = marker;
+		    
+		    qq.maps.event.addListener(marker, 'click', function() {
+		        info.open();
+		        info.setContent(null);//清空原先Info里面的内容,以便重新Load新的内容进来展示.
+		        var cd = jQuery("<div></div>").load("loadRuralInfo.do?id=$it.rural.id", function(){
+			        info.setContent("<div id='_title' style='white-space:nowrap;margin:2px;'><p style='text-align:center;height:43px;line-height:43px;background-color:#EDEDED;'>$it.title</p></div>"
+			        	+ "<div id='_content' style='height:250px;width:500px;overflow-x:hidden;overflow-y:scroll'>"
+			        	+jQuery(this).html()
+			        	+"</div>"
+			        );
+	        	});
+	        	info.setPosition(this.getPosition());//设置弹出框的位置 
+		        
+		        //当包含 InfoWindow 的内容的附加到 DOM 时，会触发此事件
+		        qq.maps.event.addListener(info, 'domready', function() {
+		        });
+		  	});
+		#end
+		
+		
+		/*
+			非主体村
+		*/
+		#foreach($it in $p_rurals)
+			marker = new qq.maps.Marker({
+		        map:map,
+		        draggable:false,//设置标注不可以拽动
+		        position: new qq.maps.LatLng($it.point.latitude,$it.point.longitude),
+		       	title:'$it.title',
+		       	icon:new qq.maps.MarkerImage('/res/images/p-rural-marker.png'),
+		        visible:false
+		    });
+		    
+		    qq.maps.event.addListener(marker, 'click', function() {
+		        info.open();
+		        info.setContent(null);
+		        var cd = jQuery("<div></div>").load("loadRuralInfo.do?id=$it.rural.id", function(){
+			        info.setContent("<div id='_title' style='white-space:nowrap;margin:2px;'><p style='text-align:center;height:43px;line-height:43px;background-color:#EDEDED;'>$it.title</p></div>"
+			        	+ "<div id='_content' style='height:250px;width:500px;overflow-x:hidden;overflow-y:scroll'>"
+			        	+jQuery(this).html()
+			        	+"</div>"
+			        );
+	        	});
+	        	info.setPosition(this.getPosition());//设置弹出框的位置 		    
+		  	});
+			p_markerArr[($!{velocityCount} - 1)] = marker;
+		#end	    
+	    
+	    
+		
+	    
+	    
+	    
+	})
+	
+//------------------------------------------------------------------------------------------------
+	
+	/*
+		显示与隐藏对应所有图标
+	*/
+	
+	var checklist = document.getElementsByName ("selected");
+	function show_all_map(obj){
+		var check_num = $("input:checkbox:checked").length - 1;//-1是因为所有也是选中的。
+		
+		if(obj.checked==true){
+			map.setZoom(12);//点击显示示范片时,他地图缩小
+			_check_show_marker_or_polygon(polygonArr)
+			_check_show_marker_or_polygon(ma_markerArr);
+		}else{
+			check_num -= 1;//状态改变后变为 不勾选状态，所以就要-1
+			_check_hide_marker_or_polygon(polygonArr);
+		}
+		is_check_all(check_num,checklist.length);
+	}
+	
+	function show_all_nrural(obj){
+		var check_num = $("input:checkbox:checked").length - 1;
+		if(obj.checked==true){
+			_check_show_marker_or_polygon(n_markerArr);	
+		}else{
+			check_num -= 1;
+			_check_hide_marker_or_polygon(n_markerArr)
+		}
+		is_check_all(check_num,checklist.length);
+	}
+	
+	function show_all_prural(obj){
+		var check_num = $("input:checkbox:checked").length - 1;
+		if(obj.checked==true){
+			_check_show_marker_or_polygon(p_markerArr);	
+		}else{
+			check_num -= 1;
+			_check_hide_marker_or_polygon(p_markerArr)
+		}
+		is_check_all(check_num,checklist.length);
+	}
+	
+	
+	//全选
+	//var checklist ;
+	function selectAll(){
+		//checklist = document.getElementsByName ("selected");
+	   	if(document.getElementById("controlAll").checked){
+		   for(var i=0;i<checklist.length;i++){
+      			checklist[i].checked = 1;//选中
+   			}
+			_check_show_marker_or_polygon(polygonArr);
+			_check_show_marker_or_polygon(n_markerArr);
+			_check_show_marker_or_polygon(p_markerArr);
+		}else{
+		  	for(var j=0;j<checklist.length;j++){
+		     	checklist[j].checked = 0;
+		  	}
+		  	_check_hide_marker_or_polygon(polygonArr);
+		  	_check_hide_marker_or_polygon(n_markerArr);
+		  	_check_hide_marker_or_polygon(p_markerArr);
+		}
+	}
+	
+	
+	
+	
+//------------------------------------------------------------------------
+
+	
+	//显示标注
+	function _check_show_marker_or_polygon(arr){
+		for(i=0;i<arr.length;i++){
+			arr[i].setVisible(true);
+		}
+	}
+	//标注隐藏
+	function _check_hide_marker_or_polygon(arr){
+		for(i=0;i<arr.length;i++){
+			//arr[i].setMap(null);
+			arr[i].setVisible(false);
+		}
+		//arr.splice(0,arr.length);//清空数组元素
+	}	
+	
+	
+	function is_check_all(current_checked,check_len){
+		//alert(current_checked+','+check_len);
+		if(current_checked<check_len){
+			//alert('去掉');
+			document.getElementById("controlAll").checked = 0;
+		}else{
+			//alert('勾选');
+			document.getElementById("controlAll").checked = 1;
+		}
+	}
+	
+</script>
+
+

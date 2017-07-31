@@ -1,0 +1,15 @@
+#set($layout="layout-weixin.vm")
+<!DOCTYPE html>
+  <html lang="en-US">
+        <head>
+             <meta name="viewport" charset="UTF-8" content="width=device-width,initial-scale=1">
+             <title>示范片区信息查看</title>
+        </head>
+        <body>
+        <div data-role="page" id="mypage">
+          <article id="_body">
+              $!ss
+          </article>
+        </div>
+        </body>
+  </html>

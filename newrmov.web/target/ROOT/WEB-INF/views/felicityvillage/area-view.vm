@@ -1,0 +1,70 @@
+
+<div id="area_myw" buttons="#_save">
+	<!--布局-->
+	<div id="_1_0" style="height:450px;">
+		<!--
+		<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:0;overflow:hidden;">
+		</div>
+		-->
+		<div data-settings="zone:'center',border:false">
+			#parse('felicityvillage/area-info.vm')
+		</div>
+		
+		<!--
+		<div class="applicant-form-title" data-settings="zone:'south',split:true,border:false" style="width:100%;height:60px;padding:0;overflow:hidden;">
+			
+		</div>
+		-->
+	</div>
+</div>
+
+<div id='_save'>
+	<a href="#" id='_buttons' onclick='saveArea();' iconClassname="icon_save" flat="true">保存示范片</a>
+</div>
+
+<script>
+$(function(){
+	jQuery("#_1_0").bupborderlayout({fit:true});
+	$("#_buttons").bupabutton();
+	$('#area_myw').bupdlg({
+		title:'$title',
+		height:500,
+		width:850,
+		iconCassname:'icon_save',
+	    modal:true,
+	    //closed:true,
+	    //buttons:'#_buttons',
+	    maximized: false,//是否显示最大化
+	    onClose:function(){
+	    	//$('#area_myw').remove();
+	    	jQuery('#area_myw').bupdlg('destroy').remove();
+	    },
+	    minimizable:false,
+	    maximizable:false
+	});
+	
+	
+});
+
+
+
+/*保存片区(可能有多个)*/
+function saveArea(){
+	if(!confirm("是否保存片区?保存后将不能再修改片区的个数!")){
+		return false;
+	}
+	$('#form_area').bupform('submit', {
+	    url: "area.save",
+	    onSubmit: function(){
+	    	//return false   会阻止表单提交提交
+	    },
+	    success: function(data){
+	    	alert("开始上报成功，将自动刷新列表！");
+	    	//保存成功后,1.关闭弹出框  2.刷新datagrid 的数据
+	    	jQuery("#myg").bupgrid("reload");
+	    	jQuery('#area_myw').bupdlg('destroy').remove();
+	    }
+  }); 
+}
+
+</script>

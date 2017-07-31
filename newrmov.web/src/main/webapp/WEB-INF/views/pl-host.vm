@@ -1,0 +1,20 @@
+#set($layout="layout-empty.vm")
+<div>
+$!progress
+<hr/>
+提取非主体村的行政村：<a href="#" onclick="_0(this);return false;">提取</a><span style="display:none;color:blue;">正在处理...</span>
+<script>
+	function _0(t){
+		var th = jQuery(t);
+		th.next().show();
+		jQuery.get("pl/extract.json", function(rd){
+			if(rd.error){
+				alert(rd.msg);
+			}else{
+				alert("执行处理成功！");
+			}
+			th.next().hide();
+		});
+	}
+</script>
+</div>

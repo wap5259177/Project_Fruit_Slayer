@@ -1,0 +1,88 @@
+#foreach($it in $dirs)
+	<div style='float:left;margin:10px;'>
+		<div style='text-align:center;'>
+			<a class='sub-directory' href='#' d="${it.id}" n="${it.name}" title="点击进入:${it.name}">
+				<img width='48px' src="#springUrl('/res/images/dir.png')"/>
+			</a>
+		</div>
+		<div style='text-align:center;padding-top:5px;max-width:70px;max-height:36px;overflow:hidden;'>
+			<a class='sub-directory file_name' href='#' d="${it.id}" n="${it.name}" title="点击进入:${it.name}">${it.name}</a>
+		</div>
+	</div>
+#end
+#foreach($it in $fils)
+	<div class='file_friend_share' style='float:left;margin:10px;'>
+		<div style='text-align:center;'>
+			<a class='show_dialog' href='file.detail?id=${it.id}' title="查看:${it.name}">
+				<img width='48px' onerror="this.onerror=null;this.src='/res/images/file.png'" src='${fh.icon($it.ext)}'/>
+			</a>
+		</div>
+		<div style='text-align:center;padding-top:5px;max-width:70px;max-height:36px;overflow:hidden;'>
+			<a class='show_dialog file_name' href='file.detail?id=${it.id}' title="查看：${it.name}">${it.name}</a>
+		</div>
+		<div style='text-align:center;padding-top:5px;color:#ababab;'>${fh.len($it.length)}</div>
+		<!--只有县级自己上传的文件才能显示这些按钮：删除，修改，下载-->
+		#if(${it.ownerId}==${user.ownerId})
+		<div  class='tip-toolbar' style='display:none;position:absolute;'>
+				<a class='show_dialog lbtn' href="file.privileges?id=${it.id}" iconClassname="icon-share" title="分享"></a>
+				<a class='show_dialog lbtn' href='file.editor?id=${it.id}' iconClassname="icon_edit" title="修改"></a>
+				<a class='entity_delete lbtn' href='file.delete?ids=${it.id}' iconClassname="icon-del" title="删除"></a>
+		</div>
+		#end
+	</div>
+	
+	
+	
+#end
+#foreach($it in $shas)
+	<div class='file_friend_share' style='float:left;margin:10px;'>
+		<div style='text-align:center;'>
+			<a class='show_dialog' href='file.detail?id=${it.file.id}' title="查看：${it.file.name}">
+				<img width='48px' onerror="this.onerror=null;this.src='/res/images/file.png'" src='${fh.icon($it.file.ext)}'/>
+			</a>
+		</div>
+		<div style='text-align:center;padding-top:5px;max-width:70px;max-height:36px;overflow:hidden;'>
+			<a class='show_dialog file_name' href='file.detail?id=${it.file.id}' title="查看：${it.file.name}">${it.file.name}</a>
+		</div>
+		<div style='text-align:center;padding-top:3px;color:#ababab;'>${fh.len($it.file.length)}</div>
+		<div class='tip-toolbar' style='display:none;position:absolute;'>
+			#if(${fh.action($it.actions, 2)})
+				<a class='lbtn' target='_blank' href="#springUrl('/files/download')?id=${it.file.id}" iconClassname="icon-download" title="下载"></a>
+			#end
+			#if(${fh.action($it.actions, 4)})
+				<a class='show_dialog lbtn' href='file.editor?id=${it.file.id}' iconClassname="icon_edit" title="修改"></a>
+			#end
+			#if(${fh.action($it.actions, 8)})
+				<a class='entity_delete lbtn' href='file.delete?ids=${it.file.id}' iconClassname="icon-del" title="删除"></a>
+			#end
+		</div>
+	</div>
+#end
+#if($notFiles)
+	<p style="margin:30px 0 20px 30px;white-space:nowrap;font-size:20px;color:gray;">没有共享文件或目录！</p>
+#end
+
+<!--添加文件-->
+<!--最外层不能添加-->
+#if($did && $did!=0)
+<div  style='float:left;margin:10px;'>
+	<div style='text-align:center;'>
+		<a class='' href='#'  title="点击添加文件"  onclick='addFile();'>
+			<img width='48px' src="#springUrl('/res/images/add_file.png')"/>
+		</a>
+	</div>
+	<div style='text-align:center;padding-top:10px;max-width:170px;max-height:36px;overflow:hidden;'>
+		<a  data-settings="flat:true,iconClassname:''" id='a_add' href='#' onclick='addFile();'>上传文件</a>
+	</div>
+</div>
+#end
+
+<script>
+	$(function(){
+		//太难看了，不用bupui
+		//$('#a_add').bupabutton();	
+	});
+	function addFile(){
+		P.D.load('file.editor?directory_id=$!{did}');
+	}
+</script>

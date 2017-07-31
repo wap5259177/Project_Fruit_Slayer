@@ -1,0 +1,154 @@
+##set($layout="simple-dialog.vm")
+<div id='${id}' $!{attrs}>
+<table id="dg_personal_holiday" style="padding:0px;margin:0px;width:100%;"></table>
+<div id="personalHoliday_dialog_loader" style="display:none;"></div>
+</div>
+
+<script type='text/javascript'>
+jQuery(function() {
+
+	var year = $('#year').val();
+	var month = $('#month').val();
+	var date = $('#date').val();
+	
+	jQuery('#${id}').bupdlg({
+		modal:true,
+		onClose : function() {
+			// 必须手动清除弹出的对话框
+			jQuery('#${id}').bupdlg('destroy').remove();
+			refresh_table(); // 关闭对话框时刷新视图表格
+		}
+	});
+
+	$('#dg_personal_holiday').bupgrid({
+		url : '/s/user/schedule/personalHoliday/date/search?searchYear=' + year + '&searchMonth=' + month + '&searchDate=' + date,
+		dataType : 'json',
+		idField : 'id',
+		sortField : 'createAt',
+		sortOrder : 'desc',
+		remoteSort : true,
+		showPagebar : true,
+		fit : true,
+		pageSize : 10,
+		frozenColumns : [ [ {
+			field : 'ck',
+			checkbox : true
+		} ] ],
+		columns : [ [ {
+			title : '创建人',
+			field : 'creatorName',
+			width : 100,
+			sortable : false
+		}, {
+			title : '创建时间',
+			field : 'createAt',
+			width : 120,
+			sortable : true
+		}, {
+			title : '开始时间',
+			field : 'time',
+			width : 80,
+			sortable : true
+		}, {
+			title : '持续时间(单位:半天)',
+			field : 'duration',
+			width : 120,
+			sortable : true
+		},  {
+			title : '类型',
+			field : 'type',
+			width : 100,
+			sortable : true
+		}, {
+			title : '操作',
+			field : 'operation',
+			width : 120,
+			formatter: function(value,row,index){
+				var id = row.id;
+				return "<a class='show_dialog' href='/s/user/schedule/personalHoliday/date/detail?id=" + id + "'>查看</a> " 
+					 + "<a class='show_dialog' href='/s/user/schedule/personalHoliday/date/editor?id=" + id + "'>修改</a> "
+					 + "<a class='entity_delete' href='/s/user/schedule/personalHoliday/date/delete?ids=" + id + "'>删除</a>";
+			}
+		} ] ],
+		toolbar : [ {
+			id : 'btnadd',
+			text : '添加',
+			iconClassname : 'icon-add',
+			doClick : function() {
+				//lock("正在加载...");
+				$('#personalHoliday_dialog_loader').load('/s/user/schedule/personalHoliday/date/editor');
+				return false;
+			}
+		}, {
+			id : 'btndel',
+			text : '删除',
+			iconClassname : 'icon-del',
+			doClick : function() {
+				var rows = $('#dg_personal_holiday').bupgrid('getSelections');
+				if (rows.length == 0) {
+					alert("请选择要删除的文件！");
+					return;
+				}
+				if (!confirm("确认删除所选文件？")) {
+					return;
+				}
+				
+				var ids = [];
+				for ( var i = 0; i < rows.length; i++) {
+					ids.push(rows[i].id);
+				}
+				$.ajax({
+					url : '/s/user/schedule/personalHoliday/date/delete',
+					type : "post",
+					data : {
+						ids : '' + ids.join(',') + ''
+					},
+					success : function(rd) {
+						if (typeof rd === "string")
+							rd = $.parseJSON(rd);
+						if(rd.error){
+							$.bupmsg.alert('提示', rd.msg, 'error');
+							return;
+						}
+						$('#dg_personal_holiday').bupgrid('reload');
+					},
+					error : function() {
+						alert("删除出错，请重试");
+					}
+				});
+			}
+		} ],
+		onLoadSuccess : function(data, param) {
+			$('a.show_dialog').click(function() {
+				//lock("正在加载...");
+				$('#personalHoliday_dialog_loader').load(this.href);
+				return false;
+			});
+			$('a.entity_delete').click(function() {
+				if (!confirm('确认删除此文件？')) {
+					return false;
+				}
+				
+				$.ajax({
+					url : this.href,
+					type : 'Get',
+					data : null,
+					success : function(rd) {
+						if (typeof rd === "string")
+							rd = $.parseJSON(rd);
+						if(rd.error){
+							$.bupmsg.alert('提示', rd.msg, 'error');
+							return;
+						}
+						$('#dg_personal_holiday').bupgrid('reload');
+					},
+					error : function() {
+						alert('删除出错，请重试');
+					}
+				});
+				return false;
+			});
+		}
+	});
+});
+</script>

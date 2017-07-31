@@ -1,0 +1,20 @@
+<script type="text/javascript" src="#springUrl('/res/js/echarts-all.js')" ></script>
+<div id='div' style='text-align:center;'>
+	
+	<lable>批次：</lable>
+	<select id='batch'>
+		<option value="一">第一批</option>
+		<option value="二">第二批</option>
+		<option value="三">第三批</option>
+		<option value="珠三角">珠三角</option>
+	</select>
+	<input type="button" value="统计" onclick="butOnclick()">
+</div>
+<div id='city-funds' style='width: 100%; height: 500px; margin: 0 auto;padding:30px;'>
+
+</div>
+<script type='text/javascript'>
+function butOnclick(){
+		jQuery("#city-funds").load("cityfunds.statistics", {batch:jQuery("#batch").val(),ownerId:$ownerId});
+	}
+</script>

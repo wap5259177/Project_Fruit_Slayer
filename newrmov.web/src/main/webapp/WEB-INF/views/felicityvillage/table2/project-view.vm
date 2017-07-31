@@ -1,0 +1,217 @@
+
+<div id="project_myw" buttons="#_save">
+<form id="form_project"  method="post">
+	<table class='applicant-form'>
+		<input type='hidden' name='id' value='$!{pr.id}'>
+		<tr>
+			<td style='text-align:center' colspan='2'>
+				<font style='font-size:25px;color:red;'>
+				当前填报的是:$!{ma.name}
+				</font>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				县(市、区)示范片名称
+			</td>
+			<td colspan='1'>
+				#if(${pr.id})
+					$pr.modelArea.name
+				#else
+				<!--<select name='areaId'  id='' onchange="areaSelect(this[selectedIndex].value);"  >
+					<option value ="-1">请选择示范片</option>
+					#foreach($it in $mas)
+					<option value ="$it.id" #if($!{pr.modelArea.id}==$it.id) selected='selected'#end>$it.name</option>
+					#end
+				</select>
+				-->
+				<input type='hidden' name='areaId' value='$!{ma.id}'>
+				$!{ma.name}
+				#end
+			</td>
+		</tr>
+		<tr>
+			<td>
+				项目类型
+			</td>
+			<td colspan='1'>
+				#if(${pr.id})
+					$pr.project.type
+				#else
+				<select  id='pjType' name='pjType'>
+					<option value ="-1" >请选择项目类型</option>
+					<option value ="规划方案类" #if($!{pr.project.type}=='规划方案类')selected='selected'#end>规划方案类</option>
+					<option value ="民居风貌改造" #if($!{pr.project.type}=='民居风貌改造')selected='selected'#end>民居风貌改造</option>
+					<option value ="外墙立面整饰" #if($!{pr.project.type}=='外墙立面整饰')selected='selected'#end>外墙立面整饰</option>
+					<option value ="古建筑、古村落修缮" #if($!{pr.project.type}=='古建筑、古村落修缮')selected='selected'#end>古建筑、古村落修缮</option>
+					<option value ="民俗展示馆、村史馆等" #if($!{pr.project.type}=='民俗展示馆、村史馆等')selected='selected'#end>民俗展示馆、村史馆等</option>
+					<option value ="村（巷）道硬底化" #if($!{pr.project.type}=='村（巷）道硬底化')selected='selected'#end>村（巷）道硬底化</option>
+					<option value ="生活污水处理设施" #if($!{pr.project.type}=='生活污水处理设施')selected='selected'#end>生活污水处理设施</option>
+					<option value ="生活垃圾处理设施" #if($!{pr.project.type}=='生活垃圾处理设施')selected='selected'#end>生活垃圾处理设施</option>
+					<option value ="河涌、池塘、沟渠等清污设施" #if($!{pr.project.type}=='河涌、池塘、沟渠等清污设施')selected='selected'#end>河涌、池塘、沟渠等清污设施</option>
+					<option value ="文体活动设施" #if($!{pr.project.type}=='文体活动设施')selected='selected'#end>文体活动设施</option>
+					<option value ="宣传栏、绿化带等公共基础设施" #if($!{pr.project.type}=='宣传栏、绿化带等公共基础设施')selected='selected'#end>宣传栏、绿化带等公共基础设施</option>
+					<option value ="特色农产品生产经营" #if($!{pr.project.type}=='特色农产品生产经营')selected='selected'#end>特色农产品生产经营</option>
+					<option value ="农产品流通和贸易" #if($!{pr.project.type}=='农产品流通和贸易')selected='selected'#end>农产品流通和贸易</option>
+					<option value ="休闲观光农业等" #if($!{pr.project.type}=='休闲观光农业等')selected='selected'#end>休闲观光农业等</option>
+				</select>
+				#end
+			</td>
+		</tr>
+		
+		<tr>
+			<td>项目内容:</td>
+			<td>
+				<input id='pjName' type='text' name='pjName' value='$!{pr.project.name}' />
+			</td>
+		</tr>
+		
+		<tr>
+			<td>项目所在村:</td>
+			<td>
+				#if(${pr.id})
+					$pr.name
+				#else
+				<input id='seRural' class="buppancombo" name="rurals" data-settings="
+					method:'post',
+					valueField:'id',
+					textField:'text',
+					multiple:true,
+					plyHeight:'auto',
+					editable:false,
+					required:true
+				">
+				#end
+			</td>
+		</tr>
+		
+		<tr>
+			<td>预算投入(万元):</td>
+			<td >
+				<input class='decimal-4'  type="text" name='budgetMoney' value='$!{pr.budgetMoney}'/>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>完成投入(万元):</td>
+			<td colspan='1'>
+				<input class='decimal-4'  type="text" name='finishMoney' value='$!{pr.finishMoney}'/>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>启动时间:</td>
+			<td colspan='1'><input  type="text" id='startTime' name='startTime' value='$!{pr.startTime}'/></td>
+		</tr>
+		<tr>
+			<td>完成时间:</td>
+			<td colspan='1'><input  type="text" id='finishTime' name='finishTime' value='$!{pr.finishTime}'/></td>
+		</tr>
+		
+		<tr>
+			<td>验收时间:</td>
+			<td colspan='1'><input  type="text" id='checkTime' name='checkTime' value='$!{pr.checkTime}'/></td>
+		</tr>
+		
+		<tr>
+			<td>验收部门:</td>
+			<td colspan='1'><input  type="text" id='' name='checkUnit' value='$!{pr.checkUnit}'/></td>
+		</tr>
+	</table>
+</form>
+</div>
+<div id='_save'>
+	<a href="#" id='_buttons' onclick='saveRural();' iconClassname="icon_save" flat="true">保存</a>
+</div>
+
+<script>
+$(function(){
+	$('.decimal-4').bupnuminput({
+		precision:4,
+	    min:0
+	    //required:true
+	    //max:100,
+	});
+	$('#pjName').bupvalidator();
+	$("#checkTime,#startTime,#finishTime").bupdateinput({editable:false});
+	jQuery("#_1_0").bupborderlayout({fit:true});
+	$("#_buttons").bupabutton();
+	$('#project_myw').bupdlg({
+		title:'$title',
+		height:400,
+		width:720,
+		iconCassname:'icon_save',
+	    modal:true,
+	    //closed:true,
+	    //buttons:'#_buttons',
+	    maximized: false,//是否显示最大化
+	    onClose:function(){
+	    	//$('#project_myw').remove();
+	    	jQuery('#project_myw').bupdlg('destroy').remove();
+	    },
+	    minimizable:false,
+	    maximizable:false
+	});
+	
+	$('#seRural').buppancombo({
+	    //url:'serural.json?maId='+val,
+	    url:'serural.json?maId=$!{ma.id}'
+	    //valueField:'id',
+	    //textField:'name'
+	});
+	
+	
+});
+
+function areaSelect(val){
+   	$('#seRural').buppancombo({
+	    //url:'serural.json?maId='+val,
+	    url:'serural.json?maId=$!{$ma.id}'
+	    //valueField:'id',
+	    //textField:'name'
+	});
+}
+
+
+
+
+
+
+
+function saveRural(){
+	if(!confirm("是否保存?")){
+		return false;
+	}
+	$('#form_project').bupform('submit', {
+	    url: "project.save",
+	    onSubmit: function(){
+	    	#if(!$pr.id)
+	    		var seRural = $('#seRural').buppancombo('getValue');
+	    		var pjType = $("#pjType").val();
+	    		var pjName = $("#pjName").val();
+	    		if(typeof(seRural)=='undefined'){
+	    			alert('请选择项目所在村');
+	    			return false;
+	    		}
+	    		if(pjType==-1){
+	    			alert('请选择项目类型');
+	    			return false;
+	    		}
+	    		if(pjName==''){
+	    			alert('请填写项目内容');
+	    			return false;
+	    		}
+	    	#end
+	    },
+	    success: function(data){
+	    	//alert("保存成功！");
+	    	//保存成功后,1.关闭弹出框  2.刷新datagrid 的数据
+	    	jQuery("#_1_2").bupgrid("reload");
+	    	jQuery('#project_myw').bupdlg('destroy').remove();
+	    }
+  }); 
+}
+
+
+
+</script>

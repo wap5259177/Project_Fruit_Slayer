@@ -1,0 +1,11 @@
+#set($layout="simple-dialog.vm")
+<table class="editor" style="padding:0px;margin:0px;width:100%;">
+	<tr>					
+		<td style="width:100px;padding-left:5px;">发送者</td>
+		<td style="width:100px;padding-left:5px;">发送时间</td>
+		<td style="width:100px;padding-left:5px;">消息类型</td>
+		<td style="width:100px;padding-left:5px;">标题</td>
+		<td style="width:300px;padding-left:5px;">内容</td>
+	</tr>
+	$!{content}
+</table>

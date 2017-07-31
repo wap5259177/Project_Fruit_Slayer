@@ -1,0 +1,88 @@
+﻿<style type="text/css">
+                a.file_name{color:#606060;font-size:13px;display:block;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+	a.file_name:hover{color:#1d60ff;}
+                #friend-share-content div{width:100px !important;max-width:100px !important;}
+                #friend-share-content>div{height:95px !important;border:#99ccff 1px solid;border-radius:5px;padding:10px;margin:5px !important;}
+                #friend-share-content>div:hover{background-color:#ebf5ff;}
+                .tip-toolbar a{background-color:#fff;}
+</style>
+<div style="padding:8px;">
+	<div id="friend-share-title" style="float:left;">
+		目录：<a href="#" d="0" onclick="return m(this);" title="进入：根目录">根目录</a>
+	</div>
+	<div style="float:left;padding:0 0 4px 30px;">
+		<a id="btn-sf-refresh" href="#" iconClassname="icon-refresh" title="刷新" onclick="return P.f();"></a>
+	</div>
+</div>
+<hr style="width:80%;clear:both;margin-top:8px;" align="left"/>
+<div id="friend-share-content" style="clear:both;"></div>
+<div id='file_dlg' style="display:none;"></div>
+
+<script type="text/javascript">
+var P = {
+	T : jQuery("#friend-share-title"),
+	C : jQuery("#friend-share-content"),
+	D : jQuery("#file_dlg"),
+	R : jQuery("#btn-sf-refresh"),
+	U : "share.content",
+	I : {did:0},
+	f : function(){
+		P.C.load(P.U, P.I, l);
+		return false;
+	}
+};
+
+function m(i){
+	var t = jQuery(i);
+	P.I.did = t.attr("d");
+	P.C.load(P.U, P.I, l);
+	t.nextAll().remove();
+	return false;
+}
+function l(){
+	/*
+	P.C.find(".file_friend_share").buptip({
+		hideEvent: 'none',
+		content: function(){
+			return jQuery(this).find('div.tip-toolbar');
+		},
+		onShow: function(){
+			var t = jQuery(this);
+			t.buptip('tip').focus().unbind().bind('blur',function(){
+				t.buptip('hide');
+			});
+		}
+	});
+	*/
+	P.C.find(".file_friend_share").hover(function(){
+		jQuery(this).find('div.tip-toolbar').show();
+	},function(){
+		jQuery(this).find('div.tip-toolbar').hide();
+	});
+	P.C.find("a.lbtn").bupabutton({flat : true});
+	
+	P.C.find('a.show_dialog').click(function() {
+		jQuery('#file_dlg').load(this.href);
+		return false;
+	});
+	
+	P.C.find('a.entity_delete').click(function() {
+	   jQuery('#file_dlg').load(this.href);
+	    return  P.f();
+	//	return false;
+	});
+	
+	P.C.find("a.sub-directory").click(function(){
+		var t = jQuery(this);
+		P.I.did = t.attr("d");
+		var n = t.attr("n");
+		P.T.append("<span> / </span><a href='#' d='" + P.I.did + "' onclick='return m(this);' title='进入：" + n + "'>" + n + "</a>");
+		P.C.load(P.U, P.I, l);
+		return false;
+	});
+}
+jQuery(function() {
+	P.C.load(P.U, l);
+	P.R.bupabutton({face:"scorner"});
+});
+</script>

@@ -1,0 +1,429 @@
+<table class="editor" style="width:840px;margin: auto;" >
+	<tr>
+		<th class="tdRight" style='width:120px;'>项目编号[E1]:</th>
+		<td colspan="2" style='width:150px;'><input type='text' name='code' value='$!{form.code}' $!{readonly}/></td>
+		<th colspan="2" class="tdRight" style='width:120px;'>项目所在村[E2]:</th>
+		<td colspan="3">
+			#if($readonly)$!{form.ruralName}#else$!{newRural}#end
+		</td>
+	</tr>
+	<tr>
+		<th class="tdRight">属性[E3]:</th>
+		<td colspan="2">
+			<!--<input type='radio' style='width:20px' id='proProperty1' name='proProperty' value='连线建设工程'  $!{disabled} checked='check' /><label for='proProperty1'>连线建设工程</label><br />
+			<input type='radio' style='width:20px' id='proProperty2' name='proProperty' value='主体村工程' $!{disabled}  #if($form.proProperty == '主体村工程')checked='checked'#end/><label for='proProperty2'>主体村工程</label><br />
+			<input type='radio' style='width:20px' id='proProperty3' name='proProperty' value='非主体村工程' $!{disabled}  #if($form.proProperty == '非主体村工程')checked='checked'#end/><label for='proProperty3'>非主体村工程</label>
+			-->
+			#if($form.proProperty == '连线建设工程')连线建设工程#end
+			#if($form.proProperty == '主体村工程')主体村工程#end
+			#if($form.proProperty == '非主体村工程')非主体村工程#end
+		</td>
+		<th class="tdRight" style='width:50px;' colspan="3">项目名称[E4]:</th>
+		<td colspan="2"><input type='text' style='width:95%;' name='name' value='$!{form.name}' $!{readonly} /></td>
+	</tr>
+	<tr>
+		<th class="tdRight">项目类别[E5]:</th>
+		<td colspan='7'>
+			<!--<table border="0" style="padding:0;margin:0;">
+			<tr><td style="border:0px;padding:0;margin:0;"><input type='radio' style='width:20px' id='projectType1' name='projectType' $!{disabled} value='规划设计' checked='check' onclick="jQuery('#exactKind').attr('disabled', true);"/><label for='projectType1'>规划设计</label></td>
+			<td style="border:0px;padding:0;margin:0;"    ><input type='radio' style='width:20px' id='projectType2' name='projectType' $!{disabled} value='村庄环境整治（垃圾、污水处理等）' #if($form.projectType == '村庄环境整治（垃圾、污水处理等）')checked='checked'#end onclick="jQuery('#exactKind').attr('disabled', true);"/><label for='projectType2'>村庄环境整治（垃圾、污水处理等）</label></td></tr>
+			<tr><td style="border:0px;padding:0;margin:0;"><input type='radio' style='width:20px' id='projectType3' name='projectType' $!{disabled} value='村居外立面整治' #if($form.projectType == '村居外立面整治')checked='checked'#end onclick="jQuery('#exactKind').attr('disabled', true);"/><label for='projectType3'>村居外立面整治</label></td>
+			<td style="border:0px;padding:0;margin:0;"    ><input type='radio' style='width:20px' id='projectType4' name='projectType' $!{disabled} value='旧村旧房改造' #if($form.projectType == '旧村旧房改造')checked='checked'#end onclick="jQuery('#exactKind').attr('disabled', true);"/><label for='projectType4'>旧村旧房改造</label></td></tr>
+			<tr><td style="border:0px;padding:0;margin:0;"><input type='radio' style='width:20px' id='projectType5' name='projectType' $!{disabled} value='文化传承保护' #if($form.projectType == '文化传承保护')checked='checked'#end onclick="jQuery('#exactKind').attr('disabled', true);"/><label for='projectType5'>文化传承保护</label></td>
+			<td style="border:0px;padding:0;margin:0;"    ><input type='radio' style='width:20px' id='projectType6' name='projectType' $!{disabled} value='美化绿化建设' #if($form.projectType == '美化绿化建设')checked='checked'#end onclick="jQuery('#exactKind').attr('disabled', true);"/><label for='projectType6'>美化绿化建设</label></td></tr>
+			<tr><td style="border:0px;padding:0;margin:0;"><input type='radio' style='width:20px' id='projectType7' name='projectType' $!{disabled} value='基础设施建设' #if($form.projectType == '基础设施建设')checked='checked'#end onclick="jQuery('#exactKind').attr('disabled', true);"/><label for='projectType7'>基础设施建设</label></td>
+			<td style="border:0px;padding:0;margin:0;"    ><input type='radio' style='width:20px' id='projectType8' name='projectType' $!{disabled} value='连线工程项目' #if($form.projectType == '连线工程项目')checked='checked'#end onclick="jQuery('#exactKind').attr('disabled', true);"/><label for='projectType8'>连线工程项目</label></td></tr>
+			<tr><td style="border:0px;padding:0;margin:0;"    ><input type='radio' style='width:20px' id='projectType9' name='projectType' $!{disabled} value='道路硬底化项目' #if($form.projectType == '道路硬底化项目')checked='checked'#end onclick="jQuery('#exactKind').attr('disabled', true);"/><label for='projectType9'>道路硬底化项目</label></td>
+			<td style="border:0px;padding:0;margin:0;"    ><input type='radio' style='width:20px' id='projectType10' name='projectType' $!{disabled} value='村通自来水项目' #if($form.projectType == '村通自来水项目')checked='checked'#end onclick="jQuery('#exactKind').attr('disabled', true);"/><label for='projectType10'>村村通自来水项目</label></td></tr>
+			<tr><td style="border:0px;padding:0;margin:0;"    ><input type='radio' style='width:20px' id='projectType11' name='projectType' $!{disabled} value='卫厕改造项目' #if($form.projectType == '卫厕改造项目')checked='checked'#end onclick="jQuery('#exactKind').attr('disabled', true);"/><label for='projectType11'>卫厕改造项目</label></td>
+			<td colspan="2" style="border:0px;padding:0;margin:0;"><input type='radio' style='width:20px' id='other' id='projectType12' name='projectType' $!{disabled} value='其他' #if($form.projectType == '其他')checked='checked'#end onclick="jQuery('#exactKind').removeAttr('disabled');"/><label for='projectType12'>其他</label>
+			(具体类别<input style='width:200px' type='text' id='exactKind' name='exactKind' value='$!{form.exactKind}'  #if($form.projectType == '其他')$!{readonly}#else disabled='true'#end/>)</td></tr>
+			</table>-->
+			#if($form.projectType == '规划设计')规划设计#end
+			#if($form.projectType == '村庄环境整治（垃圾、污水处理等）')村庄环境整治（垃圾、污水处理等）#end
+			#if($form.projectType == '村居外立面整治')村居外立面整治#end
+			#if($form.projectType == '旧村旧房改造')旧村旧房改造#end
+			#if($form.projectType == '文化传承保护')文化传承保护#end
+			#if($form.projectType == '美化绿化建设')美化绿化建设#end
+			#if($form.projectType == '基础设施建设')基础设施建设#end
+			#if($form.projectType == '连线工程项目')连线工程项目#end
+			#if($form.projectType == '道路硬底化项目')道路硬底化项目#end
+			#if($form.projectType == '村村通自来水项目')村村通自来水项目#end
+			#if($form.projectType == '卫厕改造项目')卫厕改造项目#end
+			#if($form.projectType == '其他')其他(具体类别:$!{form.exactKind})#end
+		</td>
+	</tr>
+	<tr>
+		<th colspan='4' class="tdRight">项目开工时间[E6]:</th>
+		<td colspan='4'>
+			#set($startAtM=$!{form.startAtM} + 1)
+			#if($readonly)
+				<input type='text' style='width:70px' readonly='readonly' #if($form.startAtY > 0)value='${form.startAtY}'#end/> 年
+				<input type='text' style='width:70px' readonly='readonly' #if($form.startAtM >= 0)value='$startAtM'#end/> 月
+			#else
+				<select id='startAtY' name='startAtY'>
+					<option value="-1">--请选择--</option>
+					<option>2014</option>
+					<option>2015</option>
+					<option>2016</option>
+					<option>2017</option>
+					<option>2018</option>
+				</select> 年
+				<select id='startAtM' name='startAtM'>
+					<option value="-1">--请选择--</option>
+					<option value="0">1</option>
+					<option value="1">2</option>
+					<option value="2">3</option>
+					<option value="3">4</option>
+					<option value="4">5</option>
+					<option value="5">6</option>
+					<option value="6">7</option>
+					<option value="7">8</option>
+					<option value="8">9</option>
+					<option value="9">10</option>
+					<option value="10">11</option>
+					<option value="11">12</option>
+				</select> 月
+			#end
+		</td>
+	</tr>
+	<tr>
+		<th colspan='4' class="tdRight">项目预计竣工时间[E7]:</th>
+		<td colspan='4'>
+			#set($endAtM=$!{form.endAtM} + 1)
+			#if($readonly)
+				<input type='text' style='width:70px' readonly='readonly' #if($form.endAtY > 0)value='$!{form.endAtY}'#end/> 年
+				<input type='text' style='width:70px' readonly='readonly' #if($form.endAtM >= 0)value='$endAtM'#end/> 月
+			#else
+				<select id='endAtY' name='endAtY'>
+					<option value="-1">--请选择--</option>
+					<option>2014</option>
+					<option>2015</option>
+					<option>2016</option>
+					<option>2017</option>
+					<option>2018</option>
+				</select> 年
+				<select id='endAtM' name='endAtM'>
+					<option value="-1">--请选择--</option>
+					<option value="0">1</option>
+					<option value="1">2</option>
+					<option value="2">3</option>
+					<option value="3">4</option>
+					<option value="4">5</option>
+					<option value="5">6</option>
+					<option value="6">7</option>
+					<option value="7">8</option>
+					<option value="8">9</option>
+					<option value="9">10</option>
+					<option value="10">11</option>
+					<option value="11">12</option>
+				</select> 月
+			#end
+		</td>
+	</tr>
+	<tr>
+		<th colspan='4' class="tdRight">项目实际竣工时间[E8]:</th>
+		<td colspan='4'>
+			#set($finishAtM=$!{form.finishAtM} + 1)
+			#if($readonly)
+				<input type='text' style='width:70px' readonly='readonly' #if($form.finishAtY > 0)value='$!{form.finishAtY}'#end/> 年
+				<input type='text' style='width:70px' readonly='readonly' #if($form.finishAtM >= 0)value='$finishAtM'#end/> 月
+			#else
+				<select id='finishAtY' name='finishAtY'>
+					<option value="-1">--请选择--</option>
+					<option>2014</option>
+					<option>2015</option>
+					<option>2016</option>
+					<option>2017</option>
+					<option>2018</option>
+				</select> 年
+				<select id='finishAtM' name='finishAtM'>
+					<option value="-1">--请选择--</option>
+					<option value="0">1</option>
+					<option value="1">2</option>
+					<option value="2">3</option>
+					<option value="3">4</option>
+					<option value="4">5</option>
+					<option value="5">6</option>
+					<option value="6">7</option>
+					<option value="7">8</option>
+					<option value="8">9</option>
+					<option value="9">10</option>
+					<option value="10">11</option>
+					<option value="11">12</option>
+				</select> 月
+			#end
+		</td>
+	</tr>
+	<!--<tr id='pj_option'>
+		<td colspan='4' class='tdCenter'><a href='#' id='_showPjPic' onclick='showPjPic();' style='height:25px;'>切换项目图片的对比图</a></td>
+		<td colspan='4' class='tdCenter'><a href='#' id='_showPjReport' onclick='showPjReport();' style='height:25px;'>查看项目月报</a></td>
+	</tr>-->
+	<tr id='pj_option'>
+		<td colspan='8'  style='text-align: center;'>
+			<a href='#' id='_showPjReport' onclick='showPjReport();' style='height:25px;'>查看项目月报</a>
+			&nbsp-&nbsp<a href='#' id='_showPjPic' onclick='showPjPic();' style='height:25px;'>查看建设前、后图</a>
+		</td>
+	</tr>
+	<tr>
+		<th colspan='8' class='tdRight'><a class='item-open2 ' href='#' onclick="$(this).toggleClass('item-open2 item-close2');$('#_invDetal').toggle('slow'); ">详情</a></th><!--$('#_invDetal').toggle();-->
+	</tr>
+<table>
+<table class=" editor" style="width:840px;margin: auto;display: none;" id='_invDetal'>
+	<tr>
+		<th colspan='3' rowspan='2' style='text-align:center'>类别</th>
+		<th colspan='3' style='width:200px;text-align:center'>计划总投入资金(万元)</th>
+		<th colspan='2' style='width:220px;text-align:center'>累计完成总投入资金(万元)<p style="width:220px;font-size:14px;">（自动从项目月报记录里累计）</p></th>
+	</tr>
+	<tr>
+		<td style='width:30px;'>代码</td>
+		<td colspan='2' style='text-align:center'>金额</td>
+		<td style='width:30px;'>代码</td>
+		<td style='text-align:center'>金额</td>
+	</tr>
+	<tr>
+		<th colspan='3' style='text-align:center'>合计</th>
+		<td>[E9]</td>
+		<td colspan='2'><input class='number' readonly='readonly' precision="4" id='totalFunds' type='text' value='$!{form.totalFunds}' name='totalFunds' /></td>
+		<td>[E16]</td>
+		<td><input class='number' readonly='readonly' id='ttotalFunds' precision="4" type='text' #if($readonly)value='$!{form.ttotalFunds}'#else value='$!{form.stotalFunds}'#end  name='ttotalFunds'/></td>
+	</tr>
+	<tr>
+		<th colspan='3' style='text-align:center'>中央</th>
+		<td>[E10]</td>
+		<td colspan='2'><input type='text' class='number funds' value='$!{form.stateFunds}' min="0" precision="4" name='stateFunds' $!{readonly}/></td>
+		<td>[E17]</td>
+		<td><input type='text' class='number tfunds' readonly='readonly' #if($readonly)value='$!{form.tstateFunds}'#else value='$!{form.sstateFunds}'#end  min="0" precision="4" name='tstateFunds' $!{readonly}/></td>
+	</tr >
+	<tr>
+		<th colspan='3' style='text-align:center'>省级新农村连片示范工程建设补助资金 </th>
+		<td>[E12]</td>
+		<td colspan='2'><input type='text' class='number funds' value='$!{form.specialFunds}' min="0" precision="4" name='specialFunds' $!{readonly} /></td>
+		<td>[E19]</td>
+		<td><input type='text' class='number tfunds' readonly='readonly' #if($readonly)value='$!{form.tspecialFunds}'#else value='$!{form.sstateFunds}'#end min="0" precision="4"name='tspecialFunds' $!{readonly}/></td>
+	</tr>
+	<tr>
+		<th colspan='3' style='text-align:center'>其他省级财政资金</th>
+		<td>[E11]</td>
+		<td colspan='2'><input type='text' class='number funds' value='$!{form.provinceFunds}' min="0" precision="4" name='provinceFunds' $!{readonly} /></td>
+		<td>[E18]</td>
+		<td><input type='text' class='number tfunds' readonly='readonly' #if($readonly)value='$!{form.tprovinceFunds}'#else value='$!{form.sprovinceFunds}'#end min="0" precision="4" name='tprovinceFunds' $!{readonly}/></td>
+	</tr>
+	
+	<tr>
+		<th colspan='3' style='text-align:center'>市级财政资金</th>
+		<td>[E131]</td>
+		<td colspan='2'><input type='text' class='number funds' value='$!{form.cityFunds}' min="0" precision="4" name='cityFunds' $!{readonly} /></td>
+		<td>[E201]</td>
+		<td><input type='text' class='number tfunds' readonly='readonly' #if($readonly)value='$!{form.tcityFunds}'#else value='$!{form.scityFunds}'#end   min="0" precision="4" name='tcityFunds' $!{readonly}/></td>
+	</tr>
+	<tr>
+		<th colspan='3' style='text-align:center'>县级财政资金</th>
+		<td>[E132]</td>
+		<td colspan='2'><input type='text' class='number funds' value='$!{form.countyFunds}' min="0" precision="4" name='countyFunds' $!{readonly} /></td>
+		<td>[E202]</td>
+		<td><input type='text' class='number tfunds' readonly='readonly' #if($readonly)value='$!{form.tcountyFunds}'#else value='$!{form.scountyFunds}'#end  min="0" precision="4" name='tcountyFunds' $!{readonly}/></td>
+	</tr>
+	<tr>
+		<th colspan='3' style='text-align:center'>社会投入</th>
+		<td>[E14]</td>
+		<td colspan='2'><input type='text' class='number funds' value='$!{form.socialFunds}' min="0" precision="4" name='socialFunds' $!{readonly} /></td>
+		<td>[E21]</td>
+		<td><input type='text' class='number tfunds' readonly='readonly' #if($readonly)value='$!{form.tsocialFunds}'#else value='$!{form.ssocialFunds}'#end  min="0" precision="4" name='tsocialFunds' $!{readonly}/></td>
+	</tr>
+	<tr>
+		<th colspan='3' style='text-align:center'>群众自筹</th>
+		<td>[E141]</td>
+		<td colspan='2'><input type='text' class='number funds' value='$!{form.massFunds}' min="0" precision="4" name='massFunds' $!{readonly} /></td>
+		<td>[E211]</td>
+		<td><input type='text' class='number tfunds' readonly='readonly' #if($readonly)value='$!{form.tmassFunds}' #else value='$!{form.smassFunds}' #end min="0" precision="4" name='tmassFunds' $!{readonly}/></td>
+	</tr>
+	<tr>
+		<th colspan='3' style='text-align:center'>其它</th>
+		<td>[E15]</td>
+		<td colspan='2'><input type='text' class='number funds' value='$!{form.otherFunds}' min="0" precision="4" name='otherFunds' $!{readonly} /></td>
+		<td>[E22]</td>
+		<td><input type='text' class='number tfunds' readonly='readonly' #if($readonly)value='$!{form.totherFunds}'#else value='$!{form.sotherFunds}'#end  min="0" precision="4" name='totherFunds' $!{readonly}/></td>
+	</tr>
+	<tr>
+		<th colspan='3' rowspan='2' style='text-align:center'>群众投工投劳情况</th>
+		<th colspan='3' class="tdRight">投工数[E23]:</th>
+		<td colspan='3'><input type='text' class='number' name='labourCount' value='$!{form.labourCount}' min="0" precision="0" $!{readonly} />个</td>
+	</tr>
+	<tr>
+		<th colspan='3' class="tdRight">投资额/斥资额[E24]:</th>
+		<td colspan='3'><input type='text' class='number' name='spend' value='$!{form.spend}' min="0" precision="4" $!{readonly} />万元</td>
+	</tr>
+	<tr>
+		<th colspan='3' class="tdRight">备注[E25]:</th>
+		<td colspan='5'>
+			<textarea style='width:98%;height:50px;' name='remark' $!{readonly}>$!{form.remark}</textarea>
+		</td>
+	</tr>
+	
+</table>
+
+<div id='main' style='width: 950px; height: 400px;padding:50px 20px 0px 110px;'>
+
+</div>
+
+
+<style>
+	#pj_option a:link{text-decoration:none;}
+	#pj_option a:visited{text-decoration:none;}
+	#pj_option a:hover{
+		text-decoration:underline;
+		color:red;
+		//background-color:yellow;
+	} 
+</style>
+
+<script type='text/javascript'>
+	var myChart = echarts.init(document.getElementById('main'),'infographic'); 
+	var ecConfig = echarts.config;
+	var mapGeoData = echarts.util.mapData.params;
+	
+	var option;
+	
+	$(function(){
+		/*$('#_showPjPic').bupabutton({
+			text:'切换项目图片的对比图',
+			face:'flat'
+		});
+		$('#_showPjReport').bupabutton({
+			text:'切换项目月报',
+			face:'flat'
+		});*/
+	
+	
+		option = {
+		    title : {
+		        text: '项目投入资金',
+		        subtext: '计划/累计'
+		    },
+		    tooltip : {
+		        trigger: 'axis',
+		        formatter:'{b}<br/>{a0}: {c0}万元<br/>{a1}: {c1}万元'
+		    },
+		    legend: {
+		        data:['计划总投入资金','累计完成总投入资金']
+		    },
+		    toolbox: {
+		        show : true,
+		        feature : {
+		            mark : {show: false},
+		            dataView : {show: false, readOnly: false},
+		            magicType : {show: true, type: ['line', 'bar']},
+		            restore : {show: true},
+		            //saveAsImage : {show: true}
+		        }
+		    },
+		    calculable : true,
+		    xAxis : [
+		        {
+		            type : 'category',
+		            boundaryGap : true,
+		            data : ['合计','中央','省级专项资金','其他省级资金','市级财政资金','县级财政资金','社会投入','群众自筹','其他'],
+		             axisLabel: {
+		                 show: true,
+		                 rotate:25,//x轴旋转角度
+		                 interval: 'auto',
+		                 textStyle: {
+		                     color: '#000000',
+		                     fontFamily: 'verdana',
+		                     fontSize: 16,
+		                     fontStyle: 'normal',
+		                     fontWeight: 'bold'
+		                 }
+		             }
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'value',
+		            axisLabel : {
+		                formatter: '{value} 万元'
+		            }
+		        }
+		    ],
+		    series : [
+		        {
+		            name:'计划总投入资金',
+		            type:'bar',
+		            //data:[11, 11, 15, 13, 12, 13, 10],
+		            data:$pinvs,
+		            markPoint : {
+		                data : [
+		                    {type : 'max', name: '最大值'},
+		                    {type : 'min', name: '最小值'}
+		                ]
+		            },
+		            markLine : {
+		                data : [
+		                    {type : 'average', name: '平均值'}
+		                ]
+		            },
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             //color: '#800080'
+		                         },
+		                         //formatter:'{c}万元'
+		                     }
+		                    
+		                 }
+		             }
+		        },
+		        {
+		            name:'累计完成总投入资金',
+		            type:'bar',
+		            data:$tinvs,
+		            markPoint : {
+		                data : [
+		                    {type : 'max', name: '最大值'},
+		                    {type : 'min', name: '最小值'}
+		                ]
+		            },
+		            markLine : {
+		                data : [
+		                    {type : 'average', name : '平均值'}
+		                ]
+		            },
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             //color: '#800080'
+		                         },
+		                          //formatter:'{c}万元'
+		                     }
+		                 }
+		             }
+		        }
+		    ]
+		};
+		myChart.setOption(option);
+	});
+	
+	
+	function showPjPic(){
+		//alert('建设中...');
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load('showPjPic.do?id=$form.id',function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+	}
+	
+	function showPjReport(){
+		//alert('建设中...');
+		$('#show_area').fadeOut("slow",function(){
+			$('#show_area').load('pj.report?id=$form.id',function(){
+				$('#show_area').fadeIn("slow");
+			});
+		});
+	}
+</script>

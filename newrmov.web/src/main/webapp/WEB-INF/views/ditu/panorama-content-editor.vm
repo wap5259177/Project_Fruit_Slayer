@@ -1,0 +1,286 @@
+#set($layout="layout-empty.vm")
+<link type='text/css' href='/res/css/input.css' rel="stylesheet"/><!--上传表单样式-->
+<link rel="stylesheet" type="text/css" href="/res/css/skins/default/bupui.css">
+<link rel="stylesheet" type="text/css" href="/res/css/skins/bupicon.css">
+<script src='/res/js/jquery.min.js'></script><!--jquery-->
+<script type="text/javascript" src="/res/js/bupui/jquery.bupui.min.js"></script><!--bupui-->
+<script type="text/javascript" src="/res/js/jquery.form.js"></script><!--图片上传-->
+<script src="/res/js/three.min.js"></script><!--three.js插件-->
+<style type='text/css'>
+	/*
+	div{
+		border-style:solid;border-width:1px;border-color:red;
+	}
+	*/
+</style>
+<div>
+	<div id='_top' >
+		<form id='file_form' enctype='multipart/form-data' method="post">
+			<input type="hidden" name='ruralpanoid' value='$!{ruralPano.id}'  />
+			<input type="hidden" name='longitude' value='$longitude'  />
+			<input type="hidden" name='latitude' value='$latitude'  />
+			<input type="hidden" name='mapid' value='$map.id'  />
+			<div >
+				<span style='height:50px;width:100px;margin-right: auto; margin-left: auto;position:absolute;left:10px;top:22px;'>上传全景点:</span>
+				<div class="uploader green" id='_input' style='margin-left:100px;'><!--red orange blue green white  -->
+					<input type="text" class="filename" readonly="readonly" />
+					<input type="button" name="file" class="button" value="浏览..."/>
+					<input type="file" size="30" id='panorama' name='panorama'/>
+				</div>
+			</div>
+			<div id=''>
+				<span style='height:50px;width:100px;margin-right: auto; margin-left: auto;position:absolute;left:10px;top:75px;'>上传缩略图:</span>
+				<div class="uploader orange" id='_input' style='margin-left:100px;'><!--red orange blue green white  -->
+					<input type="text" class="filename" readonly="readonly" />
+					<input type="button" name="file" class="button" value="浏览..."/>
+					<input type="file" size="30" id='thumbnail' name='thumbnail'/>
+				</div>
+			</div>
+			<div style='position:absolute;left:500px;top:-40px;'>
+				<span style='position:absolute;top:80px;height:30px;width:100px;border-style:solid;border-width:1px;border-color:red;'>
+					#if($ruralPano.id)
+						<a href="#" id='btn_save' class="bupabutton"  onclick="f_save_panorama();">修改</a>
+					#else
+		 				<a href="#" id='btn_save' class="bupabutton"  onclick="f_save_panorama();">保存</a>
+					#end
+				</span>
+			</div>
+			<div style='position:absolute;left:365px;top:45px;'>
+				<select id='_rural' name='ruralid'> 
+					<option value="0">--请选择村子--</option>
+					<optgroup label="$map.title">
+					    <!--<option value="0">--请选择村子--</option>-->
+						#foreach($it in $rps)
+							#if($ruralPano && ($ruralPano.rural.id == $it.rural.id))
+								<option value="$it.rural.id" selected="true" >$it.title</option>
+							#else
+								<option value="$it.rural.id">$it.title</option>  
+							#end
+						#end 
+					</optgroup>
+				</select>  
+			</div>
+		<form>
+	<div>
+	
+	<div id="container" style='border-style:solid;border-width:1px;border-color:red;'>
+		<canvas id='rural_panorama' width='660px' height='250px'></canvas>
+	</div>
+	
+
+</div>
+
+<script type='text/javascript'>
+	var camera, scene, renderer;//相机,场景,渲染器
+	var fov = 120,//值越小,相当于镜头拉的越近
+	isUserInteracting = false,
+	onMouseDownMouseX = 0, onMouseDownMouseY = 0,
+	lon = 0, onMouseDownLon = 0,
+	lat = 0, onMouseDownLat = 0,
+	phi = 0, theta = 0;
+	
+	var container, mesh;
+	
+	jQuery(function(){
+		init();
+		animate();
+	});
+
+
+	
+	function init() {
+		/*
+			1.渲染器
+		*/
+		renderer = new THREE.WebGLRenderer({
+			canvas:document.getElementById('rural_panorama')
+		});
+		renderer.setClearColor(0x000000);
+		
+		/*
+			2.场景
+		*/
+		scene = new THREE.Scene();
+		
+		/*
+			3.照相机
+		*/
+		camera = new THREE.PerspectiveCamera( fov, window.innerWidth / window.innerHeight, 1, 1100 );//相机分两种,这里是透视相机.透视相机有很多参数
+		camera.target = new THREE.Vector3( 0, 0, 0 );//确定相机的位置点( 或者:camera.position.set(0,0,5) )
+		scene.add(camera);
+		
+		/*
+			4.物体:
+				a.几何结构 new THREE.CubeGeometry(1,1,1)   wireframe:true  不是实心的
+				b.材质
+					aa).纹理
+					bb).颜色color:0xff0000,
+					...
+		*/
+		//1.球体
+		var geometry = new THREE.SphereGeometry( 500, 60, 40 );
+		geometry.applyMatrix( new THREE.Matrix4().makeScale( -1, 1, 1 ) );
+		//2.Lambert材质
+			//a.纹理
+			//alert('$!{ruralPano.panorama}');
+			var texture = THREE.ImageUtils.loadTexture( '$!{ruralPano.panorama}' );
+		var material = new THREE.MeshBasicMaterial( {
+			map:texture
+		} );
+		mesh = new THREE.Mesh( geometry, material );//mesh模型,网格模型,给物体贴上皮肤(纹理),物体就活灵活现了.无数个物体就组成了我们的3D世界
+		scene.add( mesh );
+		//renderer.render( scene, camera );
+		
+		//绑定事件     
+		$('#rural_panorama').on( 'mousedown', onDocumentMouseDown);
+		$('#rural_panorama').on( 'mousemove', onDocumentMouseMove);
+		$('#rural_panorama').on( 'mouseup', onDocumentMouseUp);
+		document.addEventListener( 'mousewheel', onDocumentMouseWheel, false );
+		document.addEventListener( 'DOMMouseScroll', onDocumentMouseWheel, false);
+		window.addEventListener( 'resize', onWindowResize, false );
+		
+	}		
+		
+		
+	/*
+		循环渲染
+	*/	
+	function animate(){
+		requestAnimationFrame(animate);
+		render();
+	}
+	
+	function render(){
+		lat = Math.max( - 85, Math.min( 85, lat ) );
+		phi = THREE.Math.degToRad( 90 - lat );//经度弧度
+		theta = THREE.Math.degToRad( lon );//纬度弧度
+
+		camera.target.x = 500 * Math.sin( phi ) * Math.cos( theta );
+		camera.target.y = 500 * Math.cos( phi );
+		camera.target.z = 500 * Math.sin( phi ) * Math.sin( theta );
+
+		camera.lookAt( camera.target );
+		renderer.render( scene, camera );
+	}
+	
+	
+	
+	function onWindowResize() {
+		camera.aspect = window.innerWidth / window.innerHeight;
+		camera.updateProjectionMatrix();
+
+		renderer.setSize( window.innerWidth, window.innerHeight );
+
+	}
+
+	function onDocumentMouseDown( event ) {
+		//alert('down');
+		event.preventDefault();
+
+		isUserInteracting = true;
+
+		onPointerDownPointerX = event.clientX;
+		onPointerDownPointerY = event.clientY;
+
+		onPointerDownLon = lon;
+		onPointerDownLat = lat;
+
+	}
+
+	function onDocumentMouseMove( event ) {
+		//alert('move');
+		if ( isUserInteracting ) {
+
+			lon = ( onPointerDownPointerX - event.clientX ) * 0.1 + onPointerDownLon;
+			lat = ( event.clientY - onPointerDownPointerY ) * 0.1 + onPointerDownLat;
+
+		}
+	}
+
+	function onDocumentMouseUp( event ) {
+		//alert('up');
+		isUserInteracting = false;
+
+	}
+
+	function onDocumentMouseWheel( event ) {
+		//alert('wheel');
+		// WebKit
+		if ( event.wheelDeltaY ) {
+			fov -= event.wheelDeltaY * 0.05;
+		// Opera / Explorer 9
+		} else if ( event.wheelDelta ) {
+			fov -= event.wheelDelta * 0.05;
+		// Firefox
+		} else if ( event.detail ) {
+			//alert(event.detail );
+			fov += event.detail * 1.0;
+		}
+
+		camera.projectionMatrix.makePerspective( fov, window.innerWidth / window.innerHeight, 1, 1100 );
+		render();
+	}
+
+
+//--------------------------------------------------------------------------------------------
+	$(function(){
+		//alert($!{ruralid});
+		$("input[type=file]").change(function(){
+			//alert($(this).val());
+			//状态改变后,将input text 显示上传图片的名称
+			$(this).parents(".uploader").find(".filename").val($(this).val());
+		});
+		$("input[type=file]").each(function(){
+			if($(this).val()==""){$(this).parents(".uploader").find(".filename").val("No file selected...");}
+		});
+	});
+
+
+	//点击保存
+	function f_save_panorama(){
+		//alert($('#btn_save'));
+		/*
+			点击保存
+				1.下面的缩略图,添加一张刚才保存的图片	
+					a.异步提交,跟新页面  最新保存的这张图片,让canvas显示
+				2.放全景图的canvas显示这张全景图
+		*/
+		//var panorama = $('#panorama').val();
+		//var thumbnail = $('#thumbnail').val();
+		var _rid = $('#_rural').val();
+		if(_rid==0){
+			alert('请选择上传全景点的村子!');
+			return ;
+		}
+		$.bupmsg.progress();    // 显示进度条
+		$('#file_form').bupform('submit', {
+		    url: "savePanorama.do",
+		    onSubmit: function(){
+		    	//return false   会阻止表单提交提交
+		    },
+		    success: function(data){
+		    	/*将json 字符串变成一个对象*/
+				if (typeof data === "string"){
+					data = eval('(' + data + ')');
+				}
+		        renderer.clear();
+				mesh.material = new THREE.MeshBasicMaterial( {
+					map:THREE.ImageUtils.loadTexture( data.panoramaUrl ) //全景图
+					//color:0xff0000
+				} );
+				requestAnimationFrame( animate );//重新渲染
+		        $.bupmsg.progress('close'); // 提交成功后隐藏进度条
+		        //让保存按钮灰掉,只能报保存一次.
+		        if(data.operate==1){//data.operate==1代表跟新
+		        	alert("跟新成功!");
+		        }else{
+		        	alert('保存成功!');
+		        	window.parent._is_save(0);
+			        $('#btn_save').bupabutton("disable");
+			        //$('#_rural').attr("disabled") = true;
+		        }
+		    }
+		});   
+	}
+	
+</script>

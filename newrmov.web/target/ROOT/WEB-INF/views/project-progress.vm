@@ -1,0 +1,49 @@
+<div id='hc_line' style='width: 1200px; height: 400px; margin: 0 auto;'></div>
+<script type="text/javascript" src="#springUrl('/res/js/echarts-all.js')"></script>
+<script type='text/javascript'>
+	var myChart = echarts.init(document.getElementById('hc_line'));
+	var option = {
+		title : {
+			text: '项目工程进度',
+			subtext: ''
+		},
+		tooltip : {
+			trigger: 'axis'
+		},
+		legend: {
+			data:['项目']
+		},
+		toolbox: {
+			show : false,
+			feature : {
+				mark : {show: true},
+				dataView : {show: true, readOnly: false},
+				magicType: {show: true, type: ['line', 'bar']},
+				restore : {show: true},
+				saveAsImage : {show: true}
+			}
+		},
+		calculable : true,
+		xAxis : [
+			{
+				type : 'value',
+				boundaryGap : [0, 0.01]
+			}
+		],
+		yAxis : [
+			{
+				type : 'category',
+				data : ['项目1','项目2','项目3','项目4']
+			}
+		],
+		series : [
+			{
+				name:'项目',
+				type:'bar',
+				data:[60%, 55%, 75%, 65%]
+			}
+		]
+	};
+	myChart.setOption(option);
+</script>
+						

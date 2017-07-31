@@ -1,0 +1,66 @@
+#set($layout="layout-empty.vm")
+${reports}
+
+<script type="text/javascript">
+    function myformatter(date){
+        var y = date.getFullYear();
+        var m = date.getMonth()+1;
+        var d = date.getDate();
+        return y + '-' + (m < 10 ? ( '0' + m ) : m ) + '-' + ( d < 10 ? ( '0' + d ):d);
+    }
+	jQuery(function(){
+	    $('#_reportAt').bupdateinput({
+           plyWidth:210                
+        });
+        $('._sele').buppancombo({
+        	valueField:'id',
+    		textField:'name',
+    		multiple:true
+        });
+		$('.fund').bupnuminput({precision:4});
+		$('.m-fund,._fundg').bupnuminput({precision:2});
+		$('.i-fund').bupnuminput({precision:0});
+		
+		jQuery("#hid-year").val($!{selectedYear});
+		jQuery("#hid-month").val($!{lastMonth});
+		
+		jQuery("#show-year").html('$!{selectedYear}');
+		jQuery("#show-month").html('$!{showMonth}');
+		
+		//currentMonthly
+		var sednode = jQuery("#monthly_$!{currentMonthly}"), showStatusClass;
+		
+		#if($editable)
+			jQuery("#btn-pj-rep-editor").show();
+			editable = true;
+			showStatusClass = "annual-editing";
+		#else
+			jQuery("#btn-pj-rep-editor").hide();
+			editable = false;
+			showStatusClass = "annual-finish";
+		#end
+		#if($report)
+			reportId = '$report.id';
+			jQuery(".c-fund").bupnuminput({
+			precision:4,
+				onChange:function(){
+					var th = jQuery(this).parent().parent();
+					var tf = 0;
+					jQuery(".c-fund", th).each(function(i, v){
+						var vf = jQuery(v).bupnuminput('getValue');
+						if($.isNumeric(vf)){
+							tf += vf - 0;
+						}
+					});
+					jQuery(".t-fund", th).val(tf);
+				}
+			});
+		#else
+			reportId = 0;
+			showStatusClass = "annual-new";
+		#end
+		if(sednode.length > 0){
+			sednode.removeClass().addClass(showStatusClass);
+		}
+	});
+</script>

@@ -1,0 +1,16 @@
+<div id="$di.id" title="村详细信息" style="padding:12px;width:650px;height:400px;" buttons="#${di.id}-buttons" modal='true'>
+
+
+${ruralDetails}
+
+
+</div>
+<div id="${di.id}-buttons">
+	<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+	jQuery(function() {
+		jQuery('#a_close').bupabutton({flat : true});
+	});
+</script>

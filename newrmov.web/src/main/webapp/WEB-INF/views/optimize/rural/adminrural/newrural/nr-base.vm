@@ -1,0 +1,148 @@
+<div class="applicant-head">年度[B1]：
+#if($readonly)
+	<input class="outsideInput" type="text" value='$!{form.annual}' name='annual' id="annual" readonly="readonly"/>
+#else
+	<select id='annual' name='annual' style="width:80px;">
+		<option>2013</option>
+		<option>2014</option>
+		<option>2015</option>
+		<option>2016</option>
+	</select>
+#end
+</div>
+<table class='applicant-form'>
+	<tr>
+		<td style='font-weight:bold;' colspan='6'>(一)基本情况</td>
+	</tr>
+	<tr>
+		<td class="tdRight">序号[B2]：</td>
+		<td><input type="text" value='$!{form.code}' name='code' id="code" $!{readonly}/></td>
+		<td class="tdRight" style="width:100px;">村庄类型[B3]：</td>
+		<td colspan='3' style='color:red;'>主体建设自然村</td>
+			
+		<!--
+		<td colspan='3'>
+		#if($form.type == '行政村')
+			<input style='width:20px' type='radio' name='type' id='type-1' value='行政村' $!{disabled} checked='checked'/><label for='type-1'>行政村</label>
+			<input style='width:20px' type='radio' name='type' id='type-2' value='自然村' $!{disabled}/><label for='type-2'>自然村</label>
+		#else
+			<input style='width:20px' type='radio' name='type' id='type-1' value='行政村' $!{disabled}/><label for='type-1'>行政村</label>
+			<input style='width:20px' type='radio' name='type' id='type-2' value='自然村' $!{disabled} checked='checked'/><label for='type-2'>自然村</label>
+		#end
+		-->
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight">村名称[B4]：</td>
+		<td colspan='5'>
+			<input type="text" value='$!{form.town}' readOnly="true" style='width:120px'/>&nbsp;镇
+			<input type="text" value='$!{form.name}' style='width:120px' readOnly="true" />&nbsp;村委会
+			<input type='text' value='$!{form.naturalVillage}' readOnly="true"/> 自然村(或村民小组)
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight">总面积[B5]：</td>
+		<td colspan='2'><input style="width:60px;" id="ruralArea" type='text' class='number' value='$!{form.ruralArea}' min="0" precision="2" name='ruralArea' $!{readonly}/>亩</td>
+		<td colspan='2' class="tdRight">耕地面积[B6]：</td>
+		<td><input id="arableLand" type='text' style="width:60px;" class='number' value='$!{form.arableLand}' min="0" precision="2" name='arableLand' $!{readonly}/>亩</td>
+	</tr>
+	<tr>
+		<td class="tdRight">户数[B7]：</td>
+		<td><input style="width:60px;" id="houseHold" type='text' value='$!{form.houseHold}' min="0" precision="0" class='number' name='houseHold' $!{readonly}/>户</td>
+		<td class="tdRight">人口数[B8]：</td>
+		<td><input id="population" style="width:50px;" type='text' value='$!{form.population}' min="0" precision="0" class='number' name='population' $!{readonly}/>人</td>
+		<td class="tdRight">劳动力总人数[B9]：</td>
+		<td><input id="labor" type='text' style="width:60px;" value='$!{form.labor}' min="0" precision="0" class='number' name='labor' $!{readonly}/>人</td>
+	</tr>
+	
+	
+	<tr style='color:red;'>
+		<td class="tdRight" ><span style='color:red;'>贫困户数：</span></td>
+		<td  ><input style="width:60px;" id="poorHouseHold" type='text' value='$!{form.poorHouseHold}' min="0" precision="0" class='number' name='poorHouseHold' $!{readonly}/>户</td>
+		<td class="tdRight" colspan='2'><span style='color:red;'>贫困人口数：</span></td>
+		<td colspan='2'><input id="poorPopulation" style="width:50px;" type='text' value='$!{form.poorPopulation}' min="0" precision="0" class='number' name='poorPopulation' $!{readonly}/>人</td>
+	</tr>
+	
+	<tr >
+		<td class="tdRight" ><span style='color:red;'>低保户数：</span></td>
+		<td ><input style="width:60px;" id="lowHouseHold" type='text' value='$!{form.lowHouseHold}' min="0" precision="0" class='number' name='lowHouseHold' $!{readonly}/>户</td>
+		<td class="tdRight" colspan='2'><span style='color:red;'>低保人口数：</span></td>
+		<td colspan='2'><input id="lowPopulation" style="width:50px;" type='text' value='$!{form.lowPopulation}' min="0" precision="0" class='number' name='lowPopulation' $!{readonly}/>人</td>
+	</tr>
+	
+	<tr >
+		<td class="tdRight" ><span style='color:red;'>五保户数：</span></td>
+		<td ><input style="width:60px;" id="wubaoHouseHold" type='text' value='$!{form.wubaoHouseHold}' min="0" precision="0" class='number' name='wubaoHouseHold' $!{readonly}/>户</td>
+		<td class="tdRight" colspan='2'><span style='color:red;'>需改造的危房户数：</span></td>
+		<td colspan='2'><input id="dangerHouse" style="width:50px;" type='text' value='$!{form.dangerHouse}' min="0" precision="0" class='number' name='dangerHouse' $!{readonly}/>户</td>
+	</tr>
+	
+	
+	
+	
+	
+	<!--
+	<tr>
+		<td class="tdRight" colspan='2'>是否省级扶贫开发重点村(贫困村)[B10]：</td>
+		<td colspan='4'>
+			#if($form.poorVillage == '是')
+				<input id="poorVillage-n" style='width:20px' type='radio' name='poorVillage' value='否' $!{disabled} onclick="jQuery('#helpUnit').attr('disabled', true);"/><label for="poorVillage-n">否</label>
+				<input id="poorVillage-y" style='width:20px' type='radio' name='poorVillage' value='是' $!{disabled} checked='checked' onclick="jQuery('#helpUnit').removeAttr('disabled');"/><label for="poorVillage-y">是</label>
+				(帮扶单位名称:<input id="helpUnit" style='width:160px;text-align:left;' type='text' value='$!{form.helpUnit}' name='helpUnit' $!{readonly}/>)
+			#else
+				<input id="poorVillage-n" style='width:20px' type='radio' name='poorVillage' value='否' $!{disabled} checked='checked' onclick="jQuery('#helpUnit').attr('disabled', true);"/><label for="poorVillage-n">否</label>
+				<input id="poorVillage-y" style='width:20px' type='radio' name='poorVillage' value='是' $!{disabled} onclick="jQuery('#helpUnit').removeAttr('disabled');"/><label for="poorVillage-y">是</label>
+				(帮扶单位名称:<input id="helpUnit" style='width:160px;text-align:left;' type='text' value='$!{form.helpUnit}' name='helpUnit' disabled='true'/>)
+			#end
+		</td>
+	</tr>
+	-->
+	
+	
+	<tr> 
+		<td class="tdRight" colspan='2'>是否广东名村[B11]：</td>
+		<td colspan='4'>
+			#if($form.famousVillage == '是')
+				<input id="famousVillage-n" style='width:20px' type='radio' name='famousVillage' value='否' $!{disabled} onclick="jQuery('#famousBatch-1,#famousBatch-2').attr('disabled', true);" /><label for='famousVillage-n'>否</label>
+				<input id="famousVillage-y" style='width:20px' type='radio' name='famousVillage' value='是' $!{disabled} checked='checked' onclick="jQuery('#famousBatch-1,#famousBatch-2').removeAttr('disabled');"  /><label for='famousVillage-y'>是</label>
+				(批次:
+					<input id="famousBatch-1" style='width:20px' type='radio' name='famousBatch' value='一' $!{disabled} #if($form.famousBatch == '一')checked='checked'#end/><label for='famousBatch-1'>第一批</label>
+					<input id="famousBatch-2" style='width:20px' type='radio' name='famousBatch' value='二' $!{disabled} #if($form.famousBatch == '二')checked='checked'#end/><label for='famousBatch-2'>第二批</label>
+				)
+			#else
+				<input id="famousVillage-n" style='width:20px' type='radio' name='famousVillage' value='否' $!{disabled} checked='checked' onclick="jQuery('#famousBatch-1,#famousBatch-2').attr('disabled', true);"  /><label for='famousVillage-n'>否</label>
+				<input id="famousVillage-y" style='width:20px' type='radio' name='famousVillage' value='是' $!{disabled} onclick="jQuery('#famousBatch-1,#famousBatch-2').removeAttr('disabled');" /><label for='famousVillage-y'>是</label>
+				(批次:
+					<input id="famousBatch-1" style='width:20px' type='radio' name='famousBatch' value='一' disabled='true'/><label for='famousBatch-1'>第一批</label>
+					<input id="famousBatch-2" style='width:20px' type='radio' name='famousBatch' value='二' disabled='true'/><label for='famousBatch-2'>第二批</label>
+				)
+			#end
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>是否"两不具备"整村搬迁村[B12]：</td>
+		<td colspan='4'>
+			#if($form.pushVillage == '是')
+				<input id="pushVillage-n" style='width:20px' type='radio' name='pushVillage' value='否' $!{disabled} onclick="jQuery('#pvAnnual').attr('disabled', true);" /><label for='pushVillage-n'>否</label>
+				<input id="pushVillage-y" style='width:20px' type='radio' name='pushVillage' value='是' $!{disabled} checked='checked' onclick="jQuery('#pvAnnual').removeAttr('disabled');" /><label for='pushVillage-y'>是</label>
+				(年度:
+					#if($readonly)
+						<input type="text" id='pvAnnual' name='pvAnnual' value="$!{form.pvAnnual}" readonly="readonly"/>
+					#else
+						<select id='pvAnnual' name='pvAnnual'>$!{selyear}</select>
+					#end
+				年)
+			#else
+				<input id="pushVillage-n" style='width:20px' type='radio' name='pushVillage' value='否' $!{disabled} checked='checked' onclick="jQuery('#pvAnnual').attr('disabled', true);" /><label for='pushVillage-n'>否</label>
+				<input id="pushVillage-y" style='width:20px' type='radio' name='pushVillage' value='是' $!{disabled} onclick="jQuery('#pvAnnual').removeAttr('disabled');" /><label for='pushVillage-y'>是</label>
+				(年度:
+					#if($readonly)
+						<input type="text" id='pvAnnual' name='pvAnnual' disabled="true"/>
+					#else
+						<select id='pvAnnual' name='pvAnnual' disabled="true">$!{selyear}</select>
+					#end
+				年)
+			#end
+		</td>
+	</tr>
+</table>

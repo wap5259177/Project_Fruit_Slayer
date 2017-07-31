@@ -1,0 +1,213 @@
+<div id="_1_0" style="height:450px;">
+	<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:0;overflow:hidden;">
+		$title
+		<div style="font-size:16px;margin:0 auto;">(截止时间：${deadline})</div>
+	</div>
+	<div data-settings="zone:'center',border:false">
+		<style>
+		table.editor tr, table.editor-line tr, table.simplegrid tr{
+			height:auto;
+		}
+		</style>
+		<table id="_1_1" data-settings="
+		        url: '$!{form.id}!data.node',
+		        showRownum: true,
+		        idField: 'id',
+		        treeField: 'name',
+		        showPagebar: false,
+		        fit:true
+		    "> 
+			<thead data-settings="frozen:true">
+				<tr>
+				#if($urgable)
+					<th data-settings="chalign:'center',field:'id',width:256,chalign:'center',formatter:f">操作</th>
+				#end
+					<th data-settings="chalign:'center',field:'name'" width="250">示范片所在<br/>市县名称</th>
+				</tr>
+			</thead>
+			<thead>
+			 <tr>
+				#parse("statistics/table-head.vm")
+			  </tr>
+			</thead>
+		</table>
+	</div>
+</div>
+<script>
+#if($urgable)
+function f(value,row,index){
+	var btns = "";
+	if($islock && row.status!=-1){
+	
+		 btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return unlock(" + row.id + ");'>解锁</a>";
+	btns += "批次<a href='javascript:'  style='padding-right:10px;'  onclick='return changeBatch(" + row.id+","+ ${form.id}+ ",0);'>一</a>";
+	 	 btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return changeBatch(" + row.id+","+ ${form.id}+ ",1);'>二</a>";
+	 	 	 btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return changeBatch(" + row.id+","+ ${form.id}+ ",2);'>三</a>";
+	 	 	 	 btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return changeBatch(" + row.id+","+ ${form.id}+ ",3);'>珠三角</a>";
+				if(row.status!=0){
+					btns += "<a title='注意：本功能是针对行政村有编制规划设计村数（个）和9项指标数据出错时用的，将更新至最新数据信息' href='javascript:'  style='padding-right:10px;'  onclick='return changeQuarter(" + row.id + ");'>矫正</a>";
+						}
+	}else{
+		if(row.status === 0 || row.status === 2 || row.status === 3){
+		 btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return c(" + row.id + ");'>催报</a>";
+        btns += "批次<a href='javascript:'  style='padding-right:10px;'  onclick='return changeBatch(" + row.id+","+ ${form.id}+ ",0);'>一</a>";
+	 	 btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return changeBatch(" + row.id+","+ ${form.id}+ ",1);'>二</a>";
+	 	 	 btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return changeBatch(" + row.id+","+ ${form.id}+ ",2);'>三</a>";
+	 	 	 	 btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return changeBatch(" + row.id+","+ ${form.id}+ ",3);'>珠三角</a>";
+		  			if(row.status!=0){
+						btns += "<a href='javascript:' title='注意：本功能是针对行政村有编制规划设计村数（个）和9项指标数据出错时用的，将更新至最新数据信息' style='padding-right:10px;'  onclick='return changeQuarter(" + row.id+ ");'>矫正</a>";
+					}
+		}
+	     if(row.status === 1 || row.status === 4){
+	          btns += "<a href='javascript:' style='padding-right:10px;'  onclick='return cc(" + row.id + ");'>退回</a>";
+	   btns += "批次<a href='javascript:'  style='padding-right:10px;'  onclick='return changeBatch(" + row.id+","+ ${form.id}+ ",0);'>一</a>";
+	 	 btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return changeBatch(" + row.id+","+ ${form.id}+ ",1);'>二</a>";
+	 	 	 btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return changeBatch(" + row.id+","+ ${form.id}+ ",2);'>三</a>";
+	 	 	 	 btns += "<a href='javascript:'  style='padding-right:10px;'  onclick='return changeBatch(" + row.id+","+ ${form.id}+ ",3);'>珠三角</a>";
+		 				if(row.status!=0){
+						btns += "<a href='javascript:' title='注意：本功能是针对行政村有编制规划设计村数（个）和9项指标数据出错时用的，将更新至最新数据信息' style='padding-right:10px;'  onclick='return changeQuarter(" + row.id+ ");'>矫正</a>";
+					}
+		 }
+		if(row.status !== -1){
+	     if(row.disabled == false){
+	       btns += "<a href='javascript:' style='padding-right:10px;'  onclick='return ban(" + row.id + ");'>禁止</a>";
+	     }else{
+	       btns += "<a href='javascript:' style='padding-right:10px;'  onclick='return regain(" + row.id + ");'>恢复</a>";
+	     }
+		}
+	}
+	
+	return btns;
+}
+function c(id){
+	if(confirm("是否确定进行催报？")){
+		lock("开始催报...");
+		jQuery.get(
+			id + "!report.urge", 
+			function(rd){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}
+			});
+	}
+}
+function cc(id){
+	if(confirm("是否确定进行退回？")){
+		lock("开始退回...");
+		jQuery.get(
+			id + "!report.back", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+function ban(id){
+	if(confirm("是否确定进行禁止上报？")){
+		lock("开始禁止上报...");
+		jQuery.get(
+			id + "!report.ban", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+function regain(id){
+	if(confirm("是否确定进行恢复上报？")){
+		lock("开始恢复上报...");
+		jQuery.get(
+			id + "!report.regain", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+function unlock(id){
+	if(confirm("是否确定解锁恢复上报？")){
+		lock("开始恢复上报...");
+		jQuery.get(
+			id + "!report.unlock", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}else{
+					jQuery("#_1_1").buptreegrid("reload");
+				}
+			});
+	}
+}
+#end
+function changeBatch(id,quarterId,batch){
+//alert(id+","+quarterId+","+batch);
+
+
+if(confirm("是否确定修改？")){
+		lock("开始修改...");
+		var timestamp = Date.parse(new Date());
+		jQuery.get(
+	timestamp+"/"+id + "/"+quarterId+"/"+batch+"!index.changeBatch", 
+			function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error==10){
+				
+					alert("修改成功,"+data.msg);
+					return false;
+				}else{
+			//	alert(data.error);
+				alert(data.msg);
+					
+				}
+			});
+	}
+
+}
+function changeQuarter(id){
+//alert(id+","+quarterId+","+batch);
+
+if(confirm("是否确定更新本季度9项指标和行政村有编制规划设计村数（个）至最新数据？")){
+		lock("开始修正...");
+		
+		jQuery.get(
+		"index.changeQuarterReport?id="+id, 
+			function(data){
+				jQuery.unblockUI();
+				
+				parent.location.reload();
+					return false;	
+				
+			});
+	}
+
+}
+jQuery(function(){
+	jQuery("#_1_0").bupborderlayout();
+	jQuery("#_1_1").buptreegrid();
+});
+</script>

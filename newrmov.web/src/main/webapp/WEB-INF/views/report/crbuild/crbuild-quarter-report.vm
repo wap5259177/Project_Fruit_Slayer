@@ -1,0 +1,75 @@
+﻿<div id="$di.id" data-settings='buttons:"#${di.id}_buttons"' title="$!{title}" style="width:800px;height:530px;" modal='true'>
+	<div id="_2_0" fit="true">
+	<form id='formid' method='post'>
+		<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:90px;padding:5px 0 0 0;overflow:hidden;color:#6699cc;font-size:24px;">
+			$title
+			<div style="font-size:14px;margin:0 auto;color:green;">(截止时间：${deadline})
+			 <!--<span style="float:right;padding-right:20px;"><a class="bupabutton" style="background-color:#eee;border:#ccc 1px solid;padding:3px 5px;border-radius:5px;" href="index.excel?id=$itemId" data-settings="iconClassname:'icon-excel'"
+		     target="_self">导出Excel</a></span>
+		     -->
+		    </div>
+		    #if($!{item.batch.quarter.remark}!='')
+		    <div style="font-size:16px;margin:0 auto;color: red;"><span style="font-size:26px;">注意：</span>$!{item.batch.quarter.remark}</div>
+		    #end
+		</div>
+		<div data-settings="zone:'center',border:false" style="padding:0 13px;">
+			#parse("report/crbuild/crbuild-quarter-report-content.vm")
+		</div>
+		<div data-settings="zone:'south',border:false" style='border-top:#ddd 1px solid;height:39px;padding:5px 0 0 33px;'>
+			<span style='padding-right:20px;'>填报单位：（加盖公章）</span>
+			<span style='padding-right:20px;'>填报人：<input type='text' id='reportName' name='reportName' value='$!{item.reportName}' /></span>
+			<span style='padding-right:20px;'>填报时间：<input type='text' id='reportDate' name='reportDate' value='$!{item.reportDate}'/></span>
+		</div>
+	</form>
+	</div>
+</div>
+
+#if($reportable)
+	<div id="${di.id}_buttons"><button onclick='saveReport();'>暂存</button></div>
+#end
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery("#_2_0").bupborderlayout();
+		$('#reportDate').bupdateinput({
+	    	plyWidth:210,
+	    	editable:false             
+		});
+		//$('.number').each(function(i, v){
+		//	var vf = v.value;
+		//	if(!$.isNumeric(vf) || vf == 0){
+		//		v.value = '0';
+		//	}
+		//});
+		//$('.bupnuminput-0').bupnuminput({
+		//    min:0,
+		 //   precision:0           
+		//});
+	});
+	
+	function saveReport(){
+		//document.getElementById("formid").submit();
+		$('.number').each(function(i, v){
+			var vf = v.value;
+			if(!$.isNumeric(vf) || vf == 0){
+				v.value = '0';
+			}
+		});
+		$('.bupnuminput-0').bupnuminput({
+		    min:0,
+		    precision:0           
+		});
+		
+		$('#formid').bupform('submit', {
+			cache:false,
+			url: "report.save",
+		    onSubmit: function(){
+		    	//return false   会阻止表单提交提交
+		    },
+		    success: function(data){
+		    	//处理异步提交后返回的数据
+		    	alert('暂存成功!');
+		    }
+	  }); 
+	}
+	
+</script>

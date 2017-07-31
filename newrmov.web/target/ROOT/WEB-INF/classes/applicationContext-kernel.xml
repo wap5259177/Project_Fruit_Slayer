@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<s:beans xmlns="http://schemas.bonoon.cn/kernel" 
+	xmlns:s="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://schemas.bonoon.cn/kernel
+		http://schemas.bonoon.cn/kernel/kernel-3.0.xsd">
+	<modules id="moduleBean" path="s">
+		<name>广东省新农村连片示范建设工程管理信息平台</name>
+		<style logo="/r/images/sheng-20150412.png">
+			<foot>2015©省委农办 / 版本：NV.${current.version}</foot>
+		</style>
+		<login layout="login/layout-login-3.vm">
+			<foot>2015©省委农办 / 版本：NV.${current.version}</foot>
+		</login>
+		<!-- <embed name="帮助文档" url="/html/help/platform.html" ordinal="100" helper="true" iconCls="icon-help"/> -->
+		<module id="CL_SYSTEM" path="cl" name="[县级]示范片区台账管理子系统" 
+			thumbnail="/r/images/county.png" 
+			logo="/r/images/xian-20150412.png"><!-- logo=" /r/images/xian-7.png-->
+			<name>[县级]示范片区台账管理子系统</name>
+			<embed name="工作事项" url="/s/cl/host.embed" ordinal="0"/>
+			<embed name="帮助文档" url="/html/help/county.html" ordinal="100" helper="true" iconCls="icon-help"/>
+			<embed name="信息专员" url="/s/cl/commissioner.embed" ordinal="200"/>
+			<channel id="1" name="基础台账" ordinal="0">
+				<menu id="4" name="台账封面" ordinal="0" href="area/uncommitted"/>
+				<menu id="1" name="主体村" ordinal="10">
+					<menu id="5" name="行政村" ordinal="0" href="/s/cl/area/administration/rural"></menu>
+					<menu id="1" name="自然村" ordinal="10" href="/s/cl/area/core/rural"></menu>
+				</menu>
+				<!-- <menu id="5" name="行政村" ordinal="10" href="/s/cl/area/administration/rural"></menu> -->
+				<menu id="2" name="非主体村" ordinal="11">
+					<menu id="1" name="自然村" ordinal="10" href="/s/cl/area/peripheral/rural"></menu>
+					<menu id="7" name="行政村" ordinal="0" href="/s/cl/area/nocore/administration/rural"></menu>
+				</menu>
+				<menu id="3" name="产业发展" ordinal="12" href="/s/cl/area/industry"></menu>
+				<menu id="6" name="等待提交" ordinal="21" href="area/tocommit" />
+				
+				
+				
+				<!-- <menu id="3" name="驳回修改" ordinal="2" href="area/back" />
+				<menu id="1" name="待审核申报" ordinal="3" href="area/pendingaudit" />
+				<menu id="4" name="通过" ordinal="4" href="area/finish" />
+				<menu id="5" name="不通过" ordinal="5" href="area/closed" /> -->
+			</channel>
+			<channel id="3" name="项目库" ordinal="10">
+				<menu name="项目基本情况" id="0" ordinal="0" href="/s/cl/project/status">
+					<menu id="5" name="进行中" ordinal="0" href="/s/cl/project/running" />
+					<menu id="6" name="已竣工/终止" ordinal="1" href="/s/cl/project/finish" />
+					<menu id="7" name="退回" ordinal="1" href="/s/cl/project/back" />
+					<!-- <menu id="8" name="放弃" ordinal="2" href="/s/cl/project/giveup" /> -->
+				</menu>
+				<menu name="月度跟踪汇报" id="7" ordinal="7" href="/s/cl/project/report" />
+				<menu name="月度上报情况统计" id="8" ordinal="7" href="/s/cl/project/report/result" />
+				
+				
+				<!-- <menu name="项目季报" id="8" ordinal="8" href="/s/cl/project/report" />
+				<menu name="项目年报" id="3" ordinal="9" href="/s/cl/project/report" /> -->
+			</channel>
+			<channel id="6" name="建设成效" ordinal="20">
+				<menu id="1" name="人居环境整治" ordinal="0" href="re" />
+				<menu id="2" name="照片管理" ordinal="10" href="pm" />
+				<menu id="3" name="视频管理" ordinal="20" href="vm" />
+				<!-- <menu id="4" name="示范片地图" ordinal="30" href="ditu" /> -->
+				<menu id="4" name="示范片地图编辑" ordinal="30" href="ditu/editor" />
+				<menu id="5" name="示范片地图查看" ordinal="40" href="ditu/view" />
+				<menu id="6" name="台账查阅" ordinal="50" href="cmav" />
+				<menu id="7" name="示范片区分布情况" ordinal="35" href="/s/html/distribution" />
+				<!-- <menu id="5" name="进行中" ordinal="1" href="planning/running" />
+				<menu id="4" name="结束" ordinal="2" href="planning/finish" />
+				<menu id="6" name="放弃" ordinal="3" href="planning/giveup" /> -->
+			</channel>
+			<channel id="7" name="报表统计" ordinal="30">
+				<menu id="1" name="台账封面汇总统计" ordinal="0" href="/s/lls/sma" />
+				<menu id="2" name="主体村情况汇总统计" ordinal="10" href="/s/lls/scr" />
+				<menu id="3" name="非主体村情况汇总统计" ordinal="20" href="/s/lls/spr" />
+				<menu id="4" name="产业发展情况汇总统计" ordinal="30" href="/s/lls/smi" />
+				<menu id="5" name="工程项目库汇总统计" ordinal="40" href="/s/lls/spj" />
+				<menu id="6" name="人居环境汇总统计" title="完成人居环境综合整治自然村汇总统计" ordinal="50" href="/s/lls/sre" />
+				
+				<!-- 新增 资金使用图 -->
+				<menu name="资金使用统计" id="8" ordinal="80" href="/s/cl/project/report/funds/used" />
+				<menu name="项目单项资金使用统计" id="9" ordinal="90" href="/s/cl/project/report/allfunds/used" />
+				
+			</channel>
+			<channel id="2" name="文档管理" ordinal="40">
+				<menu id="1" name="上报管理" ordinal="0">
+				  	<menu id="1" name="待上报" ordinal="0" href="/s/document/report"/>
+				  	<menu id="3" name="已上报" ordinal="1" href="/s/document/report/finish"/>
+				  	<!-- <menu id="20" name="补报申请" ordinal="5" href="/s/document/apply/supplement">
+				  		<menu id="1" name="补报申请查询" ordinal="0" href="/s/document/apply/supplement/search"/>
+				  	</menu> -->
+				  	<menu id="5" name="补报文档" ordinal="9" href="/s/document/supplement"/>
+			  	</menu>
+				<menu id="2" name="资源共享" ordinal="10">
+					<menu id="801003" name="资源列表" ordinal="3" href="/s/file/friend_share"/>
+					<menu id="801004" name="我的分享" ordinal="22" href="/s/file/share"/>
+				</menu>
+				<!-- <menu id="1" name="草稿" ordinal="0" href="planning/draft" />
+				<menu id="5" name="进行中" ordinal="1" href="planning/running" />
+				<menu id="4" name="结束" ordinal="2" href="planning/finish" />
+				<menu id="6" name="放弃" ordinal="3" href="planning/giveup" /> -->
+			</channel>
+			
+			
+			<channel id="45" name="幸福村居项目库" ordinal="55"  href="/s/cl/fv/county/report">
+			</channel>
+			
+			
+			
+			<channel id="25" name="幸福村居" ordinal="50">
+				<menu id="1" name="村居信息" ordinal="0" href="/s/cl/bfv" />
+				<menu id="2" name="报表填报" ordinal="10" href="/s/cl/fv/report" />
+				<menu id="3" name="报表统计" ordinal="11" href="/s/cl/fv/statistics" />
+			</channel>
+			<channel id="5" name="名村名镇" ordinal="60">
+				<menu id="1" name="名村申报" ordinal="0">
+					<menu id="1" name="第一批申报" ordinal="0" href="/s/cl/village/uncommitted/2012" />
+					<menu id="2" name="第二批申报" ordinal="1" href="/s/cl/village/uncommitted/2013" />
+					<menu id="6" name="退回修改" ordinal="2" href="/s/cl/village/back" />
+					<menu id="3" name="待审核申报" ordinal="3" href="/s/cl/village/pendingaudit" />
+					<menu id="4" name="通过审核的申报" ordinal="4" href="/s/cl/village/finish" />
+					<menu id="5" name="已关闭申报" ordinal="5" href="/s/cl/village/closed" />
+				</menu>
+				<menu id="5" name="名镇申报" ordinal="6" >
+					<menu id="2" name="第一批申报" ordinal="0" href="/s/cl/town/uncommitted/2012" />
+					<menu id="7" name="第二批申报" ordinal="1" href="/s/cl/town/uncommitted/2013" />
+					<menu id="6" name="退回修改" ordinal="2" href="/s/cl/town/back" />
+					<menu id="3" name="待审核申报" ordinal="3" href="/s/cl/town/pendingaudit" />
+					<menu id="4" name="通过审核的申报" ordinal="4" href="/s/cl/town/finish" />
+					<menu id="5" name="已关闭申报" ordinal="5" href="/s/cl/town/closed" />
+				</menu>
+			</channel>
+			<channel id="15" name="工作日志" ordinal="70">
+				<menu id="1" name="工作日志" ordinal="0" href="/s/work/plan"/>
+			</channel>
+			<channel id="16" name="季度报表" ordinal="11">
+				<!-- <menu id="1" name="建设进展汇总统计" ordinal="0" href="/s/lls/sms"/> -->
+				<!--  <menu id="1" name="季度报表填报" ordinal="0" href="/s/lls/sms/report"/>-->
+				<menu id="1" name="季度报表填报" ordinal="0" >
+					<menu id="1" name="工程进展" ordinal="10" href="/s/lls/sms/report"/>
+					<menu id="2" name="主体村建设" ordinal="20" href="/s/lls/sms/report/crbuild"/>
+				</menu>
+				
+				
+				<menu id="2" name="季度报表汇总表" ordinal="10" href="/s/lls/sms/summary"/> 
+			</channel>
+		</module>
+		<module id="ML_SYSTEM" path="ml" name="[市级]示范片区台账管理子系统" 
+			thumbnail="/r/images/city.png" 
+			logo="/r/images/shi-20150412.png">
+			<name>[市级]示范片区台账管理子系统</name>
+			<embed name="工作事项" url="/s/ml/host.embed" ordinal="0"/>
+			<embed name="帮助文档" url="/html/help/municipal.html" ordinal="100" helper="true" iconCls="icon-help"/>
+			<embed name="信息专员" url="/s/ml/commissioner.embed" ordinal="200"/>
+			<channel id="4" name="示范片台账管理" ordinal="0">
+				<!-- <menu id="4" name="示范片区资金" ordinal="10" href="funds/area" /> -->
+				<menu id="3" name="审核清单" ordinal="0" href="cmaa" />
+				<menu id="1" name="台账查阅" ordinal="10" href="cmav" />
+				<menu id="2" name="示范片地图" ordinal="10" href="ct/ditu" />
+				<menu id="7" name="示范片区分布情况" ordinal="35" href="/s/html/distribution" />
+			</channel>
+			<channel id="1" name="进度跟踪" ordinal="1">
+				<menu id="1" name="项目进度" ordinal="0" href="ppt" />
+				<menu id="2" name="项目月报情况" ordinal="10" href="/s/cls/project" />
+			</channel>
+			<channel id="7" name="报表统计" ordinal="3">
+				<menu id="1" name="台账封面汇总统计" ordinal="0" href="/s/cls/sma" />
+				<menu id="2" name="主体村情况汇总统计" ordinal="10" href="/s/cls/scr" />
+				<menu id="3" name="非主体村情况汇总统计" ordinal="20" href="/s/cls/spr" />
+				<menu id="4" name="产业发展情况汇总统计" ordinal="30" href="/s/cls/smi" />
+				<menu id="5" name="工程项目库汇总统计" ordinal="40" href="/s/cls/spj" />
+				<menu id="6" name="人居环境汇总统计" title="完成人居环境综合整治自然村汇总统计" ordinal="50" href="/s/cls/sre" />
+								
+				<menu name="（市）资金使用统计" id="7" ordinal="50" href="/s/cls/project/report/funds/used" />
+				<menu id="8" name="项目单项资金使用统计" ordinal="60" href="/s/cls/project/report/allfunds/used" />
+			</channel>
+			<channel id="5" name="文档管理" ordinal="11">
+				<menu id="1" name="上报管理" ordinal="0">
+				  	<menu id="1" name="待上报" ordinal="0" href="/s/document/report"/>
+				  	<menu id="3" name="已上报" ordinal="1" href="/s/document/report/finish"/>
+				  	<!-- <menu id="2" name="补报申请" ordinal="5" href="/s/document/apply/supplement">
+				  		<menu id="1" name="补报申请查询" ordinal="0" href="/s/document/apply/supplement/search"/>
+				  	</menu> -->
+				  	<menu id="5" name="补报文档" ordinal="9" href="/s/document/supplement"/>
+			  	</menu>
+				<menu id="2" name="资源共享" ordinal="10">
+					<menu id="1" name="资源列表" ordinal="3" href="/s/file/city_friend_share"/>
+					<menu id="11" name="我的分享" ordinal="22" href="/s/file/share"/>
+				</menu>
+			</channel>
+			<channel id="3" name="名镇名村管理" ordinal="50">
+				<menu id="2" name="名镇申报审核" ordinal="0" href="audit/town" />
+				<menu id="1" name="名村申报审核" ordinal="1" href="village/pendingaudit" />
+				
+				<menu id="4" name="名村信息" ordinal="5" href="village/finish">
+					<menu id="6" name="驳回名村申报" ordinal="2" href="/s/ml/village/back" />
+					<menu id="5" name="已关闭名村申报" ordinal="5" href="/s/ml/village/closed" />
+				</menu>
+				
+				<menu id="3" name="名镇信息" ordinal="4" href="town/finish" >
+					<menu id="6" name="驳回名镇申请" ordinal="2" href="/s/ml/town/back" />
+					<menu id="5" name="已关闭名镇申请" ordinal="5" href="/s/ml/town/closed" />
+				</menu>
+			</channel>
+			<channel id="15" name="工作日志" ordinal="16">
+				<menu id="1" name="工作日志" ordinal="0" href="/s/work/plan"/>
+			</channel>
+			<channel id="25" name="幸福村居" ordinal="5">
+				<menu id="2" name="报表审核" ordinal="10" href="fv/audit" />
+				<menu id="3" name="报表统计" ordinal="11" href="fv/statistics" />
+			</channel>
+			
+			
+			<channel id="30" name="幸福村居项目库" ordinal="6" href="fv/city/statistics">
+				<!-- <menu id="3" name="报表统计" ordinal="11" href="fv/city/statistics" /> -->
+			</channel>
+			
+			
+			<channel id="35" name="报表填报" ordinal="4">
+				<menu id="2" name="摸底调查" ordinal="10" href="ss/report" />
+				<menu id="3" name="摸底调查汇总表" ordinal="11" href="ss/summary" />
+				<menu id="4" name="资金填报" ordinal="11" href="/s/ml/information/city/invest" />
+				<menu id="5" name="自然村填报" ordinal="11" href="/s/ml/information/city/village" />
+			</channel>
+			<channel id="36" name="季度报表" ordinal="36">
+				<menu id="1" name="建设进展汇总统计" ordinal="0" href="/s/cls/sms"/>
+				<!--  <menu id="2" name="季度报表审核" ordinal="10" href="/s/cls/macqa"/>-->
+				<menu id="2" name="季度报表审核" ordinal="10">
+					<menu id="2" name="工程进展" ordinal="10" href="/s/cls/macqa"/>
+					<menu id="3" name="主体村建设" ordinal="20" href="/s/cls/macqa/crbuild"/>
+				</menu>
+				
+			</channel>
+		</module>
+		
+		<module id="PL2_SYSTEM" path="" name="[省级-展示]示范片区台账管理子系统" thumbnail="/r/images/province.png">
+			<name>[省级]示范片区台账管理子系统</name>
+			<embed name="工作事项" url="/s/pl/host.embed" ordinal="0"/>
+			<embed name="帮助文档" url="/html/help/municipal.html" ordinal="100" helper="true" iconCls="icon-help"/>
+			<embed name="信息专员" url="/s/pl/commissioner.embed" ordinal="200"/>
+			
+			<channel id="100" name="新农村示范片" ordinal="10"  href="pl/newrural/area">
+			</channel>
+			<channel id="101" name="统计查询" ordinal="20" >
+				<menu id="1" name="台账封面汇总统计">
+					<menu id="1" name="（一）示范片所在县(市、区）基本情况" ordinal="0" href="/s/pls/show/sma1" />
+					<menu id="2" name="（二）示范片总体情况" ordinal="10" href="/s/pls/show/sma2" />
+					<menu id="3" name="（三）连片建设基本情况" ordinal="20" href="/s/pls/show/sma3" />
+				</menu>
+				<menu id="2" name="行政村情况汇总统计" >
+					<menu id="1" name="（一）基本情况" ordinal="0" href="/s/pls/show/sar1" />
+					<menu id="2" name="（二）资源优势情况" ordinal="10" href="/s/pls/show/sar2" />
+					<menu id="3" name="（三）农村公共服务情况" ordinal="20" href="/s/pls/show/sar3" />
+					<menu id="4" name="（四）规划进展" ordinal="30" href="/s/pls/show/sar4" />
+				</menu>
+				<menu id="3" name="主体村情况汇总统计" >
+					<menu id="1" name="（一）基本情况" ordinal="0" href="/s/pls/show/scr1" />
+					<menu id="2" name="（二）基础设施建设和环境卫生整治情况" ordinal="10" href="/s/pls/show/scr2" />
+					<menu id="3" name="（三）农村旧房整治情况" ordinal="20" href="/s/pls/show/scr3" />
+					<menu id="4" name="（四）村民理事会和民生问题" ordinal="30" href="/s/pls/show/scr4" />
+					
+				</menu>
+				<menu id="4" name="非主体村情况汇总统计" >
+					<menu id="1" name="（一）基本情况" ordinal="0" href="/s/pls/show/spr1" />
+					<menu id="2" name="（二）基础设施建设和环境卫生整治情况" ordinal="10" href="/s/pls/show/spr2" />
+					<menu id="3" name="（三）农村旧房整治情况" ordinal="20" href="/s/pls/show/spr3" />
+					<menu id="4" name="（四）农村公共服务情况" ordinal="30" href="/s/pls/show/spr4" />
+					<menu id="5" name="（五）规划进展、村民理事会" ordinal="40" href="/s/pls/show/spr5" />
+				</menu>
+				<menu id="5" name="产业发展情况汇总统计"  href="/s/pls/smi">
+					<!--  <menu id="1" name="基本情况" ordinal="0" href="/s/pls/show/smi1" />
+					<menu id="2" name="主要经营范围" ordinal="10" href="/s/pls/show/smi2" />-->
+				</menu>
+				<menu id="6" name="工程项目库汇总统计" >
+					<menu id="1" name="（一）基本情况" ordinal="0" href="/s/pls/show/spj1" />
+					<!--  <menu id="2" name="（二）项目类别分类汇总" ordinal="10" href="/s/pls/show/spj2" />-->
+					<menu id="3" name="（二）计划总投入资金" ordinal="20" href="/s/pls/show/spj3" />
+					<menu id="4" name="（三）累计完成总投入资金" ordinal="30" href="/s/pls/show/spj4" />
+				</menu>
+				<menu id="7" name="人居环境汇总统计" title="完成人居环境综合整治自然村汇总统计" ordinal="60" href="/s/pls/sre" />
+				
+				<menu id="8" name="摸底调查汇总表" ordinal="80" href="/s/pl/ss/summary" /> <!-- 应该放到统计查询频道里 -->
+				<menu id="9" name="季度报表统计" ordinal="90" href="/s/pls/province/sms"/> <!-- 应该放到统计查询频道里 -->
+			</channel>
+			<channel id="102" name="全省新农村建设" ordinal="30" href="pl/all/newrural/area">
+			</channel>
+			
+			
+			
+			<channel id="103" name="幸福村居项目库" ordinal="40" >
+				<menu id="1" name="报表填报" ordinal="0" href="pl/felicity/report" />
+				<menu id="3" name="报表统计" ordinal="11" href="/s/ml/fv/city/statistics" />
+			</channel>
+			
+			
+			
+			
+			<channel id="104" name="名镇名村示范片" ordinal="50" >
+				<menu id="1" name="台账查阅" ordinal="0"  href="pl/newrural/area4"/>
+			</channel>
+			<channel id="105" name="管理员" ordinal="0" >
+				<menu id="1" name="基础数据" ordinal="10">
+					<menu id="2" name="片区管理" ordinal="0" href="/s/pl/ma/manage" />	
+					<menu id="1" name="单位管理" ordinal="10" href="/s/cl/construction" />
+					<menu id="3" name="项目月报管理" ordinal="20" href="/s/pl/ma/project/report" />	
+					<menu id="4" name="项目管理" ordinal="30"  >
+						<menu id="12" name="项目图片管理" ordinal="11"
+							href="/s/pl/ma/project/projectImageManage" />
+						<menu id="1" name="项目管理" ordinal="10" href="/s/pl/ma/project"/>
+						<menu id="2" name="查询导出" ordinal="10" href="/s/pl/ma/project/export"/>
+					</menu>	
+					<menu id="10" name="文档报送管理" ordinal="50" href="/s/pl/require/report" />
+					<menu id="40" name="片区排序" ordinal="60" href="/s/pl/order/pmav" />
+					
+				</menu>
+				
+				
+				<menu id="2" name="报表填报" ordinal="20">
+					
+					<menu id="2" name="摸底调查" ordinal="1" href="/s/pl/ss/manage" />
+					<!-- <menu id="3" name="摸底调查汇总表" ordinal="11" href="/s/pl/ss/summary" /> --><!-- 应该放到统计查询频道里 -->
+					
+					<menu id="1" name="季度报表" ordinal="20" >
+						<menu id="1" name="工程进展情况" ordinal="10" href="/s/pls/sms"/>
+						<menu id="2" name="主体村建设情况" ordinal="20" href="/s/pls/sms/crbuild"/>
+					</menu>
+					<!--  <menu id="1" name="季度报表" ordinal="20" href="/s/pls/sms"/>-->
+					
+					<menu id="5" name="项目资金投入" ordinal="25" href="/s/pls/sms/invest"/>
+					<!-- <menu id="2" name="季度报表统计" ordinal="21" href="/s/pls/province/sms"/> --><!-- 应该放到统计查询频道里 -->
+					<menu id="3" name="资金投入情况" ordinal="30" href="/s/pl/information/invest" />
+					<menu id="4" name="自然村情况" ordinal="40" href="/s/pl/information/village" />
+					
+					
+					
+				</menu>
+				<menu id="3" name="文档管理" ordinal="30">
+					<menu id="1" name="文档接收">
+						<menu id="801006" name="当前报送通知" ordinal="6" href="/s/require/report_add"/>
+						<menu id="801009" name="归档报送通知" ordinal="7" href="/s/require/report_ended"/>
+					  	<menu id="2" name="补报申请审核" ordinal="8" href="/s/require/apply/supplement">
+					  		<menu id="1" name="补报申请查询" ordinal="0" href="/s/require/apply/supplement/search"/>
+					  	</menu>
+						<menu id="801011" name="补报" ordinal="10" href="/s/require/report_supplement"/>
+						<menu id="801010" name="统计上报情况" ordinal="11" href="/s/report/statistics"/>
+					</menu>
+					<menu id="10" name="文档库">
+					  	<menu id="10" name="目录文档" ordinal="21" href="/s/file/managemant" />
+					  	<menu id="11" name="我的分享" ordinal="22" href="/s/file/share"/>
+					  	<menu id="12" name="资源共享" ordinal="23" href="/s/file/friend_share"/>
+					  	<menu id="13" name="回收站" ordinal="24" href="/s/file/recyclebin" scope="GLOBAL"/>
+					 	<menu id="14" name="用户组管理" ordinal="25" href="/s/file/usergroup"/>
+					  	<!-- <menu id="14" name="搜索" ordinal="25" href="/s/file/search"/> -->
+					</menu>
+				</menu>
+				<menu id="15" name="工作日志" ordinal="0" href="/s/province/work/plan"/>
+				<tabs id="20" name="参数配置">
+					<tab id="1" ordinal="10" name="片区台账参数" class="cn.bonoon.core.configs.ModelAreaConfig" scope="GLOBAL"/>
+					<tab id="2" ordinal="20" name="项目配置参数" class="cn.bonoon.core.configs.ProjectConfig" scope="GLOBAL"/>
+				</tabs>
+			</channel>
+			
+		</module>
+		
+		
+		
+		<module id="PL_SYSTEM" path="" name="[省级]示范片区台账管理子系统" thumbnail="/r/images/province.png">
+			<name>[省级]示范片区台账管理子系统</name>
+			<embed name="工作事项" url="/s/pl/host.embed" ordinal="0"/>
+			<embed name="帮助文档" url="/html/help/municipal.html" ordinal="100" helper="true" iconCls="icon-help"/>
+			<embed name="信息专员" url="/s/pl/commissioner.embed" ordinal="200"/>
+			
+			
+			<channel id="1" name="新农村示范片建设" ordinal="0">
+				<menu id="1" name="台账查阅" ordinal="0" href="pl/pmav" />
+				<menu id="2" name="示范片地图" ordinal="10" href="pl/ditu" />
+				<menu id="3" name="全景图片编辑" ordinal="20" href="pl/ditu/panorama" />
+				<menu id="7" name="示范片区分布情况" ordinal="35" href="/s/html/distribution" />
+			</channel>
+			
+			
+			<channel id="66" name="省级新农村示范片区建设" ordinal="1">
+				<menu id="1" name="台账查阅" ordinal="0" href="pl/optimize/pmav" />
+				<menu id="2" name="示范片地图" ordinal="10" href="pl/ditu" />
+				<menu id="3" name="全景图片编辑" ordinal="20" href="pl/ditu/panorama" />
+				<menu id="7" name="示范片区分布情况" ordinal="35" href="/s/html/distribution" />
+				<menu id="4" name="片区排序" ordinal="30" href="pl/order/pmav" />
+			</channel>
+			
+			<channel id="2" name="成果展示" ordinal="10" href="pl/result/show"></channel>
+			
+			<channel id="3" name="建设进度" ordinal="15">
+				<menu id="2" name="资金使用报表" ordinal="0" href="report/funds/used" />
+				<menu id="3" name="进度报表" ordinal="1" href="report/schedule/job" />
+			</channel>
+
+			<channel id="7" name="报表统计" ordinal="20">
+				<menu id="1" name="台账封面汇总统计" ordinal="0" href="/s/pls/sma" />
+				<menu id="2" name="行政村情况汇总统计" ordinal="10" href="/s/pls/sar" />
+				<menu id="3" name="主体村情况汇总统计" ordinal="20" href="/s/pls/scr" />
+				<menu id="4" name="非主体村情况汇总统计" ordinal="30" href="/s/pls/spr" />
+				<menu id="5" name="产业发展情况汇总统计" ordinal="40" href="/s/pls/smi" />
+				<menu id="6" name="工程项目库汇总统计" ordinal="50" href="/s/pls/spj" />
+				<menu id="7" name="人居环境汇总统计" title="完成人居环境综合整治自然村汇总统计" ordinal="60" href="/s/pls/sre" />
+				<menu id="8" name="全省汇总统计" ordinal="70" href="/s/pls/nvst" >
+					<menu id="1" name="自然村汇总统计" ordinal="0" href="/s/pls/nvstv" />
+					<menu id="2" name="人口数汇总统计" ordinal="10" href="/s/pls/nvsth" />
+				</menu>
+				<menu id="9" name="年度人均纯收入" ordinal="80" href="/s/pls/aim" />
+			</channel>
+			<channel id="4" name="基础数据" ordinal="23">
+				<menu id="1" name="单位管理" ordinal="0" href="/s/cl/construction" />
+				<menu id="2" name="片区管理" ordinal="10" href="/s/pl/ma/manage" />	
+				<menu id="3" name="项目月报管理" ordinal="20" href="/s/pl/ma/project/report" />	
+				<menu id="4" name="项目管理" ordinal="30" href="/s/pl/ma/project" />	
+				<menu id="10" name="文档报送管理" ordinal="50" href="/s/pl/require/report" />
+				<menu id="40" name="片区排序" ordinal="60" href="/s/pl/order/pmav" />
+				<tabs id="20" name="参数配置">
+					<tab id="1" ordinal="10" name="片区台账参数" class="cn.bonoon.core.configs.ModelAreaConfig" scope="GLOBAL"/>
+					<tab id="2" ordinal="20" name="项目配置参数" class="cn.bonoon.core.configs.ProjectConfig" scope="GLOBAL"/>
+				</tabs>
+				
+			</channel>
+			<channel id="5" name="文档管理" ordinal="33">
+				<menu id="1" name="文档接收">
+					<menu id="801006" name="当前报送通知" ordinal="6" href="/s/require/report_add"/>
+					<menu id="801009" name="归档报送通知" ordinal="7" href="/s/require/report_ended"/>
+				  	<menu id="2" name="补报申请审核" ordinal="8" href="/s/require/apply/supplement">
+				  		<menu id="1" name="补报申请查询" ordinal="0" href="/s/require/apply/supplement/search"/>
+				  	</menu>
+					<menu id="801011" name="补报" ordinal="10" href="/s/require/report_supplement"/>
+					<menu id="801010" name="统计上报情况" ordinal="11" href="/s/report/statistics"/>
+				</menu>
+				<menu id="10" name="文档库">
+				  	<menu id="10" name="目录文档" ordinal="21" href="/s/file/managemant" />
+				  	<menu id="11" name="我的分享" ordinal="22" href="/s/file/share"/>
+				  	<menu id="12" name="资源共享" ordinal="23" href="/s/file/friend_share"/>
+				  	<menu id="13" name="回收站" ordinal="24" href="/s/file/recyclebin" scope="GLOBAL"/>
+				 	<menu id="14" name="用户组管理" ordinal="25" href="/s/file/usergroup"/>
+				  	<!-- <menu id="14" name="搜索" ordinal="25" href="/s/file/search"/> -->
+				</menu>
+		    </channel>
+			<channel id="15" name="工作日志" ordinal="16">
+				<menu id="1" name="工作日志" ordinal="0" href="/s/province/work/plan"/>
+			</channel>
+			<channel id="25" name="幸福村居" ordinal="5">
+				<menu id="3" name="报表统计" ordinal="11" href="/s/pl/fv/statistics" />
+			</channel>
+			<channel id="35" name="报表填报" ordinal="4">
+				<menu id="2" name="摸底调查" ordinal="1" href="/s/pl/ss/manage" />
+				<menu id="3" name="摸底调查汇总表" ordinal="11" href="/s/pl/ss/summary" />
+				<menu id="4" name="自然村情况" ordinal="11" href="/s/pl/information/village" />
+				<menu id="5" name="资金投入情况" ordinal="11" href="/s/pl/information/invest" />
+				
+				
+			</channel>
+			<channel id="36" name="季度报表" ordinal="36">
+				<menu id="1" name="建设进展汇总统计" ordinal="0" href="/s/pls/sms"/>
+				<menu id="2" name="季度报表统计" ordinal="10" href="/s/pls/province/sms"/>
+				<menu id="3" name="数据调整" ordinal="20" href="/s/pl/adjust/maq"/>
+			</channel>
+			<!-- 用于演示 -->
+		</module>
+		<!-- <module id="REPORT_SYSTEM" path="report" name="报表系统" thumbnail="/r/images/report.png">
+			<embed name="帮助文档" url="/html/help/report.html" ordinal="100" helper="true" iconCls="icon-help"/>
+			<channel id="1" name="建设进度" ordinal="0">
+				<menu id="2" name="资金使用报表" ordinal="0" href="funds/used" />
+				<menu id="3" name="进度报表" ordinal="1" href="schedule/job" />
+			</channel>
+		</module> -->
+		<!-- <module id="DOCUMENT_SYSTEM" path="document" name="台账管理系统" thumbnail="/r/images/document.png">
+			<embed name="帮助文档" url="/html/help/document.html" ordinal="100" helper="true" iconCls="icon-help"/>
+			<channel id="2" name="台账据库" ordinal="0">
+				<menu id="2" name="台账管理" ordinal="0" href="audit/area" />
+				<menu id="3" name="他人共享文档" ordinal="1" href="audit/area" />
+				<menu id="1" name="我共享文档" ordinal="2" href="audit/area" />
+				<menu id="4" name="搜索" ordinal="5" href="audit/area" />
+			</channel>
+		</module> -->
+		<!-- <module id="DATA_SYSTEM" path="data" name="基础数据模块" thumbnail="/r/images/data.png">
+			<embed name="帮助文档" url="/html/help/data.html" ordinal="100" helper="true" iconCls="icon-help"/>
+			<channel id="1" name="基础数据库" ordinal="0">
+				<menu id="2" name="公共目录管理" ordinal="0" href="audit/area" />
+				<menu id="3" name="文档类型管理" ordinal="1" href="audit/area" />
+			</channel>
+			<channel id="2" name="项目数据" ordinal="0">
+				<menu id="1" name="项目分类" ordinal="0" href="project/type" />
+			</channel>
+		</module> -->
+		<!-- <module id="FILEMANAGEMENT_SYSTEM" path="file" name="文件管理系统" thumbnail="/res/images/file-management.png">
+			<channel id="801" name="文件管理" ordinal="0">
+			  <menu id="801001" name="目录文档" ordinal="1" href="/s/file/managemant" />
+			  <menu id="801002" name="我的分享" ordinal="2" href="/s/file/share"/>
+			  <menu id="801003" name="好友分享" ordinal="3" href="/s/file/friend_share"/>
+			  <menu id="801004" name="回收站" ordinal="4" href="/s/file/recyclebin"/>
+			  <menu id="801005" name="搜索" ordinal="5" href="/s/file/search"/>
+			  <menu id="801006" name="添加上报记录" ordinal="6" href="/s/require/report_add"/>
+			  <menu id="801009" name="查看上报记录" ordinal="7" href="/s/require/report_ended"/>
+			  <menu id="801011" name="补报" ordinal="10" href="/s/require/report_supplement"/>
+			  <menu id="801007" name="上报文档" ordinal="8" href="/s/document/report"/>
+			  <menu id="801008" name="补报文档" ordinal="9" href="/s/document/supplement"/>
+			  <menu id="801010" name="统计上报情况" ordinal="11" href="/s/report/statistics"/>
+			</channel>
+		</module> -->
+	</modules>
+</s:beans>

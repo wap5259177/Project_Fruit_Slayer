@@ -1,0 +1,103 @@
+<table class='applicant-form'>
+	<tr>
+		<td style='font-weight:bold;' colspan='6'>(一)基本情况</td>
+	</tr>
+	<tr>
+		<td class="tdRight">序号[B2]：</td>
+		<td><input type="text" value='$!{form.code}' name='code' id="code" $!{readonly}/></td>
+		<td class="tdRight" style="width:100px;">村名称[B3]：</td>
+		<td colspan='3'>
+			<input type="text" value='$!{form.town}' readOnly="true" style='width:120px'/>&nbsp;镇
+			<input type="text" value='$!{form.name}' style='width:120px' readOnly="true" />&nbsp;村委会
+		</td>
+	</tr>
+	
+	
+		<tr>
+			<td class="tdRight">自然村个数: </td>
+			<td><input id="natralruralNum" type='text' style="width:60px;" value='$!{form.natrualruralNum}' class='number' readOnly="true" name='natrualruralNum'/>个</td>
+			<td class="tdRight">自然村名单： </td>
+			<td colspan='3'>
+				<textarea  id='natrualruralList'  name='natrualruralList' readOnly="true" >$!{form.natrualruralList}</textarea>
+			</td>
+		</tr>
+	
+	
+	<tr>
+		<td class="tdRight">总面积[B5]：</td>
+		<td colspan='2'><input style="width:60px;" id="ruralArea" type='text' class='number' value='$!{form.ruralArea}' min="0" precision="2" name='ruralArea' $!{readonly}/>亩</td>
+		<td colspan='2' class="tdRight">耕地面积[B6]：</td>
+		<td><input id="arableLand" type='text' style="width:60px;" class='number' value='$!{form.arableLand}' min="0" precision="2" name='arableLand' $!{readonly}/>亩</td>
+	</tr>
+	<tr>
+		<td class="tdRight">户数[B7]：</td>
+		<td><input style="width:60px;" id="houseHold" type='text' value='$!{form.houseHold}' min="0" precision="0" class='number' name='houseHold' $!{readonly}/>户</td>
+		<td class="tdRight">人口数[B8]：</td>
+		<td><input id="population" style="width:50px;" type='text' value='$!{form.population}' min="0" precision="0" class='number' name='population' $!{readonly}/>人</td>
+		<td class="tdRight">劳动力总人数[B9]：</td>
+		<td><input id="labor" type='text' style="width:60px;" value='$!{form.labor}' min="0" precision="0" class='number' name='labor' $!{readonly}/>人</td>
+	</tr>
+	
+	
+	<tr>
+		<td class="tdRight" colspan='2'>贫困户数：</td>
+		<td  ><input style="width:60px;" id="poorHouseHold" type='text' value='$!{form.poorHouseHold}' min="0" precision="0" class='number' name='poorHouseHold' $!{readonly}/>户</td>
+		<td class="tdRight">贫困人口数：</td>
+		<td colspan='2'><input id="poorPopulation" style="width:50px;" type='text' value='$!{form.poorPopulation}' min="0" precision="0" class='number' name='poorPopulation' $!{readonly}/>人</td>
+	</tr>
+	
+	<tr>
+		<td class="tdRight" colspan='2'>低保户数：</td>
+		<td ><input style="width:60px;" id="lowHouseHold" type='text' value='$!{form.lowHouseHold}' min="0" precision="0" class='number' name='lowHouseHold' $!{readonly}/>户</td>
+		<td class="tdRight">低保人口数：</td>
+		<td colspan='2'><input id="lowPopulation" style="width:50px;" type='text' value='$!{form.lowPopulation}' min="0" precision="0" class='number' name='lowPopulation' $!{readonly}/>人</td>
+	</tr>
+	
+	<tr>
+		<td class="tdRight" colspan='2'>五保户数：</td>
+		<td ><input style="width:60px;" id="wubaoHouseHold" type='text' value='$!{form.wubaoHouseHold}' min="0" precision="0" class='number' name='wubaoHouseHold' $!{readonly}/>户</td>
+		<td class="tdRight">需改造的危房户数：</td>
+		<td colspan='2'><input id="dangerHouse" style="width:50px;" type='text' value='$!{form.dangerHouse}' min="0" precision="0" class='number' name='dangerHouse' $!{readonly}/>户</td>
+	</tr>
+	
+	
+	
+	
+	<tr>
+		<td class="tdRight" colspan='3'>是否省级扶贫开发重点村(贫困村)[B10]：</td>
+		<td colspan='3'>
+			#if($form.poorVillage == '是')
+				<input id="poorVillage-n" style='width:20px' type='radio' name='poorVillage' value='否' $!{disabled} onclick="jQuery('#helpUnit').attr('disabled', true);"/><label for="poorVillage-n">否</label>
+				<input id="poorVillage-y" style='width:20px' type='radio' name='poorVillage' value='是' $!{disabled} checked='checked' onclick="jQuery('#helpUnit').removeAttr('disabled');"/><label for="poorVillage-y">是</label>
+				(帮扶单位名称:<input id="helpUnit" style='width:160px;text-align:left;' type='text' value='$!{form.helpUnit}' name='helpUnit' $!{readonly}/>)
+			#else
+				<input id="poorVillage-n" style='width:20px' type='radio' name='poorVillage' value='否' $!{disabled} checked='checked' onclick="jQuery('#helpUnit').attr('disabled', true);"/><label for="poorVillage-n">否</label>
+				<input id="poorVillage-y" style='width:20px' type='radio' name='poorVillage' value='是' $!{disabled} onclick="jQuery('#helpUnit').removeAttr('disabled');"/><label for="poorVillage-y">是</label>
+				(帮扶单位名称:<input id="helpUnit" style='width:160px;text-align:left;' type='text' value='$!{form.helpUnit}' name='helpUnit' disabled='true'/>)
+			#end
+		</td>
+	</tr>
+	
+	<tr>
+		<td class="tdRight" colspan='2'>各年度农民年人均纯收入[B13]：</td>
+		<td colspan='4'>
+			2013&nbsp年度：<input id="annualIncome_13" type='text' name='annualIncome_13' class='number'  value='$!{form.annualIncome_13}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+			2014&nbsp年度：<input id="annualIncome_14" type='text' name='annualIncome_14' class='number'  value='$!{form.annualIncome_14}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+			2015&nbsp年度：<input id="annualIncome_15" type='text' name='annualIncome_15' class='number'  value='$!{form.annualIncome_15}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+			2016&nbsp年度：<input id="annualIncome_16" type='text' name='annualIncome_16' class='number'  value='$!{form.annualIncome_16}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+			2017&nbsp年度：<input id="annualIncome_17" type='text' name='annualIncome_17' class='number'  value='$!{form.annualIncome_17}' min="0" precision="2"$!{readonly} />元
+		</td>
+	</tr>
+	
+	<!--20150811新增-->
+	<tr>
+		<td class="tdRight" colspan='2'>村集体经济收入[万元]：</td>
+		<td colspan='4'>
+			2013&nbsp年度：<input id="collectivityAnnulIncome_13" type='text' name='collectivityAnnulIncome_13' class='number'  value='$!{form.collectivityAnnulIncome_13}' min="0" precision="2"$!{readonly} />万元&nbsp
+			2014&nbsp年度：<input id="collectivityAnnulIncome_14" type='text' name='collectivityAnnulIncome_14' class='number'  value='$!{form.collectivityAnnulIncome_14}' min="0" precision="2"$!{readonly} />万元&nbsp
+			2015&nbsp年度：<input id="collectivityAnnulIncome_15" type='text' name='collectivityAnnulIncome_15' class='number'  value='$!{form.collectivityAnnulIncome_15}' min="0" precision="2"$!{readonly} />万元&nbsp
+			2016&nbsp年度：<input id="collectivityAnnulIncome_16" type='text' name='collectivityAnnulIncome_16' class='number'  value='$!{form.collectivityAnnulIncome_16}' min="0" precision="2"$!{readonly} />万元&nbsp
+			2017&nbsp年度：<input id="collectivityAnnulIncome_17" type='text' name='collectivityAnnulIncome_17' class='number'  value='$!{form.collectivityAnnulIncome_17}' min="0" precision="2"$!{readonly} />万元
+		</td>
+	</tr>
+</table>

@@ -1,0 +1,97 @@
+
+<!--点击打印查看的页面-->
+#set($layout="layout-empty.vm")
+<html>
+<head>
+
+
+<link type='text/css' href='/res/css/global.css' rel="stylesheet" media=""/>
+<script src='/res/js/jquery.min.js'></script> 
+<script type="text/javascript" src="/res/js/jquery.PrintArea.js"></script>   
+
+
+<script>  
+$(document).ready(function(){  
+  	$("input#biuuu_button").click(function(){  
+	  	$("div#myPrintInvest").printArea();  
+	});  
+});  
+</script>
+<style>
+ #biuuu_button{position: fixed; font-size:18px;  color:blue; text-decoration:underline; }
+</style>
+</head>
+<body>
+	<div>
+		<input id="biuuu_button" type="button" value="打印" ></input>  
+	</div>
+
+	<div id="myPrintInvest"    >
+		<div class="applicant-form-title" >
+			$title
+			<div style="font-size:16px;margin:0 auto;">截止时间:$!{deadline}</div>
+		</div> 
+		<div style="height:100%;">
+				<div data-settings="zone:'center',border:false">
+					<table style="width:100%;background:#ECF5FF;" class="applicant-form"> 
+						<thead>
+							 <tr>
+							 	<th rowspan='3' data-settings="chalign:'center',field:'name'" width="150">示范片所在<br/>市县名称</th>
+								<!--<th rowspan='2' data-settings="chalign:'center',field:''" width="150">项目</th>-->
+								<th colspan='7' data-settings="chalign:'center',field:''" width="150">资金投入情况(万元)</th>
+							</tr>
+							<tr>
+								<th rowspan='2' data-settings="chalign:'center',field:'totalFunds'" width="120">累计投入资金<br/>总数</th>
+								<th  colspan='6' data-settings="chalign:'center',field:''" width="150" ></th>
+							</tr>
+							
+							<tr>
+								<th data-settings="chalign:'center',field:'funds0'" width="120">1.中央财政</br>资金</th>
+								<th data-settings="chalign:'center',field:'funds1'" width="130">2.省级财政</br>资金</th>
+								<th data-settings="chalign:'center',field:'funds2'" width="100">3.市级财政</br>资金</th>
+								<th  data-settings="chalign:'center',field:'funds3'" width="110">4.县级财政</br>资金</th>
+								<th  data-settings="chalign:'center',field:'funds4'" width="110" >5.社会投入</br>资金</th>
+								<th  data-settings="chalign:'center',field:'funds5'" width="110" >6.群众自筹</br>资金</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr style='background-color:#7cd7f8;color:#333333;'>
+								<td><span  style='text-align:center;display:block;font-size:22px;'>全市合计</span></td>
+								<!--
+								<td><span id='total_stc' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.projectStartCount}</span></td>
+								<td><span id='total_fnc' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.projectFinishCount}</span></td>
+								-->
+								<td><span id='total_tfs' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.totalFunds}</span></td>
+								<td><span id='total_fs0' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.funds0}</span></td>
+								<td><span id='total_fs1' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.funds1}</span></td>
+								<td><span id='total_fs2' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.funds2}</span></td>
+								<td><span id='total_fs3' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.funds3}</span></td>
+								<td><span id='total_fs4' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.funds4}</span></td>
+								<td><span id='total_fs5' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.funds5}</span></td>
+							</tr>
+							#foreach($it in $batchs)
+								<tr >
+									<td style='text-align:center'>$it.name</td>
+									
+									<td style='text-align:center'>$!{it.totalFunds}</td>
+									
+									<td style='text-align:center'>$!{it.funds0}</td>
+									<td style='text-align:center'>$!{it.funds1}</td>
+									<td style='text-align:center'>$!{it.funds2}</td>
+									<td style='text-align:center'>$!{it.funds3}</td>
+									<td style='text-align:center'>$!{it.funds4}</td>
+									<td style='text-align:center'>$!{it.funds5}</td>
+								</tr>
+							#end
+						</tbody>
+					</table>
+				</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
+
+
+

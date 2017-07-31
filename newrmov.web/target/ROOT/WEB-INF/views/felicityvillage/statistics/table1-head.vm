@@ -1,0 +1,24 @@
+<tr>
+	<th rowspan='2' data-settings="chalign:'center',field:'modelAreaName'" width="170">示范片名称</th>
+    <th colspan='4' data-settings="chalign:'center'" width="70">村庄</th>
+    <th colspan='2' data-settings="chalign:'center'" width="70">规划设计</th>
+    <th colspan='2' data-settings="chalign:'center'" width="70">项目招标</th>
+    <th colspan='5' data-settings="chalign:'center'" width="70">建设项目</th>
+    
+</tr>   
+   
+<tr>
+	<th  data-settings="chalign:'center',field:'crName'" width="70">主体村<br/>名称</th>
+    <th  data-settings="chalign:'center',field:'crType'" width="70">行政村<br/>或自然村</th>
+    <th  data-settings="chalign:'center',field:'prName'" width="75">辐射村<br/>名称</th>
+    <th  data-settings="chalign:'center',field:'prType'" width="70">行政村<br/>或自然村</th>
+    <th  data-settings="chalign:'center',field:'finishedPlan'" width="70">完成</th>
+    <th  data-settings="chalign:'center',field:'noFinishedPlan'" width="70">否</th>
+    <th  data-settings="chalign:'center',field:'finishedBid'" width="70">完成</th>
+    <th  data-settings="chalign:'center',field:'noFinishedBid'" width="70">否</th>
+    <th  data-settings="chalign:'center',field:'projectNum'" width="70">项目个数</th>
+    <th  data-settings="chalign:'center',field:'projectFinishNum'" width="70">完成个数</th>
+    <th  data-settings="chalign:'center',field:'startTime'" width="70">启动时间</th>
+    <th  data-settings="chalign:'center',field:'predictFinishTime'" width="70">预计<br/>完成时间</th>
+    <th  data-settings="chalign:'center',field:'constructProgress'" width="70">建设进度<br/>(%)</th>
+</tr>

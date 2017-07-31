@@ -1,0 +1,105 @@
+
+
+<div style='width: 100%; height: 30%;'>
+	<table class='applicant-form editor' >
+		<tr>
+			<th class="tdRight" >主体行政村数：</th>
+			<td >$map.acNum</td>
+		</tr>
+		<tr>
+			<th class="tdRight" >主体自然村数：</th>
+			<td >$map.nrNum</td>
+		</tr>
+		<tr>
+			<th class="tdRight" >非主体行政村数：</th>
+			<td >$map.aucNum</td>
+		</tr>
+		<tr>
+			<th class="tdRight" >非主体自然村数：</th>
+			<td >$map.prNum</td>
+		</tr>
+	</table>
+</div>
+
+<div id='main' style='width: 100%; height: 70%;'>
+
+</div>
+
+<script type='text/javascript'>
+	var myChart = echarts.init(document.getElementById('main'),'infographic'); 
+	var ecConfig = echarts.config;
+	var mapGeoData = echarts.util.mapData.params;
+	
+	var option;
+	
+	$(function(){
+		option = {
+		    title : {
+		        text: '示范片村信息',
+		        subtext: '主体村/非主体村'
+		    },
+		    tooltip : {
+		        trigger: 'axis'
+		    },
+		    legend: {
+		        data:['村数量']
+		    },
+		    toolbox: {
+		        show : true,
+		        feature : {
+		            mark : {show: false},
+		            dataView : {show: false, readOnly: false},
+		            magicType : {show: true, type: ['line', 'bar']},
+		            restore : {show: true},
+		            saveAsImage : {show: true}
+		        }
+		    },
+		    calculable : true,
+		    xAxis : [
+		        {
+		            type : 'category',
+		            boundaryGap : false,
+		            data : ['主体行政村','主体自然村','非主体行政村','非主体自然村']
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'value',
+		            axisLabel : {
+		                formatter: '{value} 个'
+		            }
+		        }
+		    ],
+		    series : [
+		        {
+		            name:'村数量',
+		            type:'bar',
+		            //data:[11, 11, 15, 13, 12, 13, 10],
+		            data:$rdata,
+		            markPoint : {
+		                data : [
+		                   // {type : 'max', name: '最大值'},
+		                    //{type : 'min', name: '最小值'}
+		                ]
+		            },
+		            markLine : {
+		                data : [
+		                    //{type : 'average', name: '平均值'}
+		                ]
+		            },
+		            itemStyle: {
+		                 normal: {
+		                     label: {
+		                         show: true,
+		                         textStyle: {
+		                             color: '#800080'
+		                         }
+		                     }
+		                 }
+		             }
+		        }
+		    ]
+		};
+		myChart.setOption(option);
+	});
+</script>

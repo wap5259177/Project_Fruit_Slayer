@@ -1,0 +1,52 @@
+<table class='applicant-form'>
+		<tr>
+			<td class="tdRight" colspan='2'>主体村之间连线连片规模[A22]：</td>
+			<td colspan='2'><input  class="number" id="lineScale" type='text' name='lineScale' value='$!{form.lineScale}' min="0" precision="2" maxlength='8' $!{readonly} />公里</td>
+		</tr>
+		<tr>
+			<td class="tdRight">起点标志[A23]：</td>
+			<td>
+				<input style='width:20px' type='radio' name='startMark' id='startMark-n' value='无' $!{disabled} checked='checked'/><label for="startMark-n">无</label>
+				<input style='width:20px' type='radio' name='startMark' id='startMark-y' value='有' $!{disabled} #if($form.startMark == '有')checked='checked'#end/><label for="startMark-y">有</label>
+			</td>
+			<td class="tdRight">规划设计标识[A24]：</td>
+			<td><input  class="number" id="planMark" type='text' name='planMark' value='$!{form.planMark}' min="0" maxlength='8' $!{readonly} />个</td>
+		</tr>
+		<tr>
+			<td class="tdRight">驿站[A25]：</td>
+			<td>
+				<input class="number" id="postCount" type='text' name='postCount' value='$!{form.postCount}' min="0" precision="0" maxlength='8' $!{readonly} />个
+			</td>
+			<td class="tdRight">绿道[A26]：</td>
+			<td>
+				<input  class="number" id="greenRoad" type='text' name='greenRoad' value='$!{form.greenRoad}' min="0" precision="2" maxlength='8' $!{readonly} />公里
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight">观景台(点)[A27]：</td>
+			<td>
+				<input class="number" id="viewPlatform" type='text' name='viewPlatform' value='$!{form.viewPlatform}' min="0" precision="0" maxlength='8' $!{readonly} />个
+			</td>
+			<td class="tdRight">宣传介绍牌[A28]：</td>
+			<td>
+				<input class="number" id="introCard" type='text' name='introCard' value='$!{form.introCard}' min="0" precision="0" maxlength='8' $!{readonly} />块
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>道路两旁美化绿化工程[A29]：</td>
+			<td colspan='2'>
+				<input class="number" id="greenProject" type='text' name='greenProject' value='$!{form.greenProject}' min="0" precision="0" maxlength='8' $!{readonly} />宗
+			</td>
+		</tr>
+		<tr>
+			<td class="tdRight" colspan='2'>示范片连线线路走[A30]：</td>
+			<td colspan='2'>
+				<input style='width:20px' id='checkbox_id1' type='checkbox' name='areaRoad' value='国道'     $!{disabled} #if($form.areaRoad.contains('国道'))checked='checked'#end/><label for="checkbox_id1">国道</label>；
+				<input style='width:20px' id='checkbox_id2' type='checkbox' name='areaRoad' value='省道'     $!{disabled} #if($form.areaRoad.contains('省道'))checked='checked'#end/><label for="checkbox_id2">省道</label>；
+				<input style='width:20px' id='checkbox_id3' type='checkbox' name='areaRoad' value='县道'     $!{disabled} #if($form.areaRoad.contains('县道'))checked='checked'#end/><label for="checkbox_id3">县道</label>；
+				<input style='width:20px' id='checkbox_id4' type='checkbox' name='areaRoad' value='乡(村)道'  $!{disabled} #if($form.areaRoad.contains('乡(村)道'))checked='checked'#end/><label for="checkbox_id4">乡(村)道</label>
+			</td>
+		</tr>
+	</table>
+
+

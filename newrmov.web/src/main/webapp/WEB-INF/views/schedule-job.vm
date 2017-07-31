@@ -1,0 +1,22 @@
+<div style='padding:12px;'>
+<div id='div' style='text-align:center;'>
+	
+	<lable>批次：</lable>
+	<select id='batch'>
+		<option value="一">第一批</option>
+		<option value="二">第二批</option>
+		<option value="三">第三批</option>
+		<option value="珠三角">珠三角</option>
+	</select>
+	
+	<input type="button" value="统计进度" onclick="butOnclick()">
+</div>
+<div id='sche-content' style='width: 1200px; height: 400px; margin: 0 auto;'></div>
+</div>
+<script type="text/javascript" src="#springUrl('/res/js/echarts-all.js')"></script>
+<script type='text/javascript'>
+	function butOnclick(){
+		jQuery("#sche-content").load("investment.statistics", {batch:jQuery("#batch").val()});
+	}
+</script>
+						

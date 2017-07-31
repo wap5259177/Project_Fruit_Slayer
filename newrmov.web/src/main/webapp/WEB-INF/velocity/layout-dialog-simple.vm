@@ -1,0 +1,23 @@
+$!{di.includes}
+<div id='${di.id}' ${di.dialogAttributes}>
+	$screen_content
+</div>
+<script type="text/javascript">
+	//定义的js源码
+	$!{di.script}
+	jQuery(function(){
+		//由后台自动生成代码部分
+		$!{di.block}
+		//对话框的处理函数
+		jQuery('#${di.id}').bupdlg({
+			onClose : function() {
+				//对话框关闭时需要处理的事件
+				$!{di.onClosedEvent}
+				// 必须手动清除弹出的对话框
+				jQuery('#${di.id}').bupdlg('destroy').remove();
+			}
+		});
+		//对话框加载完成需要处理的事件
+		$!{di.onLoadEvent}
+	});
+</script>

@@ -1,0 +1,134 @@
+
+<script type="text/javascript" src="#springUrl('/res/js/echarts-all.js')" ></script>
+
+
+<div id='hc_line' style='width: 100%; height: 600px; margin: 0 auto;'>
+
+</div>
+
+
+<script type='text/javascript'>
+jQuery(function(){
+	var myChart = echarts.init(document.getElementById('hc_line'));
+	var option = {
+		title : {
+	        text: '自然村汇总',
+	        subtext: '广东省自然村情况汇总表'
+	    },
+		tooltip:{trigger:'axis'},
+		legend:{
+			data:[
+				'行政村','村改居','',
+				'自然村:20户以下','自然村:20-100户','自然村:100-300户','自然村:300-500户','自然村:500户以上','自然村:总计','',
+				//'人口数:20户以下','人口数:20-100户','人口数:100-300户','人口数:300-500户','人口数:500户以上','人口数:总计',''//,
+				//'户数:20户以下','户数:20-100户','户数:100-300户','户数:300-500户','户数:500户以上','户数:总计',''
+			]
+		},
+	    xAxis : [
+	        {
+	            type : 'category',
+	            data : ['广州市','珠海市','汕头市','佛山市','韶关市','河源市','梅州市','惠州市','汕尾市','东莞市','中山市','江门市','阳江市','湛江市','茂名市','肇庆市','清远市','潮州市','揭阳市','云浮市']
+	        },
+	        {
+	            type : 'category',
+	            axisLine: {show:false},
+	            axisTick: {show:false},
+	            axisLabel: {show:false},
+	            splitArea: {show:false},
+	            splitLine: {show:false},
+	            data : ['广州市','珠海市','汕头市','佛山市','韶关市','河源市','梅州市','惠州市','汕尾市','东莞市','中山市','江门市','阳江市','湛江市','茂名市','肇庆市','清远市','潮州市','揭阳市','云浮市']
+	        }
+	    ],
+	    yAxis : [
+	        {
+	            type : 'value',
+	            position: 'left',
+	            boundaryGap: [0,0.1],
+	            axisLabel : {
+	                formatter: function (value) {
+	                    return value + '个'
+	                }
+	            },
+	            splitLine : {
+	                show: false
+	            }
+	        },
+	        {
+	            type : 'value',
+	            position: 'left',
+	            axisLabel : {
+	                formatter: function (value) {
+	                    return value + '个'
+	                }
+	            },
+	            splitLine : {
+	                show: false
+	            }
+	        }
+	    ],
+	    series : [
+	        {
+	            name: '村改居',
+	            type: 'bar',
+            	xAxisIndex:1,
+     			itemStyle: {normal: {color:'rgba(193,35,43,1)', label:{show:true}}},
+	            data:[5,5,269,246,23,8,209,18,9,350,65,53,4,73,74,197,66,0,95,28]
+	        },
+	        {
+	            name: '行政村',
+	            type: 'line',
+            	itemStyle: {normal: {color:'rgba(193,35,43,0.5)', label:{show:true,formatter:function(p){return p.value > 0 ? (p.value +'\n'):'';}}}},
+       	        data:[1144,123,864,546,1210,1261,2045,1062,783,547,150,1082,701,1720,1717,1350,1109,926,1445,892]
+	        },
+	        {
+	            name: '自然村:总计',
+	            type: 'line',
+	            yAxisIndex: 1,
+     			itemStyle: {normal: {color:'rgba(181,195,52,0.5)', label:{show:true}}},
+       	        data:[32026,333,1144,3566,12313,13995,14900,9592,3664,2347,2056,11172,9365,11753,23471,14050,16927,2529,4185,8796]
+	        },
+	        {
+	            name: '自然村:20户以下',
+	            type: 'bar',
+	            yAxisIndex: 1,
+            	xAxisIndex:1,
+            	stack: '自然村:总计',
+       	        data:[948,2,22,89,2536,1591,2501,1637,219,10,48,1713,1488,728,3438,3197,254,16]
+	        },
+	        {
+	            name: '自然村:20-100户',
+	            type: 'bar',
+	            yAxisIndex: 1,
+            	xAxisIndex:1,
+            	stack: '自然村:总计',
+       	        data:[9314,163,76,2049,9060,6303,9608,10049,1937,1125,1391,8332,6949,7222,16463,9669,12671,1114,1304,5546]
+	        },
+	        {
+	            name: '自然村:100-300户',
+	            type: 'bar',
+	            yAxisIndex: 1,
+            	xAxisIndex:1,
+            	stack: '自然村:总计',
+       	        data:[8929,102,332,947,632,1784,2310,795,1109,935,421,5613,825,3318,2982,1504,1097,683,1556,1590]
+	        },
+	        {
+	            name: '自然村:300-500户',
+	            type: 'bar',
+	            yAxisIndex: 1,
+            	xAxisIndex:1,
+            	stack: '自然村:总计',
+       	        data:[9191,35,220,177,32,140,414,65,258,149,92,174,82,330,201,194,59,187,543,628]
+	        },
+	        {
+	            name: '自然村:500户以上',
+	            type: 'bar',
+	            yAxisIndex: 1,
+            	xAxisIndex:1,
+            	stack: '自然村:总计',
+       	        data:[8111,31,494,304,2,212,67,68,141,128,104,213,22,203,387,111,4,291,613,25]
+	        }
+	    ]
+	};
+	myChart.setOption(option);
+});
+</script>

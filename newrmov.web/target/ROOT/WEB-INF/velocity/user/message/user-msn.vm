@@ -1,0 +1,53 @@
+#set($layout="simple-frame.vm")
+<div id='tabs-user-msn' fit='true' tabPosition='left' border="false">
+	<div title="最新消息" data-settings="iconClassname:'icon-message'">
+		<table id="tabs-user-new" class="editor" style="padding:0px;margin:0px;width:100%;" >
+			<tr id='tabs-user-new_head'>
+				<td style="width:100px;padding:0px 0px 0px 5px;">发送者</td>
+				<td style="width:100px;padding:0px 0px 0px 5px;">发送时间</td>
+				<td style="width:100px;padding:0px 0px 0px 5px;">消息类型</td>
+				<td style="width:100px;padding:0px 0px 0px 5px;">标题</td>
+				<td style="width:100px;padding:0px 0px 0px 5px;">内容
+				<input type="button" style='margin-left:50px;' onclick='refresh_new_message();' value="刷新" /></td>
+			</tr>
+			$!{content}
+		</table>
+	</div>
+	<div title="系统消息" data-settings="iconClassname:'icon-message-sys'" href="#springUrl('/s/user/msn/sys')"></div>
+	<div title="个人消息" data-settings="iconClassname:'icon-message-user'" href="#springUrl('/s/user/msn/personal')"></div>
+	<div title="发消息" data-settings="iconClassname:'icon-message-add'" href="#springUrl('/s/user/msn/send')"></div>
+</div>
+<script>
+	jQuery(function(){
+		jQuery('#tabs-user-msn').buptab();
+		jQuery('#my-new-message-count').html('0');
+	});
+	
+	function refresh_new_message(){
+		lock('正在加载...');
+		$.ajax({
+			url : '/s/user/msn/refreshNewMessage',
+			type : 'post',
+			success : function(rd) {
+				if (typeof rd === "string")
+					rd = $.parseJSON(rd); 
+				$.unblockUI();
+				if(rd.error){
+					$.bupmsg.alert('提示', rd.msg, 'error');
+					return;
+				}
+				$('td').css("color", "#000000");
+				if (null == rd.data || rd.data == "") {
+	        		//alert('没有更多的数据。。。');
+	        		return;
+	        	}
+				$('#tabs-user-new_head').after(rd.data);
+			},
+			error : function() {
+				$.unblockUI();
+				$.bupmsg.alert('提示', "网络连接出错，请重试", 'error');
+			}
+		});
+		return false;
+	 }
+</script>

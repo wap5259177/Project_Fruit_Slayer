@@ -1,0 +1,70 @@
+#set($layout="layout-empty.vm")
+<div style="font-size:20px;text-align:center">第$!{batchName1}批市级新农村连片示范建设工程进展情况统计表</div>
+	<div style="font-size:16px;text-align:center">（统计截止时间：$!{deadline}）</div>
+<div style="width:93%">
+<table class="applicant-form" style="width:100%;margin-left:5%;">
+	<thead bgcolor="#f5f5f5">
+		<tr style="text-align:center">
+		    <td rowspan='3'>示范片区所<br/>在市县名称</td>
+			<td rowspan='3'>行政村数</td>
+			<td rowspan='3'>自然村数</td>
+			<td rowspan='3'>户数</td>
+			<td rowspan='3'>人数</td>
+			
+			<td colspan='2'>完成村庄整<br/>治规划情况</td>
+			
+			<td rowspan='3'>通自来<br/>水自然<br/>村数<br/>（个）</td>
+			<td rowspan='3'>完成卫<br/>生改厕<br/>所自然<br/>村数<br/>（个）</td>
+			<td rowspan='3'>完成道<br/>路硬化<br/>建设自<br/>然村数<br/>（个）</td>
+			<td rowspan='3'>完成民<br/>居外立<br/>面特色<br/>改造的<br/>自然村<br/>数<br/>（个）</td>
+			
+			<td colspan='3'>环境卫生综合整治情况</td>
+			<td colspan='2'>项目 </td>
+			<td colspan='9'>资金投入情况（万元）</td>
+			
+			<td rowspan='3'>已成立村<br/>民理事会<br/>并制定了<br/>村规民约<br/>和章程的<br/>自然村数<br/>（个）</td>
+		</tr>
+		<tr style="text-align:center">
+			<td rowspan='2'>行政村<br/>有编制<br/>规划设<br/>计村数<br/>（个）</td>
+			<td rowspan='2'>自然村<br/>有编制<br/>规划设<br/>计村数<br/>（个）</td>
+		    
+			<td rowspan='2'>完成卫<br/>生整治<br/>及建立<br/>保洁队<br/>和长效<br/>机制的<br/>自然村<br/>数<br/>（个）</td>
+			<td rowspan='2'>实行雨<br/>污分流<br/>并建有<br/>污水处<br/>理设施<br/>自然村<br/>数<br/>（个）</td>			
+			<td rowspan='2'>实行人<br/>畜分离<br/>（集中<br/>圈养）<br/>的自然<br/>村数<br/>（个）</td>
+			<td rowspan='2'>已启动<br/>的项目<br/>个数（个）</td>
+			<td rowspan='2'>其中已<br/>竣工的<br/>项目<br/>个数（个）</td>
+
+			<td colspan='9' style="height:30px;"></td>
+		</tr>
+		<tr style="text-align:center">
+		   
+			<td>累计投入<br/>资金总数</td>
+			<td>1.中央财<br/>政资金</td>
+			<td>2.省级新<br/>农村示范<br/>片建设补<br/>助资金</td>
+			<td>3.其他省<br/>级财政资<br/>金</td>
+			<td>4.市级财<br/>政资金</td>
+			<td>5.县级财<br/>政资金</td>
+			<td>6.社会投<br/>入<br/>资金</td>
+			<td>7.群众<br/>自筹资金</td>
+			<td>8.其<br/>他方面的<br/>资金</td>
+			
+		</tr>
+	</thead>
+		<tbody id='_tbody' style="height:35px">$!{jsContent}</tbody>
+		
+		
+		
+		
+		
+		
+		
+</table>
+</div>
+
+<script type='text/javascript'>
+jQuery(function(){
+	#if($aaa==0)
+		alert("没有数据");
+	#end
+});
+</script>

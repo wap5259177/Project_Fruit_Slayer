@@ -1,0 +1,5 @@
+<div class="buptab" fit="true" tabPosition="left" id="$!tabsId">
+	#foreach($item in $items)
+		<div id="$item.id" href="$item.href" title="$item.name"></div>
+	#end
+</div>

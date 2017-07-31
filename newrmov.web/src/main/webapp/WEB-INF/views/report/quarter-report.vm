@@ -1,0 +1,41 @@
+﻿<!--<script type="text/javascript" src="/res/js/bupui/jquery.bupui.min.js"></script>-->
+
+<div id="$di.id" data-settings='buttons:"#${di.id}_buttons"' title="$!{title}" style="width:950px;height:550px;" modal='true'>
+
+	<div id="_2_0" fit="true">
+		<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:7px 0 0 0;overflow:hidden;color:#6699cc;font-size:24px;">
+			$title
+			<div style="font-size:14px;margin:0 auto;color:green;">(截止时间：${deadline})
+			 <span style="float:right;padding-right:20px;"><a class="bupabutton" style="background-color:#eee;border:#ccc 1px solid;padding:3px 5px;border-radius:5px;" href="index.excel?id=$itemId" data-settings="iconClassname:'icon-excel'"
+		     target="_self">导出Excel</a></span>
+		    </div>
+		</div>
+		<div data-settings="zone:'center',border:false">
+			#parse("report/quarter-report-content.vm")
+		</div>
+	</div>
+</div>
+
+#if($reportable)
+	<div id="${di.id}_buttons"><button onclick='saveReport();'>暂存</button></div>
+#end
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery("#_2_0").bupborderlayout();
+	});
+	
+	function saveReport(){
+		//document.getElementById("formid").submit();
+		$('#formid').bupform('submit', {
+		    url: "report.save",
+		    onSubmit: function(){
+		    	//return false   会阻止表单提交提交
+		    },
+		    success: function(data){
+		    	//处理异步提交后返回的数据
+		    	alert('暂存成功!');
+		    }
+	  }); 
+	}
+	
+</script>

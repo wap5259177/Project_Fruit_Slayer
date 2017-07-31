@@ -1,0 +1,5 @@
+<p style="font-size:16px;font-weight:bold;height:20px;" class='item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">${o}. ${form.name}</p>
+<div>
+#parse('applicant/newrural-info.vm')
+<hr/>
+</div>

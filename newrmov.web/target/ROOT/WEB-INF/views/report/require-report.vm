@@ -1,0 +1,44 @@
+<div style='height:350px;overflow:auto'>
+	<p class='item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">通知内容：</p>
+	<div style="padding-left:20px;">
+		<textarea name="content" id="editor-content" style="width:96%;height:200px;">$!{form.content}</textarea>
+		<div style="padding:8px 40px 8px 20px;">
+		#if($form.annex)
+			<a href="#springUrl($form.annex)" target="_blank">$form.annexName</a>
+			[ <input type="checkbox" value="true" onclick="jQuery('#reportAnnex').attr('disabled', this.checked);" name="deleteOldAnnex" id="deleteOldAnnex"/>
+			<label for="deleteOldAnnex">删除附件，并不需要重新上传</label> ]<br/>
+		#end
+		<span>选择附件：</span><input type="file" name="reportAnnex" id="reportAnnex"/>
+		</div>
+	</div>
+	<p class='item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">接收单位：</p>
+	<div style="padding-left:20px;">
+		<b>市级单位</b> [<a href="#" onclick="jQuery('#city-to-select').slideDown();">展开</a> 
+						| <a href="#" onclick="jQuery('#city-to-select').slideUp();">隐藏</a> 
+						| <a href="#" onclick="jQuery('#city-to-select').slideDown();jQuery('#city-to-select input.unit_city').attr('checked', true);">全选</a> 
+						| <a href="#" onclick="jQuery('#city-to-select input.unit_city').attr('checked', false);">全不选</a>]
+		<div style="padding:5px 0 0 20px;" id="city-to-select">$!{city}</div>
+		<hr width="700px" align="left"/>
+		<b>县级单位</b> [<a href="#" onclick="jQuery('#county-to-select').slideDown();">展开</a> 
+						| <a href="#" onclick="jQuery('#county-to-select').slideUp();">隐藏</a> 
+						| <a href="#" onclick="jQuery('#county-to-select').slideDown();jQuery('#county-to-select input.unit_city').attr('checked', true);">全选</a> 
+						| <a href="#" onclick="jQuery('#county-to-select input.unit_city').attr('checked', false);">全不选</a>]
+		<div style="padding:5px 0 0 20px;" id="county-to-select">$!{county}</div>
+	</div>
+	<table border="0" style="width:750px;">
+		<tr><th style="width:150px;" align="right">业务处室：</th><td><input style="width:95%;" type="text" name="offices" value="$!{form.offices}"/></td></tr>
+		<tr><th align="right">其它：</th><td><textarea style="width:95%;" name="other">$!{form.other}</textarea></td></tr>
+		<tr><th align="right">备注：</th><td><textarea style="width:95%;" name="remark">$!{form.remark}</textarea></td></tr>
+	</table>
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery('#city').click(function() {
+		jQuery("input.unit_city").attr('checked', jQuery(this).is(':checked'));
+	});
+	
+	jQuery('#county').click(function() {
+		jQuery("input.unit_county").attr('checked', jQuery(this).is(':checked'));
+	});
+});
+</script>
+</div>

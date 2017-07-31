@@ -1,0 +1,151 @@
+<div id="datagrid-tab" style='padding-left:10px;padding-top:5px;'>
+	<div>
+	$!{select}
+	</div>	
+	<a class="bupabutton" style='padding-left:10px' href="#" data-settings="iconClassname:'icon-excel'"
+		 onclick="this.href='index.excel?batch='+jQuery('#sel-batch').val()" target="_blank">导出Excel</a>
+	<div style="font-size:20px;text-align:center">广东省新农村连片示范建设工程台账簿 - 所有主体行政村情况累计汇总统计</div>
+</div>
+<table class="bupgrid" fit="true" data-settings="nowrap:false" toolbar="#datagrid-tab" id='mygrid'>
+	<!--这一块让它固定不动 frozen:true-->
+	<thead data-settings="frozen:true">
+		<tr>
+		   	<th id="hideth" style="width:60px;" rowspan='3' data-settings="field:'code'">序号</th>
+			<th id="hideth2" style="width:60px;" rowspan='3' data-settings="field:'code2'">批次[A15]</th>
+			<th id="hideth3" style="width:60px;" rowspan='3' data-settings="field:'code3'">报备年度[A14]</th>
+			<th id="hideth4" style="width:120px;" rowspan='3' data-settings="field:'code4'">地市</th>
+			<th style="width:120px;" rowspan='3' data-settings="field:'code5'">县(区)</th>
+			<th id="hideth5" style="width:150px;" rowspan='3' data-settings="field:'code6'">示范片名称[A12]</th>
+		</tr>
+	</thead>
+	<thead>
+		<tr>
+			<th style="width:150px;" rowspan='3' data-settings="field:'code7'">建设主题名称[A13]</th>
+			<th style="width:150px;" rowspan='3' data-settings="field:'code8'">行政村名</th>
+			<th style="width:60px;"></th>
+			<th style="width:60px;text-align:center;font-weight:bold;" colspan='22'>（一）基本情况</th>
+			<th style='font-weight:bold;' colspan='8'>（二）资源优势情况</th>
+			<th style='font-weight:bold;' colspan='11'>（三）农村公共服务情况</th>
+			<th style='font-weight:bold;' colspan='1'>（四）挂点县领导</th>
+			<th style='font-weight:bold;' colspan='2'>（五）工作小组</th>
+			<th style='font-weight:bold;' colspan='4'>（六）规划进展</th>
+		</tr>
+		<tr>
+		    
+			<th style="width:60px;">自然村个数</th>
+			<th style="width:60px;">总面积</th>
+			<th style="width:60px;">耕地面积</th>
+			<th style="width:60px;">户数</th>
+			<th style="width:60px;">人口数</th>
+			<th style="width:60px;">劳动力总人数</th>
+			<th style="width:60px;">贫困户数</th>
+			<th style="width:60px;">贫困人口数</th>
+			<th style="width:60px;">低保户数</th>
+			<th style="width:60px;">低保人口数</th>
+			<th style="width:60px;">五保户数</th>
+			<th style="width:60px;">需改造的危房户数</th>
+			<th style="width:60px;">省级扶贫开发重点村（贫困村）个数</th>
+			<th style="width:60px;" colspan='5'>各年度农民人均纯收入</th>
+			<th style="width:60px;" colspan='5'>村集体经济收入</th>
+			<th style="width:60px;">人文历史</th>
+			<th style="width:60px;">自然生态</th>
+			<th style="width:60px;">民居风貌</th>
+			<th style="width:60px;">乡村旅游</th>
+			<th style="width:60px;">特色产业</th>
+			<th style="width:60px;">渔业渔港</th>
+			<th style="width:60px;">其他</th>
+			<th style="width:60px;">现有的或正在打造的旅游景点或节点个数</th>
+			<th style="width:60px;">文化活动场所</th>
+			<th style="width:60px;">文化活动场所</th>
+			<th style="width:60px;">乡村公园</th>
+			<th style="width:60px;">乡村公园</th>
+			<th style="width:60px;">文体广场</th>
+			<th style="width:60px;">文体广场</th>
+			<th style="width:60px;">村级卫生站</th>
+			<th style="width:60px;">村级卫生站</th>
+			<th style="width:60px;">乡村公厕</th>
+			<th style="width:60px;">乡村公厕</th>
+			<th style="width:60px;">是否建立统一的村级公共服务管理平台</th>
+			<th style="width:60px;">是否有挂点县领导</th>
+			<th style="width:60px;">是否有工作小组</th>
+			<th style="width:60px;">工作小组总人数</th>
+			<th style="width:60px;">是否建立规划专家指导组</th>
+			<th style="width:60px;">是否完成总体规划</th>
+			<th style="width:60px;">是否完成连线连片规划</th>
+			<th style="width:60px;">是否完成村庄深度规划设计</th>
+			
+		</tr>
+		<tr>
+		   
+			<th style="width:60px;" data-settings="field:'item1'">B4[个]</th>
+			<th style="width:60px;" data-settings="field:'item2'">B5[亩]</th>
+			<th style="width:60px;" data-settings="field:'item3'">B6[亩]</th>
+			<th style="width:60px;" data-settings="field:'item4'">B7[户]</th>
+			<th style="width:60px;" data-settings="field:'item5'">B8[人]</th>
+			<th style="width:60px;" data-settings="field:'item6'">B9[人]</th>
+			<th style="width:60px;" data-settings="field:'item7'">[户]</th>
+			<th style="width:60px;" data-settings="field:'item8'">[人]</th>
+			<th style="width:60px;" data-settings="field:'item9'">[户]</th>
+			<th style="width:60px;" data-settings="field:'item10'">[人]</th>
+			<th style="width:60px;" data-settings="field:'item11'">[户]</th>
+			<th style="width:60px;" data-settings="field:'item12'">[户]</th>
+			<th style="width:60px;" data-settings="field:'item13'">B10[个]</th>
+			<th style="width:60px;" data-settings="field:'item14'">2013年</th>
+			<th style="width:60px;" data-settings="field:'item15'">2014年</th>
+			<th style="width:60px;" data-settings="field:'item16'">2015年</th>
+			<th style="width:60px;" data-settings="field:'item17'">2016年</th>
+			<th style="width:60px;" data-settings="field:'item18'">2017年</th>
+			<th style="width:60px;" data-settings="field:'item19'">2013年</th>
+			<th style="width:60px;" data-settings="field:'item20'">2014年</th>
+			<th style="width:60px;" data-settings="field:'item21'">2015年</th>
+			<th style="width:60px;" data-settings="field:'item22'">2016年</th>
+			<th style="width:60px;" data-settings="field:'item23'">2017年</th>
+			<th style="width:60px;" data-settings="field:'item24'">B31[个]</th>
+			<th style="width:60px;" data-settings="field:'item25'">B32[个]</th>
+			<th style="width:60px;" data-settings="field:'item26'">B33[个]</th>
+			<th style="width:60px;" data-settings="field:'item27'">B34[个]</th>
+			<th style="width:60px;" data-settings="field:'item28'">B35[个]</th>
+			<th style="width:60px;" data-settings="field:'item29'">B36[个]</th>
+			<th style="width:60px;" data-settings="field:'item30'">B37[个]</th>
+			<th style="width:60px;" data-settings="field:'item31'">B38[个]</th>
+			<th style="width:60px;" data-settings="field:'item32'">B39[个]</th>
+			<th style="width:60px;" data-settings="field:'item33'">B39[平方米]</th>
+			<th style="width:60px;" data-settings="field:'item34'">B40[个]</th>
+			<th style="width:60px;" data-settings="field:'item35'">B40[平方米]</th>
+			<th style="width:60px;" data-settings="field:'item36'">B41[个]</th>
+			<th style="width:60px;" data-settings="field:'item37'">B41[平方米]</th>
+			<th style="width:60px;" data-settings="field:'item38'">B42[个]</th>
+			<th style="width:60px;" data-settings="field:'item39'">B42[平方米]</th>
+			<th style="width:60px;" data-settings="field:'item40'">B43[个]</th>
+			<th style="width:60px;" data-settings="field:'item41'">B43[平方米]</th>
+			<th style="width:60px;" data-settings="field:'item42'">B44[个]</th>
+			<th style="width:60px;" data-settings="field:'item43'">B45[个]</th>
+			<th style="width:60px;" data-settings="field:'item44'">B46[个]</th>
+			<th style="width:60px;" data-settings="field:'item45'">B47[个]</th>
+			<th style="width:60px;" data-settings="field:'item46'">B48[个]</th>
+			<th style="width:60px;" data-settings="field:'item47'">B49[个]</th>
+			<th style="width:60px;" data-settings="field:'item48'">B50[个]</th>
+			<th style="width:60px;" data-settings="field:'item49'">B51[个]</th>
+			
+			
+		</tr>
+	</thead>
+	<tbody id='_tbody'>$!{content}</tbody>
+</table>
+
+<script>
+	$("#btn_load").bupabutton({
+        iconClassname: 'icon-search'
+    });
+    //$("#hideth").hide();
+    //alert("213124");
+    jQuery(function(){
+    //$('#mygrid').bupgrid('hideColumn',"code");
+    $('#mygrid').bupgrid('hideColumn',"code6");
+    $('#mygrid').bupgrid('hideColumn',"code2");
+    $('#mygrid').bupgrid('hideColumn',"code3");
+    $('#mygrid').bupgrid('hideColumn',"code4");
+    $('#mygrid').bupgrid('hideColumn',"code7");
+    });
+    
+</script>

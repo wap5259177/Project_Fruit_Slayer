@@ -1,0 +1,155 @@
+<table class='applicant-form'>
+	<tr>
+		<td style='font-weight:bold' colspan='6'>(六)规划进展</td>
+	</tr>
+	<tr>
+		<td style="width:250px;" class="tdRight" colspan='3'>是否建立规划专家指导组[B47]：</td>
+		<td colspan='2'>
+			<input style='width:20px' $!{disabled} id="expertGroup-n" type='radio' name='expertGroup' value='否' onclick="jQuery('#eg-content').hide();" checked='checked'/><label for='expertGroup-n'>否</label>
+			<input style='width:20px' $!{disabled} id="expertGroup-y" type='radio' name='expertGroup' value='是' onclick="jQuery('#eg-content').show();" #if($form.expertGroup == '是')checked='checked'#end/><label for='expertGroup-y'>是</label>
+		</td>
+	</tr>
+	<tr>
+		<td colspan='5'>专家指导组名单[B48]：</td>
+	</tr>
+	<tr>
+		<td style="width:50px;">序号</td>
+		<td style="width:120px;">姓名</td>
+		<td style="width:120px;">单位名称及职务</td>
+		<td style="width:120px;">联系电话</td>
+		<td>备注</td>
+	</tr>
+	<tbody id="eg-content" #if($form.expertGroup != '是')style="display:none;"#end>
+	#if($readonly)
+	<!-- 只读 -->
+		#foreach($it in $egs)
+			<tr><td>$velocityCount</td>
+			<td><input style='width:95%' type='text' readonly='true' value='$it.expertName'></td>
+			<td><input style='width:95%' type='text' readonly='true' value='$it.expertJob'></td>
+			<td><input style='width:95%' type='text' readonly='true' value='$it.expertPhone'></td>
+			<td><input style='width:95%;' type='text' readonly='true' value='$it.expertRemark'></td>
+			</tr>
+		#end
+	#else
+	<tr><td colspan='5'><button id="btn-expertGroup">添加专家</button></td></tr>
+		#foreach($it in $egs)
+			<tr><td><a href='#' onclick='jQuery(this).parent().parent().remove();return false;' class='icon-del' style='padding-left:20px;'> </a>
+			$velocityCount
+			<input type='hidden' name='expertgroupItems' value='g_$velocityCount'></td>
+			<td><input style='width:95%' type='text' name='en_g_$velocityCount' value='$it.expertName'></td>
+			<td><input style='width:95%' type='text' name='ej_g_$velocityCount' value='$it.expertJob'></td>
+			<td><input style='width:95%' type='text' onblur='_checkPhone(this);' name='ep_g_$velocityCount' value='$it.expertPhone'></td>
+			<td><input style='width:95%' type='text' name='er_g_$velocityCount' value='$it.expertRemark'></td>
+			</tr>
+		#end
+	#end
+	</tbody>
+</table>
+<table class='applicant-form'>
+	<tr>
+		<td class="tdRight" colspan='2' style="height:30px;">是否完成总体规划[B49]：</td>
+		<td colspan='4'>
+		
+			#if($form.generalPlan == '是')
+				<input style='width:20px' id="generalPlan-n" type='radio' name='generalPlan' value='否' $!{disabled} onclick="jQuery('#gpDate').bupdateinput({disabled:true});jQuery('#gpUpload').hide();" /><label for='generalPlan-n'>否</label>
+				<input style='width:20px' id="generalPlan-y" type='radio' name='generalPlan' value='是' $!{disabled} checked='checked' onclick="jQuery('#gpDate').bupdateinput({disabled:false});jQuery('#gpUpload').show();" /><label for='generalPlan-y'>是</label>
+				(时间:<input style='width:100px' type='text' id='gpDate' name='gpDate' value='$!{form.gpDate}' $!{readonly}/>)
+				#if($readonly)
+					<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-B49-administration_upload.do#if($readonly)?readonly=true#end" id="gpUpload">&nbsp;文件查看</a>
+				#else
+					<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-B49-administration_upload.do#if($readonly)?readonly=true#end" id="gpUpload">&nbsp;文件上传</a>
+				#end
+				<!--<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-B49-administration_upload.do#if($readonly)?readonly=true#end" id="gpUpload">&nbsp;文件2上传</a>-->
+				<!--<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-1-B49-administration_upload.do?arid=$!{form.adminRuralId}#if($readonly)&readonly=true#end" id="gpUpload">&nbsp;文件上传</a>-->
+			#else
+				<input style='width:20px' id="generalPlan-n" type='radio' name='generalPlan' value='否' $!{disabled} checked='checked' onclick="jQuery('#gpDate').bupdateinput({disabled:true});jQuery('#gpUpload').hide();" /><label for='generalPlan-n'>否</label>
+				<input style='width:20px' id="generalPlan-y" type='radio' name='generalPlan' value='是' $!{disabled} onclick="jQuery('#gpDate').bupdateinput({disabled:false});jQuery('#gpUpload').show();" /><label for='generalPlan-y'>是</label>
+				(时间:<input style='width:100px' type='text' id='gpDate' name='gpDate' value='$!{form.gpDate}' $!{readonly} disabled="true"/>)
+				<!--<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-1-B49-administration_upload.do?arid=$!{form.adminRuralId}" id="gpUpload" style="display:none;">&nbsp;文件上传</a>-->
+				<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-B49-administration_upload.do#if($readonly)&readonly=true#end" id="gpUpload" style="display:none;">&nbsp;文件上传</a>
+			#end
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2' style="height:30px;">是否完成连线连片规划[B50]：</td>
+		<td colspan='4'>
+			#if($form.areaPlan == '是')
+				<input style='width:20px' id="areaPlan-n" type='radio' name='areaPlan' value='否' $!{disabled} onclick="jQuery('#apDate').bupdateinput({disabled:true});jQuery('#apUpload').hide();" /><label for='areaPlan-n'>否</label>
+				<input style='width:20px' id="areaPlan-y" type='radio' name='areaPlan' value='是' $!{disabled} checked='checked' onclick="jQuery('#apDate').bupdateinput({disabled:false});jQuery('#apUpload').show();" /><label for='areaPlan-y'>是</label>
+				(时间:<input style='width:100px' type='text' id='apDate' name='apDate' value='$!{form.apDate}' $!{readonly}/>)
+				<!--<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-1-B50-upload.do?arid=$!{form.adminRuralId}#if($readonly)&readonly=true#end" id="apUpload">&nbsp;文件上传</a>-->
+				#if($readonly)
+					<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-B50-administration_upload.do#if($readonly)?readonly=true#end" id="apUpload">&nbsp;文件查看</a>
+				#else
+					<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-B50-administration_upload.do#if($readonly)?readonly=true#end" id="apUpload">&nbsp;文件上传</a>
+				#end
+			#else
+				<input style='width:20px' id="areaPlan-n" type='radio' name='areaPlan' value='否' $!{disabled} checked='checked' onclick="jQuery('#apDate').bupdateinput({disabled:true});jQuery('#apUpload').hide();" /><label for='areaPlan-n'>否</label>
+				<input style='width:20px' id="areaPlan-y" type='radio' name='areaPlan' value='是' $!{disabled} onclick="jQuery('#apDate').bupdateinput({disabled:false});jQuery('#apUpload').show();" /><label for='areaPlan-y'>是</label>
+				(时间:<input style='width:100px' type='text' id='apDate' name='apDate' value='$!{form.apDate}' $!{readonly} disabled="true"/>)
+				<!--<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-1-B50-administration_upload.do?arid=$!{form.adminRuralId}" id="apUpload" style="display:none;">&nbsp;文件上传</a>-->
+				<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-B50-administration_upload.do" id="apUpload" style="display:none;">&nbsp;文件上传</a>
+			#end
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>是否完成村庄深度规划设计<br/>(含节点规划设计效果图)[B51]：</td>
+		<td colspan='4'>
+			#if($form.depthPlanning == '是')
+				<input style='width:20px' id="depthPlanning-n" type='radio' name='depthPlanning' value='否' $!{disabled} onclick="jQuery('#dpDate').bupdateinput({disabled:true});jQuery('#dpUpload').hide();" /><label for='depthPlanning-n'>否</label>
+				<input style='width:20px' id="depthPlanning-y" type='radio' name='depthPlanning' value='是' $!{disabled} checked='checked' onclick="jQuery('#dpDate').bupdateinput({disabled:false});jQuery('#dpUpload').show();" /><label for='depthPlanning-y'>是</label>
+				(时间:<input style='width:100px' type='text' id='dpDate' name='dpDate' value='$!{form.dpDate}' $!{readonly}/>)
+				<!--<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-1-B51-upload.do?arid=$!{form.adminRuralId}#if($readonly)&readonly=true#end" id="dpUpload">&nbsp;文件上传</a>-->
+				#if($readonly)
+					<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-B51-administration_upload.do#if($readonly)?readonly=true#end" id="dpUpload">&nbsp;文件查看</a>
+				#else
+					<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-B51-administration_upload.do#if($readonly)?readonly=true#end" id="dpUpload">&nbsp;文件上传</a>
+				#end
+			#else
+				<input style='width:20px' id="depthPlanning-n" type='radio' name='depthPlanning' value='否' $!{disabled} checked='checked' onclick="jQuery('#dpDate').bupdateinput({disabled:true});jQuery('#dpUpload').hide();" /><label for='depthPlanning-n'>否</label>
+				<input style='width:20px' id="depthPlanning-y" type='radio' name='depthPlanning' value='是' $!{disabled} onclick="jQuery('#dpDate').bupdateinput({disabled:false});jQuery('#dpUpload').show();" /><label for='depthPlanning-y'>是</label>
+				(时间:<input style='width:100px' type='text' id='dpDate' name='dpDate' value='$!{form.dpDate}' $!{readonly} disabled="true"/>)
+				<!--<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-1-B51-upload.do?arid=$!{form.adminRuralId}" id="dpUpload" style="display:none;">&nbsp;文件上传</a>-->
+				<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-B51-administration_upload.do" id="dpUpload" style="display:none;">&nbsp;文件上传</a>
+			#end
+		</td>
+	</tr>
+	<tr>
+		<td colspan='6'>规划设计单位[B52]：</td>
+	</tr>
+	<tr>
+		<td style="width:50px;">序号</td>
+		<td style="width:200px;">规划设计单位名称</td>
+		<td colspan='2'>注册地址</td>
+		<td style="width:110px;">联系人</td>
+		<td style="width:110px;">联系电话</td>
+	</tr>
+	$!{sb2}
+	#if($readonly)
+	<!-- 只读 -->
+		#foreach($it in $rus)
+			<tr>
+			<td>$velocityCount</td>
+			<td><input style='width:190px;' type='text' readonly='true' value='$it.unitName'></td>
+			<td colspan='2'><input style='width:95%;' type='text' readonly='true' value='$it.registeredAddress'></td>
+			<td><input style='width:100px;' type='text' readonly='true' value='$it.contactName'></td>
+			<td><input style='width:100px;' type='text' readonly='true' value='$it.unitPhone'></td>
+			</tr>
+		#end
+	#else
+	<tbody id="ru-content">
+	<tr><td colspan='6'><button id="btn-units">添加单位</button></td></tr>
+		#foreach($it in $rus)
+			<tr>
+			<td><a href='#' onclick='jQuery(this).parent().parent().remove();return false;' class='icon-del' style='padding-left:20px;'> </a>
+			$velocityCount
+			<input type='hidden' name='unitItems' value='u_$velocityCount'></td>"
+			<td><input style='width:190px;' type='text' name='un_u_$velocityCount' value='$it.unitName'></td>
+			<td colspan='2'><input style='width:95%;' type='text' name='ra_u_$velocityCount' value='$it.registeredAddress'></td>
+			<td><input style='width:100px;' type='text' name='ucn_u_$velocityCount' value='$it.contactName'></td>
+			<td><input style='width:100px;' type='text' onblur='_checkPhone(this);' name='up_u_$velocityCount' value='$it.unitPhone'></td>
+			</tr>
+		#end
+	</tbody>
+	#end
+</table>

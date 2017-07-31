@@ -1,0 +1,43 @@
+#set($layout="layout-empty.vm")
+
+<div>
+	<table cellpadding="2px" cellspacing="3px" width="100%"> 
+		<tr>
+			<td style="width:120px;">片区名称:</td>
+			<td>&nbsp;&nbsp;<span id="ma_name">$!{mapoint.modelArea.name}</span></td>
+		</tr>
+		<tr>
+			<td >坐标:</td>
+			<td>&nbsp;&nbsp;<span id='ma_lon_marker'>$!{mapoint.point.longitude}</span>,
+							<span id='ma_lat_marker'>$!{mapoint.point.latitude}</span></td>
+		</tr>
+		<tr>
+			<td>片区描述:</td>
+			<td>&nbsp;&nbsp;<textarea id="ma_desc">$!{mapoint.describe}</textarea></td>
+		</tr>
+		<tr>
+			<td>上传片区风貌图片:</td>
+			<td>&nbsp;&nbsp;<input id="ma_pic" type="file" value="$!{mapoint.picture}"/></td>
+		</tr>
+		<tr >
+			<td></td>
+			<td align="center"><a href="javascript:;" onclick="saveArea();">提交</a></td>
+		</tr>
+	</table>
+</div>
+
+<script type="text/javascript">
+	jQuery(function(){
+			map.setZoom(12);
+			ma_lat=${mapoint.point.latitude};
+			ma_lot=${mapoint.point.longitude};
+			var latlon = new qq.maps.LatLng(ma_lat,ma_lot);
+			map.setCenter(latlon);//设置地图中心坐标
+			ma_marker.setPosition(latlon);//设置标注坐标
+			//设置界面显示
+			$("#ma_lat_marker").text(ma_lat);
+			$("#ma_lon_marker").text(ma_lot);
+			
+			
+	});
+</script>

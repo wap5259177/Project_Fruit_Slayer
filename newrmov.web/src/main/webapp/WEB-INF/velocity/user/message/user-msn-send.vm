@@ -1,0 +1,115 @@
+#set($layout="layout-empty.vm")
+<style type="text/css">
+th,td {
+	padding: 0px 0px 0px 5px;
+}
+</style>
+<div id='message_send'>
+<div style='font-size:12px;font-weight:bold;background-color:#f0f0f0;padding:5px;'>发消息</div>
+<table class="editor" style="padding:0px;margin:0px;width:600px;">
+	<tr>
+		<td style="text-align:right;width:80px;padding-left:5px;">接收者：</td>
+		<td><input id='accepterId' name='accepterId' style='width:350px;'/><font color='red'>&nbsp;*&nbsp;（格式：001,002,003）</font></td>
+	</tr>
+	<tr>
+		<td style="text-align:right;width:80px;padding-left:5px;">标题：</td>
+		<td><input id='ms_title' name='ms_title' style='width:350px;'/><font color='red'>&nbsp;*</font></td>
+	</tr>
+	<tr>
+		<td style="text-align:right;width:80px;padding-left:5px;">消息内容：</td>
+		<td><textarea id='content' name='content' style="width:450px;height:200px;font-size:12px;"></textarea><font color='red'>&nbsp;*</font></td>
+	</tr>
+	<tr>
+		<td colspan='2' style="text-align:center;"><input id="btn_msnSendSave" class='submitcss' type="submit" value="发送"/></td>
+	</tr>
+</table>
+<br/>
+<div style='font-size:12px;font-weight:bold;background-color:#f0f0f0;padding:5px;'>发送历史</div>
+<table id="tabs_user_loadsend" class="editor" style="padding:0px;margin:0px;width:100%;">
+	<tr id='tabs_user_loadsend_head'>
+		<td style="width:100px;padding-left:5px;">发送者</td>
+		<td style="width:100px;padding-left:5px;">接收者</td>
+		<td style="width:100px;padding-left:5px;">发送时间</td>
+		<td style="width:100px;padding-left:5px;">标题</td>
+		<td style="width:250px;padding-left:5px;">内容</td>
+	</tr>
+	$!{content}
+</table>
+<div style="text-align:center;margin:5px 0px 0px 0px;width:100%;">
+	<span><a href='#' onclick='sendLoad();'>查看更多</a></span>
+	<span><input id="page" type="hidden" value='$!{page}' /></span>
+</div>
+</div>
+
+<script>
+jQuery(function() {
+	jQuery('#btn_msnSendSave').click(function() {
+		var accepterId = jQuery('#accepterId').val();
+		var title = jQuery('#ms_title').val();
+		var content = jQuery('#content').val();
+		if (null == accepterId || accepterId == '') {
+			alert('请输入接收者！');
+			return;
+		} else if (null == title || title == '') {
+			alert('请输入标题！');
+			return;
+		} else if (null == content || content == '') {
+			alert('请输入消息内容！');
+			return;
+		} else {
+			lock('正在保存...');
+			$.ajax({
+				url : '/s/user/msn/send/save',
+				type : 'post',
+				data : { accepterId : accepterId, title : title, content : content},
+				success : function(rd) {
+					$.unblockUI();
+					jQuery("#message_send").load('/s/user/msn/send?_=' + Math.random());
+					if(rd.error){
+						$.bupmsg.alert('提示', rd.msg, 'error');
+						return;
+					}
+					jQuery("#message_send").load('/s/user/msn/send?_=' + Math.random());
+					// 清空
+					//$('#tabs_user_loadsend_head').after(rd);
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					$.unblockUI();
+					jQuery("#message_send").load('/s/user/msn/send?_=' + Math.random());
+					//$('#tabs_user_loadsend_head').after(rd);
+				}
+			});
+		}
+		return false;
+	});	
+});
+function sendLoad(){ 
+	var page = jQuery('#page').val();
+	lock('正在加载...');
+    $.ajax({
+        url:'/s/user/msn/sendLoad',
+        type: "post",
+        data: {page : page},
+        success : function(rd) {
+        	if (typeof rd === "string")
+				rd = $.parseJSON(rd); 
+			$.unblockUI();
+			if (null == rd.data || rd.data == "") {
+        		alert('没有更多的数据。。。');
+        		return;
+        	}
+        	jQuery('#tabs_user_loadsend').append(rd.data);
+        	jQuery('#page').val(++page);
+			if(rd.error){
+				$.bupmsg.alert('提示', rd.msg, 'error');
+				return;
+			}
+		},
+		error : function() {
+			$.unblockUI();
+			$.bupmsg.alert('提示', "网络连接出错，请重试", 'error');
+		}
+	});	
+	return false;
+}
+</script>

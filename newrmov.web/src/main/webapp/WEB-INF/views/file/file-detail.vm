@@ -1,0 +1,66 @@
+<div id="$di.id" title="文件信息" style="padding:8px;width:540px;" buttons="#${di.id}-buttons" modal='true'>
+<table class='editor' style="margin:auto;">
+	<tr>
+        <th>文件名：</th>
+        <td colspan='3'>
+	       <a href="#springUrl('/files/detail')?id=$!{id}" target="_blank" title="文件：$!{name}"  style="width:430px;height:20px;overflow:hidden;float:left;">$!{name}</a>
+	        <!-- $!{name}-->
+	        #if($externalLink)
+	        	<a href="$!{mapPath}" target='_blank' title="打开链接：$!{name}" style="float:right;padding-right:8px;">
+	        		<img src="/res/images/link.png"/>
+					
+	        	</a>
+	        #else
+	        	<a href="#springUrl('/files/download')?id=$!{id}" target='_blank' title="下载附件：$!{name}" style="float:right;padding-right:8px;">
+	        		<img src="#springUrl('/res/images/download.png')" heigt="25px" width="25px"/>
+	        	</a>
+			#end
+			
+        </td>
+    </tr>
+    <tr>
+        <th style="width:100px;">类型：</th>
+	  	<td style="width:160px;">$!{type}</td>
+        <th style="width:100px;">发布时间：</th>
+        <td style="width:160px;">$!{issueAt}</td>
+    </tr>
+    <tr>
+    	<th>版本：</th>
+	  	<td>$!{version}</td>
+        <th>文件大小：</th>
+        <td>$!{length} KB</td>
+    </tr>
+    <tr>
+    	<th>后缀名：</th>
+        <td>$!{ext}</td>
+        <th>扩展属性：</th>
+	  	<td>$!{extendedAttributes}</td>
+    </tr>
+    <tr>
+	  	<th>分享：</th>
+	  	<td>$!{shared}</td>
+	  	<th>状态：</th>
+	  	<td>$!{status}</td>
+    </tr>
+        <tr>
+	  	<th>创建者：</th>
+	  	<td>$!{creatorName}</td>
+	  	<th>创建时间：</th>
+	  	<td>$!{createAt}</td>
+    </tr>
+    
+	<tr>
+        <th>备注：</th>
+        <td colspan="3"><textarea style="resize:none;height:70px;width:99%;border:0px;background-color:#FFFFFF;font-size:12px;" readonly="true"> $!{remark}</textarea></td>
+    </tr>
+</table>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_close').bupabutton({flat : true});
+});
+</script>

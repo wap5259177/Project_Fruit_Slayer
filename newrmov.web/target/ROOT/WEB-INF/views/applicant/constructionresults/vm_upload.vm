@@ -1,0 +1,73 @@
+<script type="text/javascript" src="/res/js/jquery.form.js"></script>
+<div id="$di.id" title="上传文件" style="padding:12px;" buttons="#${di.id}-buttons" modal='true'>
+<form id='file_form' enctype='multipart/form-data'>
+<input type='hidden' name='id' value='$!{id}' />
+<table class='editor' style="margin:auto;">
+	<tr>
+        <th style="width:80px;">文件上传：</th>
+        <td>
+	        <div id='fileQueue' style='width:100%;height:100%;'>
+		        <input type="file" name="file_upload" id="file_upload" 
+		        accept="video/*"/>
+	        </div>
+        </td>
+    </tr>
+	<tr>
+        <th>重命名：</th>
+        <td><input style="width:300px;" type="text" name="name" id="name" value="$!{name}"/><font color='red'>（不填则默认为文件名）</font></td>
+    </tr>
+    
+    <tr>
+    	<th>文件类型：</th>
+    	<td><select style="width:180px;" name="type" id="type">	
+    		<option value="VIDEO" #if($!{type}=='VIDEO')selected="true"#end >视频</option>
+    	</select></td>
+    </tr>
+	<tr>
+        <th>备注：</th>
+        <td><textarea name="remark" id="remark" style="resize:none;height:80px;width:98%;font-size:12px;">$!{remark}</textarea></td>
+    </tr>
+</table>
+</form>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_save' onclick="btn_save();">提交</a>
+<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_save, #a_close').bupabutton({flat : true});
+	jQuery('#issueAt').bupdateinput({editable:false});
+	if ('$!{issueAt}' != '') {
+		jQuery('#issueAt').bupdateinput('setValue', '$!{issueAt}');
+	}
+});
+function btn_save() {
+var name=jQuery("#file_upload").val();
+	if(/\.rmvb$|\.avi$|\.mp4$|\.mkv$|\.wmv$/i.test(name)){
+	
+		lock('正在上传视频...');
+	
+		jQuery('#file_form').ajaxSubmit({ 
+			url:'/s/cl/vm/save_upload',
+			type:'post',
+			dataType:'json',
+			success:function(rd) {
+				if (typeof rd === "string")
+					rd = $.parseJSON(rd);
+				if(rd.error) {
+					alert(rd.msg);
+					return;
+				}
+				$('#build_file').bupgrid("reload");
+				$('#${di.id}').bupdlg('close');
+			}
+		});
+	}else{
+		alert("不允许上传格式");
+	}
+}
+</script>
+
+

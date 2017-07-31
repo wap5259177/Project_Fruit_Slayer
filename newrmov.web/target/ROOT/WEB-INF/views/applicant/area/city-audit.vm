@@ -1,0 +1,79 @@
+<style>
+    #audit-content-panel table td {border-left:1px solid #000000;border-top:1px solid #000000}
+	#audit-content-panel table td {border-right:1px solid #000000;border-bottom:1px solid #000000}
+	#audit-content-panel table th{border-left:1px solid #000000;border-top:1px solid #000000}
+	#audit-content-panel table th {border-right:1px solid #000000;border-bottom:1px solid #000000}
+</style>
+#if($aid)
+<div id="audit-content-loader" style="padding-bottom:40px;"></div>
+<div style="position:absolute;left;0;bottom:0;width:700px;background-color:#cccccc;padding:0 0 0 70px;">
+	<div style="display:none;" id="audit-content-panel">
+		<table style="width:">
+			<tr><th align="right">示范片名称：</th><td colspan="5">$!{name}</td><th align="right">申请日期：</th><td>$!{applicatAt}</td></tr>
+			<tr>
+				<th align="right" style="width:120px;">信息专员名称：</th><td style="width:110px;">$!{contactName}</td>
+			    <th align="right" style="width:60px;">职位：</th><td style="width:90px;">$!{contactJob}</td>
+			    <th align="right" style="width:60px;">固定电话：</th><td style="width:100px;">$!{contactPhone}</td>
+			    <th align="right" style="width:80px;">手机号码：</th><td style="width:100px;">$!{contactPhone2}</td>
+		    </tr>
+			<tr><th align="right">备注：</th><td colspan="7">$!{remark}</td></tr>
+		</table>
+		<form action="index.audit" method="post">
+			<table><tr>
+				<th>审核理由或原因：</th>
+				<td colspan="3"><textarea id="audit-content" class="txt-audit-message" style="width:400px;height:60px;">$!{auditContent}</textarea></td>
+				<td valign="top" id="audit-result-show">
+					<span>审核操作：</span>
+					<div style="padding:4px 0 0 25px;"><a id="audit" class="audit-button" href="$!{aid}!pass.do" data-settings="iconClassname:'icon-accept',face:'scorner'" >通过</a></div>
+					<div style="padding:4px 0 0 25px;"><a id="audit1" class="audit-button" href="$!{aid}!reject.do" data-settings="iconClassname:'icon-forbid',face:'scorner'" >驳回</a></div>
+				</td>
+			</tr><tr>
+				<th align="right">审核人：</th>
+				<td><input id="audit-name" class="txt-audit-message" type="text" value="$!{auditName}"/></td>
+				<th>审核时间：</th>
+				<td><input id="audit-date" class="txt-audit-message" type="text" value="$!{auditAt}"/></td>
+				<td></td>
+			</tr></table>
+		</form>
+	</div>
+	<div class="item-down2 item-up2" id="_hide" onclick="jQuery(this).toggleClass('item-up2').prev().slideToggle();">审核信息 #if($auditResult)[上次审核结果：<span style="color:red;">$auditResult</span>]#end</div>
+</div>
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery("#audit-date").bupdateinput({editable:false});
+	jQuery("#audit-content-loader").load('view.detail?id=$aid');
+	jQuery(".audit-button").bupabutton().click(function(){
+		var name = jQuery(this).text();
+		var an = jQuery("#audit-name").val();
+		if(an == null || an == ""){
+			alert("请填写审核人名称！");
+			return false;
+		}
+		if(!confirm("您的审核结果为：[" + name + "]是否确定？")){
+			return false;
+		}
+		jQuery.post(this.href, {
+			content:jQuery("#audit-content").val(),
+			name:an,
+			date:jQuery("#audit-date").bupdateinput("getValue")},
+			function(rd){
+				if (typeof rd === "string"){
+					rd = eval('(' + rd + ')');
+				}
+				if (rd.error) {
+					jQuery.bupmsg.alert('提示', rd.msg, 'error');
+					return false;
+				}
+				jQuery(".txt-audit-message").attr("disabled", true);
+				jQuery("#audit-result-show").html("您的审核结果：<font color='red'>" + name + "</font>");
+			    jQuery('#audit-name').attr('readonly', true);
+				jQuery("#audit-date").bupdateinput({disabled:true});
+			}
+		);
+		return false;
+	});
+});
+</script>
+#else
+	<div style="padding:50px 0 0 120px;font-size:20px;color:gray;">没有需要审核的内容</div>
+#end

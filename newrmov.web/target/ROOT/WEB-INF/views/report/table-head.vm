@@ -1,0 +1,39 @@
+﻿           <tr>
+	    <td  width="70" rowspan="3">示范片区所在的<br/>市县名称</td>
+	    <td  width="70" rowspan="3">行政村数</td>
+	    <td  width="70" rowspan="3">自然村数</td>
+	    <td  width="60" rowspan="3" >户数 </td>
+	    <td  width="60" rowspan="3" >人数</td>
+	    <td colspan="2" class="bbyshead">完成村庄整治规划情况</td>
+	    <td  width="60" rowspan="3">通自来水<br/>自然村数<br/>（个）</td>
+	    <td  width="60" rowspan="3">完成卫生<br/>改厕所<br/>自然村数<br/>（个）</td>
+	    <td  width="60" rowspan="3">完成道路<br/>硬化建设<br/>自然村数<br/>（个）</td>
+	    <td  width="70" rowspan="3">完成民居<br/>外立面特色<br/>改造的<br/>自然村数<br/>（个）</td>
+	    <td colspan="3"  class="bbyshead">环境卫生综合整治情况</td>
+	    <td colspan='2' class="bbyshead">项目</td>
+	    <td colspan="9" class="bbyshead">资金投入情况（万元）</td>
+	    <td  width="80" rowspan="2">已成立村民理事会<br/>并制定了村规民约<br/>和章程的自然村数<br/>（个）</td>
+                    <td  rowspan="2" style="background-color:#fff;border:none;padding:0 15px;"></td>
+           </tr> 
+   
+            <tr>
+	    <td  width="75" rowspan="2">行政村有编制<br/>规划设计<br/>村数（个）</td>
+	    <td  width="75" rowspan="2">自然村有编制<br/>规划设计<br/>村数（个）</td>
+	    <td  width="80" rowspan="2">完成卫生整治<br/>及建立保洁队<br/>和长效机制的<br/>自然村数（个）</td>
+	    <td  width="80" rowspan="2">实行雨污分流<br/>并建有污水<br/>处理设施<br/>自然村数（个）</td>
+	    <td  width="70" rowspan="2">实行人畜分离<br/>（集中圈养）的<br/>自然村数（个）</td>
+	    <td width="70" rowspan='2'>已启动的<br/>项目个数</td>
+                    <td width="70" rowspan='2'>其中已竣工的<br/>项目个数</td>
+
+                    <td  width="70" rowspan="2">累计投入资金总数</td>
+	    <td  width="70" rowspan="2">1.中央<br/>财政<br/>资金</td>
+	    <td  width="70" rowspan="2">2.省级新农村<br/>示范片建设<br/>补助资金</td>
+	    <td  width="70" rowspan="2">3.其他<br/>省级财政<br/>资金</td>
+	    <td  width="70" rowspan="2">4.市级<br/>财政<br/>资金</td>
+	    <td  width="70" rowspan="2">5.县级<br/>财政<br/>资金</td>
+	    <td  width="70" rowspan="2">6.社会<br/>投入<br/>资金</td>
+	    <td  width="70" rowspan="2">7.群众<br/>自筹<br/>资金</td>
+	    <td  width="70" rowspan="2">8.其他<br/>资金</td>
+            </tr>
+     
+ 

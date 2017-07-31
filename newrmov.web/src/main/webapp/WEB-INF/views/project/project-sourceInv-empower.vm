@@ -1,0 +1,72 @@
+<style >
+	body{ text-align:center} 
+</style>
+	<div id="$di.id" $!{di.dialogAttributes}>
+
+<table class="editor" title="删除了项目的初始累计资金并重新统计项目资金和该项目所在片区资金">
+
+<tr><th style="width:100px">授权者名称：
+	</th>
+	<td><input type="text" id="u-name" style="width:150px"/>
+	</td>
+</tr>
+<tr><th style="width:100px">授权者密码：
+	</th>
+	<td><input type="password" id="u-pwd" style="width:150px"/>
+	</td>
+</tr>
+
+</table>
+	 <ul  style="list-style:none" >
+		 <li  style="float:right"><a href="javascript:"   onclick="return optimize();" title='执行删除操作' id="optimizeMSG">删除</a></li>
+		 <li   style="float:right"><a href="javascript:" style="color:red"  onclick="return optimizeMSG();" title='显示删除初始累计资金具体执行信息' id="optimizeMSG">删除初始累计资金作用</a></li>
+	 </ul>
+		
+    </div>
+
+
+
+
+
+
+
+	<script >
+		function optimizeMSG(){
+		
+		alert("删除了项目的初始累计资金并重新统计项目资金和该项目所在片区资金");
+		}
+		
+		
+	function optimize(){
+	
+		if(!confirm("确定删除项目 [$name] 的 [初始累计资金]吗？")){return;};
+		var un = jQuery("#u-name").val();
+		var up = jQuery("#u-pwd").val();
+		
+		if('' === un){
+			alert("请输入授权者名称！");
+			return false;
+		}
+		if('' === up){
+			alert("请输入授权者密码！");
+			return false;
+		}
+		
+		
+		
+		jQuery("#u-name,#u-pwd").val("");
+		
+		lock('正在删除...');
+		jQuery.post("index.clear",
+			{id:${form},un:un,up:up},
+			function(__resultData){
+				$.unblockUI();
+				__resultData = __ajaxSuccess(__resultData);
+				if(__resultData){
+					alert("完成删除！");
+					jQuery("#$!{gridid}").bupgrid("reload");
+				}
+			});
+		return false;
+	}
+    </script>

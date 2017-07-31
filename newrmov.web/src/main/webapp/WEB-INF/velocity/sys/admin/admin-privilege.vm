@@ -1,0 +1,46 @@
+<div id="$di.id" title="权限管理" style="width:550px;height:420px;padding:12px;" buttons="#${di.id}-buttons" modal='true'>
+<input type='hidden' value='$!{id}' id='id' />
+<input type='hidden' value='$!{channelId}' id='channelId' />
+<input type='hidden' value='$!{moduleId}' id='moduleId' />
+<table class='editor' style="width:margin:auto;">
+	<tr>
+		<td style='text-align:center;'>
+		<b style='color:blue;font-size:16px;'>$!{name}(登录名：$!{loginName})</b>
+		</td>
+	</tr>
+	<tr><th style="text-align:left;">系统管理权限</th></tr>
+	<tr><td valign="top"><div style="overflow-y:auto;height:260px;">$!{privileges}</div></td></tr>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_adminPrivilege_save' onclick="btn_save();">提交</a> 
+<a href="#" id='a_adminPrivilege_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_adminPrivilege_save, #a_adminPrivilege_close').bupabutton({flat : true});
+});
+function btn_save() {
+	var privileges = "";
+	jQuery("input:checkbox[name='admin_menu']:checked").each(function(i) {
+		var menuid = $(this).val();
+		if(0 == i) {
+			privileges = menuid;
+		} else {
+			privileges += ("," + menuid);
+		}
+	});
+	$.ajax({
+		url : 'adminPrivilege!save.b',
+		type : 'post',
+		data : { moduleId:'$!{moduleId}', channelId:'$!{channelId}', id:$!{id}, privileges:privileges},
+		success : function(rd) {
+			if(rd.error){
+				$.bupmsg.alert('提示', rd.msg, 'error');
+				return;
+			}
+			$('#${di.id}').bupdlg('close');
+		}
+	});
+}
+</script>

@@ -1,0 +1,27 @@
+#if($warningMessage)
+	<div class="applicant-form-warning">$warningMessage</div>
+#end
+#parse('applicant/modelarea-view.vm')
+<script type='text/javascript'>
+jQuery(function() {
+ 	//在数字框里把所有非数字或0时输入框应该为空
+	$('.number').each(function(i, v){
+		var vf = v.value;
+		if(!$.isNumeric(vf) || vf - 0 <= 0){
+			v.value = '';
+		}
+	});
+	jQuery(".number").bupnuminput();
+	
+	
+});
+function _checkNumber(){
+	$('.number').each(function(i, v){
+		var vf = jQuery(v).bupnuminput('getValue');
+		if(!$.isNumeric(vf) || vf < 0){
+			//alert("您输入的的字符有误！");
+			jQuery(v).bupnuminput('setValue', '0');
+		}
+	});
+}
+</script>

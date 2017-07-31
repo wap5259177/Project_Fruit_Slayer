@@ -1,0 +1,19 @@
+<div class="applicant-remark">
+	<div class="applicant-remark-title">备注：</div>
+	<div>
+		<div class="applicant-remark-item">1)&nbsp;每村一表</div>
+		<div class="applicant-remark-item">2)&nbsp;初次填写,第一次报省委农办备案是初次填写。<br/>&nbsp;&nbsp;年度填写：以后示范片建设周期内的 每个年度末或考核验收前在上一次填写上修改有变化的数据项目</div>
+		<div class="applicant-remark-item">3)&nbsp;各代码指标数值累计到填写年度的数。</div>
+		<div class="applicant-remark-item">4)&nbsp;序号[B2]：按自然序数1、2、3、…排。</div>
+		<div class="applicant-remark-item">5)&nbsp;村庄类型[B3]：单选。</div>
+		<div class="applicant-remark-item">6)&nbsp;村名称[B4]：如果是行政村，可以不填村名小组</div>
+		<div class="applicant-remark-item">7)&nbsp;是否省级扶贫开发重点村（贫困村）[B10]：其中是贫困村时需要填写帮扶单位，如果有多个单位的，只填牵头单位即可。</div>
+		<div class="applicant-remark-item">8)&nbsp;村名使用卫生厕所户数[B22]：不能超过总户数[B7]。</div>
+		<div class="applicant-remark-item">9)&nbsp;注明了需上传电子版上传的，需要准备好对应的电子版以便在信息系统中上传。</div>
+		<div class="applicant-remark-item">10)&nbsp;资源特色[B31-B37]：按类型进行简短描述，内部包括历史时间、数量、规模、效益以及社会影响力。</div>
+		<div class="applicant-remark-item">11)&nbsp;工作小组[B46]：名单可以有多个，不够可以自行添加单元格填写。</div>
+		<div class="applicant-remark-item">12)&nbsp;专家指导组名单[B48]：名单可以有多个，不够可以自行添加单元格填写。</div>
+		<div class="applicant-remark-item">13)&nbsp;规划设计单位[B52]：名单可以有多个，不够可以自行添加单元格填写。</div>
+		<div class="applicant-remark-item">14)&nbsp;理事会主要负责人[B55]：至多填两人即可。</div>
+	</div>
+</div>

@@ -1,0 +1,79 @@
+<div style='overflow:auto;height:320px;'>
+
+	<p class='item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">报送通知-基本信息</p>
+	<div>
+		<hr width="90%" align="left"/>
+		<div style="padding:0 80px 10px 80px;">$!{form.content}</div>
+		
+		<table class='editor' style='width:100%;'>
+		#if($form.annex)
+		<tr><th style='text-align:left;'>附件：</th><td colspan="5"><a href="#springUrl($form.annex)" target="_blank">$form.annexName</a></td></tr>
+		#end
+		
+		<tr><th style='text-align:left;width:110px;'>草拟时间：</th><td style="width:160px;">$!{form.draftAt}</td><th style='text-align:left;width:110px;'>发布时间：</th><td style="width:160px;">$!{form.issueAt}</td><th style='text-align:left;width:110px;'>发布状态：</th><td>$!{form.statusIssue}</td></tr>
+		<tr><th style='text-align:left;width:110px;'>开始时间：</th><td style="width:160px;">$!{form.startReportedAt}</td><th style='text-align:left;width:110px;'>结束时间：</th><td style="width:160px;">$!{form.endReportedAt}</td><th style='text-align:left;width:110px;'>状态：</th><td>$!{form.status}</td></tr>
+		<tr><th style='text-align:left;'>业务处室：</th><td colspan="5">$!{form.offices}</td></tr>
+		<tr><th style='text-align:left;'>其他：</th><td colspan="5">$!{form.other}</td></tr>
+		<tr><th style='text-align:left;'>备注：</th><td colspan="5">$!{form.remark}</td></tr>
+		</table>
+	
+	</div>
+
+	<p class='item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();">报送通知-报送情况</p>
+	<div id="_1_1" >
+		<table class='editor' style='width:100%;'>
+		<tr><th style="text-align:center;">名称</th><th style='width:150px;'></th></tr>
+		#if($notup)
+			<tr><td colspan="2"><b class='item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2');jQuery('#notup-content').slideToggle();">未完成[$!{notcou}]</b>
+				#if($form.statusValue == 0)
+				[<a href="#" onclick="jQuery('#notup-content').slideDown();jQuery('#notup-content input.cb_selector').attr('checked', true);">全选</a> 
+				| <a href="#" onclick="jQuery('#notup-content input.cb_selector').attr('checked', false);">全不选</a>]
+				- <a href="index.urge" onclick="jQuery.get(this.href + '?' + jQuery('#notup-content input:checked').serialize(), function(rd){if(rd.error){alert(rd.msg);return false;}alert('成功催报！');});return false;">催报</a>
+				#end
+			</td></tr>
+			${notup}
+		#end
+		#if($finish)
+			<tr><td colspan="2"><b class='item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2');jQuery('#finish-content').slideToggle();">已完成[$!{fincou}]</b>
+				[<a href="#" onclick="jQuery('#finish-content').slideDown();jQuery('#finish-content input.cb_selector').attr('checked', true);">全选</a> 
+				| <a href="#" onclick="jQuery('#finish-content input.cb_selector').attr('checked', false);">全不选</a>]
+				- <a href="index.zip" target="_blank" onclick="this.href='index.zip?id=$!{form.id}&' + jQuery('#finish-content input:checked').serialize();">打包下载</a>
+			</td></tr>
+			${finish}
+		#end
+		</table>
+	</div>
+</div>
+
+<script>
+	function change(th, _id){
+		jQuery.post(
+			_id + "!report.signin",
+			{id:_id},
+			function(){
+				jQuery(th).hide().prev().css("color", "blue").text("(已查收)");
+			}
+		);
+	};
+	
+/*	function tosend(th, _id) {
+	//	window.location.href = 'report.tosend?id='+_id;
+	  jQuery.post(
+		    _id + "!report.tosend",
+		    {id:_id },
+		    function(){
+		      jQuery(_id).click(function(){
+		      refresh();
+		      });
+		    jQuery(th).hide().prev().css("color", "blue").text("(已退回)");
+		    }
+	    );    
+	};
+*/
+</script>
+
+
+
+
+
+

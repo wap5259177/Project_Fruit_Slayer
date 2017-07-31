@@ -1,0 +1,78 @@
+<!--行政村简介-->
+<div>
+	<table class='applicant-form' id='_table'>
+	
+			<tr>
+				<td class="tdRight">自然村个数: </td>
+				<td><input id="natralruralNum" type='text' style="width:60px;" value='$!{form.natrualruralNum}' class='number' readOnly="true" name='natrualruralNum'/>个</td>
+				<td class="tdRight">自然村名单： </td>
+				<td colspan='3'>
+					<textarea  id='natrualruralList'  name='natrualruralList' readOnly="true" >$!{form.natrualruralList}</textarea>
+				</td>
+			</tr>
+		
+		<tr>
+			<td class="tdRight">总面积[B5]：</td>
+			<td colspan='2'><input style="width:60px;" id="ruralArea" type='text' class='number' value='$!{form.ruralArea}' min="0" precision="2" name='ruralArea' $!{readonly}/>亩</td>
+			<td colspan='2' class="tdRight">耕地面积[B6]：</td>
+			<td><input id="arableLand" type='text' style="width:60px;" class='number' value='$!{form.arableLand}' min="0" precision="2" name='arableLand' $!{readonly}/>亩</td>
+		</tr>
+		<tr>
+			<td class="tdRight">户数[B7]：</td>
+			<td><input style="width:60px;" id="houseHold" type='text' value='$!{form.houseHold}' min="0" precision="0" class='number' name='houseHold' $!{readonly}/>户</td>
+			<td class="tdRight">人口数[B8]：</td>
+			<td><input id="population" style="width:50px;" type='text' value='$!{form.population}' min="0" precision="0" class='number' name='population' $!{readonly}/>人</td>
+			<td class="tdRight">劳动力总人数[B9]：</td>
+			<td><input id="labor" type='text' style="width:60px;" value='$!{form.labor}' min="0" precision="0" class='number' name='labor' $!{readonly}/>人</td>
+		</tr>
+		
+		<tr>
+			<td colspan='6' class='title'><a href='#' onclick="$('#_table').toggle();document.getElementById('ar-tab').style.display='';" >详细信息</a></td>
+		</tr>
+		
+	</table>
+	<div align='left' id='ar-tab' style="display: none;">
+		<div id="myt" style="" >
+			    <div title="基本情况" style="padding:0px;">
+			    	#parse('optimize/rural/adminrural/ar-base.vm')
+			    </div>
+			    <div title="本村资源优势情况" data-settings="" style="overflow:auto;padding:0px;">
+			    	#parse('optimize/rural/adminrural/resource.vm')
+			    </div>
+			    <div title="农村公共服务情况" data-settings="iconClassname:''" style="padding:0px;">
+			    	#parse('optimize/rural/adminrural/public-service.vm')
+			    </div>
+			    <div title="挂点县领导" data-settings="iconClassname:''" style="padding:0px;">
+			    	#parse('optimize/rural/adminrural/hang-leader.vm')
+			    </div>
+			    <div title="工作小组" data-settings="iconClassname:''" style="padding:0px;">
+			    	#parse('optimize/rural/adminrural/workgroup.vm')
+			    </div>
+			    <div title="规划进展" data-settings="iconClassname:''" style="padding:0px;">
+			    	#parse('optimize/rural/adminrural/plan-progress.vm')
+			    </div>
+			    <div title="备注" data-settings="iconClassname:''" style="padding:0px;">
+			    	#parse('optimize/rural/adminrural/ar-remark.vm')
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type='text/javascript'>
+jQuery(function() {
+	$('#myt').buptab({
+		width:1000,
+	 	//fit: true,
+		height:400,
+		headerWidth:220,
+		//height:200,
+	    border:false,
+	    tabPosition: 'left',
+	    collapsible: true,
+	    onSelect:function(title){
+	       //alert(title + ' 被选中了！');
+	    }
+	});
+});
+</script>

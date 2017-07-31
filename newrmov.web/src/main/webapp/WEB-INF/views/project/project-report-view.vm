@@ -1,0 +1,96 @@
+
+<!--点击打印查看的页面-->
+#set($layout="layout-empty.vm")
+<html>
+<head>
+
+
+<link type='text/css' href='/res/css/global.css' rel="stylesheet" media=""/>
+<script src='/res/js/jquery.min.js'></script> 
+<script type="text/javascript" src="/res/js/jquery.PrintArea.js"></script>   
+
+
+<script>  
+$(document).ready(function(){  
+  	$("input#biuuu_button").click(function(){  
+	  	$("div#_myPrint").printArea();  
+	});  
+});  
+</script>
+<style>
+ #biuuu_button{position: fixed; font-size:18px;  color:blue; text-decoration:underline; }
+</style>
+</head>
+<body>
+	<div>
+		<input id="biuuu_button" type="button" value="打印" ></input>  
+	</div>
+
+	<div id="_myPrint"    >
+		<div class="applicant-form-title" >
+			$title
+		</div> 
+		<div style="height:100%;">
+				<div data-settings="zone:'center',border:false">
+					<table style="width:100%;background:#ECF5FF;" class="applicant-form"> 
+						<thead>
+							<tr>
+								<th><font style='font-size:11px;'>项目编号</font></th>
+								<th><font style='font-size:11px;'>项目名称</font></th>
+								<th><font style='font-size:11px;'>中央</font></th>
+								<th><font style='font-size:11px;'>省级新农村连片</br>示范工程建设</br>补助资金</br>(万元)</font></th>
+								<th><font style='font-size:11px;'>其他省级财政资金</br>(万元)</font></th>
+								<th><font style='font-size:11px;'>市级财政资金</br>(万元)</font></th>
+								<th><font style='font-size:11px;'>县级财政资金</br>(万元)</font></th>
+								<th><font style='font-size:11px;'>社会投入</br>(万元)</font></th>
+								<th><font style='font-size:11px;'>群众自筹</br>(万元)</font></th>
+								<th><font style='font-size:11px;'>其他</br>(万元)</font></th>
+								<th><font style='font-size:11px;'>合计</br>(万元)</font></th>
+								<th><font style='font-size:11px;'>投资额/斥资额</br>(万元)</font></th>
+								<th><font style='font-size:11px;'>投工数</br>(个)</font></th>
+								<th><font style='font-size:11px;'>项目状态</font></th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						
+							<tr style='background-color:#7cd7f8;color:#333333;'>$sumSb</tr>
+							<tr style='background-color:#dbfab4;color:#333333;'>$currentSB</tr>
+							#foreach($item in $items)
+								<tr>
+									<td style='text-align:center;'><font style='font-size:11px;'>$item.project.code<font><font></td>
+									<td ><font style='font-size:11px;'>$item.project.name<font></td>
+									<td style='text-align:center;'><font style='font-size:11px;'>$item.investment.stateFunds<font></td>
+									<td style='text-align:center;'><font style='font-size:11px;'>$item.investment.specialFunds<font></td>
+									<td style='text-align:center;'><font style='font-size:11px;'>$item.investment.provinceFunds<font></td>
+									<td style='text-align:center;'><font style='font-size:11px;'>$item.investment.cityFunds<font></td>
+									<td style='text-align:center;'><font style='font-size:11px;'>$item.investment.countyFunds<font></td>
+									<td style='text-align:center;'><font style='font-size:11px;'>$item.investment.socialFunds<font></td>
+									<td style='text-align:center;'><font style='font-size:11px;'>$item.investment.massFunds<font></td>
+									<td style='text-align:center;'><font style='font-size:11px;'>$item.investment.otherFunds<font></td>
+									<td style='text-align:center;'><font style='font-size:11px;'>$item.investment.totalFunds<font></td>
+									<td style='text-align:center;'><font style='font-size:11px;'>$item.spend<font></td>
+									<td style='text-align:center;'><font style='font-size:11px;'>$item.labourCount<font></td>
+									<td style='text-align:center;'><font style='font-size:11px;'>
+										#if($item.projectStatus==0)
+											进行中
+										#elseif($item.projectStatus==1)
+											竣工
+										#elseif($item.projectStatus==2)
+											终止
+										#end
+									<font></td>
+								</tr>
+							#end
+						</tbody>
+					</table>
+				</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
+
+
+

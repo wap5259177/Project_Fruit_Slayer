@@ -1,0 +1,62 @@
+<table class='applicant-form'>
+<tr>
+		<td style='font-weight:bold;' colspan='6'>(二)本村资源优势情况</td>
+	</tr>
+	<tr>
+		<td class="tdCenter" rowspan='8'>资源特色</td>
+		<td style='font-weight:bold;'>特色类型名称</td>
+		<td style='font-weight:bold;text-align:center' colspan='4'>描述</td>
+	</tr>
+	<tr>
+		<td class="tdCenter">人文历史[B31]：</td>
+		<td colspan='4'><textarea name='histroyDesc' $!{readonly}>$!{form.histroyDesc}</textarea></td>
+	</tr>
+	<tr>
+		<td class="tdCenter">自然生态[B32]：</td>
+		<td colspan='4'><textarea name='ecologicalDesc' $!{readonly}>$!{form.ecologicalDesc}</textarea></td>
+	</tr>
+	<tr>
+		<td class="tdCenter">民居风貌[B33]：</td>
+		<td colspan='4'><textarea name='civilianDesc' $!{readonly}>$!{form.civilianDesc}</textarea></td>
+	</tr>
+	<tr>
+		<td class="tdCenter">乡村旅游[B34]：</td>
+		<td colspan='4'><textarea name='tourDesc' $!{readonly}>$!{form.tourDesc}</textarea></td>
+	</tr>
+	<tr>
+		<td class="tdCenter">特色产业[B35]：</td>
+		<td colspan='4'><textarea name='industryDesc' $!{readonly}>$!{form.industryDesc}</textarea></td>
+	</tr>
+	<tr>
+		<td class="tdCenter">渔业渔港[B36]：</td>
+		<td colspan='4'><textarea name='fisheryDesc' $!{readonly}>$!{form.fisheryDesc}</textarea></td>
+	</tr>
+	<tr>
+		<td class="tdCenter">其他[B37]：</td>
+		<td colspan='4'><textarea name='otherDesc' $!{readonly}>$!{form.otherDesc}</textarea></td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>现有的或正在打造的旅游景点或节点[B38]：</td>
+		<td colspan='4'>
+			<input style="width:60px;" id="viewSpot" type='text' name='viewSpot' class='number' value='$!{form.viewSpot}' min="0" precision="0" $!{readonly} />个，
+			名称分别是：&nbsp;
+			#if($!{form.viewSpot} == 0)
+			（1）<input style="width:150px;" type='text' id='viewSpot1' name='viewSpot1' value='$!{form.viewSpot1}' $!{readonly} '/><br />
+			（2）<input style="width:150px;" type='text' id='viewSpot2' name='viewSpot2' value='$!{form.viewSpot2}' $!{readonly} '/>
+			（3）<input style="width:150px;" type='text' id='viewSpot3' name='viewSpot3' value='$!{form.viewSpot3}' $!{readonly} '/>
+		    #elseif($!{form.viewSpot} == 1)
+		    （1）<input style="width:150px;" type='text' id='viewSpot1' name='viewSpot1' value='$!{form.viewSpot1}' $!{readonly}/><br />
+			（2）<input style="width:150px;" type='text' id='viewSpot2' name='viewSpot2' value='$!{form.viewSpot2}' $!{readonly} readonly='true'/>
+			（3）<input style="width:150px;" type='text' id='viewSpot3' name='viewSpot3' value='$!{form.viewSpot3}' $!{readonly} readonly='true'/>
+		    #elseif($!{form.viewSpot} == 2)
+		    （1）<input style="width:150px;" type='text' id='viewSpot1' name='viewSpot1' value='$!{form.viewSpot1}' $!{readonly}/><br />
+			（2）<input style="width:150px;" type='text' id='viewSpot3'' name='viewSpot2' value='$!{form.viewSpot2}' $!{readonly}/>
+			（3）<input style="width:150px;" type='text' id='viewSpot4' name='viewSpot3' value='$!{form.viewSpot3}' $!{readonly}  readonly='true'/>
+		    #else
+		    （1）<input style="width:150px;" type='text' id='viewSpot1' name='viewSpot1' value='$!{form.viewSpot1}' $!{readonly}/><br />
+			（2）<input style="width:150px;" type='text' id='viewSpot2' name='viewSpot2' value='$!{form.viewSpot2}' $!{readonly}/>
+			（3）<input style="width:150px;" type='text' id='viewSpot3' name='viewSpot3' value='$!{form.viewSpot3}' $!{readonly}/>
+		    #end
+		</td>
+	</tr>
+</table>

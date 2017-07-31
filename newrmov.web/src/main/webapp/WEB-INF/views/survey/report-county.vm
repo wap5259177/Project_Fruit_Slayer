@@ -1,0 +1,148 @@
+<div id="$di.id" title="$!{title}" style="width:550px;height:400px;overflow:auto;" buttons="#${di.id}-buttons" modal='true'>
+<style>
+.number{width:80%;}
+</style>
+<form id='_3_0'>
+	<input type='hidden' name='id' value='${form.id}' />
+	<table class='editor' style="margin:auto;">
+	<tr>
+    	<td colspan="2">${form.county.name}</td>
+    </tr>
+    <tr>
+    	<th style="width:450px;">1.农业户数（户）</th>
+    	<td style="width:80px;">
+			<input type="text" class="number" name="agriculturalHousehold" value="${form.agriculturalHousehold}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>2.农业人口数（人）</th>
+    	<td>
+			<input type="text" class="number" name="agriculturalPopulation" value="${form.agriculturalPopulation}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>3.建制行政村或居委会(个)</th>
+    	<td>
+			<input type="text" class="number" name="villageCommittee" value="${form.villageCommittee}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>4.20户以上自然村（个）</th>
+    	<td>
+			<input type="text" class="number" name="naturalVillage" value="${form.naturalVillage}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>5.已完成村庄规划的自然村（条）</th>
+    	<td>
+			<input type="text" class="number" name="villagePlanning" value="${form.villagePlanning}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>6.外立面统一装饰风格风貌的自然村（条）</th>
+    	<td>
+			<input type="text" class="number" name="unifiedStyle" value="${form.unifiedStyle}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>7.已实现村巷道硬底化的自然村(条)</th>
+    	<td>
+			<input type="text" class="number" name="hardBottom" value="${form.hardBottom}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>8.已实现村村通自来水的自然村（条）</th>
+    	<td>
+			<input type="text" class="number" name="tapWater" value="${form.tapWater}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>9.建有小公园、文化活动场所或绿化带的自然村（条）</th>
+    	<td>
+			<input type="text" class="number" name="spcvgb" value="${form.spcvgb}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>10.已完成村容村貌整治的自然村（条）</th>
+    	<td>
+			<input type="text" class="number" name="villageRenovation" value="${form.villageRenovation}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>11.建有卫生保洁队伍的自然村（条）</th>
+    	<td>
+			<input type="text" class="number" name="cleaningTeam" value="${form.cleaningTeam}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>12.已实行雨污分流的自然村（条）</th>
+    	<td>
+			<input type="text" class="number" name="rainSewageDiversion" value="${form.rainSewageDiversion}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>13.建有人工湿地、厌氧池、沼气池等处理生活污水的自然村（条）</th>
+    	<td>
+			<input type="text" class="number" name="sewageTreatment" value="${form.sewageTreatment}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>14. 实行畜禽集中圈养、人畜分离的自然村（条）</th>
+    	<td>
+			<input type="text" class="number" name="livestockConcentratedCaptive" value="${form.livestockConcentratedCaptive}"/>
+		</td>
+    </tr>
+    <tr>
+    	<th>15.健全村规民约、章程及村民理事会的自然村（条）</th>
+    	<td>
+			<input type="text" class="number" name="villagerCouncil" value="${form.villagerCouncil}"/>
+		</td>
+    </tr>
+    
+	</table>
+</form>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='_3_1'>保存</a>
+<a href="#" onclick="javascript:jQuery('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+<script type="text/javascript">
+var P = {
+	g:jQuery("#_2_1"),
+	f:jQuery("#_3_0"),
+	s:jQuery("#_3_1"),
+	n:jQuery(".number"),
+	b:jQuery("#${di.id}-buttons a")
+};
+jQuery(function(){
+	P.b.bupabutton();
+	P.n.each(function(i, v){
+		if(!(v.value > 0)){
+			v.value = "";
+		}
+	});
+	P.n.bupnuminput();
+	P.s.click(function(){
+		P.n.each(function(i, v){
+			var nv = jQuery(v).bupnuminput("getValue");
+			if(!(nv > 0)){
+				jQuery(v).bupnuminput("setValue", 0);
+			}
+		});
+		lock("开始提交数据...");
+		P.f.bupform('submit', {
+			url:"county.submit",
+			success: function(data){
+				jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error){
+					alert(data.msg);
+					return false;
+				}
+				P.g.bupgrid('reload');
+				jQuery('#${di.id}').bupdlg('close');
+		}});
+		return false;
+	});
+});
+</script>

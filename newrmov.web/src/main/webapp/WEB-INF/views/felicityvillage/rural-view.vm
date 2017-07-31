@@ -1,0 +1,229 @@
+
+<div id="rural_myw" buttons="#_save">
+<form id="form_rural"  method="post"  >
+	<table class='applicant-form'>
+		<input type='hidden' name='id' value='$id'>
+		<tr>
+			<td style='text-align:center' colspan='5'>
+				<font style='font-size:25px;color:red;'>
+				当前填报的是:$!{ma.name}
+				</font>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='5' >
+				<!--是否主体村<font style='color:red;'>(不勾选的情况是填辐射村)</font><input onchange='checkRural();' checked='checked' id='ismaster' type='checkbox' name='ismaster'  />-->
+				<font style='font-size:35px;'>是否主体村:</font>
+				<input id='ismaster' onchange='checkRural();' checked='checked'  type='radio' name='ismaster'  />
+				<label style='font-size:35px;' for='ismaster' >是</label>
+				&nbsp&nbsp&nbsp&nbsp
+				<input id='ismaster2' onchange='checkRural();'   type='radio' name='ismaster'  />
+				<label style='font-size:35px;' for='ismaster2' >否</label>
+			</td>
+		</tr>
+		<tr>
+			<td >主体村名称:</td>
+			<td><input type='text' id='crName' name='crName' required='true'/></td>
+			<td >类型:</td>
+			<td colspan='2'>
+				<input  type="radio" name='crType' value='行政村' checked='checked' id="_99_2"/><label for='_99_2' >行政村</label>
+				<input  type="radio" name='crType' value='自然村' id="_99_3"/><label for='_99_3' >自然村</label>
+			</td>
+		</tr>
+		
+		<tr>
+			<td >辐射村名称:</td>
+			<td><input type='text' id='prName' name='prName' disabled='disabled'/></td>
+			<td >类型:</td>
+			<td>
+				<input disabled='disabled'  type="radio" name='prType' value='行政村' checked='checked' id="_99_5"/><label for='_99_5' >行政村</label>
+				<input disabled='disabled'  type="radio" name='prType' value='自然村' id="_99_99"/><label for='_99_99' >自然村</label>
+			</td>
+			<td>
+				<select disabled='disabled' id='coreRural' name='coreRural'>
+					<option value ="-1">请选择主体村</option>
+					#foreach($it in $crs)
+					<option value ="$it.id">$it.name</option>
+					#end
+				</select>
+			</td>
+		</tr>
+		
+		<tr>
+			<td >规划设计:</td>
+			<td colspan='4'>
+				<input  type="radio" name='finishedPlan' value='true' id="_99_9"/><label for='_99_9' >完成</label>
+				<input  type="radio" name='finishedPlan' value='false' checked='checked' id="_99_8"/><label for='_99_8' >否</label>
+			</td>
+		</tr>
+		
+		<tr>
+			<td >项目招投标:</td>
+			<td colspan='4'>
+				<input  type="radio" name='finishedBid' value='true' id="_99_6"/><label for='_99_6' >完成</label>
+				<input  type="radio" name='finishedBid' value='false' checked='checked' id="_99_7"/><label for='_99_7' >否</label>
+			</td>
+		</tr>
+		
+		<tr>
+			<td >项目个数:</td>
+			<td colspan='4'><input class='number'  id='projectNum' type="text" name='projectNum' /></td>
+		</tr>
+		
+		<tr>
+			<td >完成个数:</td>
+			<td colspan='4'><input class='number' id='projectFinishNum'  type="text" name='projectFinishNum' /></td><!--onblur='checkProject();'-->
+		</tr>
+		<tr>
+			<td >启动时间:</td>
+			<td colspan='4'><input  type="text" id='startTime' name='startTime' /></td>
+		</tr>
+		<tr>
+			<td >预计完成时间:</td>
+			<td colspan='4'><input  type="text" id='predictFinishTime' name='predictFinishTime' /></td>
+		</tr>
+		
+		<tr>
+			<td >建设进度:</td>
+			<td colspan='4'><input class='number'  type="text" name='constructProgress' data-settings="max:100,min:0"/>%</td>
+		</tr>
+		
+		
+		
+		
+	
+	</table>
+</form>
+</div>
+<div id='_save'>
+	<a href="#" id='_buttons' onclick='saveRural();' iconClassname="icon_save" flat="true">保存村</a>
+</div>
+
+<script>
+$(function(){
+	$("#predictFinishTime,#startTime").bupdateinput({
+		editable:false
+	});
+	jQuery("#_1_0").bupborderlayout({fit:true});
+	$("#_buttons").bupabutton();
+	$('#rural_myw').bupdlg({
+		title:'$title',
+		height:400,
+		width:720,
+		iconCassname:'icon_save',
+	    modal:true,
+	    //closed:true,
+	    //buttons:'#_buttons',
+	    maximized: false,//是否显示最大化
+	    onClose:function(){
+	    	//$('#rural_myw').remove();
+	    	jQuery('#rural_myw').bupdlg('destroy').remove();
+	    },
+	    minimizable:false,
+	    maximizable:false
+	});
+	
+	jQuery(".number").bupnuminput({min:0});
+	$('.number').each(function(i, v){
+		var vf = v.value;
+		if(!$.isNumeric(vf) || vf == 0){
+			v.value = '';
+		}
+	});
+	
+	
+	
+});
+
+
+
+function saveRural(){
+	if(!confirm("是否保存?")){
+		return false;
+	}
+	$('#form_rural').bupform('submit', {
+	    url: "rural.save",
+	    onSubmit: function(){
+	    	var ck=document.getElementById('ismaster');
+		    if(ck.checked==true){
+	    		var crname = $('#crName').val();
+	    		if(crname==''){
+	    			alert('主体村名字为空,不能保存!');
+	    			return false;
+	    		}
+	    	}
+	    	var crId = $('#coreRural').val();
+	    	if(ck.checked==false&&crId==-1){
+	    		alert('请选择辐射村所属的主体村!');
+	    		return false;
+	    	}
+	    	
+	    	//项目数和完成数的校验
+	    	var pf = $('#projectFinishNum').val();
+			var pn  = $('#projectNum').val();
+			if(pf==''){pf=0;}
+			if(pn==''){pn=0;}
+			
+			//alert(pf+","+pn);
+			if((pf-0)>(pn-0)){
+				alert('项目个数必须大于完成个数!');
+				return false;
+			}
+	    },
+	    success: function(data){
+	    	//对启动时间和预计完成时间的校验
+	    	jQuery.unblockUI();
+			var data = eval('(' + data + ')');
+			if(data.error){
+				alert(data.msg);
+				return ;
+			}
+	    
+	    	//alert("开始上报成功，将自动刷新列表！");
+	    	//保存成功后,1.关闭弹出框  2.刷新datagrid 的数据
+	    	jQuery("#_1_1").bupgrid("reload");
+	    	jQuery('#rural_myw').bupdlg('destroy').remove();
+	    }
+  }); 
+}
+
+
+function checkRural(){
+	var ck=document.getElementById('ismaster');
+	//alert(ck.checked);
+	//ck.checked='checked';
+	if(ck.checked==false){
+		//填辐射村的情况
+		//alert('去掉勾选的状态...应该要把规划设计和项目招投标灰掉');
+		$("#crName").attr("disabled","disabled");
+		$(":radio[name=crType]").attr("disabled","disabled");
+		$(":radio[name=finishedPlan]").attr("disabled","disabled");
+		$(":radio[name=finishedBid]").attr("disabled","disabled");
+		
+		$("#prName").attr("disabled",false);
+		$("#coreRural").attr("disabled",false);
+		$(":radio[name=prType]").attr("disabled",false);
+	}else{
+		//填主体村的情况
+		$("#prName").attr("disabled","disabled");
+		$("#coreRural").attr("disabled","disabled");
+		$(":radio[name=prType]").attr("disabled","disabled");
+		
+		
+		$("#crName").attr("disabled",false);
+		$(":radio[name=crType]").attr("disabled",false);
+		$(":radio[name=finishedPlan]").attr("disabled",false);
+		$(":radio[name=finishedBid]").attr("disabled",false);
+	}
+}
+
+/*
+function checkProject(){
+	var pf = $('#projectFinishNum').val();
+	var pn  = $('#projectNum').val();
+	if((pf-0)>(pn-0)){
+		alert('项目个数必须大于完成个数!');
+	}
+}*/
+
+</script>

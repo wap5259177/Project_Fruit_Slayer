@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="pragma" content="no-cache">  
+	<meta http-equiv="expires" content="-1">  
+	<link rel="shortcut icon" href="#springUrl('/r/favicon.ico')" type="image/x-icon"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/icons.css')"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/skins/default/bupui.css')"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/layout/default/layout.css')"/>
+	<link rel="stylesheet" type="text/css" href="#springUrl('/res/css/global.css')"/>
+	<script type="text/javascript">
+		var CONTEXT_PATH = '$!{request.contextPath}';
+		window.CONTEXT_PATH = CONTEXT_PATH;
+	</script>
+	<script type="text/javascript" src="#springUrl('/res/js/jquery.min.js')"></script>
+	##<script type="text/javascript" src="#springUrl('/res/js/jquery.easyui.min.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/bupui/jquery.bupui.min.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/bupui/loading.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/easyui-lang-zh_CN.js')"></script>
+	<script type="text/javascript" src="#springUrl('/res/js/jquery.bonoon.kernel.js')"></script>
+</head>
+<body>
+<div id="_1_0" style="height:450px;">
+	<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:40px;padding:0;overflow:hidden;">
+		<form id="_form_area"  method="post"  >
+		<table>
+			<tr>
+				<input type='hidden' name='id' value='$ma.id'/>
+				<input type='hidden' name='modelAreaName' value='$ma.name'/>
+				
+				<td>
+					示范片建设覆盖面积/km²:<input class='number2' id='constructionArea' name='constructionArea' value='$ma.constructionArea' $!{readonly} />
+				</td>
+				<td>
+					户数/户:<input class='number' id='households' name='households' value='$ma.households' $!{readonly}/>
+				</td>
+				<td>
+					人口数/人:<input class='number' id='population' name='population' value='$ma.population' $!{readonly}/>
+				</td>
+				<td>
+					#if(!$submit) 
+					<a id='a_updateArea' iconClassname="icon_save" href='#' onclick='updateArea();'>修改</a>
+					<font style='font-size:12px;color:red;' >
+						[注意:此处修改的是左侧三个输入框的内容!]
+					</font>
+					#end
+				</td>
+			</tr>
+		</table>
+		</form>
+	</div>
+	<div data-settings="zone:'center',border:false">
+		<style>
+		table.editor tr, table.editor-line tr, table.simplegrid tr{
+			height:auto;
+		}
+		</style>
+		<table id="_1_1" data-settings="
+		        url: 'table1.json',
+		        showRownum: true,
+		        idField: 'id',
+		        treeField: 'name',
+		        showPagebar: false,
+		        fit:true
+		    ">
+			<thead>
+				#parse("felicityvillage/table1-head.vm")
+			</thead>
+		</table>
+		<!--toolbar-->
+		#if(!$submit)
+		<div id="tb" style="padding:5px;height:auto">
+			<div style="margin-bottom:5px">
+				<a href="#" onclick='addRural();' class="bupa" iconClassname="icon_add" flat="true">添加村</a>
+				<br/><br/>
+				<font style='font-size:12px;color:red;' >
+					[注意:如果删除主体村的话,该主体村下的辐射村都会被删除!]
+				</font>
+			</div>
+		</div>
+		#end
+	</div>
+</div>
+
+
+
+<!--load弹出框填村子-->
+<div id='r_bupwin' style="display:none;"></div>
+
+<div id='rural_update' style="display:none;"></div>
+<script>
+jQuery(function(){
+	/*#if(!$submit)
+		alert('ddd');
+		jQuery(".number").bupnuminput({editable:false});
+		jQuery(".number2").bupnuminput({precision:4,editable:false});
+	#end*/
+	jQuery("#_1_0").bupborderlayout({fit:true});
+	jQuery(".number").bupnuminput();
+	jQuery(".number2").bupnuminput({precision:4});
+	jQuery("#_1_1").bupgrid({
+		fitColumns: true,//列的宽度自动适应
+        singleSelect: true,//单选
+        border: true,//显示边框
+        showRownum: true,//显示序号
+        showHeader: true,//显示表头
+        autoRowheight: false,//将这个设置为false,可以设置rowstyle 的样式高度
+        //sortField: 'id',//定义排序的字段
+        //sortOrder: 'desc',
+        remoteSort: false,//如果要使用本地定义排序的字段,就要设置这里为false
+        
+        rowStyler: function(index,row){
+        	 var crName = row.crName;
+        	 var prName = row.prName;
+        	 var _id = row.id;
+        	 //小计
+        	 if(_id==null){
+        	 	return 'background-color:#83d7f5;color:#333333;height:30px;'; // 返回内联样式#8dc5c5,33.8
+        	 }
+        	 if (prName!=""&&crName==""){//辐射村
+		     	return 'background-color:#a5d8f1;color:#333333;height:30px;'; // 返回内联样式#8dc5c5,33.8
+		     }else{//主体村
+		        return 'background-color:#dbfab4;color:#333333;height:30px;'; // 返回内联样式#8dc5c5,33.8
+		     }
+		},
+        /*在这里开启分页*/
+        //loadFilter: pagerFilter,
+        //showPagebar: true,
+        //pagePosition: 'bottom',
+		toolbar: '#tb',
+		queryParams: {
+            id: '$id',
+     	},
+     	/*被冻结的列*/
+        frozenColumns:[[{
+			title : '操作',
+			field : 'operation',
+			width : 80,
+			formatter: function(value,row,index) {
+				var id = row.id;//村子的id
+				var btns = "";
+				//alert(index);
+				//alert(id);
+				if(id==null){
+					btns +="<span>小计</span>";
+				}else{
+					#if($submit)
+						//btns += "<a class='table_area' id='a_editorArea' href='#' onclick='editorRural("+id+");'  >查看</a>&nbsp;";
+					#else
+						btns += "<a class='table_area' id='a_editorArea' href='#' onclick='editorRural("+id+");'  >编辑</a>&nbsp;"+
+							"<a class='table_area' id='a_deleteRural' href='#' onclick='deleteRural("+id+");' >删除</a>&nbsp;";
+					#end
+				}
+				return btns;    
+			}
+		}]],
+		
+		onLoadSuccess : function(data, param) {
+			jQuery('#a_editorArea').click(function() {
+				//lock("正在加载...");
+				//jQuery('#ma_update').load(this.href);
+				//alert('binji...');
+				//jQuery('#div-kernel-dialog-loader').load(this.href);
+				return false;
+			});
+			jQuery('#a_editorRural').click(function() {
+				//lock("正在加载...");
+				//jQuery('#div-kernel-dialog-loader').load(this.href);
+				alert('编辑村指标');
+				return false;
+			});
+			
+		}
+	});
+	
+	$("a.bupa,#a_updateArea").bupabutton({flat:true});
+	//$("#reportTime").bupdateinput({editable:false});
+	
+});
+
+
+//点击保存修改示范片
+function updateArea(){
+	if(!confirm("是否修改?")){
+		return false;
+	}
+	$('#_form_area').bupform('submit', {
+	    url: "area.update",
+	    onSubmit: function(){
+	    	//return false   会阻止表单提交提交
+	    	//alert($(""));
+	    	
+	    },
+	    success: function(data){
+	    	alert('修改片区成功!');
+	    	//alert("开始上报成功，将自动刷新列表！");
+	    	//保存成功后,1.关闭弹出框  2.刷新datagrid 的数据
+	    	//jQuery("#myg").bupgrid("reload");
+	    	//jQuery('#area_myw').bupdlg('destroy').remove();
+	    }
+  	}); 
+}
+
+//添加村
+function addRural(){
+	$('#r_bupwin').load('addRural.do?id=$ma.id');	
+}
+
+//编辑村子
+function editorRural(id){
+	$('#r_bupwin').load('editorRural.do?id='+id);	
+}
+//删除村
+function deleteRural(_id){
+	if(!confirm("是否删除?")){
+		return false;
+	}
+	$.post(
+		"deleteRural.do",
+		{id:_id},
+		function(data){
+			alert("删除成功!");
+			jQuery("#_1_1").bupgrid("reload");
+			//jQuery('#table2_myw').bupdlg('destroy').remove();
+		}
+	);
+}
+
+
+/*客户端分页*/
+function pagerFilter(data){
+	if (typeof data.length == 'number' && typeof data.splice == 'function'){	// is array
+		data = {
+			total: data.length,
+			rows: data
+		}
+	}
+	var dg = $(this);
+	var opts = dg.bupgrid('settings');
+	var pager = dg.bupgrid('getPager');
+	pager.buppager({
+		onSelectPage:function(pageNum, pageSize){
+			opts.pageNo = pageNum;
+			opts.pageSize = pageSize;
+			pager.buppager('refresh',{
+				pageNo:pageNum,
+				pageSize:pageSize
+			});
+			dg.bupgrid('loadData',data);
+		}
+	});
+	if (!data.originalRows){
+		data.originalRows = (data.rows);
+	}
+	var start = (opts.pageNo-1)*parseInt(opts.pageSize);
+	var end = start + parseInt(opts.pageSize);
+	data.rows = (data.originalRows.slice(start, end));
+	return data;
+}	
+
+
+</script>
+</body>
+</html>

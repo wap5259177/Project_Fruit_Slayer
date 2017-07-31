@@ -1,0 +1,161 @@
+
+<div id="rural_myw" buttons="#_save">
+<form id="form_rural"  method="post"  >
+	<table class='applicant-form'>
+		<input type='hidden' name='id' value='$crural.id'>
+		<tr>
+			<td style='text-align:center' colspan='2'>
+				<font style='font-size:25px;color:red;'>
+				当前填报的是:$!{crural.modelArea.name}
+				</font>
+			</td>
+		</tr>
+		<tr>
+			<td>主体村名称:</td>
+			<td><input type='text' id='crName' name='crName' value='$crural.name'/></td>
+			
+		</tr>
+		
+		<tr>
+			<td >类型:</td>
+			<td colspan='2'>
+				<input id='crType1'   type="radio" name='crType' value='行政村' #if($crural.type=='行政村') checked='checked'#end/>
+				<label for='crType1'>行政村</label>
+				<input id='crType2'  type="radio" name='crType' value='自然村' #if($crural.type=='自然村') checked='checked'#end/>
+				<label for='crType2'>自然村</label>
+			</td>
+		</tr>
+		<tr>
+			<td>规划设计:</td>
+			<td colspan='4'>
+				<input id='finishedPlan1'  type="radio" name='finishedPlan' value='true' #if($crural.finishedPlan==true) checked='checked'#end/>
+				<label for='finishedPlan1'>完成</label>
+				<input id='finishedPlan2' type="radio" name='finishedPlan' value='false' #if($crural.finishedPlan==false) checked='checked'#end />
+				<label for='finishedPlan2'>否</label>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>项目招投标:</td>
+			<td colspan='4'>
+				<input id='finishedBid1'  type="radio" name='finishedBid' value='true' #if($crural.finishedBid==true) checked='checked'#end/>
+				<label for='finishedBid1'>完成</label>
+				<input id='finishedBid2'  type="radio" name='finishedBid' value='false' #if($crural.finishedBid==false) checked='checked'#end/>
+				<label for='finishedBid2'>否</label>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>项目个数:</td>
+			<td colspan='4'><input id='projectNum' class='number'  type="text" name='projectNum' value='$!{crural.projectNum}'/></td>
+		</tr>
+		
+		<tr>
+			<td>完成个数:</td>
+			<td colspan='4'><input id='projectFinishNum' class='number'  type="text" name='projectFinishNum' value='$!{crural.projectFinishNum}'/></td>
+		</tr>
+		<tr>
+			<td>启动时间:</td>
+			<td colspan='4'><input  type="text" id='startTime' name='startTime' value='$!{crural.startTime}'/></td>
+		</tr>
+		<tr>
+			<td>预计完成时间:</td>
+			<td colspan='4'><input  type="text" id='predictFinishTime' name='predictFinishTime' value='$!{crural.predictFinishTime}'/></td>
+		</tr>
+		
+		<tr>
+			<td>建设进度:</td>
+			<td colspan='4'><input  class='number' type="text" name='constructProgress' value='$!{crural.constructProgress}'/>%</td>
+		</tr>
+		
+		
+		
+		
+	
+	</table>
+</form>
+</div>
+<div id='_save'>
+	<a href="#" id='_buttons' onclick='saveRural();' iconClassname="icon_save" flat="true">保存村</a>
+</div>
+
+<script>
+$(function(){
+	$("#predictFinishTime,#startTime").bupdateinput({editable:false});
+	jQuery("#_1_0").bupborderlayout({fit:true});
+	$("#_buttons").bupabutton();
+	$('#rural_myw').bupdlg({
+		title:'$title',
+		height:400,
+		width:720,
+		iconCassname:'icon_save',
+	    modal:true,
+	    //closed:true,
+	    //buttons:'#_buttons',
+	    maximized: false,//是否显示最大化
+	    onClose:function(){
+	    	//$('#rural_myw').remove();
+	    	jQuery('#rural_myw').bupdlg('destroy').remove();
+	    },
+	    minimizable:false,
+	    maximizable:false
+	});
+	
+	
+	
+	$('.number').each(function(i, v){
+		var vf = v.value;
+		if(!$.isNumeric(vf) || vf == 0){
+			v.value = '';
+		}
+	});
+	jQuery(".number").bupnuminput();
+	
+	
+});
+
+
+
+/*保存片区(可能有多个)*/
+function saveRural(){
+	//document.getElementById("formid").submit();
+	$('#form_rural').bupform('submit', {
+	    url: "crural.save",
+	    onSubmit: function(){
+	    	var crname = $('#crName').val();
+    		if(crname==''){
+    			alert('主体村名字为空,不能保存!');
+    			return false;
+    		}
+    		//项目数和完成数的校验
+	    	var pf = $('#projectFinishNum').val();
+			var pn  = $('#projectNum').val();
+			if(pf==''){pf=0;}
+			if(pn==''){pn=0;}
+			//alert(pf+","+pn);
+			if((pf-0)>(pn-0)){
+				alert('项目个数必须大于完成个数!');
+				return false;
+			}
+	    },
+	    success: function(data){
+	    	//对启动时间和预计完成时间的校验
+	    	jQuery.unblockUI();
+			var data = eval('(' + data + ')');
+			if(data.error){
+				alert(data.msg);
+				return ;
+			}
+	    
+	    	//alert("开始上报成功，将自动刷新列表！");
+	    	//保存成功后,1.关闭弹出框  2.刷新datagrid 的数据
+	    	jQuery("#_1_1").bupgrid("reload");
+	    	jQuery('#rural_myw').bupdlg('destroy').remove();
+	    }
+  }); 
+}
+
+
+function checkRural(){
+}
+</script>

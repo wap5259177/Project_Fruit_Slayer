@@ -1,0 +1,76 @@
+<div id="$di.id" title="项目分类统计" style="padding:12px;" buttons="#${di.id}-buttons" modal='true'>
+<div id='hc_pie' style='height: 400px; width: 600px; margin: 0 auto;'></div>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='close_dlg' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery('#close_dlg').bupabutton({flat : true});
+	
+	jQuery('#hc_pie').highcharts({
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: 1,//null,
+            plotShadow: false
+        },
+        title: {
+            text: '项目可以分为几类'
+        },
+        credits: {
+        	enabled: false,
+        	text: '版权信息',
+        	href: '#',
+        	position: {
+				align: 'right',
+				x: -10,
+				verticalAlign: 'bottom',
+				y: -3
+			},
+			style: {
+				cursor: 'pointer',
+				color: '#909090',
+				fontSize: '12px'
+			}
+        },
+        tooltip: {
+        	headerFormat: '<span style="font-size: 12px">{point.key}</span><br/>',
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    style: {
+                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                    }
+                }
+            }
+        },
+        series: [{
+        	dataLabels: {
+        		style: {"color": "#606060", "fontSize": "12px"}
+        	},
+            type: 'pie',
+            name: '所占百分比',
+            data: [
+                ['基础设施类', 45.0],
+                ['公共服务设施类', 26.8],
+                {
+                    name: '环境综合整治类',
+                    y: 12.8,
+                    sliced: true,
+                    selected: true
+                },
+                ['产业发展类', 8.5],
+                ['景观打造提升类', 6.2],
+                ['其他', 0.7]
+            ]
+        }]
+    });
+});
+</script>

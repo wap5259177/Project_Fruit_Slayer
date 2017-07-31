@@ -1,0 +1,923 @@
+$!{FrontStyle}
+$!{display}
+<!--估计这里是和后台自动生成的前端easyUI等插件冲突了，
+乱测试了居然发现如果加上这段js代码
+<script>
+$(function() {
+    $('#myModal').modal({
+        keyboard: true
+    })
+});
+</script>
+就可以显示模态框了！！！
+-->
+<!--下面是定位页面居中显示每个片区的工程进展资金-->
+<style>
+<!--*{margin:0;padding:0}
+.panel-warning{width:1000px;position:absolute;}-->
+
+    </style>
+
+
+
+	$!{selectBatch}<button type="button" class="btn btn-success" onclick='showMoneyAll()'>所有资金</button>
+
+
+	
+<table id='table' class="table table-hover table-bordered table-striped">
+    <caption><h3>$!{showPeriod}<div align="center" ><h3>${title}(截止时间:${deadline})</ h3></div></h3></caption>
+ <thead id='showThead'>
+	<tr >
+		<td >示范片所在市县名称</td>
+		<td >行政村数</td>
+		<td >自然村数</td>
+		<td  >户数</td>
+		<td  >人数</td>
+		<td >行政村有编制规划设计村数(个)</td>
+		<td >自然村有编制规划设计村数(个)</td>
+		<td  >通自来水自然村数(个)</td>
+		<td  >完成卫生改厕所自然村数(个)</td>
+		<td >完成道路硬化建设自然村数(个)</td>
+		<td >完成民居外立面特色改造的自然村数(个)</td>
+		<td >完成卫生整治及建立保洁队和长效机制的自然村数(个)</td>
+		<td  >实行雨污分流并建有污水处理设施自然村数(个)</td>
+		<td >实行人畜分离(集中圈养)的自然村数(个)</td>
+		<td>已成立村民理事会并制定了村规民约和章程的自然村数(个)</td>
+		<td >已启动项目个数(个)</td>
+		<td>其中已竣工项目个数(个)</td>
+		<td >操作</td>
+		
+</tr>
+ </thead>
+	<tbody id="showBody">
+	 #set($random=0)
+	 
+        #foreach($showVar in $showVarList)
+			#if($random%3==0)
+				<tr class='success'>
+				#elseif($random%3==1)
+					<tr class='warning'>
+					#elseif($random%3==2)
+						<tr class='danger'>
+							#end
+			 #set($random=$random+1)
+				<td class="text-center" title='示范片所在市县名称' >
+				 <button type="button" id='showAdminRuralButton$showVar.id' onclick="showHiddenChildNodes_adminRural($!{showVar.id});" class="btn btn-default btn-sm" show="show" title='展开 $!{showVar.modelArea.county}的行政村'>
+						<span class="glyphicon glyphicon-chevron-down"></span> $!{showVar.modelArea.county}
+					  </button>
+				</td>
+                <td class="text-center" title='行政村数' >$!{showVar.getArCount()}</td>
+				<td  title='自然村数' >$!{showVar.getNrCount()}</td>
+				<td title='户数'>$!{showVar.getHouseholdCount()}</td >
+				<td title='人数'>$!{showVar.getPopulationCount()}</td >
+				<td title='行政村有编制规划设计村数(个)'>$!{showVar.getArFinishPlan()}</td> 
+				<td title='自然村有编制规划设计村数(个)'>$!{showVar.getNeedFinish().getNeedFinish1()}</td>
+				<td title='通自来水自然村数(个)'>$!{showVar.getNeedFinish().getNeedFinish2()}</td>
+				<td title='完成卫生改厕所自然村数(个)'>$!{showVar.getNeedFinish().getNeedFinish3()}</td>
+				<td title='完成道路硬化建设自然村数(个)'>$!{showVar.getNeedFinish().getNeedFinish4()}</td>
+				<td title='完成民居外立面特色改造的自然村数(个)'>$!{showVar.getNeedFinish().getNeedFinish5()}</td>
+				<td title='完成卫生整治及建立保洁队和长效机制的自然村数(个)'>$!{showVar.getNeedFinish().getNeedFinish6()}</td>
+				<td title='实行雨污分流并建有污水处理设施自然村数(个)'>$!{showVar.getNeedFinish().getNeedFinish7()}</td>
+				<td title='实行人畜分离(集中圈养)的自然村数(个)'>$!{showVar.getNeedFinish().getNeedFinish8()}</td>
+				<td title='已成立村民理事会并制定了村规民约和章程的自然村数(个)'>$!{showVar.getNeedFinish().getNeedFinish9()}</td>
+				
+				<td title='已启动项目个数(个)'>#if(!$!{showVar.getStartProject()})0#else$!{showVar.getStartProject()}#end</td>
+				<td title='其中已竣工项目个数(个)'>#if(!$!{showVar.getFinishProject()})0#else$!{showVar.getFinishProject()}#end</td>
+				<td>
+					#set($statusS='')
+					#if($!{showVar.status}==-1)
+						#set($statusS=-1)
+					#end
+					#if($!{showVar.status}==0)
+						#set($statusS="未开始")
+					#end
+					#if($!{showVar.status}==1)
+						#set($statusS="已提交")
+					#end
+					#if($!{showVar.status}==2)
+						#set($statusS="正在上报")
+					#end
+					#if($!{showVar.status}==3)
+						#set($statusS="驳回")
+					#end
+					#if($!{showVar.status}==4)
+						#set($statusS="待审核")
+					#end
+					
+					<p class="popover-options">
+		<a  type="button" onclick="PopUpBox();return false;" class="btn btn-success popover-destroy needHidden" title="<h2>$!{showVar.modelArea.county}($statusS)</h2>"  
+		   data-container="body" data-toggle="popover"  data-placement="left" data-content="
+			<h4> 	
+				#if($!{showVar.isLock()} ==true && $!{showVar.status}!=-1)
+						<button type='button' class='btn btn-default btn-sm' onclick='unlock($!{showVar.id});return false;'>
+							<span class='glyphicon glyphicon-wrench'></span> 解锁
+					   </button>
+					   #else
+						#if($!{showVar.status}== 0 || $!{showVar.status}== 2 || $!{showVar.status} ==3)
+							
+							<button type='button' class='btn btn-default btn-sm' onclick='c($!{showVar.id});return false;'>
+							<span class='glyphicon glyphicon-wrench'></span> 催报
+							</button>
+							
+						#elseif($!{showVar.status}== 1||$!{showVar.status}==4)
+							
+							<button type='button' class='btn btn-default btn-sm' onclick='cc($!{showVar.id});return false'>
+								<span class='glyphicon glyphicon-wrench'></span> 退回
+							</button>
+						#end
+						
+							#if($!{showVar.status}!=-1)	
+								#if($!{showVar.disabled}==false)
+									<button type='button' class='btn btn-default btn-sm' onclick='ban($!{showVar.id});return fasle;'>
+										<span class='glyphicon glyphicon-wrench'></span> 禁止
+									</button>
+									#else
+										<button type='button' class='btn btn-default btn-sm' onclick='regain($!{showVar.id});return fasle;'>
+											<span class='glyphicon glyphicon-wrench'></span> 恢复
+										</button>
+								#end
+							#end
+				#end
+		#if($!{showVar.status}!=0)
+					   <button type='button' class='btn btn-default btn-sm' onclick='changeQuarter($!{showVar.id});return false;' title='注意：本功能是针对行政村有编制规划设计村数（个）和9项指标数据出错时用的，将更新至最新数据信息'>
+							<span class='glyphicon glyphicon-wrench'></span> 矫正
+					   </button>
+					#end
+		
+				
+				
+				
+					   <div class='btn-group'><button type='button' class='btn btn-primary dropdown-toggle btn-sm' id='dropdownMenu1' data-toggle='dropdown'>批次修改<span class='caret'></span></button>
+<ul class='dropdown-menu' role='menu'>
+	#foreach($info in $changeBatch.entrySet())
+		<li role='presentation'>
+			<a role='menuitem' tabindex='-1' href='#' onclick='return changeBatch($!{showVar.id},$!{showVar.batch.quarter.id},$info.value);'>$info.key</a>
+		</li>       
+#end 
+</ul>
+					   </div>	
+		   </h4>">
+			操作
+		</a>
+	</p>
+					  <button type="button" id="$!{showVar.id}" onclick="showMoney($!{showVar.id});" class="btn btn-default btn-sm" >
+						<span class="glyphicon glyphicon-chevron-down"></span> 资金
+					  </button>
+					 
+                </td>
+	
+            </tr>
+			#foreach($adminRural in $showVar.getAdminRurals())
+					#if($adminRural.getAdminRural().getStatus()==1)
+	#set($random2=$random+1) 
+		#if($random2%3==0)
+				<tr class='success adminRural$showVar.id'  hidden=''>
+				#elseif($random2%3==1)
+					<tr class='warning adminRural$showVar.id'  hidden=''>
+					#elseif($random2%3==2)
+						<tr class='danger adminRural$showVar.id'  hidden=''>
+							#end
+				
+                    <td>
+						  <a href="javascript:void(0);" id='showNewRuralButton$adminRural.id' onclick="showHiddenChildNodes_newRural($!{adminRural.id},$showVar.id)" class="setShowByFatherPoint$showVar.id" show="show" title='展开 $adminRural.adminRural.name的自然村'>
+							<span id='span_$adminRural.id' class="glyphicon glyphicon-chevron-down down_$showVar.id">$adminRural.adminRural.name</span>
+						  </a>
+					</td>
+					     <td title='行政村数'>1</td>
+						      <td title='自然村数'>$adminRural.getNaturaRurals().size()</td>
+							       <td title='户数'>$adminRural.getHouseholdCount()</td>
+								     <td title='人数'>$adminRural.getPopulationCount()</td>
+										
+				#if($adminRural.arFinishPlan == 1)
+					<td>1</td>
+				#else
+					<td></td>
+				#end
+				 <td>$adminRural.getNeedFinish().getNeedFinish1()</td>
+				  <td>$adminRural.getNeedFinish().getNeedFinish2()</td>
+				   <td>$adminRural.getNeedFinish().getNeedFinish3()</td>
+				    <td>$adminRural.getNeedFinish().getNeedFinish4()</td>
+					 <td>$adminRural.getNeedFinish().getNeedFinish5()</td>
+					 
+					  <td>$adminRural.getNeedFinish().getNeedFinish6()</td>
+					   <td>$adminRural.getNeedFinish().getNeedFinish7()</td> 
+					   <td>$adminRural.getNeedFinish().getNeedFinish8()</td>
+					    <td>$adminRural.getNeedFinish().getNeedFinish9()</td>
+						<td title='已启动项目个数(个)'>
+						#if(!$adminRural.getStartProject())
+							0
+						#else
+							$adminRural.getStartProject()
+						#end
+						</td>
+					   <td title='其中已竣工项目个数(个)'>
+						#if(!$adminRural.getFinishProject())
+							0
+						#else
+							$adminRural.getFinishProject()
+						#end
+						</td>
+					   <td><button type='button' id='$adminRural.id' onclick='showMoney($adminRural.id);' class='btn btn-default btn-sm' ><span class='glyphicon glyphicon-chevron-down'></span> 资金</button></td>
+				</tr>
+				#foreach($newRuralModel in $adminRural.getNaturaRurals())
+						#if($newRuralModel.getNewRural().getStatus()==1)
+					#set($random3=$random2+1) 
+		#if($random3%3==0)
+				<tr class='success newRural$adminRural.id closeByFatherPoint$showVar.id' hidden=''>
+				#elseif($random3%3==1)
+					<tr class='warning newRural$adminRural.id closeByFatherPoint$showVar.id' hidden=''>
+					#elseif($random3%3==2)
+						<tr class='danger newRural$adminRural.id closeByFatherPoint$showVar.id' hidden=''>
+							#end
+						<td>
+							$newRuralModel.newRural.naturalVillage
+								</td>
+									<td>
+							
+								</td>
+									<td title='自然村数'>
+							1
+								</td>
+									<td title='户数'>
+							$newRuralModel.getHouseholdCount()
+								</td>
+									<td title='人数'>
+							$newRuralModel.populationCount	
+							</td>
+							<td>
+								</td>
+								<td>
+									#if($newRuralModel.getNeedFinish().getNeedFinish1()	 == 1)
+									1
+									#end
+								</td>
+								<td>
+									#if($newRuralModel.getNeedFinish().getNeedFinish2()	 == 1)
+									1
+									#end
+								</td>
+								<td>
+									#if($newRuralModel.getNeedFinish().getNeedFinish3()	 == 1)
+									1
+									#end
+								</td>
+								<td>
+									#if($newRuralModel.getNeedFinish().getNeedFinish4()	 == 1)
+									1
+									#end
+								</td>
+								<td>
+									#if($newRuralModel.getNeedFinish().getNeedFinish5()	 == 1)
+									1
+									#end
+								</td>
+								<td>
+									#if($newRuralModel.getNeedFinish().getNeedFinish6()	 == 1)
+									1
+									#end
+								</td>
+								<td>
+									#if($newRuralModel.getNeedFinish().getNeedFinish7()	 == 1)
+									1
+									#end
+								</td>
+								<td>
+									#if($newRuralModel.getNeedFinish().getNeedFinish8()	 == 1)
+									1
+									#end
+								</td>
+								<td>
+								#if($newRuralModel.getNeedFinish().getNeedFinish9()	 == 1)
+									1
+									#end
+								</td>
+								<td title='已启动项目个数(个)'>
+									#if(!$newRuralModel.getStartProject())
+										0
+									#else
+										$newRuralModel.getStartProject()
+									#end
+                                </td>
+								<td title='其中已竣工项目个数(个)'>
+									#if(!$newRuralModel.getFinishProject())
+										0
+									#else
+										$newRuralModel.getFinishProject()
+									#end
+                                </td>
+								<td>
+								<button type='button' id='$newRuralModel.id' onclick='showMoney($newRuralModel.id);' class='btn btn-default btn-sm' ><span class='glyphicon glyphicon-chevron-down'></span> 资金</button>
+								</td>
+									</tr>
+										#end
+				#end
+				
+					#end
+					#end
+		 #end
+	</tbody>
+</table>
+
+
+  <div id="showBody2">
+	<!--片区资金-->
+    #foreach($showVar in $showVarList)
+	<div class="panel-info panel-infoo" id="$!{showVar.id}showMoney" name="$!{showVar.id}" hidden='true'>
+            	 <div class="panel-heading">
+        <h3 class="panel-title">[片区]$!{showVar.modelArea.county} 工程进展季度资金(万元)
+			  <button type="button" class="btn btn-default btn-sm" onclick="returnTop($!{showVar.id});" >
+				<span class="glyphicon glyphicon-chevron-up"></span> 回至$!{showVar.modelArea.county}基本信息
+			  </button>
+			  <button type="button" class="btn btn-default btn-sm" onclick="hiddenMoney($!{showVar.id});" >
+				<span class="glyphicon glyphicon-minus"></span> Minus
+			  </button>
+			  <button type="button" class="btn btn-default btn-sm" onclick="showMoney($!{showVar.id});" >
+				<span class="glyphicon glyphicon-plus"></span> 展开行政村资金
+			  </button>
+			  
+		</h3>
+	
+	
+    </div>
+                	<table class="table" >
+                		
+                				<tr >    	
+                                  <td>累计投入资金总数</td>
+                                  <td>1.中央财政资金</td>
+                                  <td>2.省级新农村示范片建设补助资金</td>
+                                  <td>3.其他省级财政资金</td>
+                                  <td  >4.市级财政资金</td>
+                                  <td >5.县级财政资金</td>
+                                  <td >6.社会投入资金</td>
+                                  <td >7.群众自筹资金</td>
+								  <td  >8.其它方面的资金</td>
+								</tr>	
+                		<tbody>
+								<tr class='active'>
+									<td >$!{showVar.getInvestment().getTotalFunds()}</td>
+									<td >$!{showVar.getInvestment().getStateFunds()}</td>
+									<td >$!{showVar.getInvestment().getSpecialFunds()}</td>
+									<td >$!{showVar.getInvestment().getProvinceFunds()}</td>
+									<td >$!{showVar.getInvestment().getCityFunds()}</td>
+									<td >$!{showVar.getInvestment().getCountyFunds()}</td>
+									<td >$!{showVar.getInvestment().getSocialFunds()}</td>
+									<td >$!{showVar.getInvestment().getMassFunds()}</td>
+									<td >$!{showVar.getInvestment().getOtherFunds()}  </td>
+								</tr>
+						</tbody>
+					</table>
+			</div>
+			
+			
+			<!--行政村资金-->
+				 #foreach($showVar2 in $showVar.adminRurals)
+				<div class="panel-info panel-infoo fatherId-$!{showVar.id}" id="$!{showVar2.id}showMoney" name="$!{showVar2.id}" hidden='true'>
+            	 <div class="panel-heading">
+        <h3 class="panel-title"> <font color='red'>[行政村]$!{showVar2.adminRural.name}</font> 工程进展季度资金(万元)
+			  <button type="button" class="btn btn-default btn-sm" onclick="returnTop($!{showVar2.id});" >
+				<span class="glyphicon glyphicon-chevron-up"></span> 回至$!{showVar2.adminRural.name}基本信息
+			  </button>
+			  <button type="button" class="btn btn-default btn-sm" onclick="hiddenMoney($!{showVar2.id});" >
+				<span class="glyphicon glyphicon-minus"></span> Minus
+			  </button>
+			 <button type="button" class="btn btn-default btn-sm" onclick="showMoney($!{showVar2.id});" >
+				<span class="glyphicon glyphicon-maxs"></span> 展开自然村资金
+			  </button>
+		</h3>
+	
+		
+		 
+    </div>
+                	<table class="table" >
+                		
+                			
+                		<tbody>
+								<tr class='active'>
+									<td >$!{showVar2.getInvestment().getTotalFunds()}</td>
+									<td >$!{showVar2.getInvestment().getStateFunds()}</td>
+									<td >$!{showVar2.getInvestment().getSpecialFunds()}</td>
+									<td >$!{showVar2.getInvestment().getProvinceFunds()}</td>
+									<td >$!{showVar2.getInvestment().getCityFunds()}</td>
+									<td >$!{showVar2.getInvestment().getCountyFunds()}</td>
+									<td >$!{showVar2.getInvestment().getSocialFunds()}</td>
+									<td >$!{showVar2.getInvestment().getMassFunds()}</td>
+									<td >$!{showVar2.getInvestment().getOtherFunds()}</td>
+								</tr>
+						</tbody>
+					</table>
+			</div>
+			
+			
+			<!--自然村资金-->
+					 #foreach($showVar3 in $showVar2.getNaturaRurals())
+				<div class="panel-info panel-infoo fatherId-$showVar2.id grandfatherId-$showVar.id" id="$!{showVar3.id}showMoney" name="$!{showVar3.id}" hidden='true'>
+            	 <div class="panel-heading">
+        <h3 class="panel-title"> <font color='green'>[自然村]$!{showVar3.newRural.naturalVillage}</font> 工程进展季度资金(万元)
+			  <button type="button" class="btn btn-default btn-sm" onclick="returnTop($!{showVar3.id});" >
+				<span class="glyphicon glyphicon-chevron-up"></span> 回至$!{showVar3.newRural.naturalVillage}基本信息
+			  </button>
+			  <button type="button" class="btn btn-default btn-sm" onclick="hiddenMoney($!{showVar3.id},'自然村');" >
+				<span class="glyphicon glyphicon-minus"></span> Minus
+			  </button>
+			
+		</h3>
+	
+		
+		 
+    </div>
+                	<table class="table" >
+                		
+                		<tbody>
+								<tr class='active'>
+									<td >$!{showVar3.getInvestment().getTotalFunds()}</td>
+									<td >$!{showVar3.getInvestment().getStateFunds()}</td>
+									<td >$!{showVar3.getInvestment().getSpecialFunds()}</td>
+									<td >$!{showVar3.getInvestment().getProvinceFunds()}</td>
+									<td >$!{showVar3.getInvestment().getCityFunds()}</td>
+									<td >$!{showVar3.getInvestment().getCountyFunds()}</td>
+									<td >$!{showVar3.getInvestment().getSocialFunds()}</td>
+									<td >$!{showVar3.getInvestment().getMassFunds()}</td>
+									<td >$!{showVar3.getInvestment().getOtherFunds()}</td>
+								</tr>
+						</tbody>
+					</table>
+			</div>
+			
+			
+			#end
+			
+			
+			#end
+	
+			
+	#end
+	</div>
+
+	
+	
+	   <script type="text/javascript">
+	   
+	  //弹出框
+	  function PopUpBox(){
+	  	$(".popover-options a").popover({html : true });
+	  }
+	  $(function(){
+	   		PopUpBox();
+	   })
+	  //显示资金方法
+	  function showMoneyAll(){
+	  $(".panel-infoo").show();
+	  $("html,body").animate({scrollTop:$(".panel-infoo").offset().top},1000);
+	  }
+	 function showMoney(id){
+	// alert(id);
+	  var x=document.getElementsByName(id);
+	//  alert(x);
+            			$(x).show();
+						$('.fatherId-'+id).show();
+						//$("html,body").animate({scrollTop:$("#"+id+"showMoney").offset().top},1000);
+						$("html,body").animate({scrollTop:$(x).offset().top},1000);
+	 };
+	  
+	  
+				//搞个返回到点击资金显示位置吧
+				function returnTop(id){
+                	//alert($("#"+id).attr('id'));
+                	$("html,body").animate({scrollTop:$("#"+id).offset().top-60},1000);
+				}
+				//再来个隐藏！！
+				function hiddenMoney(id,type){
+					//alert(id);
+					//alert($("#"+id+"showMoney").attr('id'));
+					if(type=='自然村'){
+					$("#"+id+"showMoney").hide();
+					}else{
+					$(".fatherId-"+id).hide();
+					$(".grandfatherId-"+id).hide();
+					}
+			//	var x=document.getElementById(id+"showMoney");
+			//	alert(x);
+			//		  x.style.display="none";
+			//		  x.style.hidden="true";
+				}
+	
+			//解锁	
+	function unlock(id){
+if(confirm("是否确定解锁恢复上报？")){
+		jQuery.get(
+		
+			id + "!report.unlock", 
+			function(data){
+		
+				var data = eval('(' + data + ')');
+				alert(data.msg);
+			});
+	}
+}
+
+function selectBatch(obj){
+	
+	$('.needHidden').popover('hide');
+	$('#showSelectWhichBatch').html('第'+$(obj).text()+'批<span class=\"caret\"></span>');
+	jQuery.get('engineeringProgressTableAjax?bId='+$(obj).attr('bId'),
+	function(data){
+	var jsonObj=JSON.parse(data);	
+		 //需要重新添加弹出框支持否则弹出框没效果
+		var resultHtml="#set($random=0)";
+		var resultHtml2="";
+		var random=0;
+		
+		for(var i in jsonObj){
+		//alert(jsonObj[i].var1);
+	
+		if(random%3==0){
+		resultHtml+="<tr class='success'>";}
+		else if(random%3==1){
+		resultHtml+="<tr class='warning'>";
+		}else if(random%3==2){
+		resultHtml+="<tr class='danger'>";
+		};
+		random=random+1;
+		//	resultHtml+="#if($random%3==0)"+
+		//		"<tr class='success'>"+
+		//		"#elseif($random%3==1)"+
+		//			"<tr class='warning'>"+
+		//			"#elseif($random%3==2)"+
+		//				"<tr class='danger'>"+
+		//					"#end"+
+		//	"#set($random=$random+1)"+
+
+		resultHtml+="<td class='text-center' title='示范片所在市县名称' >" +
+				"<button type='button' id='showAdminRuralButton"+jsonObj[i].id+"' onclick='showHiddenChildNodes_adminRural("+jsonObj[i].id+");' class='btn btn-default btn-sm' show='show' title='展开 "+jsonObj[i].sssm.var1+"的行政村'>"+
+				"<span class='glyphicon glyphicon-chevron-down'></span> "+jsonObj[i].sssm.var1+
+				"</button>"+
+				"</td>"+
+                "<td  title='行政村数' >"+jsonObj[i].sssm.var2+"</td>"+
+				"<td  title='自然村数' >"+jsonObj[i].sssm.var3+"</td>"+
+				"<td title='户数'>"+jsonObj[i].sssm.var4+"</td >"+
+				"<td title='人数'>"+jsonObj[i].sssm.var5+"</td >"+
+				"<td title='行政村有编制规划设计村数(个)'>"+jsonObj[i].sssm.var6+"</td>"+ 
+				"<td title='自然村有编制规划设计村数(个)'>"+jsonObj[i].sssm.var7+"</td>"+
+				"<td title='通自来水自然村数(个)'>"+jsonObj[i].sssm.var8+"</td>"+
+				"<td title='完成卫生改厕所自然村数(个)'>"+jsonObj[i].sssm.var9+"</td>"+
+				"<td title='完成道路硬化建设自然村数(个)'>"+jsonObj[i].sssm.var10+"</td>"+
+				"<td title='完成民居外立面特色改造的自然村数(个)'>"+jsonObj[i].sssm.var11+"</td>"+
+				"<td title='完成卫生整治及建立保洁队和长效机制的自然村数(个)'>"+jsonObj[i].sssm.var12+"</td>"+
+				"<td title='实行雨污分流并建有污水处理设施自然村数(个)'>"+jsonObj[i].sssm.var13+"</td>"+
+				"<td title='实行人畜分离(集中圈养)的自然村数(个)'>"+jsonObj[i].sssm.var14+"</td>"+
+				"<td title='已成立村民理事会并制定了村规民约和章程的自然村数(个)'>"+jsonObj[i].sssm.var15+"</td>";
+				if(jsonObj[i].sssm.var16==null){
+				resultHtml+="<td title='已启动项目个数(个)'>0</td>";
+				}else{
+				resultHtml+="<td title='已启动项目个数(个)'>"+jsonObj[i].sssm.var16+"</td>";
+				}
+				if(jsonObj[i].sssm.var17==null){
+				resultHtml+="<td title='其中已竣工项目个数(个)'>0</td>";
+				}else{
+				resultHtml+="<td title='其中已竣工项目个数(个)'>"+jsonObj[i].sssm.var17+"</td>";
+				}
+				
+				resultHtml+="<td>"+	jsonObj[i].sssm.operation+
+                "</td></tr>";
+				
+				//showBody2 的内容
+				resultHtml2+= showInvestment(jsonObj[i],"[片区]",null);
+			
+			
+				var random2=random+1; 		
+				for(var i2 in jsonObj[i].sarssSet){
+				
+				if(random2%3==0){
+				resultHtml+="<tr class='success adminRural"+jsonObj[i].id+"'  hidden=''>";
+				}else if(random2%3==1){
+					resultHtml+="<tr class='warning adminRural"+jsonObj[i].id+"'  hidden=''>";
+					}else if(random2%3==2){
+						resultHtml+="<tr class='danger adminRural"+jsonObj[i].id+"'  hidden=''>";
+							}else{
+							resultHtml+="<tr class='success adminRural"+jsonObj[i].id+"'  hidden=''>";
+							}
+							
+					
+				resultHtml+="<td class='text-center' title='行政村名' >"+
+				"<a href='javascript:void(0);' id='showNewRuralButton"+jsonObj[i].sarssSet[i2].id+"' onclick='showHiddenChildNodes_newRural("+jsonObj[i].sarssSet[i2].id+","+jsonObj[i].id+")' class='setShowByFatherPoint"+jsonObj[i].id+"' show='show' title='展开 "+jsonObj[i].sarssSet[i2].sssm.var1+"的自然村'>"+
+				"<span id='span_"+jsonObj[i].sarssSet[i2].id+"' class='glyphicon glyphicon-chevron-down down_"+jsonObj[i].id+"'>"+jsonObj[i].sarssSet[i2].sssm.var1+"</span>"+
+				"</a></td>"+
+				"<td title='行政村数'>1</td>"+
+				 "<td title='自然村数'>"+jsonObj[i].sarssSet[i2].sssm.var3+"</td>"+
+				"<td title='户数'>"+jsonObj[i].sarssSet[i2].sssm.var4+"</td>"+		     
+				"<td title='人数'>"+jsonObj[i].sarssSet[i2].sssm.var5+"</td>";
+				if(jsonObj[i].sarssSet[i2].sssm.var6==1){
+				resultHtml+="<td title='行政村有编制规划设计村数(个)'>"+jsonObj[i].sarssSet[i2].sssm.var6+"</td>";
+				}else{
+				resultHtml+="<td title='行政村有编制规划设计村数(个)'></td>";
+				}
+				
+				resultHtml+="<td title='自然村有编制规划设计村数(个)'>"+jsonObj[i].sarssSet[i2].sssm.var7+"</td>"	+
+						"<td title='通自来水自然村数(个)'>"+jsonObj[i].sarssSet[i2].sssm.var8+"</td>"	+
+							"<td title='完成卫生改厕所自然村数(个)'>"+jsonObj[i].sarssSet[i2].sssm.var9+"</td>"	+
+								"<td title='完成道路硬化建设自然村数(个)'>"+jsonObj[i].sarssSet[i2].sssm.var10+"</td>"	+
+									"<td title='完成民居外立面特色改造的自然村数(个)'>"+jsonObj[i].sarssSet[i2].sssm.var11+"</td>"	+
+										"<td title='完成卫生整治及建立保洁队和长效机制的自然村数(个)'>"+jsonObj[i].sarssSet[i2].sssm.var12+"</td>"	+
+											"<td title='实行雨污分流并建有污水处理设施自然村数(个)'>"+jsonObj[i].sarssSet[i2].sssm.var13+"</td>"	+
+											"<td title='实行人畜分离(集中圈养)的自然村数(个)'>"+jsonObj[i].sarssSet[i2].sssm.var14+"</td>"	+
+											"<td title='已成立村民理事会并制定了村规民约和章程的自然村数(个)'>"+jsonObj[i].sarssSet[i2].sssm.var15+"</td>"	+
+											"<td title='已启动项目个数(个)'>"+jsonObj[i].sarssSet[i2].sssm.var16+"</td>"	+
+											"<td title='其中已竣工项目个数(个)'>"+jsonObj[i].sarssSet[i2].sssm.var17+"</td>"	+
+											"<td title='操作'><button type='button' id='" + jsonObj[i].sarssSet[i2].id + "' onclick='showMoney(" + jsonObj[i].sarssSet[i2].id + ");' class='btn btn-default btn-sm' ><span class='glyphicon glyphicon-chevron-down'></span> 资金</button></td>"	+
+											
+				"</tr>";
+				
+				resultHtml2+= showInvestment(jsonObj[i].sarssSet[i2],"[行政村]",jsonObj[i].id);
+				
+				var random3=random2+1; 
+				for(var i3 in jsonObj[i].sarssSet[i2].snrssmList){
+		if(random3 % 3 == 0){
+				resultHtml+="<tr class='success newRural"+jsonObj[i].sarssSet[i2].id+" closeByFatherPoint"+jsonObj[i].id+"' hidden='true'>";
+				}else if(random3 % 3 ==1){
+					resultHtml+="<tr class='warning newRural"+jsonObj[i].sarssSet[i2].id+" closeByFatherPoint"+jsonObj[i].id+"' hidden='true'>";
+					}else if($random3 % 3==2){
+						resultHtml+="<tr class='danger newRural"+jsonObj[i].sarssSet[i2].id+" closeByFatherPoint"+jsonObj[i].id+"' hidden='true'>";
+							}else{
+							resultHtml+="<tr class='success newRural"+jsonObj[i].sarssSet[i2].id+" closeByFatherPoint"+jsonObj[i].id+"' hidden='true'>";
+							}
+						resultHtml+="<td>"+jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var1+"</td><td></td>"+
+							"<td title='自然村数'>"+jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var2+"</td>"+
+							"<td title='户数'>"+jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var3+"</td>"+
+							"<td title='人数'>"+jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var4+"</td><td></td>"+
+							"<td>";
+						
+								if(jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var5=="1"){
+									resultHtml+="1";
+								}
+								resultHtml+="</td><td>";
+								if(jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var6=="1"){
+									resultHtml+="1";
+								}
+								resultHtml+="</td><td>";
+								if(jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var7=="1"){
+									resultHtml+="1";
+								}
+								resultHtml+="</td><td>";
+								if(jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var8=="1"){
+									resultHtml+="1";
+								}
+								resultHtml+="</td><td>";
+								if(jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var9=="1"){
+									resultHtml+="1";
+								}
+								resultHtml+="</td><td>";
+								if(jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var10=="1"){
+									resultHtml+="1";
+								}
+								resultHtml+="</td><td>";
+								if(jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var11=="1"){
+									resultHtml+="1";
+								}
+								resultHtml+="</td><td>";
+								if(jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var12=="1"){
+									resultHtml+="1";
+								}
+								resultHtml+="</td><td>";
+								if(jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var13=="1"){
+									resultHtml+="1";
+								}
+								resultHtml+="</td><td title='已启动项目个数(个)'>";
+			
+								if(jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var14==''){
+										resultHtml+="0";
+									}else{
+										resultHtml+=jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var14;
+									}
+									resultHtml+="</td><td title='其中已竣工项目个数(个)'>";
+									if(jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var15==''){
+										resultHtml+="0";
+									}else{
+										resultHtml+=jsonObj[i].sarssSet[i2].snrssmList[i3].sssm.var15;
+									}
+                              resultHtml+="</td><td><button type='button' id='" + jsonObj[i].sarssSet[i2].snrssmList[i3].id + "' onclick='showMoney(" + jsonObj[i].sarssSet[i2].snrssmList[i3].id + ");' class='btn btn-default btn-sm' ><span class='glyphicon glyphicon-chevron-down'></span> 资金</button></td>";
+
+								resultHtml+="</tr>";
+						resultHtml2+= showInvestment(jsonObj[i].sarssSet[i2].snrssmList[i3],"[自然村]",jsonObj[i].sarssSet[i2].id,jsonObj[i].id);		
+				
+				}		
+				
+				}
+		
+
+		};
+			$("#showBody2").html(resultHtml2);
+			$("#showBody").html(resultHtml);
+			PopUpBox();
+	
+	});
+	}
+
+	
+	function changeBatch(id,quarterId,batch){
+//alert(id+","+quarterId+","+batch);
+if(confirm("确定修改批次?")){
+		//lock("开始修改...");
+		var timestamp = Date.parse(new Date());
+		jQuery.get(
+	timestamp+"/"+id + "/"+quarterId+"/"+batch+"!index.changeBatch", 
+			function(data){
+				//jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				if(data.error==10){
+				
+					alert("修改成功,"+data.msg);
+					return false;
+				}else{
+			//	alert(data.error);
+				alert(data.msg);
+					
+				}
+			});
+	}
+
+}
+
+function changeQuarter(id){
+//alert(id+","+quarterId+","+batch);
+
+if(confirm("是否确定更新本季度9项指标和行政村有编制规划设计村数（个）至最新数据？")){
+		//lock("开始修正...");
+		
+		jQuery.get(
+		"index.changeQuarterReport?id="+id, 
+			function(data){
+				//jQuery.unblockUI();
+		alert(JSON.parse(data).msg);
+				
+			});
+	}
+
+}
+
+function c(id){
+	if(confirm("是否确定进行催报？")){
+		//lock("开始催报...");
+		jQuery.get(
+			id + "!report.urge", 
+			function(data){
+			//	jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+			
+					alert(data.msg);
+				
+			});
+	}
+}
+function cc(id){
+	if(confirm("是否确定进行退回？")){
+		//lock("开始退回...");
+		jQuery.get(
+			id + "!report.back", 
+			function(data){
+				//jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+					alert(data.msg);
+				
+			});
+	}
+}
+
+function ban(id){
+	if(confirm("是否确定进行禁止上报？")){
+		//lock("开始禁止上报...");
+		jQuery.get(
+			id + "!report.ban", 
+			function(data){
+				//jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+				
+					alert(data.msg);
+				
+			});
+	}
+}
+
+function regain(id){
+	if(confirm("是否确定进行恢复上报？")){
+		//lock("开始恢复上报...");
+		jQuery.get(
+			id + "!report.regain", 
+			function(data){
+				//jQuery.unblockUI();
+				var data = eval('(' + data + ')');
+			
+					alert(data.msg);
+				
+			});
+	}
+}
+
+
+function showHiddenChildNodes_adminRural(id){
+
+if($("#showAdminRuralButton"+id).attr('show')=='show'){
+
+$(".adminRural"+id).show();
+$("#showAdminRuralButton"+id).attr('show','hide');
+}else{
+
+$("#showAdminRuralButton"+id).attr('show','show');
+$(".setShowByFatherPoint"+id).attr('show','show');
+$(".closeByFatherPoint"+id).hide();
+$('.down_'+id).attr('class','glyphicon glyphicon-chevron-down down_'+id);
+$(".adminRural"+id).hide();
+}
+}
+function showHiddenChildNodes_newRural(id,itemId){
+
+if($('#showNewRuralButton'+id).attr('show')=='show'){
+$('#showNewRuralButton'+id).attr('show','hide');
+$(".newRural"+id).show();
+$('#span_'+id).attr('class','glyphicon glyphicon-chevron-up down_'+itemId);
+}else{
+$(".newRural"+id).hide();
+$('#showNewRuralButton'+id).attr('show','show');
+$('#span_'+id).attr('class','glyphicon glyphicon-chevron-down down_'+itemId);
+}
+
+}
+
+function showInvestment(obj,type,fatherId,grandfatherId){
+var minusByParents='';
+if(fatherId!=null){
+minusByParents=" fatherId-"+fatherId;
+}
+var resultType='';
+var result2= '';
+var result3="";
+var result4="";
+if(type=="[自然村]"){
+minusByParents+=" grandfatherId-"+grandfatherId;
+result3=",\"自然村\"";
+
+resultType="<font color='green'>"+type+obj.sssm.var1+"</font>";
+}else if(type=="[行政村]"){
+result2= "<button type='button' class='btn btn-default btn-sm' onclick='showMoney("+obj.id+");' >"+
+				"<span class='glyphicon glyphicon-maxs'></span> 展开自然村资金"+
+			  "</button>";
+resultType="<font color='red'>"+type+obj.sssm.var1+"</font>"
+}else{
+resultType=type+obj.sssm.var1;
+result2="<button type='button' class='btn btn-default btn-sm' onclick='showMoney("+obj.id+");' >"+
+				"<span class='glyphicon glyphicon-plus'></span> 展开行政村资金"+
+			  "</button>";
+result4="<tr >"+    	
+          "<td>累计投入资金总数</td>"+
+           "<td>1.中央财政资金</td>"+
+           "<td>2.省级新农村示范片建设补助资金</td>"+
+            "<td>3.其他省级财政资金</td>"+
+            "<td  >4.市级财政资金</td>"+
+            "<td >5.县级财政资金</td>"+
+            "<td >6.社会投入资金</td>"+
+             "<td >7.群众自筹资金</td>"+
+			"<td >8.其它方面的资金</td>"+
+			"</tr>";		  
+}
+return "<div class='panel-info panel-infoo"+minusByParents+"' id='"+obj.id+"showMoney' name='"+obj.id+"' hidden='true'>"+
+            	 "<div class='panel-heading'>"+
+        "<h3 class='panel-title'>"+resultType+" 工程进展季度资金(万元)"+ 
+			  "<button type='button' class='btn btn-default btn-sm' onclick='returnTop("+obj.id+");' >"+
+				"<span class='glyphicon glyphicon-chevron-up'></span> 回至"+obj.sssm.var1+"基本信息"+
+			  "</button>"+
+			  "<button type='button' class='btn btn-default btn-sm' onclick='hiddenMoney("+obj.id+result3+");' >"+
+				"<span class='glyphicon glyphicon-minus'></span> Minus"+
+			  "</button>"+result2+
+			
+		"</h3>"+
+	
+		
+		 
+    "</div>"+
+                	"<table class='table' >"+result4+
+                		"<tbody>"+
+								"<tr class='active'>"+
+									"<td >"+obj.sssm.var18+"</td>"+
+									"<td >"+obj.sssm.var19+"</td>"+
+									"<td >"+obj.sssm.var20+"</td>"+
+									"<td >"+obj.sssm.var21+"</td>"+
+									"<td >"+obj.sssm.var22+"</td>"+
+									"<td >"+obj.sssm.var23+"</td>"+
+									"<td >"+obj.sssm.var24+"</td>"+
+									"<td >"+obj.sssm.var25+"</td>"+
+									"<td >"+obj.sssm.var26+"</td>"+
+								"</tr>"+
+						"</tbody>"+
+					"</table>"+
+			"</div>";
+}
+
+//悬浮表头
+  $(document).ready(function () {
+            $("#showThead").css("width", $("#table").css("width"));
+            $("#table").scroll(function () { // 滚动条移动事件
+                var yheight = $("#table").scrollTop(); // 滚动条距顶端的距离
+                $("#showThead").css("top", yheight + "px");
+            });
+        });
+              </script>
+	

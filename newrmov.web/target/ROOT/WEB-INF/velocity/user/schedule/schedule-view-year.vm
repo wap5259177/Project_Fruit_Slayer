@@ -1,0 +1,141 @@
+#set($layout="simple-frame.vm")
+<link rel=stylesheet type="text/css" href="/res/css/holiday.css">
+<table class="editor" id="tb_schedule" style='font-size:12px;'>
+$!{content}
+</table>
+<div id="td_menus" style="width:100px;">
+	<div id="personal_holiday" data-settings="iconClassname:'icon-personal-holiday'">个人假日</div>
+	<div id="schedule" data-settings="iconClassname:'icon-schedule'" title="日程安排或工作安排等..." >行程安排</div>
+	<div class="bupmenuSeparator"></div>
+	<div id="week_view">周视图</div>
+	<div id="month_view">月视图</div>
+</div>
+<div id="schedule_dialog_loader" style="display:none;"></div>
+
+<script type='text/javascript'>
+jQuery(function() {
+	rebind_event();
+	
+	jQuery('#personal_holiday').click(function() {
+		var url = '/s/user/schedule/personalHoliday/dialog?year=' + $('#year').val() + '&month=' + $('#month').val() + '&date=' + $('#date').val();
+		jQuery('#schedule_dialog_loader').load(url);
+	});
+	
+	jQuery('#schedule').click(function() {
+		var url = '/s/user/schedule/schedule/dialog?year=' + $('#year').val() + '&month=' + $('#month').val() + '&date=' + $('#date').val();
+		jQuery('#schedule_dialog_loader').load(url);
+	});
+	
+	jQuery('#month_view').click(function() {
+		//var tabs_sys = $('#tabs-sys-settings-management', parent.document); 
+		//alert($(tabs_sys).attr('id'));
+		var url = '/s/user/schedule/view/month?year=' + $('#year').val() + '&month=' + $('#month').val();
+		window.parent.refresh_tabs(url);
+	});
+	
+	jQuery('#week_view').click(function() {
+		var url = '/s/user/schedule/view/week?year=' + $('#year').val() + '&month=' + $('#month').val() + '&date=' + $('#date').val();
+		window.parent.refresh_tabs(url);
+	});
+	
+	jQuery('#td_menus').bupmenu({
+	    onClick : function(item) {
+	    	//alert(item.id);
+			return false;
+	    }
+	});
+});
+
+function rebind_event() {
+	jQuery('#a_yearview, #a_monthview, #a_weekview, #a_today').bupabutton({flat : true});
+	jQuery('#a_monthview').click(function() {
+		var url = '/s/user/schedule/view/month?year=' + $('#year').val();
+		window.parent.refresh_tabs(url);
+	});
+	jQuery('#a_weekview').click(function() {
+		var url = '/s/user/schedule/view/week?year=' + $('#year').val();
+		window.parent.refresh_tabs(url);
+	});
+	jQuery('#a_today').click(function() {
+		jQuery.ajax({
+			type : "post",
+			url : "/s/user/schedule/view/year_today",
+			success: function(rd){
+				if (typeof rd === "string")
+					rd = $.parseJSON(rd);
+	            $('#tb_schedule').html(rd.data);
+	            rebind_event();
+	        }
+		});
+	});
+	jQuery('#sel_year').buppancombo({
+		editable : false,
+		onChange : function(n, o) {
+			if(n != ""){
+				jQuery('#title_year').html(n);
+				jQuery('#year').val(n);
+				refresh_table();
+			}
+		}
+	});
+	
+	jQuery('td.day').bind('contextmenu', function(e) {
+		$('#td_menus').bupmenu('show', {
+			left : e.pageX,
+			top : e.pageY
+		});
+		var input_element = $(this).find('input'); // e.currentTarget
+		refresh_date(input_element);
+		return false;
+	});
+	
+	/*
+	$('td.day').hover(
+		function (e) {
+			return false;
+		},
+		function () {
+			return false;
+		}
+	);
+	jQuery('td.day').click(function() {
+		return false;
+	});
+	*/
+	
+	jQuery("img[name='img_personalHoliday']").bind('click', function() {
+		var input_element = $(this).parent().find('input');
+		refresh_date(input_element);
+		var url = '/s/user/schedule/personalHoliday/dialog?year=' + $('#year').val() + '&month=' + $('#month').val() + '&date=' + $('#date').val();
+		jQuery('#schedule_dialog_loader').load(url);
+	});
+	jQuery("img[name='img_schedule']").bind('click', function() {
+		var input_element = $(this).parent().find('input');
+		refresh_date(input_element);
+		var url = '/s/user/schedule/schedule/dialog?year=' + $('#year').val() + '&month=' + $('#month').val() + '&date=' + $('#date').val();
+		jQuery('#schedule_dialog_loader').load(url);
+	});
+}
+
+function refresh_date(input_element) {
+	var input_class = input_element.attr('class');
+	var month = input_class.substring(5, input_class.length); // 0是1月
+	var date = input_element.val();
+	jQuery('#month').val(month);
+	jQuery('#date').val(date);
+}
+
+function refresh_table() {
+	jQuery.ajax({
+		type : "post",
+		url : "/s/user/schedule/view/refresh_year",
+		data : {year : jQuery('#year').val()},
+		success: function(rd){
+			if (typeof rd === "string")
+				rd = $.parseJSON(rd);
+            $('#tb_schedule').html(rd.data);
+            rebind_event();
+        }
+	});
+}
+</script>

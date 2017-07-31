@@ -1,0 +1,129 @@
+
+<div style="width:920px;height:auto;margin:0px 400px 5px 250px;padding:40px 0 0 0 ;">
+	<h1><font style="font-weight:bold;font-size:19px;">摸底调查:</font></h1>
+	<table id="myg"></table>
+
+</div>
+
+
+<script>
+$(function(){
+    $('#myg').bupgrid({
+            url: 'survey.json',
+            method: 'get',
+            //title: '摸底调查',
+            //iconClassname: 'icon_save',
+            width: 920,
+            height: 400,
+            fitColumns: true,//列的宽度自动适应
+            singleSelect: true,//单选
+            border: true,//显示边框
+            showRownum: true,//显示序号
+            showHeader: true,//显示表头
+            autoRowheight: false,//将这个设置为false,可以设置rowstyle 的样式高度
+            sortField: 'annual',//定义排序的字段
+            remoteSort: false,//如果要使用本地定义排序的字段,就要设置这里为false
+            
+            
+            //loadFilter: pagerFilter,
+            //showPagebar: true,
+            //pagePosition: 'bottom',
+            
+            rowStyler: function(index,row){
+			     if (index%2==0){
+			        //return 'background-color:#8dc5c5;color:#333333;height:33.8px;'; // 返回内联样式#6293BB
+			        return 'background-color:#a5d8f1;color:#ffffff;height:30px;'; // 返回内联样式#8dc5c5,33.8
+			     }else{
+			     	
+			     	//return 'background-color:#6699cc;color:#ffffff;height:34px;'; // 返回内联样式#6293BB
+			     	return 'background-color:#dbfab4;color:#333333;height:30px;'; // 返回内联样式#8dc5c5,33.8
+			     }
+			},
+            
+            columns:[[   /* 这里定义表头结构 */
+                {field:'annual',title:'年度',width:80},
+                {field:'deadline',title:'截至时间',width:100},
+                {field:'startAt',title:'开始上报时间',width:100,align:'right'},
+                {field:'endAt',title:'结束上报时间',width:100,align:'right'},
+                
+                //{field:'needReport',title:'需上报(市)',width:80},
+                //{field:'startReport',title:'开始上报(市)',width:100},
+                //{field:'finishReport',title:'完成上报(市)',width:80,align:'right'},
+                //{field:'status',title:'状态',width:80,align:'right'},
+                
+                /*{
+                	title : '操作',
+					field : 'operation',
+					width : 50,
+					formatter: function(value,row,index) {
+						var id = row.id;
+						var btns = "";
+							btns += "<a id='a_show' class='show_dialog' href='survey/survey_detial?id=" + id + "'>查看</a>&nbsp;";
+						return btns;    
+					}
+					
+				}*/
+            ]],
+            
+            /*被冻结的列*/
+            frozenColumns:[[{
+				title : '操作',
+				field : 'operation',
+				width : 120,
+				formatter: function(value,row,index) {
+					var id = row.id;
+					var btns = "";
+						btns += "<a class='show_dialog ' href='survey/survey_detial?id=" + id + "'></a>&nbsp;";
+					return btns;    
+				}
+			}]],
+			
+			onLoadSuccess : function(data, param) {
+				jQuery('a.show_dialog').click(function() {
+					//lock("正在加载...");
+					jQuery('#div-kernel-dialog-loader').load(this.href);
+					return false;
+				});
+				$('a.show_dialog').bupabutton({
+					flat: true,
+					text: '查看详情',
+					borderedflat: false
+					
+				});
+			}
+    });
+    
+    
+});
+
+/*客户端分页*/
+function pagerFilter(data){
+	if (typeof data.length == 'number' && typeof data.splice == 'function'){	// is array
+		data = {
+			total: data.length,
+			rows: data
+		}
+	}
+	var dg = $(this);
+	var opts = dg.bupgrid('settings');
+	var pager = dg.bupgrid('getPager');
+	pager.buppager({
+		onSelectPage:function(pageNum, pageSize){
+			opts.pageNo = pageNum;
+			opts.pageSize = pageSize;
+			pager.buppager('refresh',{
+				pageNo:pageNum,
+				pageSize:pageSize
+			});
+			dg.bupgrid('loadData',data);
+		}
+	});
+	if (!data.originalRows){
+		data.originalRows = (data.rows);
+	}
+	var start = (opts.pageNo-1)*parseInt(opts.pageSize);
+	var end = start + parseInt(opts.pageSize);
+	data.rows = (data.originalRows.slice(start, end));
+	return data;
+}	
+</script>

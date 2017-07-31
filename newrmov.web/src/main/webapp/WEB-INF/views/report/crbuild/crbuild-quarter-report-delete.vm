@@ -1,0 +1,49 @@
+<div id="$di.id" $!{di.dialogAttributes}>
+<table class="editor">
+<tr><th style="width:100px">授权者名称：</th><td><input type="text" id="u-name" style="width:150px"/>
+</td></tr>
+<tr><th style="width:100px">授权者密码：</th><td><input type="password" id="u-pwd" style="width:150px"/></td>
+</tr>
+<tr><td colspan="2">
+<a href="javascript:" onclick="return doremove();" id="btn-remove">删除</a>
+</td></tr>
+</table>
+</div>
+<script>
+	jQuery(function(){
+		jQuery("#p-year,#p-month").bupnuminput();
+		jQuery("#btn-clear,#btn-remove").bupabutton({flat:true});
+	});
+	
+	function doremove(){
+	
+		if(!confirm("确定要删除 [主体村建设情况] [$reportName] 吗?")){return ;}
+		var un = jQuery("#u-name").val();
+		var up = jQuery("#u-pwd").val();
+		
+		if('' === un){
+			alert("请输入授权者名称！");
+			return false;
+		}
+		if('' === up){
+			alert("请输入授权者密码！");
+			return false;
+		}
+		
+	
+		jQuery("#u-name,#u-pwd").val("");
+		
+		lock('正在删除主体村建设情况季报...');
+		jQuery.post("index.delete",
+			{id:${form},un:un,up:up},
+			function(__resultData){
+				$.unblockUI();
+				__resultData = __ajaxSuccess(__resultData);
+				if(__resultData){
+					alert("季报删除成功！");
+					jQuery("#$!{gridid}").bupgrid("reload");
+				}
+			});
+		return false;
+	}
+</script>

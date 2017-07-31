@@ -1,0 +1,165 @@
+
+<!-- 
+#if($!{count}>0)
+<table class='cl-area applicant-form' >
+	<tr>
+		<td colspan='4'><input id='_checkbox' type="checkbox" onchange='selectCopy();'>
+		<label for='_checkbox'>拷贝</label>
+		</td>
+	</tr>
+</table>
+#end
+-->
+
+
+
+		
+<form id="form_area"  method="post"  > 
+	<table class='cl-area applicant-form' id='first_area'>
+		<input type='hidden' name='id' value='$id'><!--保存县报的id-->
+		<!--<input type='hidden' id='copyId' name='copyId' >--><!--上一次report县报的id-->
+		
+		
+		<tr>
+			<td rowspan='5'>1<input type='hidden' name='codes' value='0'/></td>
+			<td style='font-weight:bold;width:180px;' colspan='1'>市县名称:</td>
+			<td>$!{cityCountyName}</td>
+			<td rowspan='5'><a href='#' id='a_add' iconClassname="icon_add" onclick='_addArea();'>添加</a></td>
+		</tr>
+		
+		<tr>
+			<td style='font-weight:bold;' colspan='1'>示范片名称:</td>
+			<td><input class='cls-area' style='width:80%;' type='text' name='modelAreaName_0'/></td>
+		</tr>
+		
+		<tr>
+			<td style='font-weight:bold;' colspan='1'>示范片建设覆盖面积(km2):</td>
+			<td><input class='cls-area decimal-2' style='width:80%;' type='text' name='constructionArea_0'/></td>
+		</tr>
+		
+		<tr>
+			<td style='font-weight:bold;' colspan='1'>户数:</td>
+			<td><input class='cls-area number' style='width:80%;' type='text' name='households_0'/></td>
+		</tr>
+		
+		<tr>
+			<td style='font-weight:bold;' colspan='1'>人口数:</td>
+			<td><input class='cls-area number' style='width:80%;' type='text' name='population_0'/></td>
+		</tr>
+		<tr class='tr_add'>
+			<td colspan='4'><hr style='color:red;'/></td>
+		</tr>
+	</table>
+	
+	<table class='cl-area applicant-form' >
+		#if($!{count}<1)
+		<tr>
+			<td colspan='4'>
+				<font style='font-size:16px;color:red;'>
+					注意:有多少个片区就添加多少个,保存后将不能再修改片区的个数!
+				</font>
+			</td>
+		</tr>
+		#end
+	<table>
+	
+	
+	#if($!{count}>0)
+	<table class='cl-area applicant-form'  >
+		<tr>
+		<td>
+			<font style='font-size:25px;' >拷贝:</font>
+			<ul style="list-style-type:none;padding:0px">
+				#foreach($it in $crs)
+					<li style='float:left;padding:0px 60px 0px 50px;  '>
+						<input id='report_$it.id' type="radio" name='copyReportId' value='$it.id' onchange='selectCopy();' > 
+						<label for='report_$it.id' style='font-size:35px;'>$it.report.name</lable>
+					</li>
+				#end
+			</ul>
+			</br>
+		</td>
+		</tr>
+		<tr>
+			<td>
+				<font style='font-size:18px;color:red;'>
+					注意:选择拷贝某一年度的填报信息,将不用重复的添加村子,填报更方便快捷!
+						如果不选择拷贝功能,请您添加填写示范片信息!
+				</font>
+				<font style='font-size:18px;'>
+					<input id='noCopy' type="radio" name='copyReportId'  onchange='donotCopy();' >
+						<label for='noCopy'>[不拷贝]</label>
+				</font>
+				
+			</td>
+		</tr>
+	<table>
+	#end
+</form>
+
+
+
+
+
+	
+
+
+
+
+
+<script>
+	$(function(){
+		$('#a_add').bupabutton({flat:true});
+		jQuery("#_1_10011").bupborderlayout({fit:true});
+		jQuery(".number").bupnuminput({min:0,precision:0});
+		$('.decimal-2').bupnuminput({
+			precision:2,
+		    min:0
+		    //required:true
+		    //max:100,
+		});
+	});
+
+	var index = 1;
+	function _addArea(){
+		//var size = $('.cl-area').size();
+		//alert(size);
+		index ++;
+		var _table="";
+		$('.tr_add').html("<td colspan='4'><hr style='color:red;'/></td>");
+		_table+="<table class='cl-area applicant-form' id='first_area'>"+
+					"<tr><td rowspan='5'>"+index+"<input type='hidden' name='codes' value='"+index+"'/></td><td style='font-weight:bold;width:180px;' colspan='1'>市县名称:</td><td>$!{cityCountyName}</td><td rowspan='5'><a href='#' class='add-remove' iconClassname='icon_remove' onclick='$(this).parent().parent().parent().remove();'>删除</a></td></tr>"+
+					"<tr><td style='font-weight:bold;' colspan='1'>示范片名称:</td><td><input class='cls-area' style='width:80%;' type='text' name='modelAreaName_"+index+"'/></td></tr>"+
+					"<tr><td style='font-weight:bold;' colspan='1'>示范片建设覆盖面积(km2):</td><td><input class='cls-area' style='width:80%;' type='text' name='constructionArea_"+index+"'/></td></tr>"+
+					"<tr><td style='font-weight:bold;' colspan='1'>户数:</td><td><input class='cls-area number' style='width:80%;' type='text' name='households_"+index+"'/></td></tr>"+
+					"<tr><td style='font-weight:bold;' colspan='1'>人口数:</td><td><input class='cls-area number' style='width:80%;' type='text' name='population_"+index+"'/></td></tr>"+
+					<!--"<tr class='tr_add'><td colspan='4'><a href='#' id='a_add' onclick='_addArea();'>添加</a></td></tr>"+-->
+					"<tr class='tr_add'><td colspan='4'><hr style='color:red;'/></td></tr>"+
+				"</table>";
+		$('table:last').after(_table);
+		$('a.add-remove').bupabutton({flat:true});
+		jQuery(".number").bupnuminput();
+	}
+	
+	function selectCopy(){
+		var flag = $("input[name=copyReportId]:checked").is(':checked');
+		if(flag==true){
+			//alert("$!{lastReportId}");
+			$("#copyId").val("$!{lastReportId}");
+			$("#a_add").bupabutton({disabled:true})
+			
+			$('.cls-area').attr("disabled",true);
+			
+		}else{
+			$("#copyId").val("");
+			$("#a_add").bupabutton({disabled: false})
+			$('.cls-area').removeAttr("disabled");
+		}
+		
+	}
+	
+	function donotCopy(){
+		$('.cls-area').removeAttr("disabled");
+		$("#a_add").bupabutton({disabled: false})
+	}
+</script>

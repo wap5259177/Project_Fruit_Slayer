@@ -1,0 +1,135 @@
+#set($layout="layout-empty.vm")
+<script type="text/javascript" src="#springUrl('/res/js/Highcharts/highcharts.js')"></script>
+<script type="text/javascript" src="#springUrl('/res/js/Highcharts/exporting.js')"></script>
+<script type="text/javascript" src="#springUrl('/res/js/qrcode/jquery.qrcode.min.js')"></script>
+<a id='btn_back' href='/s/pl/result/show/!$!{mid}/index.do' style='float:left;position: absolute;top: 50%;left:60px;'><img src='/res/images/backward.png'/></a>
+<img id='gd_map' width='900px' height='550px' src='/r/images/example/meizhou.jpg' usemap ='#planetmap' />
+<map id='planetmap' name='planetmap'>
+	<area href='#' class='city_area' shape='circ' coords='237,197,10'/>
+	<area href='#' class='city_area' shape='circ' coords='198,351,10'/>
+	<area href='#' class='city_area' shape='circ' coords='497,198,10'/>
+	<area href='#' class='city_area' shape='circ' coords='550,322,10'/>
+	<area href='#' class='city_area' shape='circ' coords='668,183,10'/>
+</map>
+<div id='city_menu'>
+	<div id='project_statistics'>项目统计</div>
+	<div id='photo_show'>风貌展示</div>
+	<div id='monitor'>实时监控(视频)</div>
+	<div id='monitor2'>实时监控(摄像头)</div>
+	<div id='map_view'>全景</div>
+	<div class='bupmenuSeparator'></div>
+	<div id='share'><span>分享</span><div class='bupmenuContent' style='text-align:center;padding:10px;'>
+		<div class='bdsharebuttonbox' data-tag='share_1'>
+		<a class='bds_mshare' data-cmd='mshare'></a>
+		<a class='bds_qzone' data-cmd='qzone' href='#'></a>
+		<a class='bds_tsina' data-cmd='tsina'></a>
+		<a class='bds_baidu' data-cmd='baidu'></a>
+		<a class='bds_renren' data-cmd='renren'></a>
+		<a class='bds_tqq' data-cmd='tqq'></a>
+		<a class='bds_more' data-cmd='more'>更多</a>
+		<a class='bds_count' data-cmd='count'></a>
+	</div></div></div>
+	<div id='code'><span>二维码</span><div class='bupmenuContent' style='text-align:center;padding:10px;width:220px;height:200px;'>
+	<div id='qrcode'></div></div></div>
+</div>
+
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery('#city_menu').bupmenu({
+	    onClick : function(item) {
+	    	//alert(item.id);
+			return false;
+	    }
+	});
+	
+	jQuery('.city_area').bind('contextmenu', function(e) {
+		$('#city_menu').bupmenu('show', {
+			left : e.pageX,
+			top : e.pageY
+		});
+		return false;
+	});
+	
+	jQuery("#qrcode").qrcode({
+	    render: "table",
+	    width: 200, 
+	    height:200,
+	    text: 'http://192.168.1.224:8080/code/show/load'
+	}); 
+	
+	_share_init();
+    
+    jQuery('#project_statistics, #photo_show, #monitor, #monitor2, #map_view').bupabutton({flat:true});
+    
+    jQuery('#project_statistics').click(function() {
+    	jQuery('#div-kernel-dialog-loader').load('#springUrl('project/statistics')');
+    	return false;
+    });
+    jQuery('#photo_show').click(function() {
+    	jQuery('#div-kernel-dialog-loader').load('#springUrl('photo/show?id=0')'); //photo/show
+    	return false;
+    });
+    jQuery('#monitor').click(function() {
+    	jQuery('#div-kernel-dialog-loader').load('#springUrl('monitor')');
+    	return false;
+    });
+    jQuery('#monitor2').click(function() {
+    	jQuery('#div-kernel-dialog-loader').load('#springUrl('monitor2')');
+    	return false;
+    });
+    jQuery('#map_view').click(function() {
+    	jQuery('#div-kernel-dialog-loader').load('#springUrl('map_view')');
+    	return false;
+    });
+});
+
+function toUtf8(str) {    
+    var out, i, len, c;
+    out = "";    
+    len = str.length;    
+    for(i = 0; i < len; i++) {    
+        c = str.charCodeAt(i);    
+        if ((c >= 0x0001) && (c <= 0x007F)) {    
+            out += str.charAt(i);    
+        } else if (c > 0x07FF) {    
+            out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));    
+            out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));    
+            out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));    
+        } else {    
+            out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));    
+            out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));    
+        }    
+    }    
+    return out;    
+}
+
+function _share_init() {
+	window._bd_share_config = {
+		common : {
+			bdText : '自定义分享内容',	
+			bdDesc : '自定义分享摘要',	
+			bdUrl : '自定义分享url地址', 	
+			bdPic : '自定义分享图片'
+		},
+		share : [{
+			"bdSize" : 16
+		}]
+		/*slide : [{	   
+			bdImg : 0,
+			bdPos : "right",
+			bdTop : 100
+		}],
+		image : [{
+			viewType : 'list',
+			viewPos : 'top',
+			viewColor : 'black',
+			viewSize : '16',
+			viewList : ['qzone','tsina','huaban','tqq','renren']
+		}],
+		selectShare : [{
+			"bdselectMiniList" : ['qzone','tqq','kaixin001','bdxc','tqf']
+		}]*/
+	}
+with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+}
+</script>

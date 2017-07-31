@@ -1,0 +1,87 @@
+
+<!--点击打印查看的页面-->
+#set($layout="layout-empty.vm")
+<html>
+<head>
+
+
+<link type='text/css' href='/res/css/global.css' rel="stylesheet" media=""/>
+<script src='/res/js/jquery.min.js'></script> 
+<script type="text/javascript" src="/res/js/jquery.PrintArea.js"></script>   
+
+
+<script>  
+$(document).ready(function(){  
+  	$("input#biuuu_button").click(function(){  
+	  	$("div#myPrintVillage").printArea();  
+	});  
+});  
+</script>
+<style>
+ #biuuu_button{position: fixed; font-size:18px;  color:blue; text-decoration:underline; }
+</style>
+</head>
+<body>
+	<div>
+		<input id="biuuu_button" type="button" value="打印" ></input>  
+	</div>
+	<div id="myPrintVillage"    >
+		<div class="applicant-form-title" >
+			$title
+			<div style="font-size:16px;margin:0 auto;">截止时间:$!{deadline}</div>
+		</div> 
+		<div style="height:100%;">
+				<div data-settings="zone:'center',border:false">
+					<table style="width:100%;background:#ECF5FF;" class="applicant-form"> 
+						<thead>
+							 <tr>
+							<th rowspan='2' style='text-align:center'>县（市、区）名称</th>
+								<!--
+								<td colspan='1' rowspan='2'  >1.农业户数（户）</td>
+								<td colspan='1' rowspan='2' >2.农业人口数（人）</td>
+								-->
+								<th colspan='1' rowspan='2' style='text-align:center'>建制行政村或居委会</br>(个)  </th>
+								<th colspan='1' rowspan='2' style='text-align:center'>20户以上自然村</br>（个）</th>
+								<th colspan='4' style='text-align:center'>其中</th>
+							</tr>
+							<tr>
+								<th style='text-align:center'>20-100户</br>（个）</th>
+								<th style='text-align:center'>100-300户</br>（个）</th>
+								<th style='text-align:center'>300-500户</br>（个）</th>
+								<th style='text-align:center'>500户以上</br>（个）</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr style='background-color:#7cd7f8;color:#333333;'>
+								<td><span style='text-align:center;display:block;font-size:22px;'>全市合计</span></td>
+								<td><span id='total_ac' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.avCount}</span></td>
+								<td><span id='total_h0' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.household0}</span></td>
+								<td><span id='total_h1' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.household1}</span></td>
+								<td><span id='total_h2' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.household2}</span></td>
+								<td><span id='total_h3' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.household3}</span></td>
+								<td><span id='total_h4' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.household4}</span></td>
+							</tr>
+							#foreach($it in $counties)
+								<tr>
+										<td style='text-align:center'>$!{it.name}</td>
+										
+										<td style='text-align:center'>$!{it.avCount}</td>
+										<td style='text-align:center'>$!{it.household0}</td>
+										<td style='text-align:center'>$!{it.household1}</td>
+										<td style='text-align:center'>$!{it.household2}</td>
+										<td style='text-align:center'>$!{it.household3}</td>
+										<td style='text-align:center'>$!{it.household4}</td>
+								</tr>
+							#end
+						</tbody>
+					</table>
+				</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
+
+
+

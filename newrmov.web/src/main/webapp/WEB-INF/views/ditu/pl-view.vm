@@ -1,0 +1,417 @@
+<div class="bupborderlayout" fit="true">
+	<div id="mya"  data-settings="zone:'east', border:false,width:250">
+		<div class="bupaccordion" fit="true">
+	        <div title="第一批" data-settings="iconClassname:'icon-batch1'" style="overflow:auto;padding:10px;height:100%;">
+	        	<ul style="list-style-type:none">$batch1</ul>
+	        </div>
+	        <div title="第二批" data-settings="iconClassname:'icon-batch2'" style="padding:10px;">
+	            <ul style="list-style-type:none">$batch2</ul>      
+	        </div>
+	        <div title="第三批" data-settings="iconClassname:'icon-batch3'" style="padding:10px;">
+	            <ul style="list-style-type:none">$batch3</ul>
+	        </div>
+	        <div title="珠三角" data-settings="iconClassname:'icon-batch4'" style="padding:10px;">
+	            <ul style="list-style-type:none">$batch4</ul>
+	        </div>
+		</div>
+	</div>
+
+	
+	<div data-settings="zone:'center', border:true">
+		<div style="width:100%;height:100%;" id="ditu-container"></div>
+		
+		<div style="width:100%;display:none;" id="detail-container">
+			<div style="padding:10px;">
+				<a href="#" onclick="jQuery('#detail-container').slideUp(function(){jQuery('#ditu-container').show();});return false;">&lt;</a>
+				-- <span id="detail-name"></span>
+			</div>
+			<!--用于放村全景的div-->
+			<div id="detail-loader"></div>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+
+	var maPoints = {}, map;
+	var marker;
+	
+	var ma_markerArr = new Array();
+	var n_markerArr = new Array();
+	var p_markerArr = new Array();
+	var polygonArr = new Array();
+	jQuery(function(){
+		map = new qq.maps.Map(document.getElementById("ditu-container"), {
+	        // 地图的中心地理坐标。
+	        center: new qq.maps.LatLng(23.125178,113.280637),
+	        mapTypeControl:false,//设置地图,卫星控件隐藏
+	        zoom: 7,
+			scaleControl: true,//地图比例尺控件
+	        scaleControlOptions: {
+			    position: qq.maps.ControlPosition.BOTTOM_RIGHT
+			}
+	    });
+		var info = new qq.maps.InfoWindow({ map: map });
+	    //var latlng, marker;
+	    var latlng;
+	    var polygon;
+		
+		/*
+			片区
+		*/
+		#foreach($it in $mapoints)
+			//标注
+			latlng = new qq.maps.LatLng($it.point.latitude, $it.point.longitude);
+			marker = new qq.maps.Marker({
+				position: latlng, 
+				map: map, 
+				title:"$it.modelArea.name"+"[$it.modelArea.batch]"
+			});
+			
+			var batch = '$it.modelArea.batch';
+			switch (batch){
+				case '一':
+					marker.setIcon(new qq.maps.MarkerImage('/res/images/batch1.png'));
+					break;
+				case '二':
+					marker.setIcon(new qq.maps.MarkerImage('/res/images/batch2.png'));
+					break;
+				case '三':
+					marker.setIcon(new qq.maps.MarkerImage('/res/images/batch3.png'));
+					break;
+				case '珠三角':
+					marker.setIcon(new qq.maps.MarkerImage('/res/images/batch4.png'));
+					break;
+			}
+			ma_markerArr[($!{velocityCount} - 1)] = marker;//示范片坐标数组
+			
+			
+			
+			//多边形
+			polygon = new qq.maps.Polygon({
+		        strokeColor: '#000000',
+		        strokeWeight: 2,
+		       // fillColor: '#111111',
+		       	visible:false,//一进来多边形隐藏
+		       	editable:false
+		    });
+		    
+			var _polygon = "$!{it.polygon}";
+			var pg = _polygon.split(';');
+			var pathArr = new Array();
+			var lat_lng ;
+			for(i=0;i<pg.length;i++){
+				if(pg[i]!=null&&""!=pg[i]){
+					lat_lng = pg[i].split(',');
+					pathArr[i] = new qq.maps.LatLng(lat_lng[0].trim(),lat_lng[1].trim());
+				}
+			}
+			polygon.setMap(map);
+			polygon.setPath(pathArr);
+			polygonArr[($!{velocityCount} - 1)] = polygon;
+				
+			
+			//标注点击事件:1.load统计进度
+			qq.maps.event.addListener(marker, 'click', function() {
+		        info.open(); 
+		        info.setContent(null);
+		        info.setContent("<iframe frameborder='0' style='height:340px;width:720px;' src='loadMapInfoWindow.do?id=$it.modelArea.id'></iframe>");
+		        info.setPosition(this.getPosition());//设置弹出框的位置
+		    });
+		    //创建mapoint对象
+			maPoints['_$it.id'] = {
+				name:"$it.name",
+				point:latlng,
+				marker:marker
+			};
+		#end
+		
+		
+		
+		/*
+			主体村
+		*/
+		#foreach($it in $nruralPoints)
+			marker = new qq.maps.Marker({
+		        map:map,
+		        draggable:false,
+		        position: new qq.maps.LatLng($it.point.latitude,$it.point.longitude),
+		       	title:'$it.title',
+		       	icon:new qq.maps.MarkerImage('/res/images/n-rural-marker.png'),
+		        visible:false
+		    });
+		    n_markerArr[($!{velocityCount} - 1)] = marker;
+		    
+		    //点击事件:1.load建设过程中的图片,视频
+		    qq.maps.event.addListener(marker, 'click', function() {
+		        info.open(); 
+		        info.setContent(null);
+		        info.setContent("<div style='white-space:nowrap;margin:2px;'><p style='text-align:center;height:43px;line-height:43px;width:100%;background-color:#87CEFA;'>$it.title</p></div>"
+		        + "<div id='_content' style='width:680px;height:350px;'><iframe frameborder='0' width='680' height='350' src='loadTownInfo.detail?id=$it.rural.id'></iframe></div>"
+		        + "<div id='_buttom' style='margin-top:10px;line-height:43px;height:43px;width:100%;font-size:17px;background-color:#EDEDED;'>"
+		        + "<a style='float:left;padding-left:10px;' href='#' onclick='back_($it.rural.id)'>返回</a><a href='#' style='float:right;padding-right:30px;' onclick='spot_()'>现场视频</a>"
+		        +"<a href='#' style='float:right;padding-right:30px;' onclick='_rural_panorama($it.rural.id)'>村全景</a></div>");   
+		        info.setPosition(this.getPosition());//设置弹出框的位置
+		  	});
+		#end
+		
+		
+		/*
+			非主体村
+		*/
+		#foreach($it in $pruralPoints)
+			marker = new qq.maps.Marker({
+		        map:map,
+		        draggable:false,//设置标注不可以拽动
+		        position: new qq.maps.LatLng($it.point.latitude,$it.point.longitude),
+		       	title:'$it.title',
+		       	icon:new qq.maps.MarkerImage('/res/images/p-rural-marker.png'),
+		        visible:false
+		    });
+		    
+		    qq.maps.event.addListener(marker, 'click', function() {
+		        info.open(); 
+		        info.setContent(null);
+		        info.setContent("<div style='white-space:nowrap;margin:2px;'><p style='text-align:center;height:43px;line-height:43px;width:100%;background-color:#87CEFA;'>$it.title</p></div>"
+		        + "<div id='_content1' style='width:680px;height:350px;'><iframe frameborder='0' width='680' height='350' src='loadTownInfo1.detail?id=$it.rural.id'></iframe></div>"
+		        + "<div id='_buttom1' style='margin-top:10px;line-height:43px;height:43px;width:100%;font-size:17px;background-color:#EDEDED;'>"
+		        + "<a style='float:left;padding-left:10px;' href='#' onclick='back1_($it.rural.id)'>返回</a>"
+		        +"<a href='#' style='float:right;padding-right:30px;' onclick='spot1_()'>现场视频</a>"
+		        +"<a href='#' style='float:right;padding-right:30px;' onclick='_rural_panorama($it.rural.id)'>村全景</a></div>");   
+		      
+			    info.setPosition(this.getPosition());//设置弹出框的位置
+		  	});
+			p_markerArr[($!{velocityCount} - 1)] = marker;
+		#end
+		
+		
+		/*
+			全景点
+		*/
+		var pano_markerArr = new Array();
+		#foreach($it in $allPanos)
+			marker = new qq.maps.Marker({
+		        map:map,
+		        //clickable:false,
+		        draggable:false,
+		        position: new qq.maps.LatLng($it.point.latitude,$it.point.longitude),
+		       	title:'$it.rural.name'+'[全景点]',
+		       	//icon:new qq.maps.MarkerImage('/res/images/n-rural-marker.png'),
+		        visible:false
+		    });
+		    pano_markerArr[($!{velocityCount} - 1)] = marker;
+		    
+		    //点击事件:1.load建设过程中的图片,视频
+		    qq.maps.event.addListener(marker, 'click', function() {
+		        info.open(); 
+		        info.setContent(null);
+		        //info.setContent("<iframe frameborder='0' style='width:680px;height:400px;' >开发中...</iframe>");
+		        info.setContent("<div style='width:680px;height:400px;'><h1 style='color:red;'>开发中...</h1></div>");
+		        info.setPosition(this.getPosition());//设置弹出框的位置
+		  	});
+		#end
+		
+		
+		/*
+			地图zoom改变事件
+		*/
+		qq.maps.event.addListener(map, 'zoom_changed', function() {
+			var mapZ = map.getZoom();
+			//当缩放级别大于14时,让他显示全景点图标
+			if(mapZ>=12){
+				//显示全景点
+				_check_show_marker_or_polygon(pano_markerArr);
+			}else{
+				//隐藏全景点
+				_check_hide_marker_or_polygon(pano_markerArr);
+			}
+		});
+		
+		
+		
+		/*
+			地图上控件
+		*/
+		
+		var controlDiv = new Array();//地图上控件div   
+	    var controlStyle = "padding:5px;border:2px solid #86acf2;background:#ffffff" ;
+	    for(i=0;i<4;i++){
+	    	controlDiv[i] = document.createElement("div");//创建节点
+		    controlDiv[i].style.cssText = controlStyle;//样式
+			controlDiv[i].index = (i+1); //设置在当前布局中的位置
+			if(i==0){
+				controlDiv[i].innerHTML = "<input type='checkbox' id='show_all_map' onchange='show_all_map(this);' class='cb' name='selected'/><label for='show_all_map'>示范片区</label>";
+				controlDiv[i].style.margin = '1 20px';
+			}
+			if(i==1){
+				controlDiv[i].innerHTML = "<input type='checkbox' id='show_all_nrural' value='' onchange='show_all_nrural(this);' class='cb' name='selected'/><label for='show_all_nrural'>主体村</label>";
+				controlDiv[i].style.margin = '1 10px';
+			}
+			if(i==2){
+				controlDiv[i].innerHTML = "<input type='checkbox' id='show_all_prural' onchange='show_all_prural(this);' class='cb' name='selected'/><label for='show_all_prural'>非主体村</babel>";
+			}
+			if(i==3){
+				controlDiv[i].innerHTML = "<input type='checkbox' id='controlAll' onclick='selectAll();' class='cb' name='controlAll'/><label for='controlAll'>所有</babel>";
+			}
+			map.controls[qq.maps.ControlPosition.TOP_CENTER].push(controlDiv[i]);
+	    }
+		
+		//---------------------------------------------------------------------------------
+		$('#mya').bupaccordion({
+		    multiple:true//支持同时展开多个面板
+		});
+		
+	});
+	
+	
+//------------------------------------------------------------------------------
+  
+	    function back_(id){
+	     jQuery('#_content').empty();
+	     var html="<iframe frameborder='0' width='680' height='350' src='loadTownInfo.detail?id="+id+"'></iframe>";
+	     jQuery('#_content').html(html);
+     	}
+     	function back1_(id){
+	     jQuery('#_content1').empty();
+	     var html="<iframe frameborder='0' width='680' height='350' src='loadTownInfo1.detail?id="+id+"'></iframe>";
+	     jQuery('#_content1').html(html);
+     	}
+     	function spot_(){
+     	 jQuery('#_content').empty();
+     	 /* var html="<iframe frameborder='0' width='660' height='310' src='http://v.youku.com/v_show/id_XOTU1NjM1MjQ4.html?from=s1.8-1-1.2'></iframe>";  	 
+     	 jQuery('#_content').html(html).css('overflow','hidden'); */
+     	 jQuery('#_content').html("<p style='padding-left:8px;'>开发中。。。</p>");
+     	}
+     	function spot1_(){
+     	 jQuery('#_content1').empty();
+     	 /* var html="<iframe frameborder='0' width='660' height='310' src=''></iframe>";  	 
+     	 jQuery('#_content1').html(html).css('overflow','hidden'); */
+     	 jQuery('#_content1').html("<p style='padding-left:8px;'>开发中。。。</p>");
+     	}
+     	
+     	//村全景
+     	function _rural_panorama(id){
+     		//alert('村子id:'+id);
+     		//jQuery('#_content1').empty();
+     		//var html="<div></div>";
+     		jQuery("#detail-loader").bupdlg({  
+     			title: '村全景',
+			    width:915,
+			    height:640,
+			    modal:true
+			});
+			jQuery("#detail-loader").html("<iframe frameborder='0' style='overflow:hide;' width='100%' height='100%' src='loadPanorama.do?id="+id+"'></iframe>");
+     	}
+	/*
+		点击某个片区链接,地图上定位到该片区点
+	*/
+	function modelAreaChange(maid, pid){
+		jQuery('#detail-container').slideUp(function(){
+			jQuery('#ditu-container').show();
+			var pit = maPoints['_' + pid];
+			map.panTo(pit.point);
+			map.setZoom(12);
+		});
+	}
+	
+	/*
+		显示与隐藏对应所有图标
+	*/
+	
+	var checklist = document.getElementsByName ("selected");
+	function show_all_map(obj){
+		var check_num = $("input:checkbox:checked").length - 1;//-1是因为所有也是选中的。
+		
+		if(obj.checked==true){
+			map.setZoom(7);//点击显示示范片时,他地图缩小
+			map.setCenter(new qq.maps.LatLng(23.125178,113.280637));//以广州为中心
+			_check_show_marker_or_polygon(polygonArr)
+			_check_show_marker_or_polygon(ma_markerArr);
+		}else{
+			//_check_hide_marker_or_polygon(ma_markerArr);
+			check_num -= 1;//状态改变后变为 不勾选状态，所以就要-1
+			_check_hide_marker_or_polygon(polygonArr);
+		}
+		is_check_all(check_num,checklist.length);
+	}
+	
+	function show_all_nrural(obj){
+		var check_num = $("input:checkbox:checked").length - 1;
+		if(obj.checked==true){
+			_check_show_marker_or_polygon(n_markerArr);	
+		}else{
+			check_num -= 1;
+			_check_hide_marker_or_polygon(n_markerArr)
+		}
+		is_check_all(check_num,checklist.length);
+	}
+	
+	function show_all_prural(obj){
+		var check_num = $("input:checkbox:checked").length - 1;
+		if(obj.checked==true){
+			_check_show_marker_or_polygon(p_markerArr);	
+		}else{
+			check_num -= 1;
+			_check_hide_marker_or_polygon(p_markerArr)
+		}
+		is_check_all(check_num,checklist.length);
+	}
+	
+	
+	//全选
+	//var checklist ;
+	function selectAll(){
+		//checklist = document.getElementsByName ("selected");
+	   	if(document.getElementById("controlAll").checked){
+		   for(var i=0;i<checklist.length;i++){
+      			checklist[i].checked = 1;//选中
+   			}
+			_check_show_marker_or_polygon(polygonArr);
+			_check_show_marker_or_polygon(n_markerArr);
+			_check_show_marker_or_polygon(p_markerArr);
+		}else{
+		  	for(var j=0;j<checklist.length;j++){
+		     	checklist[j].checked = 0;
+		  	}
+		  	_check_hide_marker_or_polygon(polygonArr);
+		  	_check_hide_marker_or_polygon(n_markerArr);
+		  	_check_hide_marker_or_polygon(p_markerArr);
+		}
+	}
+	
+	
+	
+	
+//------------------------------------------------------------------------
+
+	
+	//显示标注
+	function _check_show_marker_or_polygon(arr){
+		for(i=0;i<arr.length;i++){
+			arr[i].setVisible(true);
+		}
+	}
+	//标注隐藏
+	function _check_hide_marker_or_polygon(arr){
+		for(i=0;i<arr.length;i++){
+			//arr[i].setMap(null);
+			arr[i].setVisible(false);
+		}
+		//arr.splice(0,arr.length);//清空数组元素
+	}	
+	
+	
+	function is_check_all(current_checked,check_len){
+		//alert(current_checked+','+check_len);
+		if(current_checked<check_len){
+			//alert('去掉');
+			document.getElementById("controlAll").checked = 0;
+		}else{
+			//alert('勾选');
+			document.getElementById("controlAll").checked = 1;
+		}
+	}
+	
+</script>

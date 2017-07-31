@@ -1,0 +1,27 @@
+<table class='editor' style="width:100%;margin: auto;" id='_table'>
+	<tr>
+		<th style='width:50%;' class="tdRight" colspan='2'>是否编制村庄环境整治规划[C36]：</th>
+		<td colspan='4'>
+			#if($form.eniPlan == '是')
+				<!--<input id="eniPlan-n" style='width:20px' type='radio' name='eniPlan' value='否' $!{disabled} onclick="jQuery('#eniPlanDate').attr('disabled', true);jQuery('#epdUpload').hide();" /><label for='eniPlan-n'>否</label>
+				<input id="eniPlan-y" style='width:20px' type='radio' name='eniPlan' value='是' $!{disabled} checked='checked' onclick="jQuery('#eniPlanDate').removeAttr('disabled');jQuery('#epdUpload').show();" /><label for='eniPlan-y'>是</label>
+				
+				#if($readonly)
+				(年度:
+					<input id="eniPlanDate" style='width:80px' type='text' name='eniPlanDate' value='$!{form.eniPlanDate}'  readOnly='readOnly'/>
+				年)
+				<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-0-C36-upload.do?arid=0&readonly=true" id="epdUpload">&nbsp;文件查看</a>
+				#else
+				(年度:
+					<select id='eniPlanDate' name='eniPlanDate'>$!{selyear2}</select>	
+				年)
+				<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-0-C36-upload.do?arid=0" id="epdUpload">&nbsp;文件上传</a>
+				#end-->
+				是(年度:<input id="eniPlanDate" style='width:80px' type='text' name='eniPlanDate' value='$!{form.eniPlanDate}'  readOnly='readOnly'/>)
+				<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-0-C36-upload.do?arid=0&readonly=true" id="epdUpload">&nbsp;文件查看</a>
+			#else
+				否
+			#end
+		</td>
+	</tr>
+</table>

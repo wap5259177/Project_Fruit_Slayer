@@ -1,0 +1,117 @@
+<div id="$di.id" title="文件分享" style="padding:8px;" buttons="#${di.id}-buttons" modal='true'>
+	<table style="padding:0px;margin:0px;"><tr>
+		<th>用户名：</th>
+		<td><input type="text" id='dg_searchName' /></td>
+		<th align="right" style="width:80px;">登录名：</th>
+		<td><input type="text" id='searchLoginName' /></td>
+		<th align="right" style="width:80px;">拥有权限：</th>
+		<td><select id='searchHasPrivileges'>
+			<option value="">--请选择--</option>
+			<option value="1">是</option>
+			<option value="0">否</option>
+		</select></td>
+		<td align="right" style="width:80px;"><a href="javascript:void(null);" id="share_dg_btnSearch">搜索</a></td>
+	</tr></table>
+	<table id='file_share'></table>
+</div>
+<div id="${di.id}-buttons">
+	<span style='color:red;'>注意：换页前请点击“保存”按钮，以保存当前页所改变的内容！</span>
+	<a href="#" id='a_save'>保存</a> 
+	<a href="#" id='a_close'>关闭</a>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_save, #a_close, #share_dg_btnSearch').bupabutton({flat : true});
+	jQuery('#a_close').click(function() {
+		jQuery('#${di.id}').bupdlg('close');
+		#if(${gridid})
+			fn_reload_dg_condition(); // 目录文档 菜单上的列表刷新
+		#end
+		return false;
+	});
+	
+	jQuery('#file_share').bupgrid({
+		url : 'privileges.search?id=$!{id}',
+		dataType : 'json',
+		idField : 'id',
+		sortField : 'createAt',
+		sortOrder : 'desc',
+		remoteSort : true,
+		showPagebar : true,
+		height : 380,
+		pageSize : 10,
+		singleSelect : true,
+		columns : [ [ 
+			{title : '登录名',field : 'loginName',width : 120,sortable : false}, 
+			{title : '用户名',field : 'name',width : 200,sortable : true}, 
+			{title : '身份',field : 'flag',width : 80,sortable : true}, 
+			{title : '状态',field : 'status',width : 60,sortable : true}, 
+			{title : '查看',field : 'optDetail',width : 40,align : 'center'}, 
+			{title : '下载',field : 'optDownload',width : 40,align : 'center'}, 
+			{title : '修改',field : 'optEditor',width : 40,align : 'center'}, 
+			{title : '删除',field : 'optDelete',width : 40,align : 'center'} 
+		] ],
+		onLoadSuccess : function(data) {
+			jQuery(':checkbox.fs_detail').click(function() {
+				fn_change_actions(jQuery(this), 1);
+			});
+			jQuery(':checkbox.fs_download').click(function() {
+				fn_change_actions(jQuery(this), 2);
+			});
+			jQuery(':checkbox.fs_editor').click(function() {
+				fn_change_actions(jQuery(this), 4);
+			});
+			jQuery(':checkbox.fs_delete').click(function() {
+				fn_change_actions(jQuery(this), 8);
+			});
+		}
+	});
+	
+	jQuery('#share_dg_btnSearch').click(function() {
+		jQuery("#file_share").bupgrid('reload', {
+			searchName : jQuery('#dg_searchName').val(), 
+			searchLoginName : jQuery('#searchLoginName').val(),
+			hasPrivileges : jQuery('#searchHasPrivileges').val()
+		});
+		return false;
+	});
+	
+	jQuery('#a_save').click(function() {
+		var actions = '';
+		var e_input = jQuery('.fs_actions');
+		for (var i = 0; i < e_input.length; i++) {
+			if (i != 0) {
+				actions += ',';
+			}
+			actions += jQuery(e_input[i]).val();
+		}
+		jQuery.ajax({
+	    	url : 'privileges.save',
+	    	type : 'post',
+	    	data : {id : '$!{id}', actions : actions},
+	    	success : function(rd) {
+	    		if (typeof rd === "string")
+					rd = $.parseJSON(rd); 
+				if(rd.error){
+					$.bupmsg.alert('提示', rd.msg, 'error');
+					return;
+				}
+				alert('保存成功！');
+				//jQuery('#${di.id}').bupdlg('close');
+			}
+	    });	
+	});
+});
+
+function fn_change_actions(e_chk, action) {
+	var name = e_chk.attr('name');
+	var input = jQuery("input[class='fs_actions'][name='"+name+"']");
+	var val = input.val();
+	var index = val.indexOf("_");
+	var val_actions = val.substr(0, index);
+	var val_uid = val.substr(index, val.length-index);
+	val_actions = e_chk.attr("checked") ? Number(val_actions) + action : Number(val_actions) - action;
+	input.val(val_actions + val_uid);
+}
+</script>

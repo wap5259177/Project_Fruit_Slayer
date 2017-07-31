@@ -1,0 +1,47 @@
+<div style='border:1px solid red;'>
+	<span style=' padding:20px 50px 0px;'>未开始:$!{noStart}</span>
+	<span style=' padding:20px 50px 0px;'>进行中:$!{running}</span></br>
+	<span style=' padding:20px 50px 0px;'>竣工:$!{finish}</span>
+	<span style=' padding:20px 50px 0px;'>终止:$!{end}</span>
+</div>
+
+<div id='show-ac' >
+	<div class='ma_icon' >
+		<a href='#' onclick='getProject(0);'>未开始</a>
+	</div>
+	<div class='ma_icon' >
+		<a href='#' onclick='getProject(1);'>进行中</a>
+	</div>
+	<div class='ma_icon' >
+		<a href='#' onclick='getProject(2);'>竣工</a>
+	</div>
+	<div class='ma_icon' >
+		<a href='#' onclick='getProject(3);'>终止</a>
+	</div>
+</div>
+
+
+
+<style type="text/css">
+	.ma_icon{
+		border:1px solid red;
+		float:left;
+		width:100px;
+		height:100px;
+		margin:20px 50px;
+		vertical-align:middle;
+	}
+</style>
+
+<script type='text/javascript'>
+	$(function(){
+		//alert('d');
+	});
+	
+	function getProject(_status){
+		$('#show_ac').html('');
+		$("#show_area").load("getProject.do",{ruralId:$!{nrid},status:_status});
+	}
+	
+	
+</script>

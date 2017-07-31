@@ -1,0 +1,57 @@
+<div id="$di.id" title="$!{title}" style="width:850px;height:450px;" modal='true'>
+<div id="_2_0" fit="true">
+<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:0;overflow:hidden;">
+	$title
+	<div style="font-size:16px;margin:0 auto;">(截止时间：${deadline})</div>
+</div>
+<div data-settings="zone:'center',border:false">
+<table id="_2_1" data-settings="
+        url: '$!{form}!data.report?v=$!reportable',
+        method: 'get',
+        showRownum: true,
+        fit: true,
+        idField:'id',
+        singleSelect:true,
+        showPagebar: false
+    "> 
+    
+	<thead data-settings="frozen:true">
+		<tr>
+		#if($reportable)
+			<th data-settings="field:'id',width:50,chalign:'center',formatter:R.f">操作</th>
+		#end
+			<th data-settings="field:'name',hhalign:'center',chalign:'right'" width="150">县（市、区）名称</th>
+		</tr>
+	</thead>
+    
+<thead>
+ <tr>
+	#parse("survey/table-head.vm")
+  </tr>
+</thead>
+</table>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+#if($reportable)
+var R = {
+	f:function(value,row,index){
+		return "<a href='javascript:' onclick='return R.c(" + row.id + ");'>填报</a>";
+	},
+	l:jQuery("#div-kernel-dialog-loader"),
+	c:function(id){
+		R.l.load("county.report", {id:id});
+		return false;
+	}
+};
+#end
+jQuery(function(){
+	jQuery("#_2_0").bupborderlayout();
+	jQuery("#_2_1").bupgrid({rowStyler:function(rowIndex,row){
+		if(row.id < 0){
+			return 'background-color:#CAFFFF;color:blue;'; 
+		}
+	}});
+});
+</script>

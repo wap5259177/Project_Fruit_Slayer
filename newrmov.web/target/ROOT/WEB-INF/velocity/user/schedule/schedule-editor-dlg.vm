@@ -1,0 +1,93 @@
+<div id="$di.id" title="行程安排" style="padding:12px;" buttons="#${di.id}-buttons" modal='true'>
+<input type='hidden' value='$!{id}' id='id' />
+<table class='editor' style="margin:auto;">
+	<tr>
+		<th style="width:120px;">名称</th>
+		<td colspan='3'><input type="text" name="name" id="name" value="$!{name}" style="width:90%;" /></td>
+	</tr>
+    <tr>
+		<th>是否提醒</th>
+		<td style="width:120px;"><input type="checkbox" name="alarm" id="alarm" #if($!{alarm})checked="checked" #end /></td>
+		<th style="width:120px;">类型</th>
+        <td style="width:120px;">
+        	<select style="width:100px;" name="type" id="type">
+        		<option value="0" #if($!{type}==0) selected="true" #end >日程安排</option>
+        		<option value="1" #if($!{type}==1) selected="true" #end >工作安排</option>
+        	</select>
+        </td>
+	</tr>
+    <tr>
+    	<th>提醒方式</th>
+        <td>
+       		<select style="width:100px;" name="alarmType" id="alarmType" #if(!$!{alarm})readonly='true'#end>
+        		<option value="0" #if($!{alarmType}==0) selected="true" #end >邮件</option>
+        		<option value="1" #if($!{alarmType}==1) selected="true" #end >短信</option>
+        		<option value="2" #if($!{alarmType}==2) selected="true" #end >邮件和短信</option>
+        	</select>
+        </td>
+		<th>提前多少小时提醒</th>
+		<td><input type="text" name="alarmTime" id="alarmTime" value="$!{alarmTime}" #if(!$!{alarm})readonly='true'#end style='width:90%;'/></td>
+	</tr>
+	<tr>
+        <th>内容</th>
+        <td colspan='3'><textarea name="content" id="content" style="resize:none;height:80px;width:98%;font-size:12px;">$!{content}</textarea></td>
+    </tr>
+	<tr>
+        <th>备注</th>
+        <td colspan='3'><textarea name="remark" id="remark" style="resize:none;height:80px;width:98%;font-size:12px;">$!{remark}</textarea></td>
+    </tr>
+</table>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_save' onclick="btn_save();">提交</a>
+<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_save, #a_close').bupabutton({flat : true});
+	jQuery('#alarmTime').bupnuminput({
+		min : 0,
+		precision : 0
+	});
+	jQuery('#alarm').click(function() {
+		if ($(this).attr('checked') == 'checked') {
+			$('#alarmTime').attr('readonly', false);
+			$('#alarmType').attr('readonly', false);
+		} else {
+			$('#alarmTime').attr('readonly', true);
+			$('#alarmType').attr('readonly', true);
+		}
+	});
+});
+function btn_save() {
+	var year = $('#year').val();
+	var month = $('#month').val();
+	var date = $('#date').val();
+	
+	var id = $('#id').val();
+	var name = $('#name').val();
+	var type = $('#type option:selected').val();
+	var alarm = $('#alarm').attr('checked') ? 1 : 0;
+	var alarmTime = $('#alarmTime').val();
+	var alarmType = $('#alarmType option:selected').val();
+	var content = $('#content').val();
+	var remark = $('#remark').val();
+	$.ajax({
+		url : '/s/user/schedule/schedule/date/submit',
+		type : 'post',
+		data : {id : id, year : year, month : month, date : date, name : name, type : type, content : content, 
+				alarm : alarm, alarmTime : alarmTime, alarmType : alarmType, remark : remark},
+		success : function(rd) {
+			if (typeof rd === "string")
+				rd = $.parseJSON(rd);
+			if(rd.error){
+				$.bupmsg.alert('提示', rd.msg, 'error');
+				return;
+			}
+			$('#dg_schedule').bupgrid("reload");
+			$('#${di.id}').bupdlg('close');
+		}
+	});
+}
+</script>

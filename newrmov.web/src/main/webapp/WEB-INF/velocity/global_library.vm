@@ -1,0 +1,3 @@
+#macro( title $string )
+#set( $page_title = $string )
+#end

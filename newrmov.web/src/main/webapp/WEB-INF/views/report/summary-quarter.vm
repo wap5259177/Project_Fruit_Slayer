@@ -1,0 +1,118 @@
+﻿<script type="text/javascript" src="/res/js/bupui/jquery.bupui.min.js"></script><!--bupui-->
+<div id="_3_0" fit="true">
+	<div data-settings="zone:'north',split:true,border:false" style="height:120px;padding:0;overflow:hidden;">
+		<div style="padding:6px 0 0 20px;">
+			<div style="float:left;padding-right:10px;">
+			年度：<select id="annual"><option value="-1">- 请选择 -</option>${yearSelect}</select>
+			</div>
+			<div style="float:left;padding-right:10px;">
+				季度：<select id="period">
+					<option value="-1">- 请选择 -</option>
+					<option value="0">第一季度</option>
+					<option value="1">第二季度</option>
+					<option value="2">第三季度</option>
+					<option value="3">第四季度</option>
+				</select>
+			</div>
+			<a class="bupabutton" style="float:left;" href="javascript:" id="searchBtn" data-settings="iconClassname:'icon_search'">查找</a>
+			<a class="bupabutton" id="exportExcelBtn" style='padding-left:10px;float:left;' href="#" data-settings="iconClassname:'icon-excel'"
+				target="_self">导出Excel
+			</a>
+			<a class="bupabutton" id="_print" style='padding-left:10px;' href="#" data-settings="iconClassname:'icon-excel'"
+				target="_blank">打印
+			</a>
+			
+			<div id="_3_6" style="float:left;display:none;color:red;padding-left:10px;"></div>
+			<div class="clear"></div>
+		</div>
+		<div class="applicant-form-title">
+		            <div style="color:#6699cc;font-size:26px;height:30px;">广东省<div id="_name" style="display:inline-block;font-size:26px;color:#505ABC;border-bottom:#6699cc 1px dotted;min-width:100px;height:30px;margin:0 10px;"></div>连片示范建设工程进展情况统计表</div>
+			<div style="font-size:16px;margin:0 auto;color:green;margin-top:20px;">(截止时间：<span id="_deadline"></span>)</div>
+		</div>
+	</div>
+	<div data-settings="zone:'center',border:false">
+		<table id="_3_1" class="bbys"> 
+			<thead data-settings="frozen:true" style="background-color:#f5f5f5;">
+				<tr>
+					#parse("report/table-head.vm")
+				</tr>
+			</thead>
+			<tbody id='_tbody' ><tbody>
+		</table>
+	</div>
+</div>
+<input id='_itemId' type="hidden"  />
+<script type="text/javascript">
+	$(function(){
+		//$('#_3_1').bupgrid({});
+	});
+	
+	
+	/*
+		打印功能
+	*/
+	$("#_print").click(function(){
+		var annual = $('#annual').val();
+		var period = $('#period').val();
+		var deadline = $('#_deadline').text();
+		if(deadline==""){
+			alert("请查找出要打印的季度报表再打印!");
+			return  false;
+		}
+		this.href = "index.print?annual="+annual+"&&period="+period;
+	});
+
+	/*
+		查找功能
+	*/
+	$('#searchBtn').click(function(){
+		var annual = $('#annual').val();
+		var period = $('#period').val();
+		if(annual==-1 || period==-1){
+			alert('请选择年度或季度!');
+			return ;
+		}
+		$.post(
+			"report.search",
+			{
+				annual:annual,
+				period:period,
+				ownerId:${ownerId}
+			},
+			function(data){
+				if (typeof data === "string"){
+					data = eval('(' + data + ')');
+				}
+				if(data.hasItem==false){
+					period = parseInt(period)+1;
+					alert("<<"+annual+"第"+period+"季度>>没有已经完成的季度报表!");
+					$('#_tbody').html("");
+					$('#_name').text("");
+					$('#_deadline').text("");
+					$('#_itemId').val("");
+					return ;
+				}
+				$('#_tbody').html(data.content);
+				$('#_name').text(data.name);
+				$('#_deadline').text(data.deadline);
+				$('#_itemId').val(data.itemId);
+			}
+		);
+	});
+	
+	/*
+		导出功能
+	*/
+	$('#exportExcelBtn').click(function(){
+		var _itemId = $('#_itemId').val();
+		if(_itemId==''){
+			alert('请选择导出的季度报表!');
+			return ;
+		}
+		this.href = 'report.excel?itemId='+_itemId;
+	});
+	
+	
+	
+		
+</script>

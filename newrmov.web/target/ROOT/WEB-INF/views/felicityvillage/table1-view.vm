@@ -1,0 +1,144 @@
+
+<div id="table1_myw" data-settings='buttons:"#_buttons"'>
+	<!--布局-->
+	<div id="_1_0" style="height:450px;">
+		<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:0;overflow:hidden;">
+			$title
+			<div style="font-size:16px;"><!--margin:0 auto;-->
+				<span>(统计起止时间$!{startTime}至$!{deadline})</span>
+			</div>
+			<!--<span style='padding-left:1300px;'><a href='table1.excel?id=$!{cReport.id}' >导出excel</a></span>-->
+			<span style='position: relative;left: 630px;top: -20px;'><a id='table1_export' href='table1.excel?id=$!{cReport.id}' data-settings="iconClassname:'icon-excel'" >导出excel</a></span>
+		</div>
+		
+		
+		<div data-settings="zone:'center',border:false">
+			<!--tab-->
+			<div id="myt1" style="width:450px;height:250px;">
+				#foreach($it in $mas)
+					<div title="$it.name" style="padding:0px;">
+					    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0"  allowtransparency="yes" style='width:100%;height:100%;'  src="felicityvillage/table1.htm?id=${it.id}"></iframe>
+					</div>
+				#end
+			</div>
+			<div>
+				
+			</div>
+		</div>
+		
+		<div data-settings="zone:'south',border:false" style="height:30px;padding:0;overflow:hidden;">
+			<form id="form_table1"  method="post"  >
+				<table>
+					<tr>
+						<td>
+							<input name='couId' type='hidden' value='$id'/>
+							<span style='padding-right:220px;padding-left:200px;'>
+								填报人:<input type='text' name='reporter1' value='$!{cReport.reporter1}' #if($submit) readonly='readonly' #end/>
+							</span>
+							<span style='padding-right:220px;' >
+								联系电话:<input type='text' name='telephone1' value='$!{cReport.telephone1}' #if($submit) readonly='readonly' #end/>
+							</span>
+							<span>
+								填报时间:<input id='reportTime' name='reportTime1' value='$!{cReport.reportTime1}' #if($submit) readonly='readonly' #end/>
+							</span>
+						<td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		
+	</div>
+</div>
+
+#if(!$submit)
+<div id="_buttons">
+	<font style='font-size:12px;color:red;' >
+		[注意:此处保存的是项目库(一)的填报人/电话/时间!]
+	</font>
+	<a href="#" class="bupa" iconClassname="icon_save" flat="true" onclick='saveTable1();'>
+		保存
+	</a>
+</div>
+#end
+
+<!--load弹出框填写示范片-->
+<div id='bupwin' style="display:none;"></div>
+
+<div id='ma_update' style="display:none;"></div>
+<script>
+jQuery(function(){
+	$('#myt1').buptab({
+		tabPosition: "left",
+		tabHeight:50,
+		tabWidth:250,
+		//width:800,
+		//height:600,
+		//headerWidth:300,
+		fit:true,
+	    border:false,
+	    onSelect:function(title){
+	       //alert(title + ' 被选中了！');
+	    }
+	});
+
+	jQuery("#table1_export").bupabutton();
+	jQuery("#_1_0").bupborderlayout({fit:true});
+	
+	
+	$("a.bupa").bupabutton();
+	$("#reportTime").bupdateinput({editable:false});
+	
+	$('#table1_myw').bupdlg({
+		title:'$title',
+		iconCassname:'icon_save',
+	    modal:true,
+	    //closed:true,
+	    //buttons:'#_buttons',
+	    maximized: true,//是否显示最大化
+	    onClose:function(){
+	    	jQuery('#table1_myw').bupdlg('destroy').remove();
+	    },
+	    minimizable:false,
+	    maximizable:false
+	});
+});
+
+//填写示范片
+//function addArea(){
+	//$('#bupwin').load('addArea.do?id=$cReport.id');
+//}
+
+
+//点击编辑按钮
+function editorArea(id){
+	$('#ma_update').load("area.editor?id="+id);
+}
+
+//保存table1的那三个字段,填报人,联系电话,填报时间
+function saveTable1(){
+	if(!confirm("是否保存?")){
+		return false;
+	}
+	$('#form_table1').bupform('submit', {
+	    url: "table1.save",
+	    onSubmit: function(){
+	    	//if(ck.checked==false&&crId==-1){
+	    		//alert('请选择辐射村所属的主体村!');
+	    		//return false;
+	    	//}
+	    },
+	    success: function(data){
+	    	alert("保存成功！");
+	    	//保存成功后,1.关闭弹出框  2.刷新datagrid 的数据
+	    	//jQuery("#_1_1").bupgrid("reload");
+	    	//jQuery('#table1_myw').bupdlg('destroy').remove();
+	    }
+  	}); 
+}
+
+function exportTable1(){
+	
+}
+
+
+</script>

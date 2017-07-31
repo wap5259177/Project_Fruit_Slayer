@@ -1,0 +1,69 @@
+<div class="applicant-head">填报日期：<input type="text" id="reportAt" value="$!{form.reportDate}" name="reportDate" $!{readonly} class="outsideInput"/></div> 
+<table class='applicant-form'> 
+ <tbody>
+  <tr> 
+   <td class="tdRight" style="width:130px;">序号[D1]：</td> 
+   <td style="width:160px;"><input type="text" value='$!{form.code}' name='code' $!{readonly}/></td> 
+   <td class="tdRight" style="width:130px;">村名称[D2]：</td> 
+   <td>#if($readonly)$!{form.villageName}#else$!{rural}#end</td> 
+  </tr> 
+  <tr> 
+   <td class="tdRight">村属性[D3]：</td> 
+   <td> <input style="width:20px" type="radio" value="主体建设村" name="villageFea" id="villageFea-1" $!{disabled} checked="check" onclick="jQuery('#rural optgroup#sel-nr-og').show();jQuery('#rural optgroup#sel-pr-og').hide();jQuery('#rural').val(#if($form.startMark == '非主体村')''#else'$!form.rural'#end);"/><label for='villageFea-1'>主体村</label><br /> 
+        <input style="width:20px" type="radio" value="非主体村" name="villageFea" id="villageFea-2" $!{disabled} #if($form.startMark == '非主体村')checked='checked'#end  onclick="jQuery('#rural optgroup#sel-nr-og').hide();jQuery('#rural optgroup#sel-pr-og').show();jQuery('#rural').val(#if($form.startMark == '非主体村')'$!form.rural'#else''#end);"/><label for='villageFea-2'>非主体村</label> </td> 
+   <td class="tdRight">专业合作社名称[D4]：</td> 
+   <td> <input style="width:95%;text-align:left;" type="text" value="$!{form.coopName}" name="coopName" $!{readonly} /> </td> 
+  </tr> 
+  <tr> 
+   <td class="tdRight">负责人姓名[D5]：</td> 
+   <td> <input style="width:95%;text-align:left;" type="text" value="$!{form.leaderName}" name="leaderName" $!{readonly} /> </td> 
+   <td class="tdRight">负责人手机[D6]：</td> 
+   <td> <input style="width:95%;;text-align:left;" id="leaderPhone" type="text" value="$!{form.leaderPhone}" name="leaderPhone" $!{readonly} /> </td> 
+  </tr> 
+  <tr> 
+   <td class="tdRight">成员总户数[D7]：</td> 
+   <td> <input id="memberHous" class="number" type="text" value="$!{form.memberHous}" min="0" name="memberHous" $!{readonly} />户 </td> 
+   <td class="tdRight">带动非成员户数[D8]：</td> 
+   <td> <input id="nonMemberHous" class="number" type="text" value="$!{form.nonMemberHous}" min="0" name="nonMemberHous" $!{readonly} />户 </td> 
+  </tr> 
+  <tr> 
+   <td class="tdRight">注册资金[D9]：</td> 
+   <td> <input id="registerFunds" class="number" precision='4' type="text" value="$!{form.registerFunds}" min="0" name="registerFunds" $!{readonly} />万元 </td> 
+   <td class="tdRight">主要经营范围[D10]：</td> 
+   <td><input style="width:20px" id="businessScope-1" type="checkbox" value="种植业" name="businessScope" $!{disabled} #if($form.businessScope.contains('种植业'))checked='checked'#end /><label for='businessScope-1'>种植业</label>
+       <input style="width:20px" id="businessScope-2" type="checkbox" value="畜牧业" name="businessScope" $!{disabled} #if($form.businessScope.contains('畜牧业'))checked='checked'#end/><label for='businessScope-2'>畜牧业</label>
+       <input style="width:20px" id="businessScope-3" type="checkbox" value="渔业"  name="businessScope" $!{disabled} #if($form.businessScope.contains('渔业'))checked='checked'#end/><label for='businessScope-3'>渔业</label><br /> 
+       <input style="width:20px" id="businessScope-4" type="checkbox" value="林业"  name="businessScope" $!{disabled} #if($form.businessScope.contains('林业'))checked='checked'#end/><label for='businessScope-4'>林业</label>&nbsp;&nbsp; 
+       <input style="width:20px" id="businessScope-5" type="checkbox" value="服务业" name="businessScope" $!{disabled} #if($form.businessScope.contains('服务业'))checked='checked'#end/><label for='businessScope-5'>服务业</label> <br />
+       <input style="width:20px" id="businessScope-6" type="checkbox" value="手工业" name="businessScope" $!{disabled} #if($form.businessScope.contains('手工业'))checked='checked'#end/><label for='businessScope-6'>手工业</label> 
+       <input style="width:20px" id="businessScope-7" type="checkbox" value="其它"  name="businessScope" $!{disabled} #if($form.businessScope.contains('其它'))checked='checked'#end/><label for='businessScope-7'>其它</label> </td> 
+  </tr> 
+  <tr> 
+   <td class="tdRight">规模[D11]：</td> 
+   <td> 数量：<input id="quantityScale" style="width:45px;" class="number" type="text" value="$!{form.quantityScale}" min="0" name="quantityScale"  $!{readonly}/>；<br/>
+   		单位：<input style="width:45px;" type="text" value="$!{form.scaleUnits}" name="scaleUnits"  $!{readonly}/> </td> 
+   <td class="tdRight">拥有注册商标数[D12]：</td> 
+   <td> <input id="regiTradeMark" class="number" type="text" value="$!{form.regiTradeMark}" min="0" name="regiTradeMark"  $!{readonly}/>个 </td> 
+  </tr> 
+  <tr> 
+   <td class="tdRight" colspan="2">拥有使用农产品质量认证数[D13]：</td> 
+   <td colspan="2"> <input id="agriculPros" class="number" type="text" value="$!{form.agriculPros}" min="0" name="agriculPros"  $!{readonly}/>个 </td> 
+  </tr> 
+  <tr> 
+   <td class="tdRight" colspan="2">无公害农产品产地认定个数[D14]：</td> 
+   <td colspan="2"> <input id="freePollution" class="number" type="text" value="$!{form.freePollution}" min="0" name="freePollution"  $!{readonly}/>个 </td> 
+  </tr> 
+  <tr> 
+   <td class="tdRight" colspan="2">特色产品名称(填主要的一种)[D15]：</td> 
+   <td colspan="2"> <input style="width:95%;;text-align:left;" type="text" value="$!{form.specialProduct}" name="specialProduct"  $!{readonly}/> </td> 
+  </tr> 
+ </tbody>
+</table> 
+<div class="applicant-remark">
+	<div class="applicant-remark-title">备注：</div>
+	<div>
+		<div class="applicant-remark-item">1)每个产业填一表，有多个产业的可复制本表进行填写。</div>
+		<div class="applicant-remark-item">2)向省农办上报备案示范片时填写一次。</div>
+		<div class="applicant-remark-item">3)项目序号自编，最好按自然序数1、2、3、…排。</div>
+	</div>
+</div>

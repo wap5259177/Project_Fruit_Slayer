@@ -1,0 +1,225 @@
+
+<div id='mr_main' style='width: 950px; height: 600px;padding:50px 20px 0px 110px;'>
+
+</div>
+
+
+
+<script type='text/javascript'>
+	var myChart = echarts.init(document.getElementById('mr_main'),'infographic'); 
+	var ecConfig = echarts.config;
+	var mapGeoData = echarts.util.mapData.params;
+	
+	var option;
+	$(function(){
+		/*$('#myf').bupfilter({
+		    filter: function(value,name){
+		       alert(value + "," + name)
+		    },
+		    menu:'#dm',
+		    prompt:'请输入内容.'
+		});*/
+	
+	
+	
+		option = {
+		    timeline : {
+		        /*data : [
+		            '2013-01-01', '2013-02-01', '2013-03-01', '2013-04-01', '2013-05-01',
+		            { name:'2013-06-01', symbol:'emptyStar6', symbolSize:8 },
+		            '2013-07-01', '2013-08-01', '2013-09-01', '2013-10-01', '2013-11-01',
+		            { name:'2013-12-01', symbol:'star6', symbolSize:8 }
+		        ],*/
+		        data : $timelineData,
+		        label : {
+		        	show:true,
+		            formatter : function(s) {
+		                return s.slice(0, 7);
+		            },
+		            
+		            textStyle: {
+	                     color: 'green',
+	                     //fontFamily: 'verdana',
+	                     fontSize: 14,
+	                     //fontStyle: 'normal',
+	                     //fontWeight: 'bold'
+	                 },
+		            interval:'1'
+		        },
+		        currentIndex:8,//当前索引位置,对应option数组,用于指定特定系列
+		        //height:400,
+		        width:'90%',
+		        padding:[5,5,5,5],
+		        borderWidth:0,
+		        borderColor:'gray',
+		        controlPosition:'right',
+		        autoPlay: false,//自动播放
+		        loop: false,//循环播放
+		        playInterval:1000,
+		        //lineStyle:{color:'red',width:5,type:'dashed'},
+		        checkpointStyle:{
+		        	symbol : 'star6',//当前点的样色//'emptyStar6','star6'
+				    symbolSize : 15,//当前点的大小
+				    color : 'auto',
+				    //borderColor : 'green',//当前点的边框颜色
+				    borderWidth : 0,//当前点的边框大小
+				    label: {
+				        show: true,//是否显示当前点的 文字
+				        textStyle: {
+				            color: 'red'//当前点文字的颜色
+				        }
+				    }
+		        },
+		        controlStyle:{
+		        	itemSize: 35,
+				    itemGap: 10,
+				    normal : {
+				        //color : 'red'
+				    },
+				    emphasis : {
+				        //color : 'blue'
+				    }
+		        },
+		        
+		        symbol:'emptyCircle',//轴点symbol  标志//circle' | 'rectangle' | 'triangle' | 'diamond' |
+									//'emptyCircle' | 'emptyRectangle' | 'emptyTriangle' | 'emptyDiamond' 
+		        symbolSize:8,//轴点symbol  的大小
+		        
+		    },
+		    options : [
+		        {
+		            title : {
+				        text: '$pj.name\n$annual年项目每月投入资金',
+				        subtext: '',
+				        x:'center'
+				    },
+		           tooltip : {
+				        trigger: 'axis',
+				        formatter:'{b}<br/>{a}:{c}万元'
+				    },
+		           legend: {
+				        data:['月投入'],
+				        show: false
+				    },
+					grid : {
+						'x':180,
+						'y':80,
+						'y2':150
+					},
+		            toolbox: {
+				        show : true,
+				        orient : 'vertical',
+				        feature : {
+				            'mark':{'show':true},
+							'dataView':{'show':true,'readOnly':false},
+							'magicType':{'show':true,'type':['line','bar','stack','tiled']},
+							'restore':{'show':true},
+							'saveAsImage':{'show':true}
+				        }
+				    },
+		          xAxis : [
+				        {
+				            type : 'category',
+				            boundaryGap : true,
+				            data : ['合计','中央','省级专项资金','其他省级资金','市级财政资金','县级财政资金','社会投入','群众自筹','其他'],
+				             axisLabel: {
+				                 show: true,
+				                 rotate:25,
+				                 interval: 'auto',
+				                 textStyle: {
+				                     color: '#000000',
+				                     fontFamily: 'verdana',
+				                     fontSize: 16,
+				                     fontStyle: 'normal',
+				                     fontWeight: 'bold'
+				                 }
+				             }
+				        }
+				    ],
+		          yAxis : [
+				        {
+				            type : 'value',
+				            axisLabel : {
+				                formatter: '{value} 万元'
+				            }
+				        }
+				    ],
+		            series : [
+		                {
+				            name:'月投入',
+				            type:'bar',
+				            //data:[11, 11, 15, 13, 12, 13, 10,2,4],
+				            data:$sees[0],
+				            markPoint : {
+				                data : [
+				                    {type : 'max', name: '最大值'},
+				                    {type : 'min', name: '最小值'}
+				                ]
+				            },
+				            markLine : {
+				                data : [
+				                    {type : 'average', name: '平均值'}
+				                ]
+				            },
+				            itemStyle: {
+				                 normal: {
+				                     label: {
+				                         show: true,
+				                         textStyle: {
+				                             //color: '#800080'
+				                         }
+				                     }
+				                 }
+				             }
+				        }
+		
+		            ]
+		        },
+		        #foreach($foo in [1..11])
+		        	
+			        {
+			            series : [
+			               {
+					            name:'月投入',
+					            type:'bar',
+					            //data:[11, 11, 15, 13, 12, 13, 10,2,4],
+					            data:$sees[$foo],
+					            markPoint : {
+					                data : [
+					                    {type : 'max', name: '最大值'},
+					                    {type : 'min', name: '最小值'}
+					                ]
+					            },
+					            markLine : {
+					                data : [
+					                    {type : 'average', name: '平均值'}
+					                ]
+					            },
+					            itemStyle: {
+					                 normal: {
+					                     label: {
+					                         show: true,
+					                         textStyle: {
+					                             //color: '#800080'
+					                         }
+					                     }
+					                 }
+					             }
+					        }
+			
+			            ]
+			        },
+		        #end
+		        
+		      
+		      
+		      
+		      
+		    ]
+		};
+		myChart.setOption(option);
+     });   
+     
+     
+        
+</script>       

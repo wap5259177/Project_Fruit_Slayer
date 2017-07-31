@@ -1,0 +1,171 @@
+<div id="invest_0_0_1" data-settings='buttons:"#invest_0_0_1_buttons"'>
+	<div id="invest_0_0_2" style="height:450px;">
+		<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:0;overflow:hidden;">
+			广东省$!{cityName}新农村建设资金投入情况表
+			<div style="font-size:16px;margin:0 auto;">(统计截止时间$!{deadline})</div>
+		</div>
+		
+		<div data-settings="zone:'center',border:false">
+			
+			<div style='padding:0px 0px 30px 0px;'>填报单位：<span style="border-bottom:1px solid ;">$!{cityName}</span>（加盖公章）</div>
+			<form id="form_invest"  method="post"  > 
+			
+			<table style="width:100%;background:#ECF5FF;"  class="applicant-form ">
+				<input type='hidden' name='cityReportId' value='$!{cityReportId}'/>
+				<thead style="background:#cccccc;">
+					<tr>
+						<td rowspan='3' style='text-align:center'>市县名称</td>
+						<td colspan='7' style='text-align:center' >资金投入情况(万元)</td>
+					</tr>
+					<tr>
+						<td rowspan='2' style='text-align:center'>累计投入资金总数</td>
+						<td  colspan='6' style='text-align:center' >其中</td>
+					</tr>
+					
+					<tr>
+						<td style='text-align:center'>1.中央财政资金</td>
+						<td style='text-align:center'>2.省级财政资金</td>
+						<td style='text-align:center' colspan='1' >3.市级财政资金</td>
+						<td style='text-align:center' colspan='1' >4.县级财政资金</td>
+						<td style='text-align:center' colspan='1' >5.社会投入资金</td>
+						<td style='text-align:center' colspan='1' >6.群众自筹资金</td>
+							
+					</tr>
+				</tdead>
+				
+				<tbody>
+					<tr>
+						<td><span  style='text-align:center;display:block;font-size:22px;'>全市合计</span></td>
+						<!--
+						<td><span id='total_stc' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.projectStartCount}</span></td>
+						<td><span id='total_fnc' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.projectFinishCount}</span></td>
+						-->
+						<td><span id='total_tfs' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.totalFunds}</span></td>
+						<td><span id='total_fs0' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.funds0}</span></td>
+						<td><span id='total_fs1' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.funds1}</span></td>
+						<td><span id='total_fs2' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.funds2}</span></td>
+						<td><span id='total_fs3' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.funds3}</span></td>
+						<td><span id='total_fs4' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.funds4}</span></td>
+						<td><span id='total_fs5' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.funds5}</span></td>
+					</tr>
+				
+				
+					#foreach($it in $batchs)
+						<tr >
+							<td><input type="text" style="width:100px;" name='name_$it.id' value='$it.name' readonly="readonly"/></td>
+							
+							<!--
+							<td><input class='number stc' tcls='stc' type="text" style="width:100px;" name='projectStartCount_$it.id' value='$!{it.projectStartCount}' $!{readonly}/></td>
+							<td><input class='number fnc' tcls='fnc' type="text" style="width:100px;" name='projectFinishCount_$it.id' value='$!{it.projectFinishCount}' $!{readonly}/></td>
+							-->
+							<td><input class='number decimal-4 tfs' tcls='tfs' type="text" style="width:100px;" name='totalFunds_$it.id' value='$!{it.totalFunds}' $!{readonly}/></td>
+							
+							<td><input class='number decimal-4 fs0' tcls='fs0' type="text" style="width:100px;" name='funds0_$it.id' value='$!{it.funds0}' $!{readonly}/></td>
+							<td><input class='number decimal-4 fs1' tcls='fs1' type="text" style="width:100px;" name='funds1_$it.id' value='$!{it.funds1}' $!{readonly}/></td>
+							<td><input class='number decimal-4 fs2' tcls='fs2' type="text" style="width:100px;" name='funds2_$it.id' value='$!{it.funds2}' $!{readonly}/></td>
+							<td><input class='number decimal-4 fs3' tcls='fs3' type="text" style="width:100px;" name='funds3_$it.id' value='$!{it.funds3}' $!{readonly}/></td>
+							<td><input class='number decimal-4 fs4' tcls='fs4' type="text" style="width:100px;" name='funds4_$it.id' value='$!{it.funds4}' $!{readonly}/></td>
+							<td><input class='number decimal-4 fs5' tcls='fs5' type="text" style="width:100px;" name='funds5_$it.id' value='$!{it.funds5}' $!{readonly}/></td>
+						</tr>
+					#end
+				</tbody>
+			</table>
+			</form>
+		</div>
+		
+		<div data-settings="zone:'south',border:false" style="height:0px;padding:0;overflow:hidden;">
+			
+		</div>
+		
+	</div>
+</div>
+
+#if(!$submit)
+<div id="invest_0_0_1_buttons">
+	<a href="#" id="_0_btn_save" onclick='saveInvest();' iconClassname="icon_save" flat="true">保存</a>
+</div>
+#end
+<script>
+	jQuery(function(){
+		$("#_0_btn_save").bupabutton();
+		jQuery("#invest_0_0_2").bupborderlayout({fit:true});
+		jQuery('#invest_0_0_1').bupdlg({
+			title:'广东省资金投入情况表',
+			iconCassname:'icon_save',
+		    modal:true,
+		    maximized: false,//是否显示最大化
+		    width:900,
+		    height:550,
+		    onClose:function(){
+		    	jQuery('#invest_0_0_1').bupdlg('destroy').remove();
+		    },
+		    minimizable:false,
+		    maximizable:false
+		});
+		
+		
+		$('.number').each(function(i, v){
+			var vf = v.value;
+			if(!$.isNumeric(vf) || vf == 0){
+				v.value = '';
+			}
+		});
+		$('.decimal-4').bupnuminput({
+			precision:4,
+			/*去掉注释可以在填写的时候可以自动累计,但存在一小问题,有时候小数点后的数字累计不正确!*/
+			//onChange:function(){
+				//var cn = jQuery(this).attr("tcls");
+				//var cto = 0;
+				//jQuery('.' + cn).each(function(){
+					//cto += jQuery(this).bupnuminput("getValue") - 0;
+				//});
+				//jQuery('#total_' + cn).text(toDecimal4(cto));
+			//}
+		});
+		jQuery(".number").bupnuminput({
+			//onChange:function(){
+				//纵向累计
+				//var cn = jQuery(this).attr("tcls");
+				//var cto = 0;
+				//jQuery('.' + cn).each(function(){
+					//cto += jQuery(this).bupnuminput("getValue") - 0;
+				//});
+				//jQuery('#total_' + cn).text(cto);
+			//}
+		});
+		
+	});
+	
+	
+	function saveInvest(){
+		$('#form_invest').bupform('submit', {
+		    url: "invest.save",
+		    onSubmit: function(){
+		    },
+		    success: function(data){
+		    	alert("保存成功！");
+		    	jQuery('#invest_0_0_1').bupdlg('destroy').remove();
+		    }
+	  	}); 
+	}
+	
+	/*
+	function toDecimal4(x) {    
+        var f = parseFloat(x);    
+        if (isNaN(f)) {    
+            return false;    
+        }
+        var f = Math.round(x*10000)/10000;    
+        var s = f.toString();    
+        var rs = s.indexOf('.');    
+        if (rs < 0) {    
+            rs = s.length;    
+            s += '.';    
+        }    
+        while (s.length <= rs + 4) {    
+            s += '0';    
+        }    
+        return s;    
+    }  
+	*/	
+</script>

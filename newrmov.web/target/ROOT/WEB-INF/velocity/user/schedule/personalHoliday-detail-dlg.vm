@@ -1,0 +1,45 @@
+<div id="$di.id" title="个人假日" style="padding:12px;" buttons="#${di.id}-buttons" modal='true'>
+<input type='hidden' value='$!{id}' id='id' />
+<table class='editor' style="margin:auto;">
+	<tr>
+        <th style="width:120px;">类型</th>
+        <td>
+        	#if($!{type}==0)请假/事假
+        	#elseif($!{type}==1)病假
+        	#elseif($!{type}==2)年假
+        	#elseif($!{type}==3)加班
+        	#elseif($!{type}==4)缺席
+        	#end
+        </td>
+    </tr>
+    <tr>
+        <th>开始时间</th>
+        <td>#if($!{time}==0) 上午 #elseif($!{time}==1) 下午 #end</td>
+    </tr>
+    <tr>
+		<th>持续时间(单位:半天)</th>
+		<td style='width:250px;'>$!{duration}</td>
+	</tr>
+	<tr>
+		<th>创建时间</th>
+		<td>$!{createAt}</td>
+	</tr>
+	<tr>
+		<th>创建人</th>
+		<td>$!{creatorName}</td>
+	</tr>
+	<tr>
+        <th>备注</th>
+        <td style="height:80px;font-size:12px;" valign="top">$!{remark}</td>
+    </tr>
+</table>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='a_close' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+
+<script type="text/javascript">
+jQuery(function() {
+	jQuery('#a_close').bupabutton({flat : true});
+});
+</script>

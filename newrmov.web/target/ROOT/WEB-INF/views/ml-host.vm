@@ -1,0 +1,10 @@
+#set($layout="layout-empty.vm")
+<!-- 上报通知 -->
+<div class="bupborderlayout" fit="true">
+	<div data-settings="zone:'west'"  title="示范片区建设" style="width:450px;padding:10px">
+		${ssmsg}
+	</div>
+	<div data-settings="zone:'center'" title="上报通知" style="padding:10px;">
+		${rimsg}
+	</div>
+</div>

@@ -1,0 +1,81 @@
+<div id="datagrid-tab" style='padding-left:10px;padding-top:5px;'>
+	<div>
+	$!{select}
+	</div>	
+	<a class="bupabutton" style='padding-left:10px' href="#" data-settings="iconClassname:'icon-excel'"
+		 onclick="this.href='index.excel?batch='+jQuery('#sel-batch').val()" target="_blank">导出Excel</a>
+	<div style="font-size:20px;text-align:center">广东省新农村连片示范建设工程台账簿 - 所有主体村情况累计汇总统计</div>
+</div>
+
+<table class="bupgrid" fit="true" data-settings="nowrap:false" toolbar="#datagrid-tab" id='mygrid'>
+	<thead data-settings="frozen:true">
+		<tr>
+		   <th style="width:60px;" rowspan='3' data-settings="field:'code'">序号</th>
+			<th style="width:60px;" rowspan='3' data-settings="field:'code2'">批次[A15]</th>
+			<th style="width:60px;" rowspan='3' data-settings="field:'code3'">报备年度[A14]</th>
+			<th style="width:120px;" rowspan='3' data-settings="field:'code4'">地市</th>
+			<th style="width:120px;" rowspan='3' data-settings="field:'code5'">县(区)</th>
+			<th style="width:150px;" rowspan='3' data-settings="field:'code6'">示范片名称[A12]</th>
+		</tr>
+	</thead>
+	<thead>
+		<tr>
+			
+			<th style="width:150px;" rowspan='3' data-settings="field:'code7'">建设主题名称[A13]</th>
+			<th style="width:150px;" rowspan='3' data-settings="field:'code8'">行政村名</th>
+			<th style="width:150px;" rowspan='3' data-settings="field:'code9'">自然村名</th>
+			
+			
+			<th style='font-weight:bold;' colspan='11'>（二）基础设施建设和环境卫生整治情况</th>
+			
+			
+			
+		</tr>
+		<tr>
+			<th style="width:60px;">村内道路和入户路硬底化率</th>
+			<th style="width:60px;">是否通自来水</th>
+			<th style="width:60px;">开展农田水利基础设施和现代渔港建设</th>
+			<th style="width:60px;">整治小山塘、小灌区、小水坡、小泵站和小堤防</th>
+			<th style="width:60px;">配套建设高标准基本农田、标准鱼塘</th>
+			<th style="width:60px;">是否已完成环境卫生整治</th>
+			<th style="width:60px;">是否已开展村庄垃圾治理</th>
+			<th style="width:60px;">是否建立村保洁队伍村个数</th>
+			<th style="width:60px;">建立村保洁队伍保洁员人数</th>
+			<th style="width:60px;">村民使用卫生厕所户数</th>
+			<th style="width:60px;">建立污水处理设施村个数</th>
+			
+		</tr>
+		<tr>
+			
+			<th style="width:60px;" data-settings="field:'item14'">B14[公里]</th>
+			<th style="width:60px;" data-settings="field:'item15'">B15</th>
+			<th style="width:60px;" data-settings="field:'item16'">B16[宗]</th>
+			<th style="width:60px;" data-settings="field:'item17'">B17[个]</th>
+			<th style="width:60px;" data-settings="field:'item18'">B18[亩]</th>
+			<th style="width:60px;" data-settings="field:'item19'">B19</th>
+			<th style="width:60px;" data-settings="field:'item20'">B20</th>
+			<th style="width:60px;" data-settings="field:'item21'">B21</th>
+			<th style="width:60px;" data-settings="field:'item22'">B21[人]</th>
+			<th style="width:60px;" data-settings="field:'item23'">B22[户]</th>
+			<th style="width:60px;" data-settings="field:'item24'">B23</th>
+			
+			
+		</tr>
+	</thead>
+	<tbody id='_tbody'>$!{content}</tbody>
+	
+</table>
+
+<script>
+	$("#btn_load").bupabutton({
+        iconClassname: 'icon-search'
+    });
+    jQuery(function(){
+    //$('#mygrid').bupgrid('hideColumn',"code");
+    $('#mygrid').bupgrid('hideColumn',"code6");
+    $('#mygrid').bupgrid('hideColumn',"code2");
+    $('#mygrid').bupgrid('hideColumn',"code3");
+    $('#mygrid').bupgrid('hideColumn',"code4");
+    $('#mygrid').bupgrid('hideColumn',"code7");
+    });
+</script>

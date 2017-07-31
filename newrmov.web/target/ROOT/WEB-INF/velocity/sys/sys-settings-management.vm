@@ -1,0 +1,10 @@
+<div id="tabs-sys-settings-management" class="buptab" fit='true' tabPosition='bottom' border="false"></div>
+
+<script type='text/javascript'>
+// iframe 内调用的函数
+function refresh_tabs(href) {
+	var pp = jQuery('#tabs-sys-settings-management').buptab('getSelected');
+	var e_iframe = jQuery(pp).find('iframe');
+	jQuery(e_iframe).attr('src', href);
+}
+</script>

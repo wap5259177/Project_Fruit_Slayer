@@ -1,0 +1,142 @@
+<div id="village_0_0_1" data-settings='buttons:"#village_0_0_1_buttons"'>
+	<div id="village_0_0_2" style="height:450px;">
+		<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:0;overflow:hidden;">
+			广东省$!{cityName}自然村户数情况表
+			<div style="font-size:16px;margin:0 auto;">(统计截止时间$!{deadline})</div>
+		</div>
+		
+		<div data-settings="zone:'center',border:false">
+			
+			<div style='padding:0px 0px 30px 0px;'>填报单位：<span style="border-bottom:1px solid ;">$!{cityName}</span>（加盖公章）</div>
+			<form id="form_village"  method="post"  > 
+				<input type='hidden' name='cityReportId' value='$!{cityReportId}'/>
+				<table style="width:100%;background:#ECF5FF;"  class="applicant-form ">
+					<thead style="background:#cccccc;">
+						
+						
+						<tr>
+							<td rowspan='2' style='text-align:center'>县（市、区）名称</td>
+							<!--
+							<td colspan='1' rowspan='2'  >1.农业户数（户）</td>
+							<td colspan='1' rowspan='2' >2.农业人口数（人）</td>
+							-->
+							<td colspan='1' rowspan='2' style='text-align:center'>建制行政村或居委会</br>(个)  </td>
+							<td colspan='1' rowspan='2' style='text-align:center'>20户以上自然村</br>（个）</td>
+							<td colspan='4' style='text-align:center'>其中</td>
+						</tr>
+						<tr>
+							<td style='text-align:center'>20-100户</br>（个）</td>
+							<td style='text-align:center'>100-300户</br>（个）</td>
+							<td style='text-align:center'>300-500户</br>（个）</td>
+							<td style='text-align:center'>500户以上</br>（个）</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><span style='text-align:center;display:block;font-size:22px;'>全市合计</span></td>
+							<!--
+							<td><span id='total_hc' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.householdCount}</span></td>
+							<td><span id='total_pc' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.peopleCount}</span></td>
+							-->
+							<td><span id='total_ac' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.avCount}</span></td>
+							<td><span id='total_h0' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.household0}</span></td>
+							<td><span id='total_h1' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.household1}</span></td>
+							<td><span id='total_h2' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.household2}</span></td>
+							<td><span id='total_h3' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.household3}</span></td>
+							<td><span id='total_h4' style='text-align:center;display:block;font-weight:bold;font-size:22px;'>$!{cityReport.household4}</span></td>
+						</tr>
+						#foreach($it in $counties)
+						<tr>
+								<td><input style='width:95%'  name='name_$it.id' value='$!{it.name}'/></td>
+								
+								<!--下面这两个不需要的
+								<td><input style='width:90px;' type='hidden' class='number hc'  tcls='hc'  name='householdCount_$it.id' value='$!{it.householdCount}' $!{readonly}/></td>
+								<td><input style='width:90px;' type='hidden'class='number pc'  tcls='pc'  name='peopleCount_$it.id' value='$!{it.peopleCount}' $!{readonly}/></td>
+								-->
+								<td><input style='width:95%;'class='number ac'  tcls='ac' name='avCount_$it.id' value='$!{it.avCount}' $!{readonly}/></td>
+								<td><input style='width:95%;'class='number h0'  tcls='h0' name='household0_$it.id' value='$!{it.household0}' $!{readonly}/></td>
+								<td><input style='width:80px;' class='number h1'  tcls='h1' name='household1_$it.id' value='$!{it.household1}' $!{readonly}/></td>
+								<td><input style='width:80px;' class='number h2'  tcls='h2' name='household2_$it.id' value='$!{it.household2}' $!{readonly}/></td>
+								<td><input style='width:80px;' class='number h3'  tcls='h3' name='household3_$it.id' value='$!{it.household3}' $!{readonly}/></td>
+								<td><input style='width:80px;' class='number h4'  tcls='h4' name='household4_$it.id' value='$!{it.household4}' $!{readonly}/></td>
+						</tr>
+						#end
+					
+					</tbody>
+				</table>
+			
+			</form>
+		</div>
+		
+		<div data-settings="zone:'south',border:false" style="height:0px;padding:0;overflow:hidden;">
+			
+		</div>
+		
+	</div>
+</div>
+
+#if(!$submit)
+<div id="village_0_0_1_buttons">
+	<a href="#" id="_0_btn_save" onclick='savevillage();' iconClassname="icon_save" flat="true">保存</a>
+</div>
+#end
+<script>
+	jQuery(function(){
+		$("#_0_btn_save").bupabutton();
+		jQuery("#village_0_0_2").bupborderlayout({fit:true});
+		jQuery('#village_0_0_1').bupdlg({
+			title:'广东省资金投入情况表',
+			iconCassname:'icon_save',
+		    modal:true,
+		    maximized: false,//是否显示最大化
+		    width:900,
+		    height:550,
+		    onClose:function(){
+		    	jQuery('#village_0_0_1').bupdlg('destroy').remove();
+		    },
+		    minimizable:false,
+		    maximizable:false
+		});
+		
+		
+		$('.number').each(function(i, v){
+			var vf = v.value;
+			if(!$.isNumeric(vf) || vf == 0){
+				v.value = '';
+			}
+		});
+		jQuery(".number").bupnuminput({
+		
+			onChange:function(){
+				//纵向累计
+				var cn = jQuery(this).attr("tcls");
+				var cto = 0;
+				jQuery('.' + cn).each(function(){
+					cto += jQuery(this).bupnuminput("getValue") - 0;
+				});
+				jQuery('#total_' + cn).text(cto);
+				
+			}
+		
+		});
+		
+		
+	});
+	
+	
+	function savevillage(){
+		$('#form_village').bupform('submit', {
+		    url: "village.save",
+		    onSubmit: function(){
+		    	//return false;
+		    },
+		    success: function(data){
+		    	alert("保存成功！");
+		    	//保存成功后,1.关闭弹出框  2.刷新datagrid 的数据
+		    	//jQuery("#_1_2").bupgrid("reload");
+		    	jQuery('#village_0_0_1').bupdlg('destroy').remove();
+		    }
+	  	}); 
+	}
+		
+</script>

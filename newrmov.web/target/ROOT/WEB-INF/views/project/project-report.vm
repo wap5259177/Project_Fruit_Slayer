@@ -1,0 +1,30 @@
+<div id="$di.id" data-settings='buttons:"#${di.id}_buttons"' title="$!{title}" style="width:950px;height:550px;" modal='true'>
+
+	<div id="_2_0" fit="true">
+		<div class="applicant-form-title" data-settings="zone:'north',split:true,border:false" style="height:60px;padding:0;overflow:hidden;background:#CCFFFF">
+			$title
+		</div>
+		<div data-settings="zone:'center',border:false">
+			#parse("project/project-report-content.vm")
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery("#_2_0").bupborderlayout();
+	});
+	function saveReport(){
+		//document.getElementById("formid").submit();
+		$('#formid').bupform('submit', {
+		    url: "report.save",
+		    onSubmit: function(){
+		    	//return false   会阻止表单提交提交
+		    },
+		    success: function(data){
+		    	//处理异步提交后返回的数据
+		    	alert('暂存成功!');
+		    }
+	  }); 
+	}
+</script>

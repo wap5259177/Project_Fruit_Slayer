@@ -1,0 +1,106 @@
+#set($layout="simple-frame.vm")
+<div id='user-ask' style='width:99%;height:100%;'>
+<div style="width:99%;position:absolute; height:68%; overflow:auto">
+	<table id='tabs-user-ask' style="padding:0px;margin:0px;width:100%;">
+		$!{content}
+	</table>
+	<div style="text-align:center;margin:5px 0px 0px 0px;width:100%;font-size:12px;">
+		<span><a id="btn_ask_load" href='#' onclick='askLoad();'>查看更多</a></span>
+		<span><input id="page" type="hidden" value='$!{page}' /></span>
+	</div>
+</div>
+<table class="editor" style="padding:0px;margin:0px;font-size:12px;width:578px;position:fixed;bottom:0;">
+	<tr>
+		<td style='text-align:right;width:100px;'>名称：</td>
+		<td><input id='contactName' name='contactName' style='width:350px;'/></td>
+	</tr>
+	<tr>
+		<td style='text-align:right;width:100px;'>手机：</td>
+		<td><input id='contactPhone' name='contactPhone' style='width:350px;'/></td>
+	</tr>
+	<tr>
+		<td style='text-align:right;width:100px;'>E-mail：</td>
+		<td><input id='contactEmail' name='contactEmail' style='width:350px;'/></td>
+	</tr>
+	<tr>
+		<td style='text-align:right;width:100px;'>问题：</td>
+		<td><textarea id='question' name='question' style="width:500px;height:50px;font-size:12px;"></textarea></td>
+	</tr>
+	<tr>
+		<td colspan='2' style="text-align:center;"><input id="btn-ask-save" class='submitcss' type="submit" value="提交"/></td>
+	</tr>
+</table>
+</div>
+
+<script>
+jQuery(function() {
+	jQuery('#btn-ask-save').click(function() {
+		var contactName = jQuery('#contactName').val();
+		var contactPhone = jQuery('#contactPhone').val();
+		var contactEmail = jQuery('#contactEmail').val();
+		var question = jQuery('#question').val();
+		if (contactName == null || contactName == '') {
+			alert('请输入昵称！');
+			jQuery('#contactName').focus();
+		} else if (contactPhone == null || contactPhone == '') {
+			alert('请输入电话！');
+			jQuery('#contactPhone').focus();
+		} else if (contactEmail == null || contactEmail == '') {
+			alert('请输入E-mail！');
+			jQuery('#contactEmail').focus();
+		} else if (question == null || question == '') {
+			alert('请输入问题！');
+			jQuery('#question').focus();
+		} else {
+			lock('正在保存...');
+		    $.ajax({
+		        url:'/u/user/ask/save',
+		        type: 'post',
+		        data: {contactName:contactName, contactPhone:contactPhone, contactEmail:contactEmail, question:question},
+		        success : function(rd) {
+					$.unblockUI();
+					if(rd.error){
+						$.bupmsg.alert('提示', rd.msg, 'error');
+						return;
+					}
+					jQuery("#user-ask").load('/u/user/ask/!$!{key}?_=' + Math.random());
+				},
+				error : function() {
+					$.unblockUI();
+					$.bupmsg.alert('提示', "网络连接出错，请重试", 'error');
+				}
+			});	
+		}
+		return false;
+	});
+});
+function askLoad(){ 
+	var page = jQuery('#page').val();
+	lock('正在加载...');
+    $.ajax({
+        url:'/u/user/ask/load',
+        type: "post",
+        data: {page : page},
+        success : function(rd) {
+        	if (typeof rd === "string")
+				rd = $.parseJSON(rd);
+			$.unblockUI();
+			if (null == rd.data || rd.data == "") {
+        		alert('没有更多的数据。。。');
+        		return;
+        	}
+        	jQuery('#tabs-user-ask').append(rd.data);
+        	jQuery('#page').val(++page);
+			if(rd.error){
+				$.bupmsg.alert('提示', rd.msg, 'error');
+				return;
+			}
+		},
+		error : function() {
+			$.unblockUI();
+			$.bupmsg.alert('提示', "网络连接出错，请重试", 'error');
+		}
+	});	
+	return false;
+}
+</script>

@@ -1,0 +1,76 @@
+<div>
+	<!--<p class='main-title item-open2 item-close2' onclick="jQuery(this).toggleClass('item-close2').next().slideToggle();" >详细信息</p>-->
+	<table class='applicant-form' id='_table'>
+		<tr>
+			<td colspan='4' class='title'>总体情况</td>
+		</tr>
+		<tr>
+			<td class="tdRight">全县农村面积[A1]：</td>
+			<td colspan='3'><input class="number" id="ruralsArea" type='text' name='ruralsArea' value='$!{form.ruralsArea}' min="0" precision="2" maxlength='8' $!{readonly}/>平方公里</td>
+		</tr>
+		<tr>
+			<td class="tdRight">乡镇个数[A2]：</td>
+			<td><input class="number" type='text' id="townNumber" name='townNumber' value='$!{form.townNumber}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+			<td class="tdRight">行政村个数[A3]：</td>
+			<td><input class="number" type='text' id="adminVN" name='adminVN' value='$!{form.adminVN}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+		</tr>
+		<tr>
+			<td class="tdRight">自然村个数[A4]：</td>
+			<td><input class="number" id="naturalVN" type='text' name='naturalVN' value='$!{form.naturalVN}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+			<td class="tdRight">村民小组数[A5]：</td>
+			<td><input class="number" id="villagersGroup" type='text' name='villagersGroup' value='$!{form.villagersGroup}' min="0" precision="0" maxlength='8' $!{readonly} />个</td>
+		</tr>
+		<tr>
+			<td class="tdRight">县人口总户数[A6]：</td>
+			<td><input class="number" id="popHous" type='text' name='popHous' value='$!{form.popHous}' min="0" precision="0" maxlength='8' $!{readonly} />户</td>
+			<td class="tdRight">县农村总户数[A7]：</td>
+			<td><input class="number" id="farmerHous" type='text' name='farmerHous' value='$!{form.farmerHous}' min="0" precision="0" maxlength='8' $!{readonly} />户</td>
+		</tr>
+		<tr>
+			<td class="tdRight">县总人口数[A8]：</td>
+			<td><input class="number" id="sumTownPopu" type='text' name='sumTownPopu' value='$!{form.sumTownPopu}' min="0" precision="0" maxlength='8' $!{readonly} />人</td>
+			<td class="tdRight">县农村总人口数[A9]：</td>
+			<td><input class="number" id="sumFarmers" type='text' name='sumFarmers' value='$!{form.sumFarmers}' min="0" precision="0" maxlength='8' $!{readonly} />人</td>
+		</tr>
+		<tr>
+			<td colspan='4' class='title'><a href='#' onclick="$('#_table').toggle();document.getElementById('ma-tab').style.display='';" >详细信息</a></td>
+		</tr>
+	</table>
+	<div align='left' id='ma-tab' style="display: none;">
+		<div id="myt" style="" >
+		    <div title="示范片所在县(市,区)基本情况" style="padding:0px;">
+		    	#parse('optimize/area/county-base.vm')
+		    </div>
+		    <div title="示范片总体情况" data-settings="" style="overflow:auto;padding:0px;">
+		    	#parse('optimize/area/ma-situation.vm')
+		    </div>
+		    <div title="连片建设基本情况" data-settings="iconClassname:''" style="padding:0px;">
+		    	#parse('optimize/area/contin-constru.vm')
+		    </div>
+		    <div title="备注" data-settings="iconClassname:''" style="padding:0px;">
+		    	#parse('optimize/area/ma-remark.vm')
+		    </div>
+		</div>
+	</div>
+	
+	
+
+</div>
+
+<script type='text/javascript'>
+jQuery(function() {
+	$('#myt').buptab({
+		width:1000,
+	 	//fit: true,
+		height:400,
+		headerWidth:220,
+		//height:200,
+	    border:false,
+	    tabPosition: 'left',
+	    collapsible: true,
+	    onSelect:function(title){
+	       //alert(title + ' 被选中了！');
+	    }
+	});
+});
+</script>

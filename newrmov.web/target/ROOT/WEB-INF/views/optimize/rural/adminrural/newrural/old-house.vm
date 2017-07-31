@@ -1,0 +1,91 @@
+<table class='applicant-form' id='_table'>
+<tr>
+		<td style='font-weight:bold;' colspan='6'>(三)农村旧房整治情况</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>无价值旧村旧房拆除[B24]：</td>
+		<td><input id="noValue" style='width:50px' class='number' type='text' name='noValue' value='$!{form.noValue}' min="0" precision="0" $!{readonly}/>间</td>
+		<td class="tdRight" colspan='2'>统一拆旧建新[B25]：</td>
+		<td><input id="buildAgain" style='width:50px' class='number' type='text' name='buildAgain' value='$!{form.buildAgain}' min="0" precision="0" $!{readonly} />间</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>古建筑保护[B26]：</td>
+		<td colspan='4'><input id="oldProtect" style='width:50px' class='number' type='text' name='oldProtect' value='$!{form.oldProtect}' min="0" precision="0" $!{readonly} />间</td>
+	</tr>
+	<tr style="height:30px;">
+		<td class="tdRight" colspan='3'>是否编制旧房整治改造规划[B27]：</td>
+		<td colspan='3'>
+			#if($form.changePlan == '是')
+				<input style='width:20px' id="changePlan-n" type='radio' name='changePlan' value='否' $!{disabled} onclick="jQuery('#cpUpload').hide();" /><label for='changePlan-n'>否</label>
+				<input style='width:20px' id="changePlan-y" type='radio' name='changePlan' value='是' $!{disabled} checked='checked' onclick="jQuery('#cpUpload').show();" /><label for='changePlan-y'>是</label>
+				#if($readonly)
+					<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-1-B27-upload.do?arid=0#if($readonly)&readonly=true#end" id="cpUpload" style="height:22px;">文件查看</a>
+				#else
+					<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-1-B27-upload.do?arid=0#if($readonly)&readonly=true#end" id="cpUpload" style="height:22px;">文件上传</a>
+				#end
+			#else
+				<input style='width:20px' id="changePlan-n" type='radio' name='changePlan' value='否' $!{disabled} checked='checked' onclick="jQuery('#cpUpload').hide();" /><label for='changePlan-n'>否</label>
+				<input style='width:20px' id="changePlan-y" type='radio' name='changePlan' value='是' $!{disabled} onclick="jQuery('#cpUpload').show();" /><label for='changePlan-y'>是</label>
+				<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-1-B27-upload.do?arid=0" id="cpUpload" style="display:none;">文件上传</a>
+			#end
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='3' style="height:30px;">是否提供民居住宅设计标准图[B28]：</td>
+		<td colspan='3'>
+			#if($form.designPic == '是')
+				<input style='width:20px' id="designPic-n" type='radio' name='designPic' value='否' $!{disabled} onclick="jQuery('#depUpload').hide();" /><label for='designPic-n'>否</label>
+				<input style='width:20px' id="designPic-y" type='radio' name='designPic' value='是' $!{disabled} checked='checked' onclick="jQuery('#depUpload').show();" /><label for='designPic-y'>是</label>
+				#if($readonly)
+					<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-1-B28-upload.do?arid=0#if($readonly)&readonly=true#end" id="depUpload" style="height:22px;">文件查看</a>
+				#else
+					<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-1-B28-upload.do?arid=0#if($readonly)&readonly=true#end" id="depUpload" style="height:22px;">文件上传</a>
+				#end
+			#else
+				<input style='width:20px' id="designPic-n" type='radio' name='designPic' value='否' $!{disabled} checked='checked' onclick="jQuery('#depUpload').hide();" /><label for='designPic-n'>否</label>
+				<input style='width:20px' id="designPic-y" type='radio' name='designPic' value='是' $!{disabled} onclick="jQuery('#depUpload').show();" /><label for='designPic-y'>是</label>
+				<a class="area_file_upload" onclick="return openDialog(this);" href="#springUrl('/s/rural/annex/')$!{form.id}-1-B28-upload.do?arid=0" id="depUpload" style="display:none;">文件上传</a>
+			#end
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='3'>农家(乡村)旅馆[B29]：</td>
+		<td colspan='3'>
+			规划建设<input id="planCount" style='width:50px' class='number' type='text' name='planCount' value='$!{form.planCount}' min="0" precision="0" $!{readonly} />间;
+			完成建设<input id="finishCount" style='width:50px' class='number' type='text' name='finishCount' value='$!{form.finishCount}' min="0" precision="0" $!{readonly} />间</td>
+	</tr>
+	<tr>
+		<td class="tdRight" colspan='2'>是否统一民居外立面风貌[B30]：</td>
+		<td colspan='4'>
+			#if($form.faceView == '是')
+				<input id="faceView-n" style='width:15px' type='radio' name='faceView' value='否' $!{disabled} onclick="jQuery('#faceStyle,#fvAnnual').attr('disabled', true);" /><label for='faceView-n'>否</label>
+				<input id="faceView-y" style='width:15px' type='radio' name='faceView' value='是' $!{disabled} checked='checked' onclick="jQuery('#faceStyle,#fvAnnual').removeAttr('disabled');" /><label for='faceView-y'>是</label>
+				(风格:
+					#if($readonly)
+						<input id="faceStyle" style='width:80px' type='text' name='faceStyle' value='$!{form.faceStyle}' readonly='readonly'/>，
+						完成时间:
+						<input id="fvAnnual" style='width:80px' type='text' name='fvAnnual' value='$!{form.fvAnnual}' readonly='readonly'/>
+					#else
+						<input id="faceStyle" style='width:80px' type='text' name='faceStyle' value='$!{form.faceStyle}'/>，
+						完成时间:
+						<select id='fvAnnual' name='fvAnnual'>$!{selyear}</select>	
+					#end
+				年)
+			#else
+				<input id="faceView-n" style='width:15px' type='radio' name='faceView' value='否' $!{disabled} checked='checked' onclick="jQuery('#faceStyle,#fvAnnual').attr('disabled', true);" /><label for='faceView-n'>否</label>
+				<input id="faceView-y" style='width:15px' type='radio' name='faceView' value='是' $!{disabled} onclick="jQuery('#faceStyle,#fvAnnual').removeAttr('disabled');" /><label for='faceView-y'>是</label>
+				(风格:
+					#if($readonly)
+						<input id="faceStyle" style='width:80px' type='text' name='faceStyle' disabled='true'/>，
+						完成时间:
+						<input id="fvAnnual" style='width:80px' type='text' name='fvAnnual' disabled='true'/>
+					#else
+						<input id="faceStyle" style='width:80px' type='text' name='faceStyle' value='$!{form.faceStyle}'  disabled='true'/>，
+						完成时间:
+						<select id='fvAnnual' name='fvAnnual' disabled='true'>$!{selyear}</select>	
+					#end
+				年)
+			#end
+		</td>
+	</tr>
+</table>

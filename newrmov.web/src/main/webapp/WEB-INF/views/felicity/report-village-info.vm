@@ -1,0 +1,130 @@
+<table class='applicant-form'><tbody>
+	<tr>
+ 	   <td class="tdRight" style="width:130px;">名称：</td> 
+		<td colspan="3"><input type="text" readonly="readonly" value="$!{form.townName} $!{form.name} $!{form.naturalVillage}" style="width:95%;"/></td> 
+	</tr>
+	<tr>
+		<td class="tdRight">村庄建设类型：</td>
+		<td style="width:170px;"><input type="text" readonly="readonly" value="$!{form.constructionType}" style="width:95%;"/></td>
+		<td class="tdRight" style="width:145px;">村庄类型：</td>
+		<td><input type="text" readonly="readonly" value="$!{form.villageType}" style="width:95%;"/></td>
+	</tr>
+	<tr>
+		<td class="tdRight" rowspan="2">村庄建设覆&nbsp;&nbsp;<br/>盖面积 ㎡：</td>
+		<td rowspan="2" style="width:170px;"><input class="number" type="text" name="constructionArea" value="$!{form.constructionArea}" min="0" precision="4"/></td>
+		<td class="tdRight" style="width:145px;">户数：</td>
+		<td><input class="number" type="text" name="householdCount" value="$!{form.householdCount}" min="0" precision="0"/>户</td>
+	</tr>
+	<tr>
+		<td class="tdRight">人口数：</td>
+		<td><input class="number" type="text" name="population" value="$!{form.population}" min="0" precision="0"/>人</td>
+	</tr>
+	<tr>
+		<td class="tdRight">村建设特色：</td>
+		<td colspan="3">
+			<input type="checkbox" style="width:25px;" value="true" name="constructionCharacteristic0" #if($form.constructionCharacteristic0)checked="checked"#end id="constructionCharacteristic0"/><label for="constructionCharacteristic0">人文历史</label>
+			<input type="checkbox" style="width:25px;" value="true" name="constructionCharacteristic1" #if($form.constructionCharacteristic1)checked="checked"#end id="constructionCharacteristic1"/><label for="constructionCharacteristic1">乡村旅游</label>
+			<input type="checkbox" style="width:25px;" value="true" name="constructionCharacteristic2" #if($form.constructionCharacteristic2)checked="checked"#end id="constructionCharacteristic2"/><label for="constructionCharacteristic2">自然生态</label>
+			<input type="checkbox" style="width:25px;" value="true" name="constructionCharacteristic3" #if($form.constructionCharacteristic3)checked="checked"#end id="constructionCharacteristic3"/><label for="constructionCharacteristic3">特色产业</label>
+			<input type="checkbox" style="width:25px;" value="true" name="constructionCharacteristic4" #if($form.constructionCharacteristic4)checked="checked"#end id="constructionCharacteristic4"/><label for="constructionCharacteristic4">民居风貌</label>
+			<input type="checkbox" style="width:25px;" value="true" name="constructionCharacteristic5" #if($form.constructionCharacteristic5)checked="checked"#end id="constructionCharacteristic5"/><label for="constructionCharacteristic5">渔业渔港</label>
+			<input type="checkbox" style="width:25px;" value="true" name="constructionCharacteristic6" #if($form.constructionCharacteristic6)checked="checked"#end id="constructionCharacteristic6"/><label for="constructionCharacteristic6">其它</label>
+		</td>
+	</tr>
+	<tr>
+		<td class="tdRight">村建设特点：</td>
+		<td colspan="3"><input type="text" name="constructionFeature" value="$!{form.constructionFeature}" style="width:95%;"/></td>
+	</tr>
+	<tr>
+		<td class="tdRight">建设项目数：</td>
+		<td><input class="number" type="text" name="projectCount" value="$!{form.projectCount}" min="0" precision="0"/>个</td>
+		<td class="tdRight">项目建设进度：</td>
+		<td><input class="number" type="text" name="projectProgress" value="$!{form.projectProgress}" min="0" max="100" precision="1"/>%</td>
+	</tr>
+	<tr>
+		<td class="tdRight">投入预算：</td>
+		<td><input class="number" type="text" name="investmentBudget" value="$!{form.investmentBudget}" min="0" precision="4"/>万元</td>
+		<td class="tdRight">已完成投入：</td>
+		<td><input class="number" type="text" name="investmentCompleted" value="$!{form.investmentCompleted}" min="0" precision="4"/>万元</td>
+	</tr>
+	<tr>
+		<td colspan="2" style="font-weight:bold;font-size:16px;padding-left:10px;">资金来源（万元）</td>
+		<td colspan="2" style="font-weight:bold;font-size:16px;padding-left:10px;">建设成效</td>
+	</tr>
+	<tr>
+		<td class="tdRight">小计：</td>
+		<td><input class="number" type="text" value="$!{form.fundsTotal}" name="fundsTotal" id="fundsTotal" precision="4" readonly="readonly"/></td>
+		<td class="tdRight">环境卫生整治：</td>
+		<td><input type="checkbox" style="width:25px;" value="true" name="effectRemediation" #if($form.effectRemediation)checked="checked"#end id="effectRemediation"/><label for="effectRemediation">完成</label></td>
+	</tr>
+	<tr>
+		<td class="tdRight">省：</td>
+		<td><input class="number i-funds" type="text" value="$!{form.fundsProvince}" min="0" name="fundsProvince" precision="4"/></td>
+		<td class="tdRight">民居外立面风貌：</td>
+		<td><input type="checkbox" style="width:25px;" value="true" name="effectUniformStyle" #if($form.effectUniformStyle)checked="checked"#end id="effectUniformStyle"/><label for="effectUniformStyle">统一</label></td>
+	</tr>
+	<tr>
+		<td class="tdRight">市：</td>
+		<td><input class="number i-funds" type="text" value="$!{form.fundsCity}" min="0" name="fundsCity" precision="4"/></td>
+		<td class="tdRight">垃圾问题：</td>
+		<td><input type="checkbox" style="width:25px;" value="true" name="effectSolveGarbage" #if($form.effectSolveGarbage)checked="checked"#end id="effectSolveGarbage"/><label for="effectSolveGarbage">解决</label></td>
+	</tr>
+	<tr>
+		<td class="tdRight">县：</td>
+		<td><input class="number i-funds" type="text" value="$!{form.fundsCounty}" min="0" name="fundsCounty" precision="4"/></td>
+		<td class="tdRight">污水处理设施：</td>
+		<td><input type="checkbox" style="width:25px;" value="true" name="effectSewageTreatment" #if($form.effectSewageTreatment)checked="checked"#end id="effectSewageTreatment"/><label for="effectSewageTreatment">建立</label></td>
+	</tr>
+	<tr>
+		<td class="tdRight">镇：</td>
+		<td><input class="number i-funds" type="text" value="$!{form.fundsTown}" min="0" name="fundsTown" precision="4"/></td>
+		<td class="tdRight">村保洁队伍：</td>
+		<td><input type="checkbox" style="width:25px;" value="true" name="effectCleaningTeam" #if($form.effectCleaningTeam)checked="checked"#end id="effectCleaningTeam"/><label for="effectCleaningTeam">建立</label></td>
+	</tr>
+	<tr>
+		<td class="tdRight">村：</td>
+		<td><input class="number i-funds" type="text" value="$!{form.fundsVillage}" min="0" name="fundsVillage" precision="4"/></td>
+		<td class="tdRight">村民理事会：</td>
+		<td><input type="checkbox" style="width:25px;" value="true" name="effectCouncil" #if($form.effectCouncil)checked="checked"#end id="effectCouncil"/><label for="effectCouncil">成立</label></td>
+	</tr>
+	<tr>
+		<td class="tdRight">群众：</td>
+		<td><input class="number i-funds" type="text" value="$!{form.fundsMasses}" min="0" name="fundsMasses" precision="4"/></td>
+		<td class="tdRight">村巷道硬底化建设：</td>
+		<td><input type="checkbox" style="width:25px;" value="true" name="effectHardBottom" #if($form.effectHardBottom)checked="checked"#end id="effectHardBottom"/><label for="effectHardBottom">完成</label></td>
+	</tr>
+	<tr>
+		<td class="tdRight">社会：</td>
+		<td><input class="number i-funds" type="text" value="$!{form.fundsSociety}" min="0" name="fundsSociety" precision="4"/></td>
+		<td class="tdRight">解决通自来水：</td>
+		<td><input type="checkbox" style="width:25px;" value="true" name="effectThroughWater" #if($form.effectThroughWater)checked="checked"#end id="effectThroughWater"/><label for="effectThroughWater">解决</label></td>
+	</tr>
+	<tr>
+		<td class="tdRight">其他：</td>
+		<td><input class="number i-funds" type="text" value="$!{form.fundsOther}" min="0" name="fundsOther" precision="4"/></td>
+		<td class="tdRight">其它：</td>
+		<td><input type="text" value="$!{form.effectOther}" name="effectOther" style="width:95%;"/></td>
+	</tr>
+	<tr>
+		<td colspan="2" style="font-weight:bold;font-size:16px;padding-left:10px;">规划设计</td>
+		<td colspan="2" style="font-weight:bold;font-size:16px;padding-left:10px;">项目招投标</td>
+	</tr>
+	<tr>
+		<td class="tdRight">完成或否：</td>
+		<td #if(!$readonly)title="如果选择完成，则下面的“规划进度”项则自动为100%；"#end><input type="checkbox" style="width:25px;" value="true" name="planningCompleted" #if($form.planningCompleted)checked="checked"#end id="planningCompleted"/><label for="planningCompleted">完成</label></td>
+		<td class="tdRight">完成或否：</td>
+		<td #if(!$readonly)title="如果选择完成，则下面的“完成招投标比例”项则自动为100%；"#end><input type="checkbox" style="width:25px;" value="true" name="biddingCompleted" #if($form.biddingCompleted)checked="checked"#end id="biddingCompleted"/><label for="biddingCompleted">完成</label></td>
+	</tr>
+	<tr>
+		<td class="tdRight">规划进度：</td>
+		<td><input class="number" type="text" name="planningProgress" value="$!{form.planningProgress}" min="0" max="100"/>%</td>
+		<td class="tdRight">完成招投标比例：</td>
+		<td><input class="number" type="text" name="biddingProgress" value="$!{form.biddingProgress}" min="0" max="100"/>%</td>
+	</tr>
+</tbody></table>
+<div class="applicant-remark">
+	<div class="applicant-remark-title"></div>
+	<div>
+		<div class="applicant-remark-item"></div>
+	</div>
+</div>

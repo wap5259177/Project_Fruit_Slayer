@@ -1,0 +1,21 @@
+<table class='applicant-form'>
+   <tbody>
+	<tr>
+		<td colspan='6' style='font-weight:bold;color:red;'>(五)民生问题调查梳理情况</td>
+	</tr>
+	<tr>
+		<td class="tdLeft" colspan='2'>完成自然村数:</td>
+		<td colspan='4'><input id="finishNatureVillageNum" style="width:50px;" type='text' value='$!{form.finishNatureVillageNum}' min="0" precision="0" class='number' name='finishNatureVillageNum' $!{readonly}/>个</td>
+	</tr>
+	<tr>
+		<td  class="tdLeft" colspan='2'>梳理出项目数:</td>
+		<td colspan='4'><input id="teasedProjectNum" style="width:50px;" type='text' value='$!{form.teasedProjectNum}' min="0" precision="0" class='number' name='teasedProjectNum' $!{readonly}/>个</td>
+	</tr>
+	<tr>
+		<td class="tdLeft" colspan='2'>排查出的矛盾纠纷数:</td>
+		<td><input id="troubleshooting" style="width:50px;" type='text' value='$!{form.troubleshooting}' min="0" precision="0" class='number' name='troubleshooting' $!{readonly}/>宗</td>
+		<td class="tdRight" colspan='2'>其中已化解数:</td>
+		<td><input id="resolvedTroubleshooting" style="width:50px;" type='text' value='$!{form.resolvedTroubleshooting}' min="0" precision="0" class='number' name='resolvedTroubleshooting' $!{readonly}/>宗</td>
+	</tr>
+  <tbody>
+</table>

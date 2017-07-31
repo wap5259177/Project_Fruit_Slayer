@@ -1,0 +1,14 @@
+ #foreach($info in $listRes)
+  <tr ordinal='$!info.ordinal' style="height:24px;">
+     <td style="text-align:center;">$!info.annual</td>
+     <td style="text-align:center;">$!info.ordinal</td>
+     <td style="text-align:left;">
+     	<div style="display:inline-block;height:22px;width:70px;border-bottom: solid 1px #000000;">$!info.townName</div> 
+     	镇
+     	<div style="display:inline-block;height:22px;width:90px;border-bottom: solid 1px #000000;">$!info.villageName</div>
+     	村
+     	<div style="display:inline-block;height:22px;width:100px;border-bottom: solid 1px #000000;">$!info.naturalVillage&nbsp;</div>
+     	<span style="color:gray;">自然村(或村民小组)</span></td>
+     <input type='hidden' id='record_$!{info.rural.id}_$!{info.annual}' value='1'/>
+  </tr>
+  #end

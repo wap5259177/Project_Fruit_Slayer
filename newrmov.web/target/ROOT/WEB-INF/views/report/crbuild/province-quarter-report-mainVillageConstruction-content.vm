@@ -1,0 +1,347 @@
+<div id="$di.id" $!{di.dialogAttributes}>
+    <style type='text/css'>
+        .ztcjs{
+            border-collapse:collapse;
+            word-break: break-all;
+            word-wrap: break-word;
+            margin-bottom:10px;
+        <!--font-size:12px;-->
+
+        }
+        .ztcjs td{border:#bbb 2px solid;padding:5px 10px;color: #404040;}
+        .ztcjs td input,.ztcjs td textarea{width:90%;border:none;}
+
+        <!--固定table宽度显示控制-->
+    </style>
+
+
+
+    <script>
+        var D = $('#div-kernel-dialog-loader');
+        $(document).ready(function(){
+//            $(".toExamine").click(function(){
+//                alert($(this).attr("id"));
+//                return false;
+//            });
+        });
+
+        $(document).ready(function(){
+
+            $("#batch").change(function(){
+
+                var v1=$("#batch").val();
+
+                //var array = new Array();  //定义数组   保存标签的值集合
+                //jq遍历某个标签的所有值的方式 ：
+                $("#batch option").each(function(){  //遍历所有option
+                    var txt = $(this).val();   //获取option值
+
+                    //  array.push(txt);  //添加到数组中
+
+                    if(v1==0){
+                        $("#batch option").each(function(){
+                            $('.'+ $(this).val()).fadeIn(2000);
+                        });
+                        return false;}
+                    if(v1==txt){
+                        //   alert(txt);
+                        //     $('.'+txt).fadeOut(1000);
+                        $('.'+txt).fadeIn(1000);
+                        //	 $('.'+txt).show();
+
+
+                    }else{
+                        //    $('.'+txt).fadeIn(3000);
+                        //   $('.'+txt).fadeOut(3000);
+
+                        //	alert('直接在遍历select标签的option值时就判断拿到的select当前选择的option值为：'+v1);
+
+
+                        $('.'+txt).fadeOut(2700);
+                        //	 $('.'+txt).hide();
+                    }
+
+                });
+                //alert(array);
+
+
+                //var v2=['一','二','三','珠三角'];
+                for(i=0;i<array.length;i++){
+//   if(v1===array[i]){ alert(v1);}
+
+                }
+                //  $(this).hide();
+            });
+
+
+        });
+
+    </script>
+
+    <div style='text-align:center'><font size="18" color="blue">$!title</font></div>
+    <div style='text-align:center'><font size="10" color="red">$!deadline</font></div>
+    <div style='text-align:center'><font size="9" color="green">$!msg</font></div>
+
+    $!{select}
+
+    <table id='table' class="ztcjs">
+        <tbody>
+        <tr style="background-color: #f5f5f5;">
+
+            <td rowspan="2" style="width:10px;">批次</td>
+            <td rowspan="2" style="width:110px;">所在市</td>
+            <td rowspan="2" style="width:110px;">市(县区)</td>
+            <td rowspan="2" style="width:100px;">填报人</td>
+            <td rowspan="2" style="width:120px;">填报时间</td>
+            <td colspan="2" style="background-color: #bbb;">拆除危、旧、弃房情况</td>
+            <td rowspan="2" style="width:150px;">清理垃圾数<br/>(吨)</td>
+            <td rowspan="2" style="width:150px;">复绿面积<br/>(平方米)</td>
+            <td rowspan="2" style="width:150px;">种植绿化树<br/>(颗)</td>
+            <td rowspan="2" style="width:150px;">完成村、巷道<br/>硬底化数(公里)</td>
+            <td rowspan="2" style="width:150px;">完成卫生改<br/>厕数(个)</td>
+            <td rowspan="2" style="width:150px;">完成民居外立<br/>面改造数(户)</td>
+            <td rowspan="2" style="width:150px;">铺设雨污分流<br/>管网(公里)</td>
+            <td rowspan="2" style="width:150px;">建设污水处理<br/>设施(座)</td>
+            <td rowspan="2" style="width:150px;">铺设自来水管<br/>(公里)</td>
+            <td rowspan="2" style="width:150px;">备注</td>
+            <td rowspan="2" style="width:150px;">审核信息</td>
+            <td rowspan="2" style="width:150px;">填报单位(加盖公章)</td>
+            <td rowspan="2" style="width:10px;">状态</td>
+            </td>
+            <td rowspan="2" style="width:10px;">批次修改 </td>
+            <td rowspan="2" style="width:140px;">驳回操作</td>
+        </tr>
+        <tr style="background-color: #f5f5f5;">
+            <td style="width:120px;">间数</td>
+            <td style="width:120px;">面积(平方米)</td>
+        </tr>
+
+
+
+
+        #foreach($modelAreaCRBuildQuarterItemList in $list)
+
+        #foreach($modelAreaCRBuildQuarterItem in $modelAreaCRBuildQuarterItemList)
+        <tr style='width:200px; height:70px;' class='$!{modelAreaCRBuildQuarterItem.batch.batchName}'>
+            <td >$!{modelAreaCRBuildQuarterItem.batch.batchName}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.getCityName()}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.getModelArea().getCounty()}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.reportName}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.reportDate}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.dismantleOldHouseNum}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.dismantleOldHouseArea}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.cleanRubbish}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.greenArea}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.afforestationTree}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.hardRoad}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.completeToilet}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.completeFacade}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.rainShunt}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.sewageTreatment}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.tapWater}</td>
+            <td >$!{modelAreaCRBuildQuarterItem.remark}</td>
+            <td >
+                #if($modelAreaCRBuildQuarterItem.status==3)
+                <a class="show_dialog" href="#springUrl('/s/pls/sms/crb/')$!{modelAreaCRBuildQuarterItem.id}-1!pushDialog"  onclick="D.load(this.href);return false;"  title='点击查看驳回原因'>驳回原因</a>
+                #elseif($modelAreaCRBuildQuarterItem.status==1)
+                <a class="show_dialog" href="#springUrl('/s/pls/sms/crb/')$!{modelAreaCRBuildQuarterItem.id}-1!pushDialog"  onclick="D.load(this.href);return false;"  title='点击查看审核内容'>审核通过</a>
+                #elseif($modelAreaCRBuildQuarterItem.status==4)
+                <a class="show_dialog" href="#springUrl('/s/pls/sms/crb/')$!{modelAreaCRBuildQuarterItem.id}-0!pushDialog?status=1"  onclick="D.load(this.href);return false;" >通过</a>
+                #end
+            </td>
+            <td ></td>#set( $statusS='')
+            #if($!{modelAreaCRBuildQuarterItem.status}==1)
+            #set(  $statusS = "已完成")
+            #elseif($!{modelAreaCRBuildQuarterItem.status}==2)
+            #set(  $statusS = "正在填报")
+            #elseif($!{modelAreaCRBuildQuarterItem.status}==3)
+            #set(  $statusS = "驳回")
+            #elseif($!{modelAreaCRBuildQuarterItem.status}==4)
+            #set(  $statusS = "待审核")
+            #end
+            <td>${statusS}</td>
+            <td >
+                #set( $index = 0)
+                <select class='changeCountyBatch' quarterId="$modelAreaCRBuildQuarterItem.batch.quarter.id" modelAreaCRBuildQuarterItemId="$modelAreaCRBuildQuarterItem.id" batch="$index" county="$!{modelAreaCRBuildQuarterItem.getModelArea().getCounty()}" batchOld="$!{modelAreaCRBuildQuarterItem.batch.batchName}">
+                    #foreach($batch in $batchListString)
+                    #if($batch==$!{modelAreaCRBuildQuarterItem.batch.batchName})
+                    <option  value="$index" selected ="selected">$batch</option>
+                    </option>
+                    #else
+                    <option  value="$index">$batch</option>
+                    </option>
+                    #end
+                    #set( $index = $index+1)
+                    #end
+                </select>
+                <!--
+                    <a href='javascript:'  style='padding-right:10px;'  onclick='return changeBatch($modelAreaCRBuildQuarterItem.id,$index,$modelAreaCRBuildQuarterItem.batch.quarter.id);'>$batch</a>
+                   #set( $index = $index+1)
+                <a href='$modelAreaCRBuildQuarterItem.id/$modelAreaCRBuildQuarterItem.batch.quarter.id/$index!index.changeBatch'>$modelAreaCRBuildQuarterItem.batch.quarter.id $modelAreaCRBuildQuarterItem.id</a>
+                <select id='$!{modelAreaCRBuildQuarterItem.batch.batchName}' onchange='changeBatch()'><option>1</option><option>2</option></select>-->
+            </td>
+            <td>
+                #if($!{modelAreaCRBuildQuarterItem.status}==4||$!{modelAreaCRBuildQuarterItem.status}==1)
+                <a class="show_dialog" href="#springUrl('/s/pls/sms/crb/')$!{modelAreaCRBuildQuarterItem.id}-0!pushDialog?status=3"  onclick="D.load(this.href);return false;" >驳回</a>
+                #end
+            </td>
+        </tr>
+
+        #end
+        #end
+
+
+
+        </td></tr>
+
+        </tbody>
+
+
+
+
+
+    </table>
+
+</div>
+
+
+
+
+
+
+
+<script>
+
+
+
+    function testOnchange(){
+        alert($(this));
+        // alert('hh'+$(this).val());
+        if(confirm("是否确定修改？")){}
+    }
+
+    function changeBatch(id,bat,quar){
+
+        var href="index.watch?modelAreaCRBuildQuarterItemId="+id+"&batch="+bat+"&quarterId="+quar;
+        alert(href);
+        if(confirm("是否确定修改？")){
+            lock("开始修改...");
+            jQuery.get(
+                href,
+                function(data){
+                    jQuery.unblockUI();
+                    var data = eval('(' + data + ')');
+                    if(data.error){
+                        alert(data.msg);
+                        return false;
+                    }else{
+
+                    }
+                });
+        }
+    }
+
+    //$(document).ready(function(){
+    // $(".returnCRBuildItem").click(function(){
+    //
+    //$(this).attr("batch");
+    // if(!confirm("确定将 ["+$(this).attr("county")+"] 驳回?")){
+    //	return false;
+    //};
+
+
+    //  });
+    //});
+
+    $(document).ready(function(){
+        $(".changeCountyBatch").change(function(){
+            var batchSList=['一','二','三','珠三角'];
+            var batchS=batchSList[$(this).attr("value")];
+
+            if(!confirm("确定将 ["+$(this).attr("county")+"] 由批次 ["+$(this).attr("batchOld")+"] 修改为 ["+batchS+"] ?")){
+                return false;}
+//  
+
+            var county=$(this).attr("county");
+            $.ajax({
+                type: "post",
+                url: "index.changeBatch?quarterId="+$(this).attr("quarterId")+"&modelAreaCRBuildQuarterItemId="+$(this).attr('modelAreaCRBuildQuarterItemId')+"&batch="+$(this).attr("value"),
+//      data: "para="+para,  此处data可以为 a=1&b=2类型的字符串 或 json数据。
+                data: {"para":1},
+                cache: false,
+                async : false,
+                dataType: "json",
+                success: function (data ,textStatus, jqXHR)
+                {
+
+                    if(0==data.error){
+                        alert("["+county+"] 批次： 已"+data.msg+"被修改为 ["+batchS+"]" );
+                        return true;
+                    }else{
+                        alert("不合法！错误信息如下："+data.error);
+                        return false;
+                    }
+                }
+            });
+
+            return false;
+        });
+    });
+</script>
+
+
+<script>
+
+    $(document).ready(function(){
+        $(".returnCRBuildItem").click(function(){
+            var county=$(this).attr("county");
+            var text=$("#text"+$(this).attr("textId")).attr("value");
+            var annual=$(this).attr("annual");
+            var period=($(this).attr("period"));
+            var intPeriod=Number(period)+1;
+            if(!confirm("确定要驳回 ["+county+"] [" +annual+"] 年度第["+intPeriod+ "] 季度的季报吗?驳回原因为: ["+text+"]")){return false;}
+
+
+
+            var id=$(this).attr("textId");
+
+
+
+            $.ajax({
+
+                type: "post",
+                url: "index.returnCRBuildQuarty",
+                data: "id="+id+"&returnResion="+text,  	//此处data可以为 a=1&b=2类型的字符串 或 json数据。
+
+//        data: {"para":1},
+                cache: false,
+                async : false,
+                dataType: "json",
+                success: function (data ,textStatus, jqXHR)
+                {
+
+                    if(0==data.error){
+                        alert("["+county+"] ["+annual+"] 年度第 ["+intPeriod+ "] 季度驳回"+data.msg);
+                        return true;
+                    }else{
+                        alert(data.msg);
+                        return false;
+                    }
+
+                }
+            });
+
+            return false;
+        });
+    });
+
+
+    jQuery(function(){
+        jQuery("#p-year,#p-month").bupnuminput();
+        jQuery("#btn-clear,#btn-remove").bupabutton({flat:true});
+    });
+
+
+
+</script>
+

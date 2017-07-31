@@ -1,0 +1,49 @@
+<div id="myd" buttons="#dlg-buttons">
+	#if($!{readonly}==1)
+	<textare id="text_id" style="width:97%;height:200px;" readonly="readonly">$!{item.auditContent}</textarea>
+		#else
+		<textarea id="text_id" style="width:97%;height:200px;"></textarea>
+		<div align="right" style="margin-top: 5px;margin-right: 5px;"><input type="button" value="提交" onclick="passOrFail();"/></div>
+		#end
+</div>
+<script type="text/javascript">
+    jQuery(function() {
+        $('#myd').bupdlg({
+            title:'$!{title}',
+            width : 420,
+            height :'$!{height}',
+            closed : false,
+            cache : false,
+            modal : true,
+            onClose : function() {
+                $('#myd').bupdlg('destroy').remove();
+
+            }
+        });
+    });
+    function passOrFail(){
+        var url;
+        var status = '$!{status}';
+        if(status== 1){
+            url = "index.success";
+        }else if(status== 3){
+            url = "index.pass";
+        }
+        $.ajax({
+            type: "post",
+            url: url,
+            data: {"id":'$!{item.id}',"content":$("#text_id").val()},  	//此处data可以为 a=1&b=2类型的字符串 或 json数据。
+            cache: false,
+            async : false,
+            dataType: "json",
+            success: function (data ,textStatus, jqXHR)
+            {
+
+                $('#myd').bupdlg('destroy').remove();
+                alert("提交成功");
+
+            }
+        });
+    }
+
+</script>

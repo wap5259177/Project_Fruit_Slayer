@@ -1,0 +1,9 @@
+#set($layout="simple-dialog.vm")
+<div class='tabs-$!{id}-help-doc' tabPosition='left'>
+	$!{tabsHelpDocs}
+</div>
+<script type="text/javascript">
+	jQuery(function(){
+		jQuery('.tabs-$!{id}-help-doc').buptab({fit:true, border:false});
+	});
+</script>

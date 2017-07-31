@@ -1,0 +1,208 @@
+
+<div style="width:980px;height:auto;margin:0px 400px 5px 250px;padding:40px 0 0 0 ;">
+	<h1><font style="font-weight:bold;font-size:19px;">幸福村居项目库填报:</font></h1><!--font-style:italic;-->
+	<table id="myg"></table>
+
+	
+</div>
+
+<div id='ma_bupwin' style="display:none;"></div>
+
+<script>
+$(function(){
+    $('#myg').bupgrid({
+            url: 'report.json',
+            method: 'get',
+            //title: '幸福村居项目库填报',
+            //iconClassname: 'icon_save',
+            width: 980,
+            height: 400,
+            fitColumns: true,//列的宽度自动适应
+            singleSelect: true,//单选
+            border: true,//显示边框
+            showRownum: true,//显示序号
+            showHeader: true,//显示表头
+            autoRowheight: false,//将这个设置为false,可以设置rowstyle 的样式高度
+            sortField: 'annual',//定义排序的字段
+            remoteSort: false,//如果要使用本地定义排序的字段,就要设置这里为false
+            
+            
+            //loadFilter: pagerFilter,
+            //showPagebar: true,
+            //pagePosition: 'bottom',
+            
+            rowStyler: function(index,row){
+			     if (index%2==0){
+			        //return 'background-color:#669966;color:#fff;height:40px;'; // 返回内联样式#6293BB
+			        return 'background-color:#7cd7f8;color:#ffffff;height:50px;'; // 返回内联样式#8dc5c5,33.8
+			        // 也可以返回定义好的CSS类和内联样式的结合体.
+			        // return {class:'r1', style:{'color:#fff'}};
+			     }else{
+			     	//return {class:'r1',style:{'background-color:gray'}};
+			     	//return 'background-color:#6293BB;color:#fff;height:40px;'; // 返回内联样式#6293BB
+			     	return 'background-color:#d3f3ac;color:#333333;height:50px;'; // 返回内联样式#6699cc
+			     }
+			},
+            
+            columns:[[   /* 这里定义表头结构 */
+                {field:'annual',title:'年度',width:80},
+                {field:'startTime',title:'统计起始时间',width:90},
+                {field:'deadline',title:'统计截至时间',width:90},
+                {field:'startAt',title:'开始上报时间',width:90,align:'right'},
+                {field:'endAt',title:'结束上报时间',width:90,align:'right'},
+                
+                {field:'status',title:'状态',width:60,align:'right'},
+                
+                /*{
+                	title : '操作',
+					field : 'operation',
+					width : 50,
+					formatter: function(value,row,index) {
+						var id = row.id;
+						var btns = "";
+							btns += "<a id='a_show' class='show_dialog' href='survey/survey_detial?id=" + id + "'>查看</a>&nbsp;";
+						return btns;    
+					}
+					
+				}*/
+            ]],
+            
+            /*被冻结的列*/
+            frozenColumns:[[{
+				title : '操作',
+				field : 'operation',
+				width : 240,
+				formatter: function(value,row,index) {
+					var id = row.id;
+					var status = row.status;
+					var _reportId = row.reportId;
+					var btns = "";
+					if(id==null){
+						btns += "<a class='table_report' onclick='toReport("+_reportId+");'  ><font style='font-size:20px;color:#135684;font-weight:800;'>[" + row.name + "]</font><font style='font-size:14px;color:#afaeae'>开始填报</font></a>&nbsp;";
+					}else{
+						if(status=='完成'||status=='待审核'){
+							btns += "<a class='table_report1'  href='report.table1?id=" + id + "'><font style='font-size:14px;'>表1查看</font></a>&nbsp;"+
+								"<a class='table_report2'  href='report.table2?id=" + id + "'><font style='font-size:14px;'>表2查看</font></a>&nbsp;"+
+								"<a class='table_report3'  href='report.table3?id=" + id + "'><font style='font-size:14px;'>表3查看</font></a>&nbsp;";
+								
+						}else{
+							btns += "<a class='table_report1'  href='report.table1?id=" + id + "'><font style='font-size:14px;'>表1填报</font></a>&nbsp;"+
+								"<a class='table_report2'  href='report.table2?id=" + id + "'><font style='font-size:14px;'>表2填报</font></a>&nbsp;"+
+								"<a class='table_report3'  href='report.table3?id=" + id + "'><font style='font-size:14px;'>表3填报</font></a>&nbsp;"+
+								"<a class='table_submit' href='#' onclick='reportSubmit("+id+");'  ><font style='font-size:14px;'>提交</font></a>&nbsp;";//href='report.submit?id=" + id + "'
+						}
+						
+					}
+					return btns;    
+				}
+			}]],
+			
+			onLoadSuccess : function(data, param) {
+				jQuery('a.table_report1').click(function() {
+					//lock("正在加载...");
+					jQuery('#div-kernel-dialog-loader').load(this.href);
+					return false;
+				});
+				jQuery('a.table_report2').click(function() {
+					jQuery('#div-kernel-dialog-loader').load(this.href);
+					return false;
+				});
+				jQuery('a.table_report3').click(function() {
+					jQuery('#div-kernel-dialog-loader').load(this.href);
+					return false;
+				});
+				
+				//使用bupabutton
+				$('a.table_report').bupabutton({
+					flat: true,
+					//text: '开始填报',
+					borderedflat: false
+				});
+			}
+    });
+    
+});
+
+
+/*function toReport(_reportId){
+	$.post(
+		"toReport.do",
+		{
+			reportId:_reportId
+		},
+		function(data){
+			jQuery.unblockUI();
+			var data = eval('(' + data + ')');
+			if(data.error){
+				alert(data.msg);
+				return false;
+			}
+			alert("开始上报成功，将自动刷新列表！");
+			jQuery("#myg").bupgrid("reload");
+		}
+	);
+}*/
+
+function toReport(_reportId){
+	//alert('xx');
+	$('#ma_bupwin').load('toReport.do?id='+_reportId);
+}
+
+function reportSubmit(_id){
+	if(!confirm("是否提交?")){
+		return false;
+	}
+	$.post(
+		"report.submit",
+		{id:_id},
+		function(data){
+			if(data==0){
+				alert("提交成功!");
+				jQuery("#myg").bupgrid("reload");
+			}
+			if(data==1){
+				alert('建设特点、特色、措施录入为达到规定字数!');
+			}
+			if(data==2){
+				alert('存在问题录入超出规定字数!');
+			}
+			if(data==3){
+				alert('备注录入超出规定字数!');
+			}
+		}
+	);
+}
+
+
+
+/*客户端分页*/
+function pagerFilter(data){
+	if (typeof data.length == 'number' && typeof data.splice == 'function'){	// is array
+		data = {
+			total: data.length,
+			rows: data
+		}
+	}
+	var dg = $(this);
+	var opts = dg.bupgrid('settings');
+	var pager = dg.bupgrid('getPager');
+	pager.buppager({
+		onSelectPage:function(pageNum, pageSize){
+			opts.pageNo = pageNum;
+			opts.pageSize = pageSize;
+			pager.buppager('refresh',{
+				pageNo:pageNum,
+				pageSize:pageSize
+			});
+			dg.bupgrid('loadData',data);
+		}
+	});
+	if (!data.originalRows){
+		data.originalRows = (data.rows);
+	}
+	var start = (opts.pageNo-1)*parseInt(opts.pageSize);
+	var end = start + parseInt(opts.pageSize);
+	data.rows = (data.originalRows.slice(start, end));
+	return data;
+}	
+</script>

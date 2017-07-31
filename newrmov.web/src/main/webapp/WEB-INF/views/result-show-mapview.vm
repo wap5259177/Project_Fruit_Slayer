@@ -1,0 +1,29 @@
+
+<div id="$di.id" title="全景" align="center" style="padding:12px;width:950px;height:650px;" buttons="#${di.id}-buttons" modal='true'>
+<script type="text/javascript" src="/res/js/panorama/jquery.panorama.js"></script>
+<div style='text-align:center;margin:0 auto;'>
+<!-- <img src="/res/js/panorama/images/rm1200_115.jpg" class="panorama" width="600" height="400" /> --> 
+
+<!--<a href="/res/js/xx.html">click me</a>-->
+
+
+
+<div id="pano_holder">
+
+<iframe width="900px" height="550px" frameborder="0" scrolling="no" src="/res/js/xx.html"></iframe>
+	
+</iframe>
+</div>
+
+</div>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='close_dlg' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery('#close_dlg').bupabutton({flat : true});
+});
+
+</script>
+

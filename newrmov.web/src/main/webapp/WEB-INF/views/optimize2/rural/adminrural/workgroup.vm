@@ -1,0 +1,44 @@
+<table class=' editor' style="width:100%;margin: auto;" >
+	#if($wgs.size()>0)
+	<tbody>
+	<tr>
+		<td style="width:50px;font-weight:bold;">序号</td>
+		<td style="width:120px;font-weight:bold;">姓名</td>
+		<td style="width:250px;font-weight:bold;">单位名称及职务</td>
+		<td style="width:120px;font-weight:bold;">联系电话</td>
+		<td style='font-weight:bold;'>备注</td>
+	</tr>
+	</tbody>
+	#else
+		<tr>
+			<td colspan='5' style='font-weight:bold;color:red;' align='center'>无</td>
+		</tr>
+	#end
+	#if($readonly)
+	<!-- 只读 -->
+		#foreach($it in $wgs)
+			<tr>
+			<td>$velocityCount</td>
+			<td><input style='width:95%;' type='text' readonly='true' value='$it.workName'/></td>
+			<td><input style='width:95%;' type='text' readonly='true' value='$it.unitJob'/></td>
+			<td><input style='width:95%;' type='text' readonly='true' value='$it.workPhone'/></td>
+			<td><input style='width:95%;' type='text' readonly='true' value='$it.workRemark'/></td>
+			</tr>
+		#end
+	#else
+	<tr><td colspan='5'><button  id="btn-workGroup">添加工作小组成员</button></td></tr>
+		<tbody id="wg-content">
+		#foreach($it in $wgs)
+			<tr>
+			<td><a href='#' onclick='jQuery(this).parent().parent().remove();return false;' class='icon-del' style='padding-left:20px;'> </a>
+			$velocityCount
+			<input type='hidden' name='workgroupItems' value='e_$velocityCount'></td>
+			<td><input style='width:95%;' type='text' name='wn_e_$velocityCount' value='$it.workName'/></td>
+			<td><input style='width:95%;' type='text' name='uj_e_$velocityCount' value='$it.unitJob'/></td>
+			<td><input style='width:95%;' type='text' name='wp_e_$velocityCount' value='$it.workPhone' class='number1' onblur='_checkNumber(this)'/></td>
+			<td><input style='width:95%;' type='text' name='wr_e_$velocityCount' value='$it.workRemark'/></td>
+			</tr>
+		#end
+		</tbody>
+	#end
+</table>

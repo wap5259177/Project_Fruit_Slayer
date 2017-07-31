@@ -1,0 +1,74 @@
+#set($layout="layout-weixin.vm")
+<!DOCTYPE html>
+  <html lang="en-US">
+        <head>
+              <meta name="viewport" charset="UTF-8" content="width=device-width,initial-scale=1">
+              <title>示范片区信息查看</title>
+        </head>
+        <body> 
+            <div data-role="page">
+                 <p style="padding-left:5px;font-size:20px;">
+                 <input id='batch1' type='hidden' value='$!batch1'/>
+                    建设批次 :
+                 	 #if($!{batch1}=="请选择")	
+                 	<select style="font-size:19px;" id='sel-batch' name='batch' onchange='return change();'> 
+                 	    <option id='op' selected='selected' value='0'>请选择</option>
+	                 	<option id='op1' value='1'>第一批</option>
+	                 	<option id='op2' value='2'>第二批</option>
+	                 	<option id='op3' value='3'>第三批</option>
+                 	</select>
+                 	#elseif($!{batch1}=="一")
+                 	<select style="font-size:19px;" id='sel-batch' name='batch' onchange='return change();'> 
+                 	    <option id='op' value='0'>请选择</option>
+	                 	<option id='op1' selected='selected' value='1'>第一批</option>
+	                 	<option id='op2' value='2'>第二批</option>
+	                 	<option id='op3' value='3'>第三批</option>
+                 	</select>
+                 	#elseif($!{batch1}=="二")
+                 	<select style="font-size:19px;" id='sel-batch' name='batch' onchange='return change();'> 
+                 	    <option id='op' value='0'>请选择</option>
+	                 	<option id='op1' value='1'>第一批</option>
+	                 	<option id='op2' selected='selected' value='2'>第二批</option>
+	                 	<option id='op3' value='3'>第三批</option>
+                 	</select>
+                 	#elseif($!{batch1}=="三")
+                 	<select style="font-size:19px;" id='sel-batch' name='batch' onchange='return change();'> 
+                 	    <option id='op' value='0'>请选择</option>
+	                 	<option id='op1' value='1'>第一批</option>
+	                 	<option id='op2' value='2'>第二批</option>
+	                 	<option id='op3' selected='selected' value='3'>第三批</option>
+                 	</select>
+                 	#else
+                 	<select style="font-size:19px;" id='sel-batch' name='batch' onchange='return change();'> 
+                 	    <option id='op' selected='selected' value='0'>请选择</option>
+	                 	<option id='op1' value='1'>第一批</option>
+	                 	<option id='op2' value='2'>第二批</option>
+	                 	<option id='op3' value='3'>第三批</option>
+                 	</select>
+                 	#end
+                </p>
+            </header>
+            <div id="_tbody">   
+                  $!place
+                  #if($!{batch1}=="请选择")	
+                    <p></p>
+                  #elseif($!{batch1}=="一")
+                    <p></p>
+                  #elseif($!{batch1}=="二")
+                    <p></p>
+                  #elseif($!{batch1}=="三")
+                    <p></p>
+                  #else
+                    <p style='text-align:center;padding-top:50px;font-size:20px;'>请选择批次!</p>
+                  #end
+            </div>
+           </div>
+        </body>
+  </html>
+<script>
+    function change(){
+        var batch=document.getElementById("sel-batch").value;
+        /* $('#_tbody').load("load.batch?batch="+batch); */
+          location.href="load.batch?batch2="+batch;
+    } 
+</script>

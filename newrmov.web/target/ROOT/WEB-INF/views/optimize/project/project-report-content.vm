@@ -1,0 +1,60 @@
+<style type='text/css'> 
+	table { 
+		table-layout:fixed;
+		word-break: break-all; 
+		word-wrap: break-word; 
+		<!--font-size:12px;--> 
+	}  <!--固定table宽度显示控制-->
+</style> 
+<table class="applicant-form" style="width:100%" border="2" cellpadding="5" cellspacing="1" bgcolor="#add3ef">
+			<tr >
+				<th colSpan='13' align='center'>"$!{title}"项目月度报表</th>
+			</tr>
+			<th>年份</th>
+			<th>月份</th>
+			<th>中央</th>
+			<th>省级新农村连片示范工程建设补助资金</th>
+			<th>其他省级财政资金</th>
+			<th>市级财政资金</th>
+			<th>县级财政资金</th>
+			<th>社会投入</th>
+			<th>群众自筹</th>
+			<th>其他</th>
+			<th>合计</th>
+			<th>投资额</th>
+			<th>投工数</th>
+			<tbody>
+			#foreach($items in $items)
+				#set($period=$items.report.period + 1)
+				<tr>
+					<td>$items.report.annual</td>
+					
+					<!--
+					<td>
+					#if($items.report.period==0)
+						yiyue
+					#else
+						qita
+					#end
+					</td>
+					-->
+					<td>
+						${period}
+					</td>
+					
+					
+					<td>$items.investment.stateFunds</td>
+					<td>$items.investment.specialFunds</td>
+					<td>$items.investment.provinceFunds</td>
+					<td>$items.investment.cityFunds</td>
+					<td>$items.investment.countyFunds</td>
+					<td>$items.investment.socialFunds</td>
+					<td>$items.investment.massFunds</td>
+					<td>$items.investment.otherFunds</td>
+					<td>$items.investment.totalFunds</td>
+					<td>$items.spend</td>
+					<td>$items.labourCount</td>
+				</tr>
+			#end
+			</tbody>
+		</table>

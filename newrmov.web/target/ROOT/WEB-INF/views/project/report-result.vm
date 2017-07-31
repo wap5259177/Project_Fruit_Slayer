@@ -1,0 +1,77 @@
+<style>
+	table.line {
+		border-collapse:collapse;  /* 关键属性：合并表格内外边框(其实表格边框有2px，外面1px，里面还有1px哦) */
+		border:solid #999; /* 设置边框属性；样式(solid=实线)、颜色(#999=灰) */
+		border-width:1px 0 0 1px; /* 设置边框状粗细：上 右 下 左 = 对应：1px 0 0 1px */
+		text-align:center;
+	}
+	table.line caption {font-size:14px;font-weight:bolder;}
+	table.line th,table.line td {border:solid #999;border-width:0 1px 1px 0;padding:2px;}
+	table.line tr td input {border-left:0px;border-top:0px;border-right:0px;border-bottom:1px;}
+	table.line td {text-align:center;}
+	table.line td.left{text-align:left;}
+	table.line th{text-align:center}
+	table.line input{width:70px}
+	table.line .bottom{text-align:center; border-left:0;border-right:0;border-top:0;border-bottom:1px solid #000000}
+	table.line input.bottomName{text-align:center; border-left:0;border-right:0;border-top:0;border-bottom:1px solid #000000}
+	.fund,.t-fund,.i-fund{
+		width:70px;
+		text-align:center; border-left:0;border-right:0;border-top:0;border-bottom:1px solid #000000
+	}
+	.reportMessage{height:50px;font-size:24px;color:red;text-align:center;vertical-align:middle;}
+	.reportMessage a{color:blue;font-weight:bold;font-size:22px;}
+	#table_th{letter-spacing:2px;}
+	#table_th th{border:solid 1px #000000;}
+	#table_th td{border:solid 1px #000000;}
+	#table_th th.sortable{cursor: pointer;}
+	#table_th th.sortable:hover{color:blue;}
+	#table_th th.sortable-selected{color:gray;}
+	#table_content tr.searchable{}
+	#table_content tr.searchable td{border:solid 1px red;}
+	#tb-project-report-items td input{padding:0;margin:0;}
+</style>
+<script>
+	$(function(){
+		$('#_print').bupabutton();
+	});
+</script>
+
+<div style="height:80px">
+	<!--
+	<a id='_print' target='_blank'  href='index.print'   ><font style='font-size:25px;'>打印</font></a>
+	-->
+</div>
+<div align="center" style="float:none">
+		<span id="span-pj-rep-title" style="padding:20px 0 10px 0;font-size:20px;text-align:center;font-weight:bold;">
+			$modelare月度上报情况统计
+		</span>
+</div>
+<div>
+			<table id='table_th' class="line" style="background-color: #EEE;width:1420px">
+				<thead>
+				<tr>
+				<th style='width:40px' class="sortable" onclick="sortReport(0, this);" rowspan="2">序号</th>
+				<th style='width:40px;' class="sortable" onclick="sortReport(1, this);" rowspan="2">年度</th>
+				<th style='width:40px;' class="sortable" onclick="sortReport(2, this);" rowspan="2">月度</th>
+				<th colspan="9">投入资金(万元)</th>
+				</tr>
+				<tr>
+				<th style='width:80px;' class="sortable" onclick="sortReport(3, this);">中央</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(4, this);">省级新农村连片示范工程建设补助资金</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(5, this);">其他省级财政资金</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(6, this);">市级财政资金</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(7, this);">县级财政资金</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(8, this);">社会投入</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(9, this);">群众自筹</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(10, this);">其它</th>
+				<th style='width:80px;' class="sortable" onclick="sortReport(11, this);">合计</th>
+				</tr>
+				</thead>
+				<tbody>
+				$reports
+				</tbody>
+			</table>
+		
+</div>
+
+

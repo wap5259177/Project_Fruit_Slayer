@@ -1,0 +1,582 @@
+<div align="center" style="width:740px;height:426px;overflow-x:hidden;overflow-y:hidden;letter-spacing:0px;margin:-2px">
+<div id='dialog-loader' style='overflow-x:hidden;display:none;'></div>
+<div id='tt' style='overflow-x:hidden;width:780px;height:426px;'>
+	<div title='基本信息' style='overflow-x:hidden;padding:10px;text-align:center;'>
+		<p style="font-size:30px;font-weight:bold;">示范片基本情况 </p>
+		<table class='audit-form' style="width:600px">
+				<tr >
+					<td colspan='4' style='font-weight:bold'>(一)示范片所在县(市、区)基本情况</td>
+				</tr>
+				<tr>
+					<td>全县农村面积</td>
+					<td colspan='3'><input type='text' name='ruralsArea' value='$!{form.ruralsArea}' maxlength=8 />平方公里</td>
+				</tr>
+				<tr>
+					<td>乡镇个数</td>
+					<td><input type='text' name='townNumber' value='$!{form.townNumber}' maxlength=8 />个</td>
+					<td>行政村个数</td>
+					<td><input type='text' name='adminVN' value='$!{form.adminVN}' maxlength=8 />个</td>
+				
+				</tr>
+				<tr>
+					<td>自然村个数</td>
+					<td><input type='text' name='naturalVN' value='$!{form.naturalVN}' maxlength=8 />个</td>
+					<td>村民小组数</td>
+					<td><input type='text' name='villagersGroup' value='$!{form.villagersGroup}' maxlength=8 />个</td>
+				</tr>
+				<tr>
+					<td>县人口总户数</td>
+					<td><input type='text' name='popHous' value='$!{form.popHous}' maxlength=8 />户</td>
+					<td>县农村总户数</td>
+					<td><input type='text' name='farmerHous' value='$!{form.farmerHous}' maxlength=8 />户</td>
+				</tr>
+				<tr>
+					<td>县总人口数</td>
+					<td><input type='text' name='sumTownPopu' value='$!{form.sumTownPopu}' maxlength=8 />人</td>
+					<td>县农村总人口数</td>
+					<td><input type='text' name='sumFarmers' value='$!{form.sumFarmers}' maxlength=8 />人</td>
+				</tr>
+				<tr>
+					<td colspan='2'>各年度城镇居民人均纯收入</td>
+					<td colspan='2'>2013年:<input type='text' id='ci3' name='ci3' value='$!{form.ci3}' />元,&nbsp;2014年:<input  id='ci4' type='text' name='ci4' value='$!{form.ci4}' />元,
+											<br />2015年:<input  id='ci5' type='text' name='ci5' value='$!{form.ci5}' />元,&nbsp;2016年:<input id='ci6' type='text' name='ci6' value='$!{form.ci6}' />元,
+											<br />2017年:<input  id='ci7' type='text' name='ci7' value='$!{form.ci7}' />元
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2'>各年度农民人均纯收入</td>
+					<td colspan='2'>2013年:<input type='text' id='vi3' name='vi3' value='$!{form.vi3}' />元,&nbsp;2014年:<input id='vi4' type='text' name='vi4' value='$!{form.vi4}' />元,
+											<br />2015年:<input type='text' id='vi5' name='vi5' value='$!{form.vi5}' />元,&nbsp;2016年:<input type='text' id='vi6' name='vi6' value='$!{form.vi6}' />元,
+											<br />2017年:<input type='text' id='vi7' name='vi7' value='$!{form.vi7}' />元
+					</td>
+				</tr>
+				<tr>
+					<td colspan='4' style='font-weight:bold'>(二)示范片总体情况</td>
+				</tr>
+				<tr>
+					<td>示范片名称</td>
+					<td colspan='2'><input type='text' name='cityName' value='$!{form.cityName}' maxlength=8 />市<br /><input value='$!{form.county}' name='county' type='text' maxlength=8 />县示范片</td>
+					<td rowspan='2'>台账编码:&nbsp;&nbsp;$!{username}</td>
+				</tr>
+				<tr>
+					<td>建设主题名称</td>
+					<td colspan='2'><input type='text' name='themeName' value='$!{form.themeName}' style='width:200px' /></td>
+				</tr>
+				<tr>
+					<td>报备年度</td>
+					<td><input type='text' value='$!{form.reportAnnual}' name='reportAnnual' maxlength=8 />年</td>
+					<td>批次</td>
+					<td>第&nbsp;$!{form.batch}
+					批</td>
+				</tr>
+				<tr>
+					<td>主体村个数</td>
+					<td><input type='text' name='sumMAdmin' value='$!{form.sumMAdmin}' maxlength=8 />个[行政村]</td>
+					<td class="tdRight">其中自然村个数：</td>
+					<td><input type='text' name='sumMRural' value='$!{form.sumMRural}' maxlength='8' />个</td>
+				</tr>
+				<tr>
+					<td>非主体村个数</td>
+					<td><input type='text' name='sumArAdmin' value='$!{form.sumArAdmin}' maxlength=8 />个[行政村]</td>
+					<td class="tdRight">其中自然村个数：</td>
+					<td><input type='text' name='sumArRural' value='$!{form.sumArRural}' maxlength='8' />个</td>
+				</tr>
+				<tr>
+					<td>覆盖乡镇数</td>
+					<td><input type='text' name='coverTown' value='$!{form.coverTown}' maxlength=8 />个</td>
+				</tr>
+				<tr>
+					<td rowspan='2'>示范片面积</td>
+					<td class="tdRight" style="width:120px">主体建设村：</td>
+					<td colspan='2'><input   type='text' name='mainAreaAcreage' value='$!{form.mainAreaAcreage}' maxlength='8' />平方公里</td>
+				</tr>
+				<tr>
+					<td class="tdRight">非主体建设村：</td>
+					<td colspan='2'><input type='text' name='aroundAreaAcreage' value='$!{form.aroundAreaAcreage}' maxlength='8' />平方公里</td>
+				</tr>
+				<tr>
+					<td rowspan='2'>总户数</td>
+					<td class="tdRight">主体建设村：</td>
+					<td colspan='2'><input type='text' name='mainSumHouse' value='$!{form.mainSumHouse}' maxlength='8'/>户</td>
+				</tr>
+				<tr>
+					<td class="tdRight">非主体建设村：</td>
+					<td colspan='2'><input  type='text' name='aroundSumHouse' value='$!{form.aroundSumHouse}' maxlength='8' />户</td>
+		
+				</tr>
+				<tr>
+					<td rowspan='2' >总人口数</td>
+					<td class="tdRight">主体建设村：</td>
+					<td colspan='2'><input type='text' name='mainSumP' value='$!{form.mainSumP}'maxlength='8 />人</td>
+				</tr>
+				<tr>
+					<td class="tdRight">非主体建设村：</td>
+					<td colspan='2'><input type='text' name='aroundSumP' value='$!{form.aroundSumP}' maxlength='8' />人</td>
+					
+				</tr>
+				<tr>
+					<td colspan='4' style='font-weight:bold'>(三)连片建设基本情况</td>
+				</tr>
+				<tr>
+					<td colspan='2'>主体村之间连线连片规模</td>
+					<td colspan='2'><input type='text' name='lineScale' value='$!{form.lineScale}' maxlength=8 />公里</td>
+				</tr>
+				<tr>
+					<td>起点标志</td>
+					<td>
+						<input style='width:20px' type='radio' checked='checked' name='startMark' value='无' />无
+						<input style='width:20px' type='radio' name='startMark' value='有' />有
+					</td>
+					<td>规划设计标识</td>
+					<td><input type='text' name='planMark' value='$!{form.planMark}' maxlength=8 />个</td>
+				</tr>
+				<tr>
+					<td>驿站</td>
+					<td>
+						<input type='text' name='postCount' value='$!{form.postCount}' maxlength=8 />个
+					</td>
+					<td>绿道</td>
+					<td>
+						<input type='text' name='greenRoad' value='$!{form.greenRoad}' maxlength=8 />公里
+					</td>
+				</tr>
+				<tr>
+					<td>观景台(点)</td>
+					<td>
+						<input type='text' name='viewPlatform' value='$!{form.viewPlatform}' maxlength=8 />个
+					</td>
+					<td>宣传介绍牌</td>
+					<td>
+						<input type='text' name='introCard' value='$!{form.introCard}' maxlength=8 />块
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2'>道路两旁美化绿化工程</td>
+					<td colspan='2'>
+						<input type='text' name='greenProject' value='$!{form.greenProject}' maxlength=8 />宗
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2'>示范片连线线路走</td>
+					<td colspan='2'>
+						<input style='width:20px' id='checkbox_id1' type='checkbox' checked='checked' name='areaRoad' value='国道' />国道
+						<input style='width:20px' id='checkbox_id2' type='checkbox' name='areaRoad' value='省道' />省道
+						<input style='width:20px' id='checkbox_id3' type='checkbox' name='areaRoad' value='县道' />县道
+						<input style='width:20px' id='checkbox_id4' type='checkbox' name='areaRoad' value='乡(村)道' />乡(村)道
+					</td>
+				</tr>
+			</table>
+		
+		<br />
+	</div>
+	<div title='主体村' style='text-align:center;'>
+		<table id='base_village'></table>
+	</div>
+	<div title='项目' style='text-align:center;'>
+		<table id='ma_project'></table>
+	</div>
+	<div title='非主体村' style='text-align:center;'>
+		<table id='village'></table>
+	</div>
+	<div title='产业发展' style='text-align:center;'>
+		<table id='indDev'></table>
+	</div>
+</div>
+
+</div>
+
+<style type="text/css">
+table.audit-form{
+	font-size:16px;
+	width: 880px;
+	border-width: 1px;
+	border-color: #000000;
+	border-collapse: collapse;
+	margin: auto;
+}
+table.audit-form td{
+	border-width: 1px;
+	border-style: solid;
+	border-color: #000000;
+	border-collapse: collapse;
+	padding-left:4px;
+}
+table.audit-form tr td input{
+	width:80px;
+	border:0px;
+	border-bottom: solid 1px #000000;
+	text-align:center;
+	color: #000000;
+	font-size:15px;
+	background-color: #ffffff;
+	
+}
+table.audit-form td textarea{
+	width:98%;
+	height:90px;
+}
+table.audit-form td.small input{
+	width:400px;
+}
+table.editor{
+	
+}
+</style>
+
+<script type='text/javascript'>
+jQuery(function() {
+	
+	//这样写驳回或者通过审核的时候会报：id is required to load 错误0.0
+	jQuery('.audit-form input').attr('disabled', 'disabled');
+	
+	
+	//连线线路
+	var backar= '$!{form.areaRoad}'
+	var back_areaRoad = backar.split(',');
+	var t1 = $("#checkbox_id1").attr("value");
+	var t2 = $("#checkbox_id2").attr("value");
+	var t3 = $("#checkbox_id3").attr("value");
+	var t4 = $("#checkbox_id4").attr("value"); 
+	
+	t1 == back_areaRoad[0]?$("[id='checkbox_id1']").attr("checked", true):$("[id='checkbox_id1']").attr("checked", false);
+	if(t2 == back_areaRoad[0]) {
+		$("[id='checkbox_id2']").attr("checked", true);
+	} else if(t2 != back_areaRoad[0]) {
+		$("[id='checkbox_id2']").attr("checked", false);
+		if(t2 ==  back_areaRoad[1]) {
+			$("[id='checkbox_id2']").attr("checked", true);
+		} else {
+			$("[id='checkbox_id2']").attr("checked", false);
+		}
+	}
+	if(t3 == back_areaRoad[0]) {
+		$("[id='checkbox_id3']").attr("checked", true);
+	} else if(t3 != back_areaRoad[0]) {
+		if(t3 == back_areaRoad[1]) {
+			$("[id='checkbox_id3']").attr("checked", true);
+		} else if(t3 != back_areaRoad[1]) {
+			$("[id='checkbox_id3']").attr("checked", false);
+			if(t3 ==  back_areaRoad[2]) {
+				$("[id='checkbox_id3']").attr("checked", true);
+			} else {
+				$("[id='checkbox_id3']").attr("checked", false);
+			}
+		}
+	}
+	if(t4 == back_areaRoad[0]) {
+		$("[id='checkbox_id4']").attr("checked", true);
+	} else if(t4 != back_areaRoad[0]) {
+		if(t4 == back_areaRoad[1]) {
+			$("[id='checkbox_id4']").attr("checked", true);
+		} else if(t4 != back_areaRoad[1]) {
+			if(t4 == back_areaRoad[2]) {
+				$("[id='checkbox_id4']").attr("checked", true);
+			} else if( t4 != back_areaRoad[2]) {
+				if(t4 == back_areaRoad[3]) {
+					$("[id='checkbox_id4']").attr("checked", true);
+				} else if(t4 != back_areaRoad[3]) {
+					$("[id='checkbox_id4']").attr("checked", false);
+				}
+			}
+		}
+	}
+
+	jQuery('#tt').buptab({
+		tabPosition: 'left', 
+		headerWidth: 80
+	});
+	
+	jQuery('#base_village').bupgrid({
+		url : 'base_village/search?id=' + '$!{id}',
+		dataType : 'json',
+		idField : 'id',
+		sortField : 'createAt',
+		sortOrder : 'desc',
+		remoteSort : true,
+		showPagebar : false,
+		fit : true,
+		pageSize : 20,
+		columns : [ [ {
+			title : '村名',
+			field : 'name',
+			width : 100,
+			sortable : true
+		}, {
+			title : '创建人',
+			field : 'creatorName',
+			width : 100,
+			sortable : true
+		}, {
+			title : '所在镇街',
+			field : 'town',
+			width : 100,
+			sortable : true
+		},{
+			title : '村庄类型',
+			field : 'type',
+			width : 100,
+			sortable : true
+		},{
+			title : '创建日期',
+			field : 'createAt',
+			width : 150,
+			sortable : true
+		}, {
+			title : '操作',
+			field : 'operation',
+			width : 110,
+			formatter: function(value,row,index) {
+				var id = row.id;
+				return "<a class='show_dialog_base_village' href='base_village/detial?id=" + id + "'>查看</a> ";
+			}
+		} ] ],
+		onLoadSuccess : function(data, param) {
+			jQuery('a.show_dialog_base_village').click(function() {
+				//lock("正在加载...");
+				jQuery('#dialog-loader').load(this.href);
+				return false;
+			});
+			jQuery('a.entity_delete_base_village').click(function() {
+				if (!confirm('确认删除此文件？')) {
+					return false;
+				}
+				jQuery.ajax({
+					url : this.href,
+					type : 'Get',
+					data : null,
+					success : function(rd) {
+						jQuery('#base_village').bupgrid('reload');
+						if (typeof rd === "string")
+							rd = $.parseJSON(rd);
+						if(rd.error){
+							$.bupmsg.alert('提示', rd.msg, 'error');
+							return;
+						}
+					},
+					error : function() {
+						alert('删除出错，请重试');
+					}
+				});
+				return false;
+			});
+		}
+	});
+	jQuery('#ma_project').bupgrid({
+		url : 'project/search?id=' + '$!{id}',
+		dataType : 'json',
+		idField : 'id',
+		sortField : 'createAt',
+		sortOrder : 'desc',
+		remoteSort : true,
+		showPagebar : false,
+		fit : true,
+		pageSize : 20,
+		columns : [ [ {
+			title : '项目名',
+			field : 'name',
+			width : 140,
+			sortable : true
+		}, {
+			title : '项目属性',
+			field : 'proProperty',
+			width : 110,
+			sortable : true
+		}, {
+			title : '项目类型',
+			field : 'projectType',
+			width : 200,
+			sortable : true
+		}, {
+			title : '投资额',
+			field : 'spend',
+			width : 80,
+			sortable : true
+		},{
+			title : '操作',
+			field : 'operation',
+			width : 100,
+			formatter: function(value,row,index) {
+				var id = row.id;
+				return "<a class='show_dialog_ma_project' href='project/detial?id=" + id + "'>查看</a> ";
+			}
+		} ] ],
+		onLoadSuccess : function(data, param) {
+			jQuery('a.show_dialog_ma_project').click(function() {
+				//lock("正在加载...");
+				jQuery('#dialog-loader').load(this.href);
+				return false;
+			});
+			jQuery('a.entity_delete_ma_project').click(function() {
+				if (!confirm('确认删除此文件？')) {
+					return false;
+				}
+				jQuery.ajax({
+					url : this.href,
+					data : null,
+					dataType : 'text',
+					type : 'Get',
+					success : function(rd) {
+						jQuery('#ma_project').bupgrid('reload');
+						if (typeof rd === "string")
+							rd = $.parseJSON(rd);
+							jQuery('#ma_project').bupgrid('reload');
+						if(rd.error){
+							$.bupmsg.alert('提示', rd.msg, 'error');
+							jQuery('#ma_project').bupgrid('reload');
+							return;
+						}
+					},
+					error : function() {
+						alert('删除出错，请重试');
+						//jQuery('#ma_project').bupgrid('reload');
+					}
+				});
+				return false;
+			});
+		}
+	});
+	
+	jQuery('#village').bupgrid({
+		url : 'village/search?id=' + '$!{id}',
+		dataType : 'json',
+		idField : 'id',
+		sortField : 'createAt',
+		sortOrder : 'desc',
+		remoteSort : true,
+		showPagebar : false,
+		fit : true,
+		pageSize : 20,
+		columns : [ [ {
+			title : '村名',
+			field : 'name',
+			width : 100,
+			sortable : true
+		}, {
+			title : '创建人',
+			field : 'creatorName',
+			width : 120,
+			sortable : true
+		}, {
+			title : '村庄类型',
+			field : 'type',
+			width : 100,
+			sortable : true
+		}, {
+			title : '所在镇街',
+			field : 'town',
+			width : 100,
+			sortable : true
+		}, {
+			title : '创建日期',
+			field : 'createAt',
+			width : 140,
+			sortable : true
+		}, {
+			title : '操作',
+			field : 'operation',
+			width : 100,
+			formatter: function(value,row,index) {
+				var id = row.id;
+				return "<a class='show_dialog_village' href='village/detial?id=" + id + "'>查看</a> ";
+			}
+		} ] ],
+		onLoadSuccess : function(data, param) {
+			jQuery('a.show_dialog_village').click(function() {
+				//lock("正在加载...");
+				jQuery('#dialog-loader').load(this.href);
+				return false;
+			});
+			jQuery('a.entity_delete_village').click(function() {
+				if (!confirm('确认删除此文件？')) {
+					return false;
+				}
+				jQuery.ajax({
+					url : this.href,
+					type : 'Get',
+					success : function(rd) {
+						if (typeof rd === "string")
+							rd = $.parseJSON(rd);
+						if(rd.error){
+							$.bupmsg.alert('提示', rd.msg, 'error');
+							return;
+						}
+					},
+					error : function() {
+						alert('删除出错，请重试');
+					}
+				});
+				return false;
+			});
+		}
+	});
+	
+	jQuery('#indDev').bupgrid({
+		url : 'indDev/search?id=' + '$!{id}',
+		dataType : 'json',
+		idField : 'id',
+		sortField : 'createAt',
+		sortOrder : 'desc',
+		remoteSort : true,
+		showPagebar : false,
+		fit : true,
+		pageSize : 20,
+		columns : [ [ {
+			title : '镇',
+			field : 'town',
+			width : 100,
+			sortable : true
+		}, {
+			title : '村',
+			field : 'villageName',
+			width : 130,
+			sortable : true
+		}, {
+			title : '村属性',
+			field : 'villageFea',
+			width : 100,
+			sortable : true
+		}, {
+			title : '填报日期',
+			field : 'reportDate',
+			width : 120,
+			sortable : true
+		}, {
+			title : '操作',
+			field : 'operation',
+			width : 180,
+			formatter: function(value,row,index) {
+				var id = row.id;
+				return "<a class='show_dialog_village' href='industry/detial?id=" + id + "'>查看</a> ";
+			}
+		} ] ],
+		onLoadSuccess : function(data, param) {
+			jQuery('a.show_dialog_village').click(function() {
+				//lock("正在加载...");
+				jQuery('#dialog-loader').load(this.href);
+				return false;
+			});
+			jQuery('a.entity_delete_village').click(function() {
+				if (!confirm('确认删除此文件？')) {
+					return false;
+				}
+				jQuery.ajax({
+					url : this.href,
+					type : 'Get',
+					success : function(rd) {
+						if (typeof rd === "string")
+							rd = $.parseJSON(rd);
+						if(rd.error){
+							$.bupmsg.alert('提示', rd.msg, 'error');
+							return;
+						}
+					},
+					error : function() {
+						alert('删除出错，请重试');
+					}
+				});
+				return false;
+			});
+		}
+	});
+});
+</script>

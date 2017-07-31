@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh">
+	$FrontStyle
+<div id="$di.id" $!{di.dialogAttributes}>
+	
+	<head>$!{FrontStyle}
+<style>
+.ui-dialog {
+	width: $!{imageViewW}%;
+	height: $!{imageViewH}%;
+	display: none;
+	position: absolute;
+	z-index: 90000;
+	top: 0px;
+	left: 0px;
+	border: 1px solid #D5D5D5;
+	background: #fff;
+}
+
+.ui-dialog a {
+	text-decoration: none;
+}
+
+.ui-dialog-title {
+	height: 48px;
+	line-height: 48px;
+	padding: 0px 20px;
+	color: #535353;
+	font-size: 16px;
+	border-bottom: 1px solid #efefef;
+	background: #f5f5f5;
+	cursor: move;
+	user-select: none;
+}
+
+.ui-dialog-closebutton{
+	width: 16px;
+	height: 16px;
+	display: block;
+	position: absolute;
+	top: 12px;
+	right: 20px;
+	background: url(/../../res/images/close_def.png) no-repeat;
+	cursor: pointer;
+}
+
+.ui-dialog-closebutton:hover {
+	background: url(/../../res/images/close_hov.png);
+}
+
+.ui-dialog-content {
+	padding: 15px 20px;
+}
+
+.ui-dialog-pt15 {
+	padding-top: 15px;
+}
+
+.ui-dialog-l40 {
+	height: 40px;
+	line-height: 40px;
+	text-align: right;
+}
+
+.ui-dialog-input {
+	width: 100%;
+	height: 40px;
+	margin: 0px;
+	padding: 0px;
+	border: 1px solid #d5d5d5;
+	font-size: 16px;
+	color: #c1c1c1;
+	text-indent: 25px;
+	outline: none;
+}
+
+.ui-dialog-input-username {
+	background: url(../images/input_username.png) no-repeat 2px;
+}
+
+.ui-dialog-input-password {
+	background: url(/playViews/images/input_password.png) no-repeat 2px;
+}
+
+.ui-dialog-submit {
+	width: 100%;
+	height: 50px;
+	background: #3b7ae3;
+	border: none;
+	font-size: 16px;
+	color: #fff;
+	outline: none;
+	text-decoration: none;
+	display: block;
+	text-align: center;
+	line-height: 50px;
+}
+
+.ui-dialog-submit:hover {
+	background: #3f81b0;
+}
+
+.ui-mask {
+	width: 100%;
+	height: 100%;
+	background: #000;
+	position: absolute;
+	top: 0px;
+	height: 0px;
+	z-index: 8000;
+	opacity: 0.4;
+	filter: Alpha(opacity =   40);
+}
+</style>
+</head>
+	#if($!error)$error
+#else
+
+	#if($projectMinMaxTime.size()>0)
+				#set($minYear=$projectMinMaxTime.get(0)[0])
+				#set($minMonth=$projectMinMaxTime.get(0)[1])
+				#set($showMinMonth=$minMonth+1 )
+				#if($projectMinMaxTime.size()==2)
+					
+					#set($maxYear=$projectMinMaxTime.get(1)[0])
+					#set($maxMonth=$projectMinMaxTime.get(1)[1])
+					#set($cha=$maxYear - $minYear)
+					#set($showMaxMonth=$maxMonth+1 )
+					可查询年:<select id="selectYear" style="width:100px" title="最久远的项目创建于:$minYear年$showMinMonth月 最新的项目创建于:$maxYear年$showMaxMonth月">
+						
+							#foreach($elem in [0..$cha])
+								#set($selectYear=$maxYear - $elem)
+									<option value="$selectYear">$selectYear年</option>
+							#end
+					</select>
+										
+					<!--按照某个时间范围查就算是超出最大小范围也能查询不过是查询范围变大了-->
+					可查询月份:<select id="selectMonth" style="width:100px" mid='${mid}' title="最久远的项目创建于:$minYear年$showMinMonth月 最新的项目创建于:$maxYear年$showMaxMonth月" onchange="imageManage(this)">
+                			#foreach( $elem in [0..11])
+                				#set($showElem=$!elem+1 )
+                				<option value="$elem">$showElem月</option>
+                			#end
+					</select>
+					
+
+				#else
+						可查询年:<select id='selectYear' style="width:100px" title="最新的项目创建于:$minYear年$showMinMonth月"><option value="$minYear">$minYear年</option></select>
+						
+					可查询月份:<select id="selectMonth" title="最新项目创建的于:$minYear年$showMinMonth月">
+                		#set($showElem=$minMonth+1 )
+                		<option value="$minMonth">$showElem月</option>
+					</select>
+					<input type="button" value="当前只有$!minYear年$showElem月可查询" mid='${mid}' onclick="imageManage(this)"/>
+	
+
+				#end	
+				加多几个月查询:<select id="selectMonthInterval" style="width:100px" > title="选择月份增加值">
+                		#foreach( $elem in [0..11])
+                				#set($showElem=$!elem+1 )
+                				<option value="$elem">+$showElem月</option>
+                			#end
+					</select>	
+			#end
+
+	
+			
+            <input type="text" id="projectNameValue" ></input><input type="button" mid="${mid}" id='proImageByProName_button' value="输入项目名查找本片区项目图片" onclick="imageManage(this)" />
+			
+	<div id="showBody">
+<table>	
+
+	<tr><td>项目名</td><td>所属村</td><td>项目创建时间</td><td>状态</td><td>操作</td></tr>
+	
+   
+	#foreach( $elem in $projectList)
+		<tr>
+			
+			<td>$elem.var1</td>
+			<td>$elem.var2</td>
+			<td>$elem.var3</td>
+			<td>
+			#if($elem.var5==true)	
+				退回
+			 #elseif($elem.var4==0)
+				未提交
+			 #elseif($elem.var4==1)
+					进行中
+					#elseif($elem.var4==2)
+					竣工
+					#elseif($elem.var4==3)
+					终止
+				#end
+			</td>
+            <td>
+				#if(!$elem.var6)
+					无图片可操作
+					#else
+					<a href="javascript;" onclick="showDialog($elem.var7);return false;">项目建设图片</a>
+				#end
+			</td>	
+		</tr>
+	#end
+	 
+</table>
+#foreach( $elem in $projectList)
+#if($elem.var6)
+<div class="htmleaf-container" >
+				<div class="ui-mask" id="mask$elem.var7" onselectstart="return false"></div>
+	<div class="ui-dialog" id="dialogMove$elem.var7" fatherHeight="$h" fatherWeight="$w" onselectstart='return false;'  style="overflow-y:scroll;" >
+		<div class="ui-dialog-title" id="dialogDrag$elem.var7"  onselectstart="return false;" >
+			$elem.var1图片管理
+			<a class="ui-dialog-closebutton" href="javascript:hideDialog($elem.var7);"></a>
+		</div>
+		<div class="ui-dialog-content">
+            <table >
+            <tr >
+            <td>图片名称</td> <td>建设[前中后]</td> <td>图片大小</td>   <td>图片上传时间</td> <td>创建者</td>  <td>操作</td>
+			</tr>
+				#foreach($var in $elem.var6)
+        			 <tr >
+        				#foreach($image in $var)
+							
+							#if( $velocityCount >3)			
+        					#if( $velocityCount == $var.size())
+                                <td >
+									#if($var[1]==-1)
+										图片丢失了...无法预览与下载
+									#else
+									<a onmousemove='showDialog($var[0])'>预览</a>/<a href="/files/download?id=$var[0]">下载</a> </td>
+									#end
+							#else
+        					<td>$image</td>
+							#end
+							#end
+        				#end
+        			</tr>
+				#end
+				</table>
+		</div>
+	</div>
+	</div>
+
+		#foreach($var in $elem.var6)
+				<div class="ui-mask" id="mask$var[0]" onselectstart="return false"></div>
+        				<div class="ui-dialog" id="dialogMove$var[0]"  fatherHeight="$h" fatherWeight="$w" onselectstart='return false;' style="width:$var[1]px;height:$var[2]px;" >
+							
+						<div id="dialogDrag$var[0]" onselectstart="return false;" >
+						<a class="ui-dialog-closebutton" href="javascript:hideDialog($var[0]);"></a>
+							
+								<img src="/../..//$var[8]" style="width:$var[1]px;height: :$var[2]px;" /> 
+							</div>
+							</div>        			
+				#end
+	
+#end
+#end
+
+	#end
+</div>
+</div>
+
+
+	<script type="text/javascript">
+
+		var dialogInstace , onMoveStartId;	//	用于记录当前可拖拽的对象
+	
+		// var zIndex = 9000;
+
+		//	获取元素对象	
+		function g(id){return document.getElementById(id);}
+
+		//	自动居中元素（el = Element）
+	
+		function autoCenter( el ){
+		//这里获取到的是网页可见区域宽
+			var bodyW = document.documentElement.clientWidth;
+			var bodyH = document.documentElement.clientHeight;
+				
+		//应该获取父框的宽高
+			bodyW=$(el).attr("fatherWeight");
+			bodyH=$(el).attr("fatherHeight");
+		
+			var elW = el.offsetWidth;
+			var elH = el.offsetHeight;
+		//alert("框的宽:"+bodyW+"高:"+bodyH);
+		//alert("elW:"+elW+"elH:"+elH);	
+			el.style.left = (bodyW-elW)/2 + 'px';
+			el.style.top = (bodyH-elH)/2 + 'px';
+		//	alert("el.style.left:"+el.style.left+"el.style.top:"+el.style.top);
+		}
+
+		//	自动扩展元素到全部显示区域
+		function fillToBody( el ){
+			el.style.width  = document.documentElement.clientWidth  +'px';
+			el.style.height = document.documentElement.clientHeight + 'px';
+		}
+
+		//	Dialog实例化的方法
+		function Dialog( dragId , moveId ){
+
+			var instace = {} ;
+
+			instace.dragElement  = g(dragId);	//	允许执行 拖拽操作 的元素
+			instace.moveElement  = g(moveId);	//	拖拽操作时，移动的元素
+
+			instace.mouseOffsetLeft = 0;			//	拖拽操作时，移动元素的起始 X 点
+			instace.mouseOffsetTop = 0;			//	拖拽操作时，移动元素的起始 Y 点
+		
+			instace.dragElement.addEventListener('mousedown',function(e){
+
+				var e = e || window.event;
+
+				dialogInstace = instace;
+				//instace.mouseOffsetLeft = e.pageX - instace.moveElement.offsetLeft ;
+				//instace.mouseOffsetTop  = e.pageY - instace.moveElement.offsetTop ;
+				instace.mouseOffsetLeft= e.pageX;
+				instace.mouseOffsetTop  = e.pageY;
+				instace.offsetLeft  = instace.moveElement.offsetLeft;
+				instace.offsetTop  = instace.moveElement.offsetTop;
+			//		alert(e.pageX+" "+e.pageY+"  "+instace.moveElement.offsetLeft+" "+instace.moveElement.offsetTop);
+				// instace.moveElement.style.zIndex = zIndex ++;
+			})
+
+			return instace;
+		}
+
+		//	在页面中侦听 鼠标弹起事件
+		document.onmouseup = function(e){
+			
+			dialogInstace = false;
+			clearInterval(onMoveStartId);
+
+		}
+
+		//	在页面中侦听 鼠标移动事件
+		document.onmousemove = function(e) {
+			var e = e || window.event;
+			var instace = dialogInstace;
+		    if (instace) {
+		    	
+		    	var maxX = document.documentElement.clientWidth -  instace.moveElement.offsetWidth;
+		    	var maxY = document.documentElement.clientHeight - instace.moveElement.offsetHeight ;
+
+			//	instace.moveElement.style.left = Math.min( Math.max( ( e.pageX - instace.mouseOffsetLeft) , 0 ) , maxX) + "px";
+			//	instace.moveElement.style.top  = Math.min( Math.max( ( e.pageY - instace.mouseOffsetTop ) , 0 ) , maxY) + "px";
+			instace.moveElement.style.left=Math.min( Math.max(( e.pageX-instace.mouseOffsetLeft+instace.offsetLeft) , 0 ) , maxX) + "px";
+			instace.moveElement.style.top= Math.min( Math.max( (e.pageY-instace.mouseOffsetTop +instace.offsetTop) , 0 ) , maxY) + "px";
+		    }
+			if(e.stopPropagation) {
+				e.stopPropagation();
+			} else {
+				e.cancelBubble = true;
+			}
+		};
+
+		//	拖拽对话框实例对象
+		//Dialog('dialogDrag','dialogMove');
+
+		function onMoveStart(){
+
+		}
+
+
+		//	重新调整对话框的位置和遮罩，并且展现
+		function showDialog(id){	
+		//alert(id);
+		Dialog('dialogDrag'+id,'dialogMove'+id);
+			g('dialogMove'+id).style.display = 'block';
+			g('mask'+id).style.display = 'block';
+			autoCenter( g('dialogMove'+id) );
+			fillToBody( g('mask'+id) );
+		}
+
+		//	关闭对话框
+		function hideDialog(id){
+			g('dialogMove'+id).style.display = 'none';
+			g('mask'+id).style.display = 'none';
+		}
+
+		//	侦听浏览器窗口大小变化
+		//window.onresize = showDialog;
+		//showDialog();
+		
+	
+		
+		function imageManage(obj){
+		
+	//	$('#selectMonth').attr('disabled', true); 
+	//	$('#proImageByProName_button').attr('disabled', true); 
+	//	alert($('#selectYear').val()+$(obj).val()+$('#selectMonthInterval').val());
+	
+	lock('正在查询...');
+	jQuery.get('projectImageAjax?id='+$(obj).attr('mid')+'&selectYear='+$('#selectYear').val()+'&selectMonth='+$('#selectMonth').val()+'&selectMonthInterval='+$('#selectMonthInterval').val()+'&projectName='+$('#projectNameValue').val(),
+	function(data){
+	$.unblockUI();
+	var jsonObj=JSON.parse(data);
+	
+		 //重写一遍
+		var resultHtml="<table><tr><td>项目名</td><td>所属村</td><td>项目创建时间</td><td>状态</td><td>操作</td></tr>";
+			for(var i in jsonObj){
+			
+				resultHtml+="<tr>";
+				for(var i2=0;i2<5;i2++){
+				
+				 if(i2==3){
+					if(jsonObj[i].var5!=null&&jsonObj[i].var5==true){
+					resultHtml+="<td>退回</td>";
+					}else if(jsonObj[i].var4=='0'){
+					resultHtml+="<td>未提交</td>";
+					}else if(jsonObj[i].var4=='1'){
+					resultHtml+="<td>进行中</td>";
+					}else if(jsonObj[i].var4=='2'){
+					resultHtml+="<td>竣工</td>";
+					}else if(jsonObj[i].var4=='3'){
+					resultHtml+="<td>终止</td>";
+					}	
+				}else if(i2==4){
+			if(jsonObj[i].var6==null){
+			resultHtml+="<td>无图片可操作</td>";
+				}else{
+					resultHtml+="<td><a href='javascript;' onclick='showDialog("+jsonObj[i].var7+");return false;'>项目建设图片</a></td>";
+					 }
+					}else if(i2==2){
+					resultHtml+="<td>"+jsonObj[i].var3+"</td>";}
+					else{
+					if(i2==0)
+					resultHtml+="<td>"+jsonObj[i].var1+"</td>";
+					if(i2==1)
+					resultHtml+="<td>"+jsonObj[i].var2+"</td>";
+					}
+	
+					
+				}
+			resultHtml+="</tr>";
+		}
+		resultHtml+="</table>";
+		
+		
+		
+		
+
+		for(var i in jsonObj){
+		
+	if(jsonObj[i].var6!=null){
+	
+    resultHtml+="<div class='htmleaf-container'>"+
+	"<div class='ui-mask' id='mask"+jsonObj[i].var7+"' onselectstart='return false'></div>"+
+    "<div class='ui-dialog' id='dialogMove"+jsonObj[i].var7+"' fatherHeight='$h' fatherWeight='$w' onselectstart='return false;' style='overflow-y:scroll;' >"+
+    "<div class='ui-dialog-title' id='dialogDrag"+jsonObj[i].var7+"'  onselectstart='return false;' >"+
+    jsonObj[i].var1+"图片管理"+
+    "<a class='ui-dialog-closebutton' href='javascript:hideDialog("+jsonObj[i].var7+");'></a>"+
+	"</div>"+
+	"<div class='ui-dialog-content'>"+
+	"<table ><tr > <td>图片名称</td> <td>建设[前中后]</td> <td>图片大小</td>   <td>图片上传时间</td> <td>创建者</td>  <td>操作</td></tr>";
+    
+				
+				
+				for(var i2 in jsonObj[i].var6){
+				//	alert(jsonObj[i].var6[i2]);
+				if(i2!=null){
+				resultHtml+="<tr>";
+					
+					for(var i3 in jsonObj[i].var6[i2]){
+					i3=parseInt(i3);
+					if(i3 > 2){
+				
+				resultHtml+="<td>";
+			if(i3==8){
+    				if(jsonObj[i].var6[i2][1]==-1){
+    				resultHtml+="系统找不到该图片无法预览与下载";
+        				}else{
+        				resultHtml+="<a onmousemove='showDialog("+jsonObj[i].var6[i2][0]+")'>预览</a>/<a href='/files/download?id="+jsonObj[i].var6[i2][0]+"'>下载</a> ";
+        				}
+        			}else{
+        				resultHtml+= jsonObj[i].var6[i2][i3];
+        				}
+				resultHtml+="</td>";
+				}
+					
+				}
+			
+				
+				   resultHtml+="</tr>";
+			}
+	}
+		
+        	
+	
+	
+	 resultHtml+="</table></div></div></div>";
+
+	for(var i2 in jsonObj[i].var6){
+	
+	 resultHtml+="<div class='ui-mask' id='mask"+jsonObj[i].var6[i2][0]+"' onselectstart='return false'></div>"+
+	 "<div class='ui-dialog' id='dialogMove"+jsonObj[i].var6[i2][0]+"'  fatherHeight='$h' fatherWeight='$w' onselectstart='return false;' style='width:"+jsonObj[i].var6[i2][1]+"px;height:"+jsonObj[i].var6[i2][2]+"px;' >"+
+	 "<div id='dialogDrag"+jsonObj[i].var6[i2][0]+"' onselectstart='return false;' >"+
+	 "<a class='ui-dialog-closebutton' href='javascript:hideDialog("+jsonObj[i].var6[i2][0]+");'></a>"+
+	 "<img src='/../..//"+jsonObj[i].var6[i2][8]+"' style='width:"+jsonObj[i].var6[i2][1]+"px;height: :"+jsonObj[i].var6[i2][2]+"px;' />"+
+	 "</div>"+
+	 "</div>";
+	}
+	 
+	    
+	 
+	}
+	}
+		$("#showBody").html(resultHtml);
+		});
+		}
+	</script>
+</html>

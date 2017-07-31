@@ -1,0 +1,300 @@
+﻿
+<!--点击打印查看的页面-->
+#set($layout="layout-empty.vm")
+
+<style type='text/css'> 
+	table { 
+		table-layout:fixed;
+		word-break: break-all; 
+		word-wrap: break-word; 
+		<!--font-size:12px;--> 
+	}  <!--固定table宽度显示控制-->
+</style> 
+
+<html>
+<head>
+
+
+<link type='text/css' href='/res/css/global.css' rel="stylesheet" media=""/>
+<script src='/res/js/jquery.min.js'></script> 
+<script type="text/javascript" src="/res/js/jquery.PrintArea.js"></script>   
+
+
+<script>  
+$(document).ready(function(){  
+  	$("input#biuuu_button").click(function(){  
+	  	$("div#_myPrint").printArea();  
+	});  
+});  
+</script>
+<style>
+ #biuuu_button{position: fixed; font-size:18px;  color:blue; text-decoration:underline; }
+</style>
+</head>
+<body>
+	<div>
+		<input id="biuuu_button" type="button" value="打印" ></input>
+	</div>  
+	<div id="_myPrint"    >
+		<div class="applicant-form-title" >
+			$title
+			<div style="font-size:16px;margin:0 auto;">(截止时间:$!{deadline})</div>
+		</div> 
+		<div style="height:100%;">
+				<div data-settings="zone:'center',border:false">
+					<style>
+						table.editor tr, table.editor-line tr, table.simplegrid tr{
+							height:auto;
+						}
+					</style>
+					<table style="width:100%;background:#ECF5FF;" class="applicant-form"> 
+						<thead>
+							<tr>
+								<th rowspan='3' width="60"><font style='font-size:10px;'>示范片所在<br/>市县名称</font></th>
+								<th width="" rowspan="3"><font style='font-size:10px;'>行政村数</font></th>
+							    <th width="" rowspan="3"><font style='font-size:10px;'>自然村数</font></th>
+							    <th width="" rowspan="3" ><font style='font-size:10px;'>户数 </font></th>
+							    <th width="" rowspan="3" ><font style='font-size:10px;'>人数</font></th>
+							    <th colspan="2" ><font style='font-size:10px;'>完成村庄整治规划情况</font></th>
+							    <th width="" rowspan="3"><font style='font-size:10px;'>通自来<br/>水自然<br/>村数<br/>（个）</font></th>
+							    <th width="" rowspan="3"><font style='font-size:10px;'>完成卫<br/>生改厕<br/>所自然<br/>村数<br/>（个）</font></th>
+							    <th width="" rowspan="3"><font style='font-size:10px;'>完成道<br/>路硬化<br/>建设自<br/>然村数<br/>（个）</font></th>
+							    <th width="" rowspan="3"><font style='font-size:10px;'>完成民居<br/>外立面特<br/>色改造的<br/>自然村数<br/>（个）</font></th>
+							    <th colspan="3" ><font style='font-size:10px;'>环境卫生综合整治情况</font></th>
+							    <th colspan="2"><font style='font-size:10px;'>项目</font></th>
+							    <th colspan="9" ><font style='font-size:10px;'>资金投入情况（万元）</font></th>
+							    <th width="" rowspan="3"><font style='font-size:10px;'>已成立村<br/>民理事会<br/>并制定了<br/>村规民约<br/>和章程的<br/>自然村数<br/>（个）</font></th>
+							      
+							   </tr> <tr>
+							    <th width="" rowspan="2"><font style='font-size:10px;'>行政村<br/>有编制<br/>规划设<br/>计村数<br/>（个）</font></th>
+							    <th width="" rowspan="2"><font style='font-size:10px;'>自然村<br/>有编制<br/>规划设<br/>计村数<br/>（个）</font></th>
+							    <th width="" rowspan="2"><font style='font-size:10px;'>完成卫<br/>生整治及<br/>建立保洁<br/>队和长效<br/>机制的自<br/>然村数<br/>（个）</font></th>
+							    <th width="" rowspan="2"><font style='font-size:10px;'>实行雨污<br/>分流并建<br/>有污水处<br/>理设施自<br/>然村数<br/>（个）</font></th>
+							    <th width="" rowspan="2"><font style='font-size:10px;'>实行人<br/>畜分离<br/>（集中<br/>圈养）<br/>的自然<br/>村数<br/>（个）</font></th>
+							    <th width="" rowspan="2"><font style='font-size:10px;'>已启动<br/>项目<br/>个数（个）<br/>（个）</font></th>
+							    <th width="" rowspan="2"><font style='font-size:10px;'>其中已<br/>竣工项<br/>目个数<br/>（个）<br/></font></th>
+							   
+							    <th width="" rowspan="2"><font style='font-size:10px;'>累计投<br/>入资金<br/>总数</font></th>
+							   
+							    </tr> <tr>
+							    
+							   
+							    <th width=""><font style='font-size:10px;'>1.中央<br/>财政<br/>资金</font></th>
+							    <th width=""><font style='font-size:10px;'>2.省级<br/>新农村<br/>示范片<br/>建设补<br/>助资金</font></th>
+							    <th width=""><font style='font-size:10px;'>3.其他<br/>省级<br/>财政<br/>资金</font></th>
+							    <th width=""><font style='font-size:10px;'>4.市级<br/>财政<br/>资金</font></th>
+							    <th width=""><font style='font-size:10px;'>5.县级<br/>财政<br/>资金</font></th>
+							    <th width=""><font style='font-size:10px;'>6.社会<br/>投入<br/>资金</font></th>
+							    <th width=""><font style='font-size:10px;'>7.群众<br/>自筹<br/>资金</font></th>
+							    <th width=""><font style='font-size:10px;'>8.其它<br/>方面的<br/>资金</font></th>
+							    
+							     
+							 
+							</tr>
+						</thead>
+						<tbody>
+							<tr style='background-color:#7cd7f8;color:#333333;'>
+								<td><font style='font-size:10px;'>$item.modelArea.county</font></td>
+								<td><font style='font-size:10px;'>$item.arCount</font></td>
+								<td><font style='font-size:10px;'>$item.nrCount</font></td>
+								<td><font style='font-size:10px;'>$item.householdCount</font></td>
+								<td><font style='font-size:10px;'>$item.populationCount</font></td>
+								
+								<td><font style='font-size:10px;'>$item.arFinishPlan</font></td>
+								<td><font style='font-size:10px;'>$item.needFinish.needFinish1</font></td>
+								<td><font style='font-size:10px;'>$item.needFinish.needFinish2</font></td>
+								<td><font style='font-size:10px;'>$item.needFinish.needFinish3</font></td>
+								<td><font style='font-size:10px;'>$item.needFinish.needFinish4</font></td>
+								<td><font style='font-size:10px;'>$item.needFinish.needFinish5</font></td>
+								<td><font style='font-size:10px;'>$item.needFinish.needFinish6</font></td>
+								<td><font style='font-size:10px;'>$item.needFinish.needFinish7</font></td>
+								<td><font style='font-size:10px;'>$item.needFinish.needFinish8</font></td>
+								<td><font style='font-size:10px;'>$srart</font></td>
+								<td><font style='font-size:10px;'>$finish</font></td>
+								
+								<td><font style='font-size:10px;'>$totalfunds</font></td>
+								<td><font style='font-size:10px;'>$item.investment.stateFunds</font></td>
+								<td><font style='font-size:10px;'>$item.investment.specialFunds</font></td>
+								<td><font style='font-size:10px;'>$item.investment.provinceFunds</font></td>
+								<td><font style='font-size:10px;'>$item.investment.cityFunds</font></td>
+								<td><font style='font-size:10px;'>$item.investment.countyFunds</font></td>
+								<td><font style='font-size:10px;'>$item.investment.socialFunds</font></td><!--社会投入-->
+								<td><font style='font-size:10px;'>$item.investment.massFunds</font></td><!--群众自筹资金-->
+								<td><font style='font-size:10px;'>$item.investment.otherFunds</font></td><!--其他方面资金-->
+								
+								<td><font style='font-size:10px;'>$item.needFinish.needFinish9</font></td>
+								
+							</tr>
+							
+							
+							
+							
+							
+							
+							
+							#if($item.status == 3)
+							<tr><td  colspan="26" style="font-weight:bold;font-size:16px;">审核信息：<span  style="color:red;">驳回</span></td></tr>
+							<tr>
+								<td  colspan="2" class="tdRight">驳回原因：</td>
+								<td   colspan="24"><textarea name="auditContent" readonly="readonly" style="resize:none;font-weight:bold;color:red;background:#add3ef">$!{item.auditContent}</textarea></td>
+							</tr>
+								<tr>
+								<td  colspan="2" class="tdRight">审核人：</td>
+								<td  colspan="4" ><input type="text" value="$!{item.auditName}" readonly="readonly" /></td>
+								<td  colspan="3" class="tdRight">审核时间：</td>
+								<td  colspan="17"><input  type="text" value="$!{item.auditAt}" readonly="readonly" /></td>
+							</tr>
+						
+							#elseif($item.status==1)
+								<tr><td  colspan="26" style="font-weight:bold;font-size:16px;">审核信息：<span style="color:blue;">#if($item.status == 1 )审核通过#end</span></td></tr>
+								#if(${item.auditContent})
+									<tr>
+										<td  colspan="2" class="tdRight">审核内容：</td>
+										<td   colspan="24"><textarea readonly="readonly" style="resize:none;color:red;font-weight:bold;background:#ECF5FF;">$!{item.auditContent}</textarea></td>
+									</tr>
+								#else
+									<tr>
+										<td  colspan="2" class="tdRight">审核内容：</td>
+										<td   colspan="24"><textarea readonly="readonly" style="resize:none;color:red;font-weight:bold;background:#ECF5FF;#if($item.status == 4)height:120px;width:100%;#end"></textarea></td>
+									</tr>
+								#end
+								
+							
+								
+								<tr>
+									<td  colspan="2" class="tdRight">审核人：</td>
+									<td  colspan="4" ><input type="text" value="$!{item.auditName}" readonly="readonly" /></td>
+									<td  colspan="3" class="tdRight">审核时间：</td>
+									<td  colspan="17"><input  type="text" value="$!{item.auditAt}" readonly="readonly" /></td>
+								</tr>
+							#end
+							
+							
+							<!--遍历行政村-->
+							#foreach($qar in $qars)
+								<!--通过自然村拿不到行政村,虽然有自然村,但是这个行政村下面的所有自然村都不显示-->
+								<!--#if(${qar.adminRural})-->
+									<tr>
+										<td  colspan='5'><!--onclick="jQuery('.c-$qar.id').toggle();"-->
+											<span  href='#'>- ${qar.adminRural.name}</span>
+										</td>
+										<td style='text-align:center'>
+											<!--<input type="hidden" name="qarids" value="${qar.id}"/>-->
+											
+											#if($qar.arFinishPlan == 1)
+												√
+											#elseif($qar.arFinishPlan == 2)
+												√
+											#else
+												
+											#end
+										</td>
+										<td style='text-align:center' colspan="20"></td>
+									</tr>
+									<!--遍历行政村下的自然村-->
+									#foreach($qnr in $qar.naturaRurals)
+										<tr class="c-$qar.id">
+											<td  colspan="5" style="padding-left:50px;">$qnr.newRural.naturalVillage</td>
+											<!-- 9个选择项 + 后面的1个选项 -->
+											
+											<td style='text-align:center'>
+												<input type="hidden" name="qnrids" value="${qnr.id}"/>
+											</td>
+											<td style='text-align:center'>
+												#if($qnr.needFinish.needFinish1 == 1)
+													√
+												#elseif($qnr.needFinish.needFinish1 == 2)
+													√
+												#else
+													
+												#end
+											</td>
+											<td style='text-align:center'>
+												#if($qnr.needFinish.needFinish2 == 1)
+													√
+												#elseif($qnr.needFinish.needFinish2 == 2)
+													√
+												#else
+													
+												#end
+											</td>
+											<td style='text-align:center'>
+												#if($qnr.needFinish.needFinish3 == 1)
+													√
+												#elseif($qnr.needFinish.needFinish3 == 2)
+													√
+												#else
+													
+												#end
+											</td>
+											<td style='text-align:center'>
+												#if($qnr.needFinish.needFinish4 == 1)
+													√
+												#elseif($qnr.needFinish.needFinish4 == 2)
+													√
+												#else
+													
+												#end
+											</td>
+											<td style='text-align:center'>
+												#if($qnr.needFinish.needFinish5 == 1)
+													√
+												#elseif($qnr.needFinish.needFinish5 == 2)
+													√
+												#else
+													
+												#end
+											</td>
+											<td style='text-align:center'>
+												#if($qnr.needFinish.needFinish6 == 1)
+													√
+												#elseif($qnr.needFinish.needFinish6 == 2)
+													√
+												#else
+													
+												#end
+											</td>
+											<td style='text-align:center'>
+												#if($qnr.needFinish.needFinish7 == 1)
+													√
+												#elseif($qnr.needFinish.needFinish7 == 2)
+													√
+												#else
+													
+												#end
+											</td>
+											<td style='text-align:center'>
+												#if($qnr.needFinish.needFinish8 == 1)
+													√
+												#elseif($qnr.needFinish.needFinish8 == 2)
+													√
+												#else
+													
+												#end
+											</td>
+											
+											<td style='text-align:center' colspan="11"></td>
+											<td style='text-align:center'>
+												#if($qnr.needFinish.needFinish9 == 1)
+													√
+												#elseif($qnr.needFinish.needFinish9 == 2)
+													√
+												#else
+													
+												#end
+											</td>
+										</tr>
+									#end
+								<!--#end-->
+							#end
+							
+						</tbody>
+					</table>
+				</div>
+		</div>
+	</div>
+</body>
+</html>
+
+
+

@@ -1,0 +1,13 @@
+<div id="$di.id" title="实时监控" style="padding:12px;width:650px;height:500px;" buttons="#${di.id}-buttons" modal='true'>
+
+<iframe src="192.168.1.111:81" width="98%" height="98%" frameborder="0" style='margin-top:20px;'></iframe>
+</div>
+<div id="${di.id}-buttons">
+<a href="#" id='close_dlg' onclick="javascript:$('#${di.id}').bupdlg('close')">关闭</a>
+</div>
+<script type='text/javascript'>
+jQuery(function() {
+	jQuery('#close_dlg').bupabutton({flat : true});
+	
+});
+</script>

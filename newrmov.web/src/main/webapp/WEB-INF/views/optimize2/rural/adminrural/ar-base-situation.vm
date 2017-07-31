@@ -1,0 +1,104 @@
+<table class=' editor' style="width:100%;margin: auto;" >
+	<tr>
+		<th class="tdRight" colspan='2'>序号[B2]：</th>
+		<td><input type="text" value='$!{ar.code}' name='code' id="code" $!{readonly}/></td>
+		<th class="tdRight" style="width:100px;">村名称[B3]：</th>
+		<td colspan='2'>
+			<input type="text" value='$!{ar.town}' readOnly="true" style='width:120px'/>&nbsp;镇
+			<input type="text" value='$!{ar.name}' style='width:120px' readOnly="true" />&nbsp;村委会
+		</td>
+	</tr>
+	
+	
+		<tr>
+			<th class="tdRight" colspan='2'>自然村数: </th>
+			<td><input id="natralruralNum" type='text' style="width:60px;" value='$!{nrs.size()}' class='number' readOnly="true" name='natrualruralNum'/>个</td>
+			<th class="tdRight">自然村名单： </th>
+			<td colspan='2'>
+				<!--<textarea style='width:98%;'   id='natrualruralList'  name='natrualruralList' readOnly="true" >$!{ar.natrualruralList}</textarea>-->
+				$!{ar.natrualruralList}
+			</td>
+		</tr>
+	
+	
+	<tr>
+		<th class="tdRight" colspan='2'>总面积[B5]：</th>
+		<td colspan='1'><input style="width:60px;" id="ruralArea" type='text' class='number' value='$!{ar.ruralArea}' min="0" precision="2" name='ruralArea' $!{readonly}/>亩</td>
+		<th colspan='1' class="tdRight">耕地面积：</th>
+		<td colspan='2'><input id="arableLand" type='text' style="width:60px;" class='number' value='$!{ar.arableLand}' min="0" precision="2" name='arableLand' $!{readonly}/>亩</td>
+	</tr>
+	<tr>
+		<!--
+		<th class="tdRight">户数[B7]：</th>
+		<td><input style="width:60px;" id="houseHold" type='text' value='$!{ar.houseHold}' min="0" precision="0" class='number' name='houseHold' $!{readonly}/>户</td>
+		-->
+		<th class="tdRight" colspan='2'>人口数[B8]：</th>
+		<td><input id="population" style="width:50px;" type='text' value='$!{ar.population}' min="0" precision="0" class='number' name='population' $!{readonly}/>人</td>
+		<th class="tdRight">劳动力总人数[B9]：</th>
+		<td colspan='2'><input id="labor" type='text' style="width:60px;" value='$!{ar.labor}' min="0" precision="0" class='number' name='labor' $!{readonly}/>人</td>
+	</tr>
+	
+	<tr>
+		<th class="tdRight" colspan='3'>户数[B7]：</th>
+		<td colspan='3'><input style="width:60px;" id="houseHold" type='text' value='$!{ar.houseHold}' min="0" precision="0" class='number' name='houseHold' $!{readonly}/>户</td>
+	</tr>
+	
+	<tr>
+		<th class="tdRight" colspan='2'>贫困户数：</th>
+		<td  ><input style="width:60px;" id="poorHouseHold" type='text' value='$!{ar.poorHouseHold}' min="0" precision="0" class='number' name='poorHouseHold' $!{readonly}/>户</td>
+		<th class="tdRight">贫困人口数：</th>
+		<td colspan='2'><input id="poorPopulation" style="width:50px;" type='text' value='$!{ar.poorPopulation}' min="0" precision="0" class='number' name='poorPopulation' $!{readonly}/>人</td>
+	</tr>
+	
+	<tr>
+		<th class="tdRight" colspan='2'>低保户数：</th>
+		<td ><input style="width:60px;" id="lowHouseHold" type='text' value='$!{ar.lowHouseHold}' min="0" precision="0" class='number' name='lowHouseHold' $!{readonly}/>户</td>
+		<th class="tdRight">低保人口数：</th>
+		<td colspan='2'><input id="lowPopulation" style="width:50px;" type='text' value='$!{ar.lowPopulation}' min="0" precision="0" class='number' name='lowPopulation' $!{readonly}/>人</td>
+	</tr>
+	
+	<tr>
+		<th class="tdRight" colspan='2'>五保户数：</th>
+		<td ><input style="width:60px;" id="wubaoHouseHold" type='text' value='$!{ar.wubaoHouseHold}' min="0" precision="0" class='number' name='wubaoHouseHold' $!{readonly}/>户</td>
+		<th class="tdRight">需改造危房户数：</th>
+		<td colspan='2'><input id="dangerHouse" style="width:50px;" type='text' value='$!{ar.dangerHouse}' min="0" precision="0" class='number' name='dangerHouse' $!{readonly}/>户</td>
+	</tr>
+	
+	
+	
+	
+	<tr>
+		<th class="tdRight" colspan='3'>是否省级扶贫开发重点村(贫困村)[B10]：</th>
+		<td colspan='3'>
+			#if($ar.poorVillage == '是')
+				
+				是(帮扶单位名称:<input id="helpUnit" style='width:160px;text-align:left;' type='text' value='$!{ar.helpUnit}' name='helpUnit' $!{readonly}/>)
+			#else
+				否
+			#end
+		</td>
+	</tr>
+	
+	<tr>
+		<th class="tdRight" colspan='2'>各年度农民年人均纯收入[B13]：</th>
+		<td colspan='4'>
+			2013&nbsp年度：<input id="annualIncome_13" style='width:60px;' type='text' name='annualIncome_13' class='number'  value='$!{ar.annualIncome_13}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+			2014&nbsp年度：<input id="annualIncome_14" style='width:60px;' type='text' name='annualIncome_14' class='number'  value='$!{ar.annualIncome_14}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp</br>
+			2015&nbsp年度：<input id="annualIncome_15" style='width:60px;' type='text' name='annualIncome_15' class='number'  value='$!{ar.annualIncome_15}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp
+			2016&nbsp年度：<input id="annualIncome_16" style='width:60px;' type='text' name='annualIncome_16' class='number'  value='$!{ar.annualIncome_16}' min="0" precision="2"$!{readonly} />元&nbsp&nbsp</br>
+			2017&nbsp年度：<input id="annualIncome_17" style='width:60px;' type='text' name='annualIncome_17' class='number'  value='$!{ar.annualIncome_17}' min="0" precision="2"$!{readonly} />元
+		</td>
+	</tr>
+	
+	<!--20150811新增-->
+	<tr>
+		<th class="tdRight" colspan='2'>村集体经济收入[万元]：</th>
+		<td colspan='4'>
+			2013&nbsp年度：<input id="collectivityAnnulIncome_13" style='width:60px;' type='text' name='collectivityAnnulIncome_13' class='number'  value='$!{ar.collectivityAnnulIncome_13}' min="0" precision="2"$!{readonly} />万元&nbsp
+			2014&nbsp年度：<input id="collectivityAnnulIncome_14" style='width:60px;' type='text' name='collectivityAnnulIncome_14' class='number'  value='$!{ar.collectivityAnnulIncome_14}' min="0" precision="2"$!{readonly} />万元&nbsp</br>
+			2015&nbsp年度：<input id="collectivityAnnulIncome_15" style='width:60px;' type='text' name='collectivityAnnulIncome_15' class='number'  value='$!{ar.collectivityAnnulIncome_15}' min="0" precision="2"$!{readonly} />万元&nbsp
+			2016&nbsp年度：<input id="collectivityAnnulIncome_16" style='width:60px;' type='text' name='collectivityAnnulIncome_16' class='number'  value='$!{ar.collectivityAnnulIncome_16}' min="0" precision="2"$!{readonly} />万元&nbsp</br>
+			2017&nbsp年度：<input id="collectivityAnnulIncome_17" style='width:60px;' type='text' name='collectivityAnnulIncome_17' class='number'  value='$!{ar.collectivityAnnulIncome_17}' min="0" precision="2"$!{readonly} />万元
+		</td>
+	</tr>
+</table>

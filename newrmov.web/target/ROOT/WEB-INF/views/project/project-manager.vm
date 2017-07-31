@@ -1,0 +1,104 @@
+<div id="$di.id" $!{di.dialogAttributes}>
+<table class="editor">
+<tr><th style="width:100px">授权者名称：</th><td><input type="text" id="u-name" style="width:150px"/>
+</td><th style="width:100px">年度：</th>
+<td><!--<input type="text" id="p-year" style="width:100px"/>-->
+<select id="p-year" style="width:100px">
+		<option value="2013">2013年</option>
+		<option value="2014">2014年</option>
+		<option value="2015">2015年</option>
+		<option value="2016">2016年</option>
+		<option value="2017">2017年</option>
+</select>
+</td></tr>
+<tr><th style="width:100px">授权者密码：</th><td><input type="password" id="u-pwd" style="width:150px"/></td>
+<th style="width:100px">月份：</th>
+<td><!--<input type="text" id="p-month" style="width:100px"/>-->
+<select id="p-month" style="width:100px">
+		<option value="0">一月</option>
+		<option value="1">二月</option>
+		<option value="2">三月</option>
+		<option value="3">四月</option>
+		<option value="4">五月</option>
+		<option value="5">六月</option>
+		<option value="6">七月</option>
+		<option value="7">八月</option>
+		<option value="8">九月</option>
+		<option value="9">十月</option>
+		<option value="10">十一月</option>
+		<option value="11">十二月</option>
+</select>
+</td></tr>
+<tr><td colspan="2">
+<a href="javascript:" onclick="return doclear();" id="btn-clear">删除所有项目初始的累计资金</a>
+</td><td colspan="2">
+<a href="javascript:" onclick="return doremove();" id="btn-remove">删除项目月报</a>
+</td></tr>
+</table>
+</div>
+<script>
+	jQuery(function(){
+		jQuery("#p-year,#p-month").bupnuminput();
+		jQuery("#btn-clear,#btn-remove").bupabutton({flat:true});
+	});
+	
+	function doclear(){
+	if(!confirm("确定要删除 [$name] 下的所有项目初始累计资金吗?")){return ;}
+		var un = jQuery("#u-name").val();
+		var up = jQuery("#u-pwd").val();
+		if('' === un){
+			alert("请输入授权者名称！");
+			return false;
+		}
+		if('' === up){
+			alert("请输入授权者密码！");
+			return false;
+		}
+		jQuery("#u-name,#u-pwd").val("");
+		lock('正在删除所有项目的初始累计资金...');
+		jQuery.post("project.clear",
+			{id:${form},un:un,up:up},
+			function(__resultData){
+				$.unblockUI();
+				__resultData = __ajaxSuccess(__resultData);
+				if(__resultData){
+					alert("删除所有项目的初始累计资金成功！");
+					jQuery("#$!{gridid}").bupgrid("reload");
+				}
+			});
+		return false;
+	}
+	function doremove(){
+		var py = jQuery("#p-year").bupnuminput("getValue");
+		var pm = jQuery("#p-month").bupnuminput("getValue");
+		var pmInt=parseInt(pm)+1;
+		if(!confirm("确定要删除 [$name] 下的 ["+py+"年"+pmInt+"月项目月度报表] 吗?")){return ;}
+		var un = jQuery("#u-name").val();
+		var up = jQuery("#u-pwd").val();
+		
+		if('' === un){
+			alert("请输入授权者名称！");
+			return false;
+		}
+		if('' === up){
+			alert("请输入授权者密码！");
+			return false;
+		}
+		
+	
+		jQuery("#u-name,#u-pwd").val("");
+		
+		lock('正在删除项目月报...');
+		jQuery.post("project.month",
+			{id:${form},un:un,up:up,py:py,pm:pm},
+			function(__resultData){
+				$.unblockUI();
+				__resultData = __ajaxSuccess(__resultData);
+				if(__resultData){
+					alert("项目月报已删除！");
+					jQuery("#$!{gridid}").bupgrid("reload");
+				}
+			});
+		return false;
+	}
+</script>

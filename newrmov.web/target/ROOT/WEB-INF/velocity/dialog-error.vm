@@ -1,0 +1,12 @@
+<div id='dlgErrorDialog' class='bupdlg'
+	style='width:300px;height:150px;padding:10px;'
+	title='$!{title}'
+	iconCls='${iconCls}'
+	buttons='#dlg-buttons'>
+	<b style="font-size:25px;">
+	$!{error}
+	</b>
+</div>
+<div id="dlg-buttons">
+    <a href="#" onclick="javascript:jQuery('#dlgErrorDialog').bupdlg('close')">关闭</a>  
+</div>

@@ -1,0 +1,22 @@
+#set($layout="layout-weixin.vm")
+<!DOCTYPE html>
+  <html lang="en-US">
+        <head>
+             <meta name="viewport" charset="UTF-8" content="width=device-width,initial-scale=1">
+             <title>示范片区信息查看</title>
+        </head>
+        <body>
+        <div data-role="page">
+              <div data-role="header">
+                  <a data-role='button' data-icon='back' data-rel='back'>返回</a>
+                  <h1>第$!{batch}批</hi>
+              </div>
+              <div data-role="content">
+                  $!place
+              </div>
+              <div data-role="footer">
+              
+              </div>
+        </div>
+        </body>
+  </html>

@@ -1,0 +1,61 @@
+
+<div id='show-ac' >
+	
+	<div class='ma_icon' >
+		<a href='#' onclick='nrIntro();'>自然村简介</a>
+	</div>
+	<div class='ma_icon' >
+		<a href='#' onclick='nrProject();'>项目</a>
+	</div>
+	<div class='ma_icon' >
+		<a href='#' onclick='nrInds();'>产业发展</a>
+	</div>
+	<div class='ma_icon' >
+		<a href='#' onclick='nrPlan();'>规划情况</a>
+	</div>
+</div>
+
+
+
+<style type="text/css">
+	.ma_icon{
+		border:1px solid red;
+		float:left;
+		width:100px;
+		height:100px;
+		margin:20px 50px;
+		vertical-align:middle;
+	}
+</style>
+<script type='text/javascript'>
+	$(function(){
+		
+	});
+	
+	//自然村简介
+	function nrIntro(){
+		//alert($("#show_area").html());
+		$('#show_ac').html('');
+		$("#show_area").load("nc.intro",{nrid:$nrid});
+	}
+	
+	//点击项目
+	function nrProject(){
+		$('#show_ac').html('');
+		$("#show_area").load("nr.project",{nrid:$nrid});
+	}nrInds
+	
+	//点击产业发展
+	function nrInds(){
+		$('#show_ac').html('');
+		$("#show_area").load("nr.inds",{nrid:$nrid});
+	}
+	
+	//点击规划情况
+	function nrPlan(){
+		$('#show_ac').html('');
+		$("#show_area").load("nr.plan",{nrid:$nrid});
+	}
+	
+	
+</script>

@@ -1,0 +1,35 @@
+#set($layout="layout-weixin.vm")
+<!DOCTYPE html>
+  <html lang="en-US">
+        <head>
+             <meta name="viewport" charset="UTF-8" content="width=device-width,initial-scale=1">
+             <title>示范片区信息查看</title>
+        </head>
+        <body>
+        <section data-role="page" id="mypage">
+          <div data-role='header'>
+              <a data-role='button' data-icon='back' data-rel='back'>返回</a>
+              <a href="http://192.168.1.10:8080/m/show/mas/index.do" data-role="button" data-icon="home">首页</a>
+              <h1>$!name</h1>
+          </div> 
+          <div data-role='content'>
+              <p>
+                当前状态:<input data-role='none' readonly='readonly' style='width:55px;font-size:16px;color:#4876FF;border-left:0px;border-top:0px;border-right:0px;border-bottom:1px ' type='text' value='$!buildType' />      
+                ($!index/$!total)
+              </p>
+              <div style='width:98%;height:60%;'>
+              #if($!{file})
+                  <a href='$!file.mapPath' target='_blank'><img id='img1' style='width:100%;height:200px' src='$!file.mapPath'/></a>
+                  <p style='width:100%;'>$!file.remark</p>
+              #else
+              	  <p style='width:100%;height:100px;text-align:center;'><b>当前相册没有图片！</b></p>
+              #end
+              </div>
+          		$!sss
+        </section>
+        </body>
+  </html>
+  
+  <script>
+  		
+  </script>
