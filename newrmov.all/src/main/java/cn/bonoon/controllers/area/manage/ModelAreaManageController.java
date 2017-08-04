@@ -81,7 +81,7 @@ public class ModelAreaManageController extends
 		register.button("项目管理", "index.project", ButtonEventType.DIALOG);
 		register.button("更改名称", "index.changeNameView", ButtonEventType.DIALOG)
 				.ordinal(41);
-		register.button("图片管理", "/s/ma/media/2-manager.image", ButtonEventType.DIALOG);
+		register.button("上传片区规划图", "/s/ma/media/2-manager.image", ButtonEventType.DIALOG);
 		return modelAreaService;
 	}
 

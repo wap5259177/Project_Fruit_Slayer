@@ -2,12 +2,10 @@ package cn.bonoon.services;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,7 +20,6 @@ import javax.imageio.ImageIO;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import cn.bonoon.controllers.BatchHelper;
 import cn.bonoon.controllers.project.reportManager.ProjectImageShowEntity;
@@ -76,7 +73,6 @@ import cn.bonoon.kernel.events.OperateEvent;
 import cn.bonoon.kernel.support.IOperator;
 import cn.bonoon.kernel.support.entities.AbstractEntity;
 import cn.bonoon.kernel.util.StringHelper;
-import cn.bonoon.kernel.web.models.JsonResult;
 import cn.bonoon.util.ControllerUtil;
 import cn.bonoon.util.DoubleHelper;
 import cn.bonoon.util.MonthAndQuarterUtil;
@@ -2956,17 +2952,21 @@ public class ModelAreaServiceImpl extends
 		}
 		return list;
 	}
-
-
+	@Override
+	@Transactional
 	public void saveMedia(ModelAreaEntity ma, FileEntity _file) {
+		if(ma.getModelAreaImg()!=null)
+			ma.getModelAreaImg().setDeleted(true);
 		ma.setModelAreaImg(_file);
 		_file.setDirectory(new ArrayList<DirectoryEntity>());
 		_file.getDirectory().add(ma.getDirectory());
 		_file.setStatus(FileStatus.STATUS_FORBID);
 		_file.setVersion(1);
 		entityManager.persist(_file);
+		//直接使用原生能成功更新
 		__exec("update ModelAreaEntity as ma set ma.modelAreaImg.id="+_file.getId()+" where ma.id="+ma.getId());
-
+		entityManager.createNativeQuery("INSERT INTO rt_directory2file (`R_FILE_ID`, `R_DIRECTORY_ID`) VALUES ("+_file.getId()+", "+ma.getDirectory().getId()+");").executeUpdate();
+		
 	}
 
 

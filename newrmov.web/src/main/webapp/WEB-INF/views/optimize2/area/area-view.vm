@@ -6,7 +6,7 @@
 				<div title="示范片" style="padding:10px;" data-settings="selected:true" id='shifanpian'>
 					<ul style="list-style-type:none;" id='_adetal'>
 							<li style='padding:5px 50px 20px 5px ;'>
-								<a id='area_gner' href='#' onclick='areaGr();' title='示范片简介' data-settings='selected:true'><div class='hide-nowrap' style='width:10em;'>◇示范片简介</div></a>
+								<a id='area_gner' href='#' onclick='areaGr_1($ma.id);'  title='示范片简介(规划图展示)' data-settings='selected:true'><div class='hide-nowrap' style='width:10em;'>◇示范片简介(规划图)</div></a>
 							</li>
 							<li style='padding:5px 50px 20px 5px ;'><!--style='float:left;padding:5px;'-->
 								<a id='area_base' href='#' onclick='areaBase();' title='示范片所在县(市、区)基本情况'><div class='hide-nowrap' style='width:10em;'>◇县(市/区)基本情况</div></a>
@@ -290,10 +290,8 @@
 			</div>
 		</div>
 		
-		$ma.modelAreaImg.mapPath
-		<div id='show_area' data-settings="zone:'center'" style="padding:10px;">
-				
-			<img src="/../$ma.modelAreaImg.mapPath"  alt="示范片规划图" height="100%" width="100%"/>
+	
+		<div id='show_area' class='modelAreaImg' title='${ma.name}规划图' style="width:500px;height:200px" data-settings="zone:'center'" style="padding:10px;">
 		</div>
 		<div data-settings="zone:'south',border:false" style="text-align:right;padding:5px 0 0;">
 			<!--<a id='ok' data-settings="iconCassname:'icon_ok'" href="javascript:void(0)" onclick="javascript:alert('ok')">确认</a>
@@ -302,6 +300,7 @@
 		</div>
 	</div>
 </div>
+
 
 <style>
 
@@ -519,10 +518,29 @@
 		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
 		$('#area_income').attr('style','color:white;background:#146C9C;');
 	}
-	function areaGr(){
-		//$('#show_area').html('<img src="/res/images/area-pic-demo.jpg"  alt="示范片规划图" />');
+	areaGr($ma.id,null);
+	function areaGr(mid,url){
+	if(url==null){
+	 url='/s/ma/media/'+mid+'/1/2-imgIO.do';
+	 }
+		var xhr = new XMLHttpRequest();    
+        xhr.open("get", url, true);
+        xhr.responseType = "blob";
+        xhr.onload = function() {
+        if (this.status == 200) {
+		
+            var blob = this.response;
+            var img = document.createElement("img");
+            img.onload = function(e) {
+              window.URL.revokeObjectURL(img.src); 
+            };
+            img.src = window.URL.createObjectURL(blob);
+　　　　　　　$(".modelAreaImg").html(img);
+	 	} 
+		} 
+		xhr.send();
+		//alert($('#show_area').width() + "\n" + $('#show_area').height());
 		$('#show_area').fadeOut("slow",function(){
-			$('#show_area').html('<img src="/../$ma.modelAreaImg.mapPath"  alt="示范片规划图" />');
 			$('#show_area').fadeIn("slow");
 		});
 		
@@ -531,6 +549,25 @@
 		$('#shifanpian li a,#lianpian li a,#canye li a,#chubu li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
 		//$('#myc li a').removeAttr("style"); //清空a标签的style  , a的style 就是下面那句话加上去的
 		$('#area_gner').attr('style','color:white;background:#146C9C;');
+	
+	}
+	
+	function areaGr_1(mid){
+		//$('#show_area').html('<img src="/res/images/area-pic-demo.jpg"  alt="示范片规划图" />');
+		var url=null;
+	
+    		if(confirm("是否生成原图"))
+            {
+              url='/s/ma/media/'+mid+'/1/2-imgIO.do';
+    		//  url='/s/ma/media/'+id+'!file.detail';
+            }
+            else 
+            {
+              url='/s/ma/media/'+mid+'/0/2-imgIO.do';
+            }
+	
+		areaGr(mid,url);
+	
 	}
 	
 	
@@ -644,4 +681,5 @@
 		$('#'+_annual).attr('style','color:white;background:#146C9C;');
 	}
 	
+
 </script>

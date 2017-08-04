@@ -2,10 +2,10 @@ package cn.bonoon.controllers.area;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bouncycastle.util.encoders.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,24 +74,59 @@ public class ModelAreaMediaController extends AbstractController {
 	 */
 	// flag 0:核心村 1:项目基本情况 2:进行中 3:结束
 	@ResponseBody
-	@RequestMapping("{id}/{type}-imgIO.do")
-	public void imgIO(HttpServletResponse response,@PathVariable Long id,@PathVariable int type){
+	@RequestMapping("{id}/{img}/{type}-imgIO.do")
+	public void imgIO(HttpServletResponse response,@PathVariable int img,@PathVariable Long id,@PathVariable int type){
 		response.setHeader("Content-Type","image/jped");//设置响应的媒体类型，这样浏览器会识别出响应的是图片
 		byte[] b=null;
 		if(type==2){
-			
 			FileEntity fe= modelAreaService.get(id).getModelAreaImg();
-			File f=new File(fe.getMapPath());
-			FileInputStream fis;
+//			for(FileEntity var: modelAreaService.get(id).getDirectory().getFile()){
+//				System.out.println(var.getId());
+//			}
+			
+			System.out.println(this.getClass().getResource("/").getPath());
+			String[] filePathArray=this.getClass().getResource("/").getPath().split("/");
+			StringBuffer sb=new StringBuffer();
+			for(String var:filePathArray){
+				if("target".equals(var))
+					break;
+					sb.append(var+"/");
+			}
+			sb.append("src/main/webapp");
+			sb.append(fe.getMapPath());
+			File f=new File(sb.toString());
+			System.out.println(f.getPath());
+			FileInputStream fis = null;
 			try {
 				fis = new FileInputStream(f);
-				b=new byte[fis.available()];
-				fis.read(b);
-				response.getOutputStream().write(b);
+				if(img==0){
+
+				 BufferedImage bi = ImageIO.read(fis);
+				  int newWidth = 1624;
+		          int newHeight =787;
+				 BufferedImage image = new BufferedImage(newWidth, newHeight,
+		                    BufferedImage.TYPE_INT_BGR);
+		            Graphics graphics = image.createGraphics();
+		            graphics.drawImage(bi, 0, 0, newWidth, newHeight, null);
+		            ImageIO.write(image,"jpg",response.getOutputStream());  		
+				}else{
+					b=new byte[fis.available()];
+					b=Base64.encode(b);
+					fis.read(b);
+					response.getOutputStream().write(b);
+				}
 				response.flushBuffer();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}finally{
+				if(fis!=null){
+					try {
+						fis.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					}
 			}
 		
 		}
@@ -328,14 +364,7 @@ public class ModelAreaMediaController extends AbstractController {
 					projectService.saveMedia(pe, _file);
 				} else if (type == 2) {
 
-					ModelAreaEntity ma = modelAreaService.get(id);
-
-					// _file.setExtattr7(null);
-					FileEntity fe = ma.getModelAreaImg();
-					if(fe!=null){
-						// 去除上個片區規劃圖
-						fe.setDeleted(true);
-					}
+					ModelAreaEntity ma = modelAreaService.get(id);				
 					String mapPath = "/modelarea/area_" + ma.getId();
 					mapPath += "/media";
 					String oldFileName = ma.getName() + "规划图";
